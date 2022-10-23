@@ -13,7 +13,6 @@ find_package(imgui REQUIRED)
 find_package(Genesis REQUIRED)
 find_package(GLM REQUIRED)
 find_package(soloud REQUIRED)
-find_package(VPX REQUIRED)
 
 include_directories(
   src/ 
@@ -21,35 +20,29 @@ include_directories(
   ${GLM_INCLUDE_DIRS}
   ${IMGUI_INCLUDE_DIRS}
   ${SOLOUD_INCLUDE_DIRS}
-  ${VPX_INCLUDE_DIRS}
 )
 
 link_directories(
   ${GENESIS_LIBRARY_DIRS}
   ${IMGUI_LIBRARY_DIRS}
   ${SOLOUD_LIBRARY_DIRS}
-  ${VPX_LIBRARY_DIRS}
 )
 
 link_libraries(
   Genesis
   imgui
   soloud
-  vpx
 )
 
 set(OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 
 if(WIN32)
     add_executable(Game WIN32 ${SOURCE_FILES})
-    find_package(FMOD REQUIRED)
-    target_include_directories(Game PRIVATE ${FMOD_INCLUDE_DIRS})
     target_compile_definitions(Game PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
     target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
     target_compile_options(Game PUBLIC /MP) # Enable parallel compilation.
-    target_link_directories(Game PRIVATE ${FMOD_LIBRARY_DIRS})
     target_link_options(Game PRIVATE $<$<CONFIG:Final>:/INCREMENTAL:NO /LTCG>)
-    target_link_libraries(Game PRIVATE Opengl32 glu32 ws2_32 fmodex_vc)
+    target_link_libraries(Game PRIVATE Opengl32 glu32 ws2_32)
     set_target_properties(Game PROPERTIES VS_STARTUP_PROJECT ${OUTPUT_DIRECTORY})
     set_target_properties(Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${OUTPUT_DIRECTORY})
 else()

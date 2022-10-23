@@ -15,23 +15,19 @@ source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${SOURCE_FILES})
 find_package(imgui REQUIRED)
 find_package(GLM REQUIRED)
 find_package(soloud REQUIRED)
-find_package(VPX REQUIRED)
 
 include_directories(
   src/ 
   ${IMGUI_INCLUDE_DIRS}
   ${GLM_INCLUDE_DIRS}
   ${SOLOUD_INCLUDE_DIRS}
-  ${VPX_INCLUDE_DIRS}
 )
 
 add_library(Genesis STATIC ${SOURCE_FILES})
 set_target_properties(Genesis PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/Genesis/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_HOST_SYSTEM_PROCESSOR}/${CMAKE_BUILD_TYPE})
 
 if(WIN32)
-    find_package(FMOD REQUIRED)
-    target_include_directories(Genesis PRIVATE ${FMOD_INCLUDE_DIRS})
-    target_compile_definitions(Genesis PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0 USE_FMOD=1)
+    target_compile_definitions(Genesis PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Final>:/Ob2 /GL>)
     target_compile_options(Genesis PUBLIC /MP) # Enable parallel compilation.
