@@ -14,7 +14,6 @@ find_package(imgui REQUIRED)
 find_package(Genesis REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)
-find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(soloud REQUIRED)
 find_package(VPX REQUIRED)
@@ -37,7 +36,6 @@ link_directories(
   ${GENESIS_LIBRARY_DIRS}
   ${GLEW_LIBRARY_DIRS}
   ${IMGUI_LIBRARY_DIRS}
-  ${SDL2_LIBRARY_DIRS}
   ${SDL2_IMAGE_LIBRARY_DIRS}
   ${SOLOUD_LIBRARY_DIRS}
   ${VPX_LIBRARY_DIRS}
@@ -51,8 +49,6 @@ link_libraries(
   Genesis
   ${GLEW_LIBRARIES}
   imgui
-  SDL2main
-  SDL2
   SDL2_image
   soloud
   vpx
@@ -76,6 +72,8 @@ else()
     add_executable(Game ${SOURCE_FILES})
     target_link_libraries(Game PRIVATE GL pthread SDL2_mixer)
 endif()
+
+target_link_libraries(Game PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static)
 
 target_compile_definitions(Game PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
 
