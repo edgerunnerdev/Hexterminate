@@ -101,15 +101,15 @@ void Window::SetupSwapInterval()
 
 unsigned int Window::GetDrawableWidth() const
 {
-	int w;
-	SDL_GL_GetDrawableSize( m_pWindow, &w, nullptr );
+	int w, h;
+	SDL_GL_GetDrawableSize( m_pWindow, &w, &h );
 	return static_cast<unsigned int>( w );
 }
 
 unsigned int Window::GetDrawableHeight() const
 {
-	int h;
-	SDL_GL_GetDrawableSize( m_pWindow, nullptr, &h );
+	int w, h;
+	SDL_GL_GetDrawableSize( m_pWindow, &w, &h );
 	return static_cast<unsigned int>( h );
 }
 
