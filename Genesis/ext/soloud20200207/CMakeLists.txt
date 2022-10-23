@@ -23,6 +23,11 @@ if(WIN32)
     target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
 endif()
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_options(${PROJECT_NAME} PRIVATE -Wno-unused-value)
-endif()
+target_compile_options(${PROJECT_NAME} PRIVATE
+     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+          -Wno-unused-value
+          >
+     $<$<CXX_COMPILER_ID:MSVC>:
+          /wd4996 # This function or variable may be unsafe.
+          >
+)
