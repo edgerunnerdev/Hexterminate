@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include <SDL_mixer.h>
-
 #include "sound/private/soundmanagerimpl.h"
 
 namespace Genesis::Sound::Private::SDL2Mixer

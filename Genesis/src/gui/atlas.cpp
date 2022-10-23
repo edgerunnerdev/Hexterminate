@@ -63,7 +63,7 @@ namespace Gui
     {
         SDL_assert( m_pSource != nullptr );
         m_Elements.push_back( AtlasElement( x1, y1, x2, y2, m_pSource->GetWidth(), m_pSource->GetHeight() ) );
-        return m_Elements.size() - 1;
+        return static_cast<int>(m_Elements.size() - 1);
     }
 }
 }

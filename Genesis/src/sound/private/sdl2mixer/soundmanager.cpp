@@ -27,7 +27,7 @@ namespace Genesis::Sound::Private::SDL2Mixer
 
 SoundManager::SoundManager()
 {
-    gSoloud.init();
+    //gSoloud.init();
 }
 
 SoundManager::~SoundManager()

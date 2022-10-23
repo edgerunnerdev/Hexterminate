@@ -133,7 +133,7 @@ private:
 
 inline int ShaderParameters::GetParametersNumber() const
 {
-    return mParameters.size();
+    return static_cast<int>(mParameters.size());
 }
 
 inline const std::string& ShaderParameters::GetParameterName( int id ) const

@@ -41,8 +41,8 @@ if(WIN32)
     target_include_directories(Genesis PRIVATE ${FMOD_INCLUDE_DIRS})
     target_compile_definitions(Genesis PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0 USE_FMOD=1)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
-
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Final>:/Ob2 /GL>)
+    target_compile_options(Genesis PUBLIC /MP) # Enable parallel compilation.
 else()
     find_package(SDL2_mixer REQUIRED)
     target_compile_definitions(Genesis PRIVATE USE_SDL2MIXER=1)

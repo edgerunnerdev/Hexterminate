@@ -132,7 +132,7 @@ unsigned int ResourceFont::PopulateVertexBuffer( VertexBuffer& vertexBuffer, flo
         return 0;
     }
 
-    const int textLength = text.length();
+    const int textLength = static_cast<int>(text.length());
     PositionData positionData;
     UVData uvData;
     positionData.reserve( textLength * 6 );

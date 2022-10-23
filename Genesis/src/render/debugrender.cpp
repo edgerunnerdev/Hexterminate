@@ -90,7 +90,7 @@ void DebugRender::RenderLines()
 	m_pShader->Use();
 
 	pRenderSystem->SetRenderTarget( RenderTargetId::Default );
-	m_pVertexBuffer->Draw( m_Lines.size() * 2 );
+	m_pVertexBuffer->Draw(static_cast<uint32_t>(m_Lines.size() * 2));
 
 	m_Lines.clear();
 }
@@ -134,7 +134,7 @@ void DebugRender::RenderCircles()
 	m_pShader->Use();
 
 	pRenderSystem->SetRenderTarget( RenderTargetId::Default );
-	m_pVertexBuffer->Draw( m_Circles.size() * DEBUG_RENDER_CIRCLE_SIDES * 2 );
+	m_pVertexBuffer->Draw(static_cast<uint32_t>(m_Circles.size() * DEBUG_RENDER_CIRCLE_SIDES * 2));
 
 	m_Circles.clear();
 }

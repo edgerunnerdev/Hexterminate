@@ -79,7 +79,7 @@ namespace Gui
 
     inline int Atlas::GetElementCount() const
     {
-        return m_Elements.size();
+        return static_cast<int>(m_Elements.size());
     }
 
     inline const AtlasElement& Atlas::GetElement( int index ) const

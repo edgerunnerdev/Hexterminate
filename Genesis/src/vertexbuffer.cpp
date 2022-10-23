@@ -214,7 +214,7 @@ void VertexBuffer::CopyColours( const ColourData& data, size_t count )
     CopyData( &data[ 0 ][ 0 ], count * 4, VBO_COLOUR );
 }
 
-void VertexBuffer::CopyData( const float* pData, unsigned int size, unsigned int destination )
+void VertexBuffer::CopyData( const float* pData, size_t size, unsigned int destination )
 {
     size *= sizeof( float );
 
@@ -247,20 +247,20 @@ void VertexBuffer::CopyData( const float* pData, unsigned int size, unsigned int
     else
     {
         glBufferData( GL_ARRAY_BUFFER, size, pData, GL_DYNAMIC_DRAW );
-        m_Size[ idx ] = size;
+        m_Size[ idx ] = static_cast<uint32_t>(size);
     }
 }
 
-void VertexBuffer::Draw( unsigned int numVertices /* = 0 */ )
+void VertexBuffer::Draw( uint32_t numVertices /* = 0 */ )
 {
     Draw( 0, numVertices );
 }
 
-void VertexBuffer::Draw( unsigned int startVertex, unsigned int numVertices, void* pIndices /* = nullptr */ )
+void VertexBuffer::Draw( uint32_t startVertex, uint32_t numVertices, void* pIndices /* = nullptr */ )
 {
     glBindVertexArray( m_VAO );
 
-	unsigned int maxVertices = m_Size[ GetSizeIndex( VBO_POSITION ) ] / ( (m_Flags & VB_2D) ? 2 : 3) / sizeof( float );
+	uint32_t maxVertices = m_Size[ GetSizeIndex( VBO_POSITION ) ] / ( (m_Flags & VB_2D) ? 2 : 3) / sizeof( float );
 	SDL_assert( maxVertices > 0 );
 	SDL_assert( startVertex + numVertices <= maxVertices );
 

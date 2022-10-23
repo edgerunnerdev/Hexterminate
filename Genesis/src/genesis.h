@@ -93,7 +93,7 @@ private:
 
 inline uint32_t CommandLineParameters::Size() const
 {
-    return mParameters.size();
+    return static_cast<uint32_t>(mParameters.size());
 }
 
 inline const std::string& CommandLineParameters::GetParameter( uint32_t n ) const
