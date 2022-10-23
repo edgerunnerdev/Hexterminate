@@ -95,21 +95,11 @@ bool FrameWork::Initialize()
     int imgResult = IMG_Init( flags );
     if ( ( imgResult & flags ) != flags )
     {
-        if ( ( flags & IMG_INIT_JPG ) == 0 )
-        {
-            gLogger->LogError( "SDL2_image is unable to load JPGs." );
-        }
-
-        if ( ( flags & IMG_INIT_PNG ) == 0 )
-        {
-            gLogger->LogError( "SDL2_image is unable to load PNGs." );
-        }
-
-        gLogger->LogError( "IMG_Init failed." );
+        gLogger->LogError("IMG_Init failed: %s", IMG_GetError());
     }
     else
     {
-        gLogger->LogInfo( "SDL2_image initialized with JPG and PNG support." );
+        gLogger->LogInfo( "SDL_image initialized with JPG and PNG support." );
     }
 
     gInputManager = new InputManager();
