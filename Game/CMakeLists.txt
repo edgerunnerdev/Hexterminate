@@ -11,7 +11,6 @@ source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${SOURCE_FILES})
 
 find_package(imgui REQUIRED)
 find_package(Genesis REQUIRED)
-find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)
 find_package(soloud REQUIRED)
 find_package(VPX REQUIRED)
@@ -19,7 +18,6 @@ find_package(VPX REQUIRED)
 include_directories(
   src/ 
   ${GENESIS_INCLUDE_DIRS}
-  ${GLEW_INCLUDE_DIRS}
   ${GLM_INCLUDE_DIRS}
   ${IMGUI_INCLUDE_DIRS}
   ${SOLOUD_INCLUDE_DIRS}
@@ -28,7 +26,6 @@ include_directories(
 
 link_directories(
   ${GENESIS_LIBRARY_DIRS}
-  ${GLEW_LIBRARY_DIRS}
   ${IMGUI_LIBRARY_DIRS}
   ${SOLOUD_LIBRARY_DIRS}
   ${VPX_LIBRARY_DIRS}
@@ -36,7 +33,6 @@ link_directories(
 
 link_libraries(
   Genesis
-  ${GLEW_LIBRARIES}
   imgui
   soloud
   vpx
@@ -61,6 +57,7 @@ else()
     target_link_libraries(Game PRIVATE GL pthread SDL2_mixer)
 endif()
 
+target_link_libraries(Game PRIVATE GLEW::GLEW)
 target_link_libraries(Game PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static)
 target_link_libraries(Game PRIVATE SDL2::SDL2_image)
 target_link_libraries(Game PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)

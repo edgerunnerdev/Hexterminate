@@ -6,6 +6,7 @@
     { "name": "assimp" },
     { "name": "bullet3" },
     { "name": "freetype" },
+    { "name": "glew" },
     { "name": "nlohmann-json" },
     {
       "name": "rpclib",
