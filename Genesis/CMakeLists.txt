@@ -12,23 +12,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/*.cpp src/*.h)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${SOURCE_FILES})
 
-find_package(bullet3 REQUIRED)
 find_package(imgui REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
 find_package(soloud REQUIRED)
 find_package(VPX REQUIRED)
 
 include_directories(
   src/ 
-  ${BULLET3_INCLUDE_DIRS}
   ${IMGUI_INCLUDE_DIRS}
   ${GLEW_INCLUDE_DIRS}
   ${GLM_INCLUDE_DIRS}
-  ${SDL2_INCLUDE_DIRS}
-  ${SDL2_IMAGE_INCLUDE_DIRS}
   ${SOLOUD_INCLUDE_DIRS}
   ${VPX_INCLUDE_DIRS}
 )
@@ -47,6 +41,10 @@ else()
     find_package(SDL2_mixer REQUIRED)
     target_compile_definitions(Genesis PRIVATE USE_SDL2MIXER=1)
 endif()
+
+target_link_libraries(Genesis PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static)
+target_link_libraries(Genesis PRIVATE SDL2::SDL2_image)
+target_link_libraries(Genesis PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)
 
 target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
 

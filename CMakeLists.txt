@@ -23,7 +23,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXE_LINKER_FLAGS_FINAL "")
 
 # vcpkg dependencies
+find_package(Bullet CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
+find_package(sdl2-image CONFIG REQUIRED)
 
 add_subdirectory("Genesis")
 add_subdirectory("Game")

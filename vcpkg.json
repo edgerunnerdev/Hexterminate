@@ -11,7 +11,8 @@
       "name": "rpclib",
       "version>=": "2.3.0"
     },
-    { "name": "sdl2" }
+    { "name": "sdl2" },
+    { "name": "sdl2-image" }
   ],
   "builtin-baseline": "934a99dc13cabb330824ae1a5ab4a53a9acc5a49"
 }

@@ -9,47 +9,35 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/*.cpp src/*.h src/*.hpp src/*.rc)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${SOURCE_FILES})
 
-find_package(bullet3 REQUIRED)
 find_package(imgui REQUIRED)
 find_package(Genesis REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)
-find_package(SDL2_image REQUIRED)
 find_package(soloud REQUIRED)
 find_package(VPX REQUIRED)
 
 include_directories(
   src/ 
-  ${BULLET3_INCLUDE_DIRS}
   ${GENESIS_INCLUDE_DIRS}
   ${GLEW_INCLUDE_DIRS}
   ${GLM_INCLUDE_DIRS}
   ${IMGUI_INCLUDE_DIRS}
-  ${SDL2_INCLUDE_DIRS}
-  ${SDL2_IMAGE_INCLUDE_DIRS}
   ${SOLOUD_INCLUDE_DIRS}
   ${VPX_INCLUDE_DIRS}
 )
 
 link_directories(
-  ${BULLET3_LIBRARY_DIRS}
   ${GENESIS_LIBRARY_DIRS}
   ${GLEW_LIBRARY_DIRS}
   ${IMGUI_LIBRARY_DIRS}
-  ${SDL2_IMAGE_LIBRARY_DIRS}
   ${SOLOUD_LIBRARY_DIRS}
   ${VPX_LIBRARY_DIRS}
 )
 
 link_libraries(
-  Bullet3Common
-  BulletDynamics
-  BulletCollision
-  LinearMath
   Genesis
   ${GLEW_LIBRARIES}
   imgui
-  SDL2_image
   soloud
   vpx
 )
@@ -74,6 +62,8 @@ else()
 endif()
 
 target_link_libraries(Game PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static)
+target_link_libraries(Game PRIVATE SDL2::SDL2_image)
+target_link_libraries(Game PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)
 
 target_compile_definitions(Game PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
 
