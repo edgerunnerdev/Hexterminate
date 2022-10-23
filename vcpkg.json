@@ -1,0 +1,15 @@
+{
+  "name": "nullscape",
+  "version-string": "1.20.0",
+  "license": "GPL-3.0-or-later",
+  "dependencies": [
+    { "name": "assimp" },
+    { "name": "freetype" },
+    { "name": "nlohmann-json" },
+    {
+      "name": "rpclib",
+      "version>=": "2.3.0"
+    }
+  ],
+  "builtin-baseline": "de176433e9a8769eed0e43d61758f4cdc1dc6e20"
+}

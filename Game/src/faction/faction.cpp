@@ -87,8 +87,8 @@ void Faction::PostUpdate()
 
 	for ( auto& pSectorInfoToRemove : m_ControlledSectorsToRemove )
 	{
-		int numControlledSectors = m_ControlledSectors.size();
-		for ( int i = 0; i < numControlledSectors; ++i )
+		const size_t numControlledSectors = m_ControlledSectors.size();
+		for ( size_t i = 0; i < numControlledSectors; ++i )
 		{
 			if ( m_ControlledSectors[ i ] == pSectorInfoToRemove )
 			{
@@ -118,7 +118,7 @@ void Faction::ProcessTurn()
 	// Figure out how many shipyards this faction should have, based on our SectorToShipyard ratio
 	// and whether this faction is collapsing or not.
 	// If we need more, build them in our controlled sectors.
-	int numSectors = m_ControlledSectors.size();
+	int numSectors = static_cast<int>(m_ControlledSectors.size());
 	float wantedShipyards = IsCollapsing() ? 0.0f : ( numSectors * m_Info.m_SectorToShipyardRatio );
 	SectorInfoVector shipyards;
 	for ( auto& pSector : m_ControlledSectors )
@@ -157,8 +157,8 @@ void Faction::ForceNextTurn()
 void Faction::BuildFleets( const SectorInfoVector& shipyards )
 {
 	// Do we have enough fleets? We should have one fleet per shipyard. If not, start building a fleet.
-	int numFleets = m_Fleets.size();
-	int numFleetsInConstruction = m_FleetsInConstruction.size();
+	int numFleets = static_cast<int>(m_Fleets.size());
+	int numFleetsInConstruction = static_cast<int>(m_FleetsInConstruction.size());
 	while ( numFleets + numFleetsInConstruction < (int)shipyards.size() )
 	{
 		m_FleetsInConstruction.push_front( FleetBuildTime );
