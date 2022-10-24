@@ -31,9 +31,6 @@ if(WIN32)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Final>:/Ob2 /GL>)
     target_compile_options(Genesis PUBLIC /MP) # Enable parallel compilation.
-else()
-    find_package(SDL2_mixer REQUIRED)
-    target_compile_definitions(Genesis PRIVATE USE_SDL2MIXER=1)
 endif()
 
 target_link_libraries(Genesis PRIVATE GLEW::GLEW)
@@ -42,6 +39,7 @@ target_link_libraries(Genesis PRIVATE SDL2::SDL2_image)
 target_link_libraries(Genesis PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)
 
 target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
+target_compile_definitions(Genesis PRIVATE SOUND_USE_SOLOUD=1)
 
 target_compile_options(Genesis PRIVATE
      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:

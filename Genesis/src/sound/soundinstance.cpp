@@ -18,10 +18,8 @@
 #include <list>
 #include <memory>
 
-#if USE_FMOD
-#include "sound/private/fmod/soundinstance.h"
-#elif USE_SDL_MIXER
-#include "sound/private/sdlmixer/soundinstance.h"
+#if SOUND_USE_SOLOUD
+#include "sound/private/soloud/soundinstance.h"
 #else
 #include "sound/private/null/soundinstance.h"
 #endif
@@ -33,10 +31,8 @@ namespace Genesis::Sound
 
 SoundInstance::SoundInstance()
 {
-#if USE_FMOD
-    m_pImpl = std::make_unique<Private::FMOD::SoundInstance>();
-#elif USE_SDL_MIXER
-    m_pImpl = std::make_unique<Private::SDLMixer::SoundInstance>();
+#if SOUND_USE_SOLOUD
+    m_pImpl = std::make_unique<Private::SoLoud::SoundInstance>();
 #else
     m_pImpl = std::make_unique<Private::Null::SoundInstance>();
 #endif

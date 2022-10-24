@@ -18,7 +18,7 @@
 #include "sound/private/soundmanagerimpl.h"
 #include "sound/private/fmod/soundmanager.h"
 #include "sound/private/null/soundmanager.h"
-#include "sound/private/sdl2mixer/soundmanager.h"
+#include "sound/private/soloud/soundmanager.h"
 #include "sound/private/soundinstanceimpl.h"
 #include "sound/soundmanager.h"
 
@@ -27,10 +27,8 @@ namespace Genesis::Sound
 
 SoundManager::SoundManager()
 {
-#if defined USE_FMOD
-    m_pImpl = std::make_unique<Private::FMOD::SoundManager>();
-#elif defined USE_SDL2MIXER
-    m_pImpl = std::make_unique<Private::SDL2Mixer::SoundManager>();
+#if defined SOUND_USE_SOLOUD
+    m_pImpl = std::make_unique<Private::SoLoud::SoundManager>();
 #else
     m_pImpl = std::make_unique<Private::Null::SoundManager>();
 #endif

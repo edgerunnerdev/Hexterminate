@@ -24,7 +24,7 @@ namespace Genesis
     class ResourceSound;
 }
 
-namespace Genesis::Sound::Private::SDL2Mixer
+namespace Genesis::Sound::Private::SoLoud
 {
 
 class SoundInstance : public SoundInstanceImpl 
@@ -47,6 +47,12 @@ public:
     virtual void Get3DAttributes( glm::vec3* pPosition, glm::vec3* pVelocity ) override;
     virtual void SetVolume( float value ) override;
     virtual float GetVolume() const override;
+
+private:
+    Genesis::ResourceSound* m_pResourceSound;
+    unsigned int m_Handle;
+    glm::vec3 m_Position;
+    glm::vec3 m_Velocity;
 };
 
-} // namespace Genesis::Sound::Private::SDL2Mixer
+} // namespace Genesis::Sound::Private::SoLoud

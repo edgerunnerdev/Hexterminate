@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 find_package(SDL2 REQUIRED)
 
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "include/*.h" "src/audiosource/*/*.cpp" "src/backend/*/*.cpp" "src/core/*.cpp" "src/filter/*.cpp")
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "include/*.h" "src/audiosource/*/*.cpp" "src/audiosource/*/*.c" "src/backend/*/*.cpp" "src/core/*.cpp" "src/filter/*.cpp")
 
 include_directories(
     "include/"

@@ -19,7 +19,17 @@
 
 #include "sound/private/soundmanagerimpl.h"
 
-namespace Genesis::Sound::Private::SDL2Mixer
+#include <memory>
+#include <unordered_map>
+
+namespace SoLoud
+{
+class Soloud;
+class Wav;
+class WavStream;
+}
+
+namespace Genesis::Sound::Private::SoLoud
 {
 
 class SoundManager : public SoundManagerImpl
@@ -37,6 +47,17 @@ public:
     virtual void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up ) override;
     virtual glm::vec3 GetListenerPosition() const override;
     virtual int GetActiveSoundCount() const override;
+
+private:
+    SoundInstanceSharedPtr WavCreateSoundInstance( ResourceSound* pResourceSound );
+    SoundInstanceSharedPtr WavStreamCreateSoundInstance( ResourceSound* pResourceSound );
+
+    std::unique_ptr<::SoLoud::Soloud> m_pSoloud;
+    bool m_Initialized;
+    glm::vec3 m_ListenerPosition;
+
+    std::unordered_map<std::string, std::shared_ptr<::SoLoud::Wav>> m_AudioSources;
+    std::unordered_map<std::string, std::shared_ptr<::SoLoud::WavStream>> m_StreamedAudioSources;
 };
 
-} // namespace Genesis::Sound::Private::SDL2Mixer
+} // namespace Genesis::Sound::Private::SoLoud
