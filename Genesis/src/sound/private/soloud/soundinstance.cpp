@@ -1,4 +1,4 @@
-// Copyright 2021 Pedro Nunes
+// Copyright 2022 Pedro Nunes
 //
 // This file is part of Genesis.
 //
@@ -64,7 +64,7 @@ void SoundInstance::Initialise( ResourceSound* pResourceSound, void* pData )
 
 bool SoundInstance::IsPlaying() const
 {
-    return false;
+    return g_pSoloud->isValidVoiceHandle(m_Handle) && !g_pSoloud->getPause(m_Handle);
 }
 
 void SoundInstance::Stop()
@@ -94,7 +94,7 @@ ResourceSound* SoundInstance::GetResource() const
 
 void SoundInstance::SetMinimumDistance( float value )
 {
-
+    g_pSoloud->set3dSourceMinMaxDistance(m_Handle, value, 10000.0f);
 }
     
 void SoundInstance::Set3DAttributes( const glm::vec3* pPosition, const glm::vec3* pVelocity )

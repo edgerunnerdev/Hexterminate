@@ -1,4 +1,4 @@
-// Copyright 2015 Pedro Nunes
+// Copyright 2022 Pedro Nunes
 //
 // This file is part of Genesis.
 //
@@ -59,6 +59,10 @@ SoundManager::~SoundManager()
 
 void SoundManager::Update( float delta )
 {
+    if (m_Initialized)
+    {
+        m_pSoloud->update3dAudio();
+    }
 }
 
 SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound )
@@ -124,6 +128,7 @@ SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound
 
 void SoundManager::SetPlaylist( ResourceSound* pResourceSound, const std::string& startingSong, bool shuffle )
 {
+
 }
 
 ResourceSound* SoundManager::GetPlaylistResource() const
@@ -146,7 +151,7 @@ void SoundManager::SetListener( const glm::vec3& position, const glm::vec3& velo
 {
     m_pSoloud->set3dListenerPosition( position.x, position.y, position.z );
     m_pSoloud->set3dListenerVelocity( velocity.x, velocity.y, velocity.z );
-    m_pSoloud->set3dListenerAt( position.x + forward.x, position.y + forward.y, position.z + forward.z );
+    m_pSoloud->set3dListenerAt( forward.x, forward.y, forward.z );
     m_pSoloud->set3dListenerUp( up.x, up.y, up.z );
     m_ListenerPosition = position;
 }
