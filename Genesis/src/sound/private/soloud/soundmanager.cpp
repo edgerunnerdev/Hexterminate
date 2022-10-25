@@ -42,6 +42,7 @@ SoundManager::SoundManager()
     {
         m_Initialized = true;
         g_pSoloud = m_pSoloud.get();
+        m_pSoloud->setMaxActiveVoiceCount(64u);
     }
     else
     {
@@ -62,6 +63,7 @@ void SoundManager::Update( float delta )
     if (m_Initialized)
     {
         m_pSoloud->update3dAudio();
+        m_SoundInstances.remove_if([](const SoundInstanceSharedPtr& pInstance) { return !pInstance->IsValid(); });
     }
 }
 
@@ -95,6 +97,7 @@ SoundInstanceSharedPtr SoundManager::WavCreateSoundInstance( ResourceSound* pRes
 
     SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
     pInstance->Initialise( pResourceSound, pAudioSource.get() );
+    m_SoundInstances.push_back(pInstance);
     return pInstance;
 }
 
@@ -123,6 +126,7 @@ SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound
 
     SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
     pInstance->Initialise( pResourceSound, pAudioSource.get() );
+    m_SoundInstances.push_back(pInstance);
     return pInstance;
 }
 
@@ -143,8 +147,7 @@ SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
 
 const SoundInstanceList& SoundManager::GetSoundInstances() const
 {
-    static SoundInstanceList list;
-    return list;
+    return m_SoundInstances;
 }
 
 void SoundManager::SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up )
@@ -161,9 +164,19 @@ glm::vec3 SoundManager::GetListenerPosition() const
     return m_ListenerPosition;
 }
 
-int SoundManager::GetActiveSoundCount() const
+unsigned int SoundManager::GetActiveSoundCount() const
 {
-    return static_cast<int>( m_pSoloud->getActiveVoiceCount() );
+    return m_pSoloud->getActiveVoiceCount();
+}
+
+unsigned int SoundManager::GetMaximumSoundCount() const
+{
+    return m_pSoloud->getMaxActiveVoiceCount();
+}
+
+unsigned int SoundManager::GetVirtualSoundCount() const
+{
+    return m_pSoloud->getVoiceCount();
 }
 
 } // namespace Genesis::Sound::Private::SoLoud

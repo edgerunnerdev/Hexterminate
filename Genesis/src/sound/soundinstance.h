@@ -20,6 +20,10 @@
 #include <list>
 #include <memory>
 
+#include "beginexternalheaders.h"
+#include <glm/vec3.hpp>
+#include "endexternalheaders.h"
+
 #include "taskmanager.h"
 
 namespace Genesis
@@ -45,6 +49,7 @@ public:
     void Initialise( ResourceSound* pResourceSound, void* pData );
     bool IsPlaying() const;
     void Stop();
+    bool IsValid() const;
 
     unsigned int GetLength() const; // Length in milliseconds
     unsigned int GetPosition() const; // Current position in milliseconds

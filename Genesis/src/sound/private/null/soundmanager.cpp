@@ -73,9 +73,19 @@ glm::vec3 SoundManager::GetListenerPosition() const
     return glm::vec3( 0.0f );
 }
 
-int SoundManager::GetActiveSoundCount() const
+unsigned int SoundManager::GetActiveSoundCount() const
 {
-    return 0;
+    return 0u;
+}
+
+unsigned int SoundManager::GetMaximumSoundCount() const
+{
+    return 0u;
+}
+
+unsigned int SoundManager::GetVirtualSoundCount() const
+{
+    return 0u;
 }
 
 } // namespace Genesis::Sound::Private::Null

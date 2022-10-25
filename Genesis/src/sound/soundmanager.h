@@ -42,6 +42,7 @@ class SoundInstance;
 using SoundInstanceSharedPtr = std::shared_ptr<SoundInstance>;
 using SoundInstanceList = std::list<SoundInstanceSharedPtr>;
 using ResourceSoundVector = std::vector<ResourceSound*>;
+class Window;
 
 class SoundManager : public Task
 {
@@ -63,10 +64,13 @@ public:
     void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up );
     glm::vec3 GetListenerPosition() const;
 
-    int GetActiveSoundCount() const;
+    unsigned int GetActiveSoundCount() const;
+    unsigned int GetMaximumSoundCount() const;
+    unsigned int GetVirtualSoundCount() const;
 
 private:
     std::unique_ptr<Private::SoundManagerImpl> m_pImpl;
+    std::unique_ptr<Window> m_pDebugWindow;
 };
 
 } // namespace Sound

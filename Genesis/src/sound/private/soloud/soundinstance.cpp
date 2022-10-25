@@ -72,6 +72,11 @@ void SoundInstance::Stop()
     g_pSoloud->stop( m_Handle );
 }
 
+bool SoundInstance::IsValid() const
+{
+    return g_pSoloud->isValidVoiceHandle(m_Handle);
+}
+
 unsigned int SoundInstance::GetLength() const
 {
     return 0u;

@@ -35,6 +35,7 @@ public:
     virtual void Initialise( ResourceSound* pResourceSound, void* pData ) override;
     virtual bool IsPlaying() const override;
     virtual void Stop() override;
+    virtual bool IsValid() const override;
 
     virtual unsigned int GetLength() const override;
     virtual unsigned int GetPosition() const override;

@@ -21,6 +21,7 @@
 #include "sound/private/soloud/soundmanager.h"
 #include "sound/private/soundinstanceimpl.h"
 #include "sound/soundmanager.h"
+#include "sound/window.h"
 
 namespace Genesis::Sound
 {
@@ -32,6 +33,8 @@ SoundManager::SoundManager()
 #else
     m_pImpl = std::make_unique<Private::Null::SoundManager>();
 #endif
+
+    m_pDebugWindow = std::make_unique<Window>(this);
 }
 
 SoundManager::~SoundManager()
@@ -42,6 +45,7 @@ SoundManager::~SoundManager()
 TaskStatus SoundManager::Update( float delta )
 {
     m_pImpl->Update( delta );
+    m_pDebugWindow->Update(delta);
     return TaskStatus::Continue;
 }
 
@@ -55,7 +59,6 @@ void SoundManager::SetPlaylist( ResourceSound* pResourceSound, const std::string
     m_pImpl->SetPlaylist( pResourceSound, startingTrack, shuffle );
 }
 
-
 ResourceSound* SoundManager::GetPlaylistResource() const
 {
     return m_pImpl->GetPlaylistResource();
@@ -66,12 +69,10 @@ SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
     return m_pImpl->GetCurrentSong();
 }
 
-
 const SoundInstanceList& SoundManager::GetSoundInstances() const
 {
     return m_pImpl->GetSoundInstances();
 }
-
 
 void SoundManager::SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up )
 {  
@@ -83,9 +84,19 @@ glm::vec3 SoundManager::GetListenerPosition() const
     return m_pImpl->GetListenerPosition();
 }
 
-int SoundManager::GetActiveSoundCount() const
+unsigned int SoundManager::GetActiveSoundCount() const
 {
     return m_pImpl->GetActiveSoundCount();
+}
+
+unsigned int SoundManager::GetMaximumSoundCount() const
+{
+    return m_pImpl->GetMaximumSoundCount();
+}
+
+unsigned int SoundManager::GetVirtualSoundCount() const
+{
+    return m_pImpl->GetVirtualSoundCount();
 }
 
 } // namespace Genesis::Sound

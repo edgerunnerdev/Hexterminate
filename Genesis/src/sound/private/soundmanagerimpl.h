@@ -40,7 +40,9 @@ public:
     virtual const SoundInstanceList& GetSoundInstances() const = 0;
     virtual void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up ) = 0;
     virtual glm::vec3 GetListenerPosition() const = 0;
-    virtual int GetActiveSoundCount() const = 0;
+    virtual unsigned int GetActiveSoundCount() const = 0;
+    virtual unsigned int GetMaximumSoundCount() const = 0;
+    virtual unsigned int GetVirtualSoundCount() const = 0;
 };
 
 } // namespace Sound::Private

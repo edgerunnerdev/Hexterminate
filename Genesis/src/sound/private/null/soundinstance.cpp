@@ -45,6 +45,11 @@ void SoundInstance::Stop()
 
 }
 
+bool SoundInstance::IsValid() const
+{
+    return false;
+}
+
 unsigned int SoundInstance::GetLength() const
 {
     return 0u;

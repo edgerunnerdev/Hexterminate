@@ -46,7 +46,9 @@ public:
     virtual const SoundInstanceList& GetSoundInstances() const override;
     virtual void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up ) override;
     virtual glm::vec3 GetListenerPosition() const override;
-    virtual int GetActiveSoundCount() const override;
+    virtual unsigned int GetActiveSoundCount() const override;
+    virtual unsigned int GetMaximumSoundCount() const override;
+    virtual unsigned int GetVirtualSoundCount() const override;
 
 private:
     SoundInstanceSharedPtr WavCreateSoundInstance( ResourceSound* pResourceSound );
@@ -55,6 +57,7 @@ private:
     std::unique_ptr<::SoLoud::Soloud> m_pSoloud;
     bool m_Initialized;
     glm::vec3 m_ListenerPosition;
+    SoundInstanceList m_SoundInstances;
 
     std::unordered_map<std::string, std::shared_ptr<::SoLoud::Wav>> m_AudioSources;
     std::unordered_map<std::string, std::shared_ptr<::SoLoud::WavStream>> m_StreamedAudioSources;

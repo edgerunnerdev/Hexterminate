@@ -58,6 +58,11 @@ void SoundInstance::Stop()
     m_pImpl->Stop();
 }
 
+bool SoundInstance::IsValid() const
+{
+    return m_pImpl->IsValid();
+}
+
 unsigned int SoundInstance::GetLength() const
 {
     return m_pImpl->GetLength();

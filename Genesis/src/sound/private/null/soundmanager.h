@@ -36,7 +36,9 @@ public:
     virtual const SoundInstanceList& GetSoundInstances() const override;
     virtual void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up ) override;
     virtual glm::vec3 GetListenerPosition() const override;
-    virtual int GetActiveSoundCount() const override;
+    virtual unsigned int GetActiveSoundCount() const override;
+    virtual unsigned int GetMaximumSoundCount() const override;
+    virtual unsigned int GetVirtualSoundCount() const override;
 };
 
 } // namespace Genesis::Sound::Private::Null

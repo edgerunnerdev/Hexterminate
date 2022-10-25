@@ -34,6 +34,7 @@ public:
     virtual void Initialise( ResourceSound* pResourceSound, void* pData ) = 0;
     virtual bool IsPlaying() const = 0;
     virtual void Stop() = 0;
+    virtual bool IsValid() const = 0;
 
     virtual unsigned int GetLength() const = 0;
     virtual unsigned int GetPosition() const = 0;
