@@ -15,12 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Genesis. If not, see <http://www.gnu.org/licenses/>.
 
-#if USE_FMOD
-#include <fmod.h>
-#include <fmod.hpp>
-#include <fmod_errors.h>
-#endif
-
 #include "sound/soundmanager.h"
 #include "../genesis.h"
 #include "../logger.h"

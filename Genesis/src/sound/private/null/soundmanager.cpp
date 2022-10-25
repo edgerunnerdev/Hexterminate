@@ -35,8 +35,6 @@ void SoundManager::Update( float delta )
 
 }
 
-//virtual FMOD::Sound* CreateSound( ResourceSound* pResourceSound ) override;
-
 SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound )
 {
     return nullptr;

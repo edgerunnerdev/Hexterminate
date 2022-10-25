@@ -16,7 +16,6 @@
 // along with Genesis. If not, see <http://www.gnu.org/licenses/>.
 
 #include "sound/private/soundmanagerimpl.h"
-#include "sound/private/fmod/soundmanager.h"
 #include "sound/private/null/soundmanager.h"
 #include "sound/private/soloud/soundmanager.h"
 #include "sound/private/soundinstanceimpl.h"
