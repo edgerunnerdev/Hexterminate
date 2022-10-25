@@ -360,6 +360,9 @@ void Ship::Initialise()
 	if ( m_pEngineSound != nullptr )
 	{
 		m_pEngineSound->SetMinimumDistance( 50.0f );
+
+		const glm::vec3 startPosition = m_pRigidBody->GetPosition();
+		m_pEngineSound->Set3DAttributes(&startPosition);
 	}
 
 	using namespace std::placeholders;

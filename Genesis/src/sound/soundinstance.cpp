@@ -53,6 +53,11 @@ bool SoundInstance::IsPlaying() const
     return m_pImpl->IsPlaying();
 }
 
+bool SoundInstance::IsPaused() const
+{
+    return m_pImpl->IsPaused();
+}
+
 void SoundInstance::Stop()
 {
     m_pImpl->Stop();

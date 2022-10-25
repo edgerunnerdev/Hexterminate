@@ -67,6 +67,11 @@ bool SoundInstance::IsPlaying() const
     return g_pSoloud->isValidVoiceHandle(m_Handle) && !g_pSoloud->getPause(m_Handle);
 }
 
+bool SoundInstance::IsPaused() const
+{
+    return g_pSoloud->getPause(m_Handle);
+}
+
 void SoundInstance::Stop()
 {
     g_pSoloud->stop( m_Handle );
@@ -137,7 +142,7 @@ void SoundInstance::SetVolume( float value )
 
 float SoundInstance::GetVolume() const
 {
-    return g_pSoloud->getVolume( m_Handle );
+    return g_pSoloud->getOverallVolume( m_Handle );
 }
 
 } // namespace Genesis::Sound::SoLoud

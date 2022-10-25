@@ -82,6 +82,12 @@ SoundInstanceSharedPtr SoundManager::WavCreateSoundInstance( ResourceSound* pRes
         int result = pAudioSource->load( pResourceSound->GetFilename().GetFullPath().c_str() );
         if ( result == ::SoLoud::SO_NO_ERROR )
         {
+            // The attenuation model has to be explicitly set, as the default is not to attenuate over distance.
+            if (pResourceSound->Is3D())
+            {
+                pAudioSource->set3dAttenuation(::SoLoud::AudioSource::INVERSE_DISTANCE, 1.0f);
+            }
+
             m_AudioSources[ pResourceSound->GetFilename().GetFullPath().c_str() ] = pAudioSource;
         }
         else

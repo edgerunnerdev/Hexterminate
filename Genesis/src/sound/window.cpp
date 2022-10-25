@@ -63,9 +63,10 @@ void Window::Update( float delta )
 		if (ImGui::CollapsingHeader("SFX", ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			const ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
-			if ( ImGui::BeginTable( "SFXTable", 2, flags ) )
+			if ( ImGui::BeginTable( "SFXTable", 3, flags ) )
 			{
 				ImGui::TableSetupColumn( "Resource" );
+				ImGui::TableSetupColumn("Paused");
 				ImGui::TableSetupColumn( "Volume" );
 				ImGui::TableHeadersRow();
 
@@ -73,6 +74,8 @@ void Window::Update( float delta )
 				{
 					ImGui::TableNextColumn();
 					ImGui::Text("%s", pInstance->GetResource()->GetFilename().GetName().c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", pInstance->IsPaused() ? "True" : "False");
 					ImGui::TableNextColumn();
 					ImGui::Text("%.2f", pInstance->GetVolume());
 				}

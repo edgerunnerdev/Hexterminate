@@ -34,6 +34,7 @@ public:
     virtual ~SoundInstance() override;
     virtual void Initialise( ResourceSound* pResourceSound, void* pData ) override;
     virtual bool IsPlaying() const override;
+    virtual bool IsPaused() const override;
     virtual void Stop() override;
     virtual bool IsValid() const override;
 

@@ -48,6 +48,7 @@ public:
 
     void Initialise( ResourceSound* pResourceSound, void* pData );
     bool IsPlaying() const;
+    bool IsPaused() const;
     void Stop();
     bool IsValid() const;
 

@@ -40,6 +40,11 @@ bool SoundInstance::IsPlaying() const
     return false;
 }
 
+bool SoundInstance::IsPaused() const
+{
+    return false;
+}
+
 void SoundInstance::Stop()
 {
 

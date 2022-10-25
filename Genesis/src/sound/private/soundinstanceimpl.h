@@ -33,6 +33,7 @@ public:
     virtual ~SoundInstanceImpl() {}
     virtual void Initialise( ResourceSound* pResourceSound, void* pData ) = 0;
     virtual bool IsPlaying() const = 0;
+    virtual bool IsPaused( ) const = 0;
     virtual void Stop() = 0;
     virtual bool IsValid() const = 0;
 
