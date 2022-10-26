@@ -22,6 +22,7 @@
 #include <timer.h>
 #include <logger.h>
 #include <gui/gui.h>
+#include <resources/resourceplaylist.h>
 #include <resources/resourcesound.h>
 #include <sound/soundinstance.h>
 #include <sound/soundmanager.h>
@@ -73,7 +74,7 @@ void AudioDebug::Update( float delta )
 
 	ss << "Active sounds: " << pSoundManager->GetActiveSoundCount() << std::endl;
 
-	ResourceSound* pPlaylistResource = pSoundManager->GetPlaylistResource();
+	ResourcePlaylist* pPlaylistResource = pSoundManager->GetPlaylist();
 	std::string playlistName = pPlaylistResource ? pPlaylistResource->GetFilename().GetName() : std::string("none");
 
 	if ( pPlaylistResource )

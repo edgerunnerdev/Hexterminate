@@ -38,11 +38,6 @@ ResourceSound::~ResourceSound()
 
 bool ResourceSound::Load()
 {
-    if ( GetFilename().GetExtension() == "m3u" )
-    {
-        m_Flags |= SOUND_FLAG_PLAYLIST;
-    }
-
     m_State = ResourceState::Loaded;
     return true;
 }
@@ -73,4 +68,5 @@ ResourceSound* ResourceSound::LoadAs3D( const std::string& filename )
 
     return pResource;
 }
-}
+
+} // namespace Genesis

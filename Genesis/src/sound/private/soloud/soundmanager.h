@@ -40,8 +40,8 @@ public:
 
     virtual void Update( float delta ) override;
     virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound ) override;
-    virtual void SetPlaylist( ResourceSound* pResourceSound, const std::string& startingSong, bool shuffle ) override;
-    virtual ResourceSound* GetPlaylistResource() const override;
+    virtual void SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong, bool shuffle ) override;
+    virtual ResourcePlaylist* GetPlaylist() const override;
     virtual SoundInstanceSharedPtr GetCurrentSong() const override;
     virtual const SoundInstanceList& GetSoundInstances() const override;
     virtual void SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up ) override;

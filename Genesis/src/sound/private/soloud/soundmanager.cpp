@@ -136,12 +136,12 @@ SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound
     return pInstance;
 }
 
-void SoundManager::SetPlaylist( ResourceSound* pResourceSound, const std::string& startingSong, bool shuffle )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong, bool shuffle )
 {
 
 }
 
-ResourceSound* SoundManager::GetPlaylistResource() const
+ResourcePlaylist* SoundManager::GetPlaylist() const
 {
     return nullptr;
 }

@@ -38,6 +38,7 @@
 #include <render/debugrender.h>
 #include <resourcemanager.h>
 #include <resources/resourcemodel.h>
+#include <resources/resourceplaylist.h>
 #include <resources/resourcesound.h>
 #include <resources/resourcevideo.h>
 #include <sound/soundmanager.h>
@@ -892,7 +893,7 @@ void Game::SetState( GameState newState )
 
 	if ( playlistName.empty() == false )
 	{
-		ResourceSound* pPlaylistResource = FrameWork::GetResourceManager()->GetResource<ResourceSound*>( playlistName );
+		ResourcePlaylist* pPlaylistResource = FrameWork::GetResourceManager()->GetResource<ResourcePlaylist*>( playlistName );
 		FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource );
 	}
 

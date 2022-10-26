@@ -20,6 +20,7 @@
 #include <genesis.h>
 #include <logger.h>
 #include <render/debugrender.h>
+#include <resources/resourceplaylist.h>
 #include <scene/layer.h>
 #include <scene/scene.h>
 #include <scene/sceneobject.h>
@@ -438,7 +439,7 @@ void Sector::SelectPlaylist()
 	}
 
 	std::string playlist = flagshipPresent ? "data/playlists/bossfight.m3u" : "data/playlists/combat.m3u";
-	ResourceSound* pPlaylistResource = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( playlist );
+	ResourcePlaylist* pPlaylistResource = FrameWork::GetResourceManager()->GetResource<ResourcePlaylist*>( playlist );
 	FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource, "", true );
 }
 

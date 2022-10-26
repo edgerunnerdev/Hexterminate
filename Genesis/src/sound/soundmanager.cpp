@@ -53,14 +53,14 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
     return m_pImpl->CreateSoundInstance( pResourceSound );
 }
 
-void SoundManager::SetPlaylist( ResourceSound* pResourceSound, const std::string& startingTrack /* = "" */, bool shuffle /* = false */ )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingTrack /* = "" */, bool shuffle /* = false */ )
 {
-    m_pImpl->SetPlaylist( pResourceSound, startingTrack, shuffle );
+    m_pImpl->SetPlaylist( pResourcePlaylist, startingTrack, shuffle );
 }
 
-ResourceSound* SoundManager::GetPlaylistResource() const
+ResourcePlaylist* SoundManager::GetPlaylist() const
 {
-    return m_pImpl->GetPlaylistResource();
+    return m_pImpl->GetPlaylist();
 }
 
 SoundInstanceSharedPtr SoundManager::GetCurrentSong() const

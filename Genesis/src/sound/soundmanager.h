@@ -28,6 +28,7 @@
 namespace Genesis
 {
 
+class ResourcePlaylist;
 class ResourceSound;
 
 namespace Sound
@@ -54,9 +55,8 @@ public:
 
     SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound );
 
-    void SetPlaylist( ResourceSound* pResourceSound, const std::string& startingSong = "", bool shuffle = false );
-
-    ResourceSound* GetPlaylistResource() const;
+    void SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong = "", bool shuffle = false );
+    ResourcePlaylist* GetPlaylist() const;
     SoundInstanceSharedPtr GetCurrentSong() const;
 
     const SoundInstanceList& GetSoundInstances() const;

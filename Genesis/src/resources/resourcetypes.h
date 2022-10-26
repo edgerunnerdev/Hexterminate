@@ -7,6 +7,7 @@ enum class ResourceType
 	Font,
 	Sound,
 	Video,
+	Playlist,
 
 	Unknown
 };

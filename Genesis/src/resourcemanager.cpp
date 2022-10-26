@@ -27,6 +27,7 @@
 #include "resources/resourcefont.h"
 #include "resources/resourceimage.h"
 #include "resources/resourcemodel.h"
+#include "resources/resourceplaylist.h"
 #include "resources/resourcesound.h"
 #include "resources/resourcevideo.h"
 
@@ -64,10 +65,12 @@ ResourceManager::ResourceManager()
     ResourceFactoryFunction fCreateResourceModel = []( const Filename& filename ) { return new ResourceModel( filename ); };
     RegisterExtension( "tmf", fCreateResourceModel );
 
+    ResourceFactoryFunction fCreateResourcePlaylist = []( const Filename& filename ) { return new ResourcePlaylist( filename ); };
+    RegisterExtension( "m3u", fCreateResourcePlaylist );
+
     ResourceFactoryFunction fCreateResourceSound = []( const Filename& filename ) { return new ResourceSound( filename ); };
     RegisterExtension( "mp3", fCreateResourceSound );
     RegisterExtension( "wav", fCreateResourceSound );
-    RegisterExtension( "m3u", fCreateResourceSound );
 
     ResourceFactoryFunction fCreateResourceFont = []( const Filename& filename ) { return new ResourceFont( filename ); };
     RegisterExtension( "fnt", fCreateResourceFont );

@@ -28,9 +28,8 @@ static const int SOUND_FLAG_FX = 1 << 0; // Sound effect which is entirely loade
 static const int SOUND_FLAG_STREAM = 1 << 1; // Sound is streamed (use for music)
 static const int SOUND_FLAG_SOFTWARE = 1 << 2; // Sound is mixed in software (for DPS effects, etc). If not set, hardware mixing is used instead.
 static const int SOUND_FLAG_LOOPING = 1 << 3; // Sound loops
-static const int SOUND_FLAG_PLAYLIST = 1 << 4; // Does this resource contain a playlist?
-static const int SOUND_FLAG_INITIALISED = 1 << 5; // Has this sound been initialised?
-static const int SOUND_FLAG_3D = 1 << 6; // 3D sound? Needs to have 3D attributes set as well
+static const int SOUND_FLAG_INITIALISED = 1 << 4; // Has this sound been initialised?
+static const int SOUND_FLAG_3D = 1 << 5; // 3D sound? Needs to have 3D attributes set as well
 
 class ResourceSound : public ResourceGeneric
 {
@@ -47,7 +46,6 @@ public:
     bool IsSoftwareMixed() const;
     bool IsHardwareMixed() const;
     bool IsLooping() const;
-    bool IsPlaylist() const;
     bool Is3D() const;
 
     void SetInstancingLimit( float time );
@@ -83,11 +81,6 @@ inline bool ResourceSound::IsHardwareMixed() const
 inline bool ResourceSound::IsLooping() const
 {
     return ( m_Flags & SOUND_FLAG_LOOPING ) != 0;
-}
-
-inline bool ResourceSound::IsPlaylist() const
-{
-    return ( m_Flags & SOUND_FLAG_PLAYLIST ) != 0;
 }
 
 inline bool ResourceSound::Is3D() const
