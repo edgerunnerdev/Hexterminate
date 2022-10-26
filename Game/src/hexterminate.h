@@ -79,7 +79,6 @@ class ModuleInfo;
 class ShipInfoManager;
 class MainMenu;
 class Console;
-class AudioDebug;
 class Player;
 class Hotbar;
 class IntelWindow;
@@ -247,7 +246,6 @@ private:
 
 	MainMenu*			m_pMainMenu;
 	Console*			m_pConsole;
-	AudioDebug*			m_pAudioDebug;
 	ModuleInfoManager*	m_pModuleInfoManager;
 	ShipInfoManager*	m_pShipInfoManager;
 	Sector*				m_pSector;

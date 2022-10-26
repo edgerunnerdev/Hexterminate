@@ -85,7 +85,6 @@
 #include "ui/editor.h"
 #include "ui/rootelement.h"
 #include "menus/mainmenu.h"
-#include "menus/audiodebug.h"
 #include "menus/console.h"
 #include "menus/intelwindow.h"
 #include "menus/galaxywindow.h"
@@ -117,7 +116,6 @@ Game* g_pGame = nullptr;
 Game::Game():
 m_pMainMenu( nullptr ),
 m_pConsole( nullptr ),
-m_pAudioDebug( nullptr ),
 m_pSector( nullptr ),
 m_pPlayer( nullptr ),
 m_pGalaxy( nullptr ),
@@ -174,7 +172,6 @@ Game::~Game()
 	delete m_pSector;
 	delete m_pTutorialWindow;
 	delete m_pConsole;
-	delete m_pAudioDebug;
 	delete m_pMainMenu;
 	delete m_pPopup;
 	delete m_pGalaxy;
@@ -252,11 +249,6 @@ void Game::Initialise()
 	);
 
 	m_pPopup = new Popup();
-
-#ifdef _DEBUG
-	m_pAudioDebug = new AudioDebug();
-#endif
-
 	m_pMusicTitle = new MusicTitle();
 
 #ifndef _FINAL
@@ -419,29 +411,6 @@ Genesis::TaskStatus Game::Update( float delta )
 	if ( m_pAchievementsManager )
 	{
 		m_pAchievementsManager->Update();
-	}
-
-	if ( m_pAudioDebug )
-	{
-		m_pAudioDebug->Update( delta );
-	}
-
-	Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
-	static bool sConsoleToggle = false;
-	if ( pInputManager->IsButtonPressed( SDL_SCANCODE_GRAVE ) && !sConsoleToggle )
-	{
-		m_pConsole->Show( !m_pConsole->IsVisible() );
-
-		if ( m_pAudioDebug != nullptr )
-		{
-			m_pAudioDebug->Show( !m_pAudioDebug->IsVisible() );
-		}
-
-		sConsoleToggle = true;
-	}
-	else if ( !pInputManager->IsButtonPressed( SDL_SCANCODE_GRAVE ) )
-	{
-		sConsoleToggle = false;
 	}
 
 	if ( GetState() == GameState::GalaxyView ||
