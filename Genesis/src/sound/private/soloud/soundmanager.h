@@ -27,7 +27,7 @@ namespace SoLoud
 class Soloud;
 class Wav;
 class WavStream;
-}
+} // namespace SoLoud
 
 namespace Genesis::Sound::Private::SoLoud
 {
@@ -58,6 +58,9 @@ private:
     bool m_Initialized;
     glm::vec3 m_ListenerPosition;
     SoundInstanceList m_SoundInstances;
+    ResourcePlaylist* m_Playlist;
+    SoundInstanceSharedPtr m_CurrentTrack;
+    bool m_PlaylistShuffle;
 
     std::unordered_map<std::string, std::shared_ptr<::SoLoud::Wav>> m_AudioSources;
     std::unordered_map<std::string, std::shared_ptr<::SoLoud::WavStream>> m_StreamedAudioSources;

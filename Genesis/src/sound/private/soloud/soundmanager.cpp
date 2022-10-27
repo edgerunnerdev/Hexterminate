@@ -35,6 +35,8 @@ namespace Genesis::Sound::Private::SoLoud
 SoundManager::SoundManager()
     : m_Initialized(false)
     , m_ListenerPosition(0.0f)
+    , m_Playlist(nullptr)
+    , m_PlaylistShuffle(false)
 {
     m_pSoloud = std::make_unique<::SoLoud::Soloud>();
     int result = m_pSoloud->init();
@@ -138,17 +140,18 @@ SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound
 
 void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong, bool shuffle )
 {
-
+    m_Playlist = pResourcePlaylist;
+    m_PlaylistShuffle = shuffle;
 }
 
 ResourcePlaylist* SoundManager::GetPlaylist() const
 {
-    return nullptr;
+    return m_Playlist;
 }
 
 SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
 {
-    return nullptr;
+    return m_CurrentTrack;
 }
 
 const SoundInstanceList& SoundManager::GetSoundInstances() const

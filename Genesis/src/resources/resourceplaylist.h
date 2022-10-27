@@ -17,12 +17,16 @@
 
 #pragma once
 
+#include <random>
 #include <string>
+#include <vector>
 
 #include "../resourcemanager.h"
 
 namespace Genesis
 {
+
+class ResourceSound;
 
 class ResourcePlaylist : public ResourceGeneric
 {
@@ -32,8 +36,17 @@ public:
     virtual ResourceType GetType() const override;
     virtual bool Load() override;
 
-private:
+    ResourceSound* GetNextTrack( bool shuffle = false );
 
+private:
+    ResourceSound* GetNextLinearTrack();
+    ResourceSound* GetNextRandomTrack();
+
+    using ResourceSoundVector = std::vector<ResourceSound*>;
+    ResourceSoundVector m_LoadedTracks;
+    ResourceSoundVector m_ShuffledTracks;
+    unsigned int m_CurrentTrackIdx;
+    std::default_random_engine m_Engine;
 };
 
 inline ResourceType ResourcePlaylist::GetType() const
