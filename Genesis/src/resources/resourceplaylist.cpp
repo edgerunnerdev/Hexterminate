@@ -62,6 +62,12 @@ bool ResourcePlaylist::Load()
                 FrameWork::GetLogger()->LogWarning( "Unable to load track '%s' for playlist '%s'.", line.c_str(), GetFilename().GetFullPath().c_str() );
             }
         }
+
+        if ( m_LoadedTracks.empty() == false )
+        {
+            std::copy( m_LoadedTracks.begin(), m_LoadedTracks.end(), std::back_inserter( m_ShuffledTracks ) );
+            std::shuffle( m_ShuffledTracks.begin(), m_ShuffledTracks.end(), m_Engine );
+        }
     }
     else
     {

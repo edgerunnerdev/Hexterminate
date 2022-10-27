@@ -37,6 +37,7 @@ public:
     virtual bool Load() override;
 
     ResourceSound* GetNextTrack( bool shuffle = false );
+    std::vector<ResourceSound*> GetTracks() const;
 
 private:
     ResourceSound* GetNextLinearTrack();
@@ -52,6 +53,11 @@ private:
 inline ResourceType ResourcePlaylist::GetType() const
 {
     return ResourceType::Playlist;
+}
+
+inline std::vector<ResourceSound*> ResourcePlaylist::GetTracks() const
+{
+    return m_LoadedTracks;
 }
 
 } // namespace Genesis

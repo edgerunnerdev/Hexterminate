@@ -1,4 +1,4 @@
-// Copyright 2018 Pedro Nunes
+// Copyright 2022 Pedro Nunes
 //
 // This file is part of Genesis.
 //
@@ -23,6 +23,7 @@
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl.h"
+#include "resources/resourceplaylist.h"
 #include "resources/resourcesound.h"
 #include "sound/soundinstance.h"
 #include "sound/soundmanager.h"
@@ -57,7 +58,40 @@ void Window::Update( float delta )
 
 		if (ImGui::CollapsingHeader("Playlist", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			ImGui::TextUnformatted("Placeholder");
+			ResourcePlaylist* pPlaylist = m_pSoundManager->GetPlaylist();
+			if ( pPlaylist )
+			{
+				ImGui::Text( "Playlist: %s", pPlaylist->GetFilename().GetFullPath().c_str() );
+				const ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
+				if ( ImGui::BeginTable( "PlaylistTable", 2, flags ) )
+				{
+					ImGui::TableSetupColumn( "Track" );
+					ImGui::TableSetupColumn( "State" );
+					ImGui::TableHeadersRow();
+
+					SoundInstanceSharedPtr pCurrentTrack = m_pSoundManager->GetCurrentTrack();
+					for ( auto& pTrack : pPlaylist->GetTracks() )
+					{
+						ImGui::TableNextColumn();
+						ImGui::Text( "%s", pTrack->GetFilename().GetName().c_str() );
+						ImGui::TableNextColumn();
+						if ( pCurrentTrack != nullptr && pCurrentTrack->IsValid() && pCurrentTrack->GetResource() == pTrack )
+						{
+							ImGui::Text( "%s", "Playing" );
+						}
+						else
+						{
+							ImGui::Text( "%s", " " );
+						}
+					}
+
+					ImGui::EndTable();
+				}
+			}
+			else
+			{
+				ImGui::TextDisabled( "%s", "No playlist set." );
+			}
 		}
 
 		if (ImGui::CollapsingHeader("SFX", ImGuiTreeNodeFlags_DefaultOpen))

@@ -440,7 +440,7 @@ void Sector::SelectPlaylist()
 
 	std::string playlist = flagshipPresent ? "data/playlists/bossfight.m3u" : "data/playlists/combat.m3u";
 	ResourcePlaylist* pPlaylistResource = FrameWork::GetResourceManager()->GetResource<ResourcePlaylist*>( playlist );
-	FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource, "", true );
+	FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource, true );
 }
 
 void Sector::Update( float delta )

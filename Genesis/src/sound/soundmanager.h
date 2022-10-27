@@ -55,9 +55,9 @@ public:
 
     SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound );
 
-    void SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong = "", bool shuffle = false );
+    void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle = false );
     ResourcePlaylist* GetPlaylist() const;
-    SoundInstanceSharedPtr GetCurrentSong() const;
+    SoundInstanceSharedPtr GetCurrentTrack() const;
 
     const SoundInstanceList& GetSoundInstances() const;
 

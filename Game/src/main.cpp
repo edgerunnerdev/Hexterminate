@@ -863,7 +863,7 @@ void Game::SetState( GameState newState )
 	if ( playlistName.empty() == false )
 	{
 		ResourcePlaylist* pPlaylistResource = FrameWork::GetResourceManager()->GetResource<ResourcePlaylist*>( playlistName );
-		FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource );
+		FrameWork::GetSoundManager()->SetPlaylist( pPlaylistResource, true );
 	}
 
 	if ( m_State == GameState::Intro && m_pVideoElement == nullptr )

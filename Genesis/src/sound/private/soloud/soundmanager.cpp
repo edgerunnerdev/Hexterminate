@@ -21,6 +21,7 @@
 #include <soloud_wav.h>
 #include <soloud_wavstream.h>
 
+#include <resources/resourceplaylist.h>
 #include <resources/resourcesound.h>
 #include <sound/soundinstance.h>
 
@@ -35,7 +36,7 @@ namespace Genesis::Sound::Private::SoLoud
 SoundManager::SoundManager()
     : m_Initialized(false)
     , m_ListenerPosition(0.0f)
-    , m_Playlist(nullptr)
+    , m_pPlaylist(nullptr)
     , m_PlaylistShuffle(false)
 {
     m_pSoloud = std::make_unique<::SoLoud::Soloud>();
@@ -66,6 +67,7 @@ void SoundManager::Update( float delta )
     {
         m_pSoloud->update3dAudio();
         m_SoundInstances.remove_if([](const SoundInstanceSharedPtr& pInstance) { return !pInstance->IsValid(); });
+        UpdatePlaylist();
     }
 }
 
@@ -138,20 +140,33 @@ SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound
     return pInstance;
 }
 
-void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong, bool shuffle )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle )
 {
-    m_Playlist = pResourcePlaylist;
+    if ( pResourcePlaylist == m_pPlaylist )
+    {
+        return;
+    }
+
+    // If we're changing playlists, stop the previous one.
+    // There's no need to start playing the first track here, that will be handled in the next Update().
+    m_pPlaylist = pResourcePlaylist;
     m_PlaylistShuffle = shuffle;
+
+    if ( m_pCurrentTrack != nullptr && m_pCurrentTrack->IsValid() )
+    {
+        m_pCurrentTrack->Stop();
+        m_pCurrentTrack = nullptr;
+    }
 }
 
 ResourcePlaylist* SoundManager::GetPlaylist() const
 {
-    return m_Playlist;
+    return m_pPlaylist;
 }
 
-SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
+SoundInstanceSharedPtr SoundManager::GetCurrentTrack() const
 {
-    return m_CurrentTrack;
+    return m_pCurrentTrack;
 }
 
 const SoundInstanceList& SoundManager::GetSoundInstances() const
@@ -186,6 +201,22 @@ unsigned int SoundManager::GetMaximumSoundCount() const
 unsigned int SoundManager::GetVirtualSoundCount() const
 {
     return m_pSoloud->getVoiceCount();
+}
+
+void SoundManager::UpdatePlaylist()
+{
+    ResourcePlaylist* pPlaylist = GetPlaylist();
+    if ( pPlaylist )
+    {
+        if ( m_pCurrentTrack == nullptr || m_pCurrentTrack->IsValid() == false )
+        {
+            ResourceSound* pNextTrackResource = pPlaylist->GetNextTrack( m_PlaylistShuffle );
+            if ( pNextTrackResource )
+            {
+                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource );
+            }
+        }
+    }
 }
 
 } // namespace Genesis::Sound::Private::SoLoud

@@ -68,7 +68,7 @@ void MusicTitle::Update( float delta )
 	using namespace Genesis;
 	Sound::SoundManager* pSoundManager = FrameWork::GetSoundManager();
 
-	Sound::SoundInstanceSharedPtr currentSong = pSoundManager->GetCurrentSong();
+	Sound::SoundInstanceSharedPtr currentSong = pSoundManager->GetCurrentTrack();
 	bool isVisible = false;
 	if ( currentSong && g_pGame->GetState() != GameState::Menu )
 	{

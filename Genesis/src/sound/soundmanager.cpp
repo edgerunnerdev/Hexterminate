@@ -15,11 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Genesis. If not, see <http://www.gnu.org/licenses/>.
 
+#include "sound/soundmanager.h"
+
+#include "resources/resourcesound.h"
 #include "sound/private/soundmanagerimpl.h"
 #include "sound/private/null/soundmanager.h"
 #include "sound/private/soloud/soundmanager.h"
 #include "sound/private/soundinstanceimpl.h"
-#include "sound/soundmanager.h"
+#include "sound/soundinstance.h"
 #include "sound/window.h"
 
 namespace Genesis::Sound
@@ -53,9 +56,9 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
     return m_pImpl->CreateSoundInstance( pResourceSound );
 }
 
-void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingTrack /* = "" */, bool shuffle /* = false */ )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle /* = false */ )
 {
-    m_pImpl->SetPlaylist( pResourcePlaylist, startingTrack, shuffle );
+    m_pImpl->SetPlaylist( pResourcePlaylist, shuffle );
 }
 
 ResourcePlaylist* SoundManager::GetPlaylist() const
@@ -63,9 +66,9 @@ ResourcePlaylist* SoundManager::GetPlaylist() const
     return m_pImpl->GetPlaylist();
 }
 
-SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
+SoundInstanceSharedPtr SoundManager::GetCurrentTrack() const
 {
-    return m_pImpl->GetCurrentSong();
+    return m_pImpl->GetCurrentTrack();
 }
 
 const SoundInstanceList& SoundManager::GetSoundInstances() const

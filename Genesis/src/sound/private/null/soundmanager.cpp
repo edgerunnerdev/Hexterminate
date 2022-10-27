@@ -40,7 +40,7 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
     return nullptr;
 }
 
-void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, const std::string& startingSong, bool shuffle )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle )
 {
 
 }
@@ -50,7 +50,7 @@ ResourcePlaylist* SoundManager::GetPlaylist() const
     return nullptr;
 }
 
-SoundInstanceSharedPtr SoundManager::GetCurrentSong() const
+SoundInstanceSharedPtr SoundManager::GetCurrentTrack() const
 {
     return nullptr;
 }
