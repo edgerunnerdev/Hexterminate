@@ -412,7 +412,7 @@ void Shield::UpdateColour()
     m_ColourData.reserve( sMaxShieldPoints * 3 * 6 );
 
 	const float alphaMultiplier[4] = { 0.0f, 1.0f, 1.0f, 0.0f };
-	Genesis::Colour shieldColour = m_pOwner->GetFaction()->GetColour( m_pOwner->IsFlagship() ? FactionColourId::GlowFlagship : FactionColourId::Glow );
+	Genesis::Color shieldColour = m_pOwner->GetFaction()->GetColour( m_pOwner->IsFlagship() ? FactionColourId::GlowFlagship : FactionColourId::Glow );
 	float activationThreshold = m_ActivationRatio * sMaxShieldPoints;
 
 	for ( int k = 0; k < 3; ++k )

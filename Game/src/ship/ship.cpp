@@ -993,10 +993,10 @@ void Ship::SetSharedShaderParameters( Module* pModule, Genesis::Material* pMater
 
     if ( pMaterial->shader == m_pUniforms->GetShader() )
     {
-        const Colour& primaryColour = IsFlagship() ? GetFaction()->GetColour( FactionColourId::PrimaryFlagship ) : GetFaction()->GetColour( FactionColourId::Primary );
+        const Color& primaryColour = IsFlagship() ? GetFaction()->GetColour( FactionColourId::PrimaryFlagship ) : GetFaction()->GetColour( FactionColourId::Primary );
         m_pUniforms->Set( ShipShaderUniform::PrimaryPaint, primaryColour.glm() );
 
-        const Colour& secondaryColour = IsFlagship() ? GetFaction()->GetColour( FactionColourId::SecondaryFlagship ) : GetFaction()->GetColour( FactionColourId::Secondary );
+        const Color& secondaryColour = IsFlagship() ? GetFaction()->GetColour( FactionColourId::SecondaryFlagship ) : GetFaction()->GetColour( FactionColourId::Secondary );
         m_pUniforms->Set( ShipShaderUniform::SecondaryPaint, secondaryColour.glm() );
 
         const float healthRatio = pModule->GetHealth() / pModule->GetModuleInfo()->GetHealth( this );
@@ -1024,7 +1024,7 @@ void Ship::SetSharedShaderParameters( Module* pModule, Genesis::Material* pMater
 	    const glm::vec4& ambient = pBackground->GetAmbientColour();
         m_pUniforms->Set( ShipShaderUniform::AmbientColour, ambient );
 
-        const Genesis::Colour& emissive = GetFaction()->GetColour( FactionColourId::Glow );
+        const Genesis::Color& emissive = GetFaction()->GetColour( FactionColourId::Glow );
         m_pUniforms->Set( ShipShaderUniform::EmissiveColour, emissive.glm() );
 
 		const float assemblyPercentage = pModule->GetAssemblyPercentage();

@@ -24,7 +24,7 @@
 #include "rendersystem.fwd.h"
 #include "glm/gtx/transform.hpp"
 #include "render/rendertarget.h"
-#include "colour.h"
+#include "color.h"
 #include "inputmanager.h"
 #include "shader.h"
 #include "shaderuniformtype.h"

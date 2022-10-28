@@ -23,7 +23,7 @@
 #include "tinyxml2.h"
 #include "endexternalheaders.h"
 
-#include "colour.h"
+#include "color.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Xml namespace
@@ -38,5 +38,5 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, std::st
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, int& value );
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, float& value );
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, bool& value );
-bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Genesis::Colour& value );
+bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Genesis::Color& value );
 }

@@ -25,7 +25,7 @@
 #include <tinyxml2.h>
 #include <endexternalheaders.h>
 
-#include <colour.h>
+#include <color.h>
 
 #include "ship/hexgrid.h"
 
@@ -72,7 +72,7 @@ enum class ModuleRarity
 	Count
 };
 
-Genesis::Colour ModuleRarityToColour( ModuleRarity rarity );
+Genesis::Color ModuleRarityToColour( ModuleRarity rarity );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ public:
 	const std::string&		GetIcon()			const { return m_Icon; }
 	const std::string&		GetModel()			const { return m_Model; }
 	ModuleRarity			GetRarity()			const { return m_Rarity; }
-	const Genesis::Colour&	GetOverlayColour()	const { return m_OverlayColour; }
+	const Genesis::Color&	GetOverlayColour()	const { return m_OverlayColour; }
     const std::string&      GetContextualTip()  const { return m_ContextualTip; }
     float					GetHealth( const Ship* pShip ) const;
 
@@ -137,7 +137,7 @@ protected:
 	std::string				m_Model;			// Model that represents this module on ships that render modules individually
 	float					m_Health;			// Amount of damage this module can receive before being disabled
 	ModuleRarity			m_Rarity;			// Module rarity for loot dropping purposes
-	Genesis::Colour			m_OverlayColour;	// Colour of the Ikeda overlay
+	Genesis::Color			m_OverlayColour;	// Colour of the Ikeda overlay
     std::string             m_ContextualTip;    // Tag to use with the contextual tip system
 };
 
@@ -297,9 +297,9 @@ public:
 	bool						GetIsSwarm()			const { return m_IsSwarm; }
 	float						GetBeamWidth()			const { return m_BeamWidth; }
 	float						GetBeamLifetime()		const { return m_BeamLifetime; }
-	const Genesis::Colour&		GetBeamColour()			const { return m_BeamColour; }
+	const Genesis::Color&		GetBeamColour()			const { return m_BeamColour; }
 	float						GetMuzzleflashScale()	const { return m_MuzzleflashScale; }
-	const Genesis::Colour&		GetMuzzleflashColour()	const { return m_MuzzleflashColour; }
+	const Genesis::Color&		GetMuzzleflashColour()	const { return m_MuzzleflashColour; }
 
 	Genesis::ResourceSound*		GetOnFireSFX()			const { return m_pOnFireSFX; }
 	Genesis::ResourceSound*		GetOnHitSFX()			const {	return m_pOnHitSFX; }
@@ -319,13 +319,13 @@ private:
 	bool						m_IsSwarm;
 	float						m_BeamWidth;
 	float						m_BeamLifetime;
-	Genesis::Colour				m_BeamColour;
+	Genesis::Color				m_BeamColour;
 	Genesis::ResourceSound*		m_pOnFireSFX;
 	Genesis::ResourceSound*		m_pOnHitSFX;
 	float						m_OnHitSFXDistance;
 	DamageType					m_DamageType;
 	float						m_MuzzleflashScale;
-	Genesis::Colour				m_MuzzleflashColour;
+	Genesis::Color				m_MuzzleflashColour;
 };
 
 

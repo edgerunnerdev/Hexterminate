@@ -19,7 +19,7 @@
 
 #include <glm/vec3.hpp>
 
-#include <colour.h>
+#include <color.h>
 
 namespace Hexterminate
 {
@@ -42,7 +42,7 @@ public:
 									m_Width( 1.0f )
 								{}
 
-								Laser( const glm::vec3& source, const glm::vec3& destination, const Genesis::Colour& colour, float width ) :
+								Laser( const glm::vec3& source, const glm::vec3& destination, const Genesis::Color& colour, float width ) :
 									m_Source( source ),
 									m_Destination( destination ),
 									m_Colour( colour ),
@@ -51,13 +51,13 @@ public:
 
 	const glm::vec3&			GetSource() const;
 	const glm::vec3&			GetDestination() const;
-	const Genesis::Colour&		GetColour() const;
+	const Genesis::Color&		GetColour() const;
 	float						GetWidth() const;
 
 private:
 	glm::vec3					m_Source;
 	glm::vec3					m_Destination;
-	Genesis::Colour				m_Colour;
+	Genesis::Color				m_Colour;
 	float						m_Width;
 };
 
@@ -71,7 +71,7 @@ inline const glm::vec3& Laser::GetDestination() const
 	return m_Destination;
 }
 
-inline const Genesis::Colour& Laser::GetColour() const
+inline const Genesis::Color& Laser::GetColour() const
 {
 	return m_Colour;
 }

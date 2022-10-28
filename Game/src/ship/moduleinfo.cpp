@@ -38,24 +38,24 @@ namespace Hexterminate
 // Misc functions
 ///////////////////////////////////////////////////////////////////////////////
 
-Genesis::Colour ModuleRarityToColour( ModuleRarity rarity )
+Genesis::Color ModuleRarityToColour( ModuleRarity rarity )
 {
-	using Genesis::Colour;
+	using Genesis::Color;
 
 	if ( rarity == ModuleRarity::Trash )
-		return Colour( 0.8f, 0.8f, 0.8f );
+		return Color( 0.8f, 0.8f, 0.8f );
 	else if ( rarity == ModuleRarity::Common )
-		return Colour( 1.0f, 1.0f, 1.0f );
+		return Color( 1.0f, 1.0f, 1.0f );
 	else if ( rarity == ModuleRarity::Uncommon )
-		return Colour( 0.0f, 1.0f, 0.0f );
+		return Color( 0.0f, 1.0f, 0.0f );
 	else if ( rarity == ModuleRarity::Rare )
-		return Colour( 0.4f, 0.4f, 1.0f );
+		return Color( 0.4f, 0.4f, 1.0f );
 	else if ( rarity == ModuleRarity::Artifact )
-		return Colour( 1.0f, 0.5f, 0.0f );
+		return Color( 1.0f, 0.5f, 0.0f );
 	else if ( rarity == ModuleRarity::Legendary )
-		return Colour( 1.0f, 0.0f, 0.0f );
+		return Color( 1.0f, 0.0f, 0.0f );
 	else
-		return Colour( 0.0f, 0.0f, 0.0f );
+		return Color( 0.0f, 0.0f, 0.0f );
 }
 
 	

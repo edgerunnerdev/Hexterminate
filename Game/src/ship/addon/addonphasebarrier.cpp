@@ -256,7 +256,7 @@ void AddonPhaseBarrier::CreateLasers( const glm::vec3& barrierOrigin, const glm:
 	glm::vec3 dir = glm::normalize( barrierPosition - barrierOrigin );
 
 	LaserManager* pLaserManager = g_pGame->GetCurrentSector()->GetLaserManager();
-	Genesis::Colour barrierColour( 1.0f, 0.55f, 0.0f, 0.65f );
+	Genesis::Color barrierColour( 1.0f, 0.55f, 0.0f, 0.65f );
 
 	// The laser origin is at the edge of the phase barrier's sphere
 	glm::vec3 laserOrigin = GetModule()->GetWorldPosition() + glm::vec3( 0.0f, 0.0f, m_SphereCenter);
@@ -394,7 +394,7 @@ void AddonPhaseBarrier::UpdateColour()
 	colourData.reserve( sMaxPhaseBarrierPoints * 3 * 6 );
 
 	const float alphaMultiplier[4] = { 0.0f, 1.0f, 1.0f, 0.75f };
-	const Genesis::Colour shieldColour( 1.0f, 0.35f, 0.0f, 1.0f );
+	const Genesis::Color shieldColour( 1.0f, 0.35f, 0.0f, 1.0f );
 
 	for ( int k = 0; k < 3; ++k )
 	{

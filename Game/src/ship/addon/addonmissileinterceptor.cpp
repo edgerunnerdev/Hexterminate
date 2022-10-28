@@ -138,7 +138,7 @@ void AddonMissileInterceptor::InterceptMissile( Ammo* pMissile )
 	m_Laser = Laser( 
 		m_pModule->GetWorldPosition(),
 		pMissile->GetSource(),
-		Genesis::Colour( 1.0f, 0.0f, 0.0f ),
+		Genesis::Color( 1.0f, 0.0f, 0.0f ),
 		3.0f );
 
 	m_ReloadTimer = m_ReloadDuration;

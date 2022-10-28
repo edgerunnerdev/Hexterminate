@@ -162,12 +162,12 @@ void LootWindow::Update( float delta )
 		const float iconSize = m_IconSize * iconScalingAmount;
 		m_pIcon->SetSize( iconSize, iconSize );
 		m_pIcon->SetPosition( ( m_PanelWidth - iconSize ) / 2.0f, 128.0f - iconSize / 2.0f );
-		m_pIcon->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, alpha ) );
+		m_pIcon->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, alpha ) );
         m_pPerkMeter->SetColour( 0.0f, 0.0f, 0.0f, 0.5f * alpha );
         m_pPerkMeter->SetBorderColour( 1.0f, 1.0f, 1.0f, 0.5f * alpha );
         m_pPerkMeter->SetPipColour( 1.0f, 1.0f, 1.0f, 0.75f * alpha );
 
-		Genesis::Colour highlightColour = ModuleRarityToColour( m_LootQueue.front().pModuleInfo->GetRarity() );
+		Genesis::Color highlightColour = ModuleRarityToColour( m_LootQueue.front().pModuleInfo->GetRarity() );
 		highlightColour.a = CalculateAlpha();
 		m_pModuleName->SetColour( highlightColour );
 		m_pWingsLeft->SetColour( highlightColour );
@@ -198,7 +198,7 @@ void LootWindow::Update( float delta )
 		}
 
 		m_pModuleName->SetText( lootText.str() );
-		Genesis::Colour textColour = ModuleRarityToColour( loot.pModuleInfo->GetRarity() );
+		Genesis::Color textColour = ModuleRarityToColour( loot.pModuleInfo->GetRarity() );
 		textColour.a = CalculateAlpha();
 		m_pModuleName->SetColour( textColour );
 

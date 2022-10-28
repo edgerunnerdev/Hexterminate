@@ -65,7 +65,7 @@ private:
 		float m_Width;
 		float m_Offset;
 		Laser m_Laser;
-		Genesis::Colour m_Colour;
+		Genesis::Color m_Colour;
 	};
 
 	std::array< ParticleLaser, sParticleAcceleratorLaserCount > m_ParticleAcceleratorLasers;

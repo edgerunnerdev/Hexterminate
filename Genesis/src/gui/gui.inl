@@ -188,12 +188,12 @@ inline bool GuiElement::IsHiddenForCapture() const
 // Panel
 ///////////////////////////////////////////////////////////////////////////
 
-inline const Colour& Panel::GetColour() const
+inline const Color& Panel::GetColour() const
 {
 	return mColour;
 }
 
-inline void Panel::SetColour( const Colour& colour )
+inline void Panel::SetColour( const Color& colour )
 {
 	mColour = colour;
 }
@@ -203,12 +203,12 @@ inline void Panel::SetColour( float r, float g, float b, float a )
 	mColour.Set( r, g, b, a );
 }
 
-inline const Colour& Panel::GetBorderColour() const
+inline const Color& Panel::GetBorderColour() const
 {
 	return mBorderColour;
 }
 
-inline void Panel::SetBorderColour( const Colour& colour )
+inline void Panel::SetBorderColour( const Color& colour )
 {
 	mBorderColour = colour;
 }
@@ -273,12 +273,12 @@ inline void Text::SetText( const std::string& text )
 	}
 }
 
-inline const Colour& Text::GetColour() const
+inline const Color& Text::GetColour() const
 {
 	return m_Colour;
 }
 
-inline void Text::SetColour( const Colour& colour )
+inline void Text::SetColour( const Color& colour )
 {
 	m_Colour = colour;
 }
@@ -303,12 +303,12 @@ inline float Text::GetLineSpacing() const
 // Button
 ///////////////////////////////////////////////////////////////////////////
 
-inline const Colour& Button::GetHoverColour() const
+inline const Color& Button::GetHoverColour() const
 {
 	return mHoverColour;
 }
 
-inline void Button::SetHoverColour( const Colour& colour )
+inline void Button::SetHoverColour( const Color& colour )
 {
 	mHoverColour = colour;
 }
@@ -318,7 +318,7 @@ inline void Button::SetHoverColour( float r, float g, float b, float a )
 	mHoverColour.Set( r, g, b, a );
 }
 
-inline const Colour& Button::GetIconColour() const
+inline const Color& Button::GetIconColour() const
 {
 	return mIconColour;
 }
@@ -328,12 +328,12 @@ inline void Button::SetIconColour( float r, float g, float b, float a )
 	mIconColour.Set( r, g, b, a );
 }
 
-inline void Button::SetIconColour( const Colour& colour )
+inline void Button::SetIconColour( const Color& colour )
 {
 	mIconColour = colour;
 }
 
-inline const Colour& Button::GetIconHoverColour() const
+inline const Color& Button::GetIconHoverColour() const
 {
 	return mIconHoverColour;
 }
@@ -343,7 +343,7 @@ inline void Button::SetIconHoverColour( float r, float g, float b, float a )
 	mIconHoverColour.Set( r, g, b, a );
 }
 
-inline void Button::SetIconHoverColour( const Colour& colour )
+inline void Button::SetIconHoverColour( const Color& colour )
 {
 	mIconHoverColour = colour;
 }
@@ -353,7 +353,7 @@ inline void Button::SetFont( ResourceFont* font )
 	mText->SetFont( font );
 }
 
-inline void Button::SetTextColour( const Colour& colour )
+inline void Button::SetTextColour( const Color& colour )
 {
 	mText->SetColour( colour );
 }
@@ -373,12 +373,12 @@ inline void Checkbox::SetPressed( bool state )
 	m_Checked = state;
 }
 
-inline const Colour& Checkbox::GetBulletColour() const
+inline const Color& Checkbox::GetBulletColour() const
 {
 	return m_BulletColour;
 }
 
-inline void Checkbox::SetBulletColour( const Colour& colour )
+inline void Checkbox::SetBulletColour( const Color& colour )
 {
 	m_BulletColour = colour;
 }
@@ -398,12 +398,12 @@ inline bool RadioButton::IsChecked() const
 	return m_Checked;
 }
 
-inline const Colour& RadioButton::GetBulletColour() const
+inline const Color& RadioButton::GetBulletColour() const
 {
 	return m_BulletColour;
 }
 
-inline void RadioButton::SetBulletColour( const Colour& colour )
+inline void RadioButton::SetBulletColour( const Color& colour )
 {
 	m_BulletColour = colour;
 }

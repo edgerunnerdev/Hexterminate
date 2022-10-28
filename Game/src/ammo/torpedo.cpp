@@ -27,7 +27,7 @@ namespace Hexterminate
 
 Torpedo::Torpedo()
 {
-	SetGlowColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 1.0f ) );
+	SetGlowColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 1.0f ) );
 }
 
 MissileType Torpedo::GetType() const
@@ -43,7 +43,7 @@ const std::string Torpedo::GetResourceName() const
 
 Trail* Torpedo::CreateTrail() const
 {
-	return new Trail( 5.0f, 2.0f, Genesis::Colour( 0.6f, 0.2f, 0.2f, 0.5f ) );
+	return new Trail( 5.0f, 2.0f, Genesis::Color( 0.6f, 0.2f, 0.2f, 0.5f ) );
 }
 
 }

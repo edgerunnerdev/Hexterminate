@@ -21,12 +21,12 @@
 #include <memory>
 #include <string>
 
-#include <colour.h>
+#include <color.h>
 
 #include "fleet/fleet.fwd.h"
 #include "requests/requestgoalrep.fwd.h"
 
-using Genesis::Colour;
+using Genesis::Color;
 
 
 namespace Hexterminate
@@ -49,8 +49,8 @@ typedef std::list< RequestGoalSharedPtr > RequestGoalSharedPtrList;
 class RequestGoal
 {
 public:
-							RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Colour& colour = Colour( 0.0f, 0.6f, 0.6f, 0.6f ) );
-							RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Colour& colour = Colour( 0.0f, 0.6f, 0.6f, 0.6f ) );
+							RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
+							RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
 
 	FleetWeakPtr			GetFleet() const;
 	SectorInfo*				GetSectorInfo() const;

@@ -76,7 +76,7 @@ enum class FactionPresence
 struct FactionInfo
 {
 	std::string		m_Name;
-	Genesis::Colour m_Colours[ static_cast<unsigned int>( FactionColourId::Count ) ];
+	Genesis::Color m_Colours[ static_cast<unsigned int>( FactionColourId::Count ) ];
 	int			    m_BaseFleetPoints;				// Initial fleet size (in points) when the game starts.
 	float			m_SectorToShipyardRatio;		// Optimal number of shipyards for the amount of sectors controlled by this faction.
 	FleetDoctrine	m_Doctrine;
@@ -102,7 +102,7 @@ public:
 	virtual							~Faction()								{ }
 
 	inline const std::string&		GetName() const							{ return m_Info.m_Name; }
-	inline const Genesis::Colour&	GetColour( FactionColourId id ) const	{ return m_Info.m_Colours[ (int)id ]; }
+	inline const Genesis::Color&	GetColour( FactionColourId id ) const	{ return m_Info.m_Colours[ (int)id ]; }
 	virtual void					AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer );
 	void							RemoveControlledSector( SectorInfo* pSector, bool immediate = false );
 	inline const SectorInfoVector&	GetControlledSectors() const			{ return m_ControlledSectors; }

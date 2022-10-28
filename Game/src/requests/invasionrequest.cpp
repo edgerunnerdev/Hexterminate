@@ -53,7 +53,7 @@ void InvasionRequest::OnBegin()
 	std::stringstream ss;
 	ss << "Sector being invaded: +" << m_Reward << "RU";
 
-	m_pGoal = std::make_shared< RequestGoal >( m_pSectorInfo, ss.str(), Genesis::Colour( 0.0f, 0.0f, 0.6f, 0.6f ) );
+	m_pGoal = std::make_shared< RequestGoal >( m_pSectorInfo, ss.str(), Genesis::Color( 0.0f, 0.0f, 0.6f, 0.6f ) );
 	AddGoal( m_pGoal );
 
 #ifdef _DEBUG

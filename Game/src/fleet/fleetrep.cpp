@@ -172,7 +172,7 @@ void FleetRep::DrawChevron()
 		m_Angle = atan2( positionDelta.y, positionDelta.x );
 	}
 
-	const Genesis::Colour& clr = m_pFleet->GetFaction()->GetColour( FactionColourId::FleetChevron );
+	const Genesis::Color& clr = m_pFleet->GetFaction()->GetColour( FactionColourId::FleetChevron );
 	m_pVertexBuffer->CreateTexturedQuad( -16.0f, -16.0f, 32.0f, 32.0f, clr.glm() );
 	m_pDiffuseSampler->Set( m_pFleet->HasFlagship() ? m_pImageFlagship : m_pImage, GL_TEXTURE0 );
 	const glm::mat4 modelMatrix = glm::translate( glm::vec3( screenPos.x, screenPos.y, 0.0f ) ) * glm::rotate( glm::mat4( 1.0f ), m_Angle, glm::vec3( 0.0f, 0.0f, 1.0f ) );

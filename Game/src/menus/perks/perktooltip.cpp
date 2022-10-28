@@ -60,7 +60,7 @@ void PerkTooltip::Init( const std::string& name, const std::string& description,
 
 	m_pMainPanel = new Genesis::Gui::Panel();
 	m_pMainPanel->SetSize( panelWidth, panelHeight );
-	m_pMainPanel->SetColour( Genesis::Colour( 0.0f, 0.0f, 0.0f, 0.85f ) );
+	m_pMainPanel->SetColour( Genesis::Color( 0.0f, 0.0f, 0.0f, 0.85f ) );
 	m_pMainPanel->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );
 	m_pMainPanel->Show( false );
 	pGuiManager->AddElement( m_pMainPanel );
@@ -96,7 +96,7 @@ void PerkTooltip::SetState( PerkState state )
 		m_pCostIcon->Show( false );
 		m_pCost->Show( false );
 		m_pState->SetText( "Already purchased." );
-		m_pState->SetColour( Genesis::Colour( 0.0f, 1.0f, 0.0f, 0.8f ) );
+		m_pState->SetColour( Genesis::Color( 0.0f, 1.0f, 0.0f, 0.8f ) );
 	}
 	else if ( state == PerkState::Locked )
 	{
@@ -105,14 +105,14 @@ void PerkTooltip::SetState( PerkState state )
 
 		if ( g_pGame->GetPlayer() == nullptr || m_Cost > g_pGame->GetPlayer()->GetPerkPoints() )
 		{
-			m_pCost->SetColour( Genesis::Colour( 1.0f, 0.0f, 0.0f, 0.8f ) );
-			m_pState->SetColour( Genesis::Colour( 1.0f, 0.0f, 0.0f, 0.8f ) );
+			m_pCost->SetColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 0.8f ) );
+			m_pState->SetColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 0.8f ) );
 			m_pState->SetText( "Insufficient perk points." );
 		}
 		else
 		{
 			m_pCost->SetColour( EVA_TEXT_COLOUR );
-			m_pState->SetColour( Genesis::Colour( 0.0f, 1.0f, 1.0f, 0.8f ) );
+			m_pState->SetColour( Genesis::Color( 0.0f, 1.0f, 1.0f, 0.8f ) );
 			m_pState->SetText( "Can purchase perk." );
 		}
 	}
@@ -123,14 +123,14 @@ void PerkTooltip::SetState( PerkState state )
 
 		if ( g_pGame->GetPlayer() == nullptr || m_Cost > g_pGame->GetPlayer()->GetPerkPoints() )
 		{
-			m_pCost->SetColour( Genesis::Colour( 1.0f, 0.0f, 0.0f, 0.8f ) );
+			m_pCost->SetColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 0.8f ) );
 		}
 		else
 		{
 			m_pCost->SetColour( EVA_TEXT_COLOUR );
 		}
 
-		m_pState->SetColour( Genesis::Colour( 1.0f, 0.0f, 0.0f, 0.8f ) );
+		m_pState->SetColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 0.8f ) );
 		m_pState->SetText( "Previous perk required." );
 	}
 }

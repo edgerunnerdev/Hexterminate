@@ -28,7 +28,7 @@ namespace Hexterminate
 Rocket::Rocket()
 {
 	SetGlowSize( 25.0f );
-	SetGlowColour( Genesis::Colour( 1.0f, 0.4f, 0.0f, 1.0f ) );
+	SetGlowColour( Genesis::Color( 1.0f, 0.4f, 0.0f, 1.0f ) );
 }
 
 MissileType Rocket::GetType() const
@@ -44,7 +44,7 @@ const std::string Rocket::GetResourceName() const
 
 Trail* Rocket::CreateTrail() const
 {
-	return new Trail( 1.5f, 2.5f, Genesis::Colour( 0.6f, 0.2f, 0.0f, 1.0f ) );
+	return new Trail( 1.5f, 2.5f, Genesis::Color( 0.6f, 0.2f, 0.0f, 1.0f ) );
 }
 
 }

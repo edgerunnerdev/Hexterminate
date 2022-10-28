@@ -758,7 +758,7 @@ void EngineModule::UpdateGlow( float delta )
 		Sprite sprite(
 			source,
 			destination,
-			Genesis::Colour( 1.0f, 1.0f, 1.0f, 1.0f ),
+			Genesis::Color( 1.0f, 1.0f, 1.0f, 1.0f ),
 			size,
 			0 );
 

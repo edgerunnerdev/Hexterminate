@@ -63,8 +63,8 @@ protected:
 
 	void						SetGlowSize( float size );
 	float						GetGlowSize() const;
-	void						SetGlowColour( const Genesis::Colour& colour );
-	const Genesis::Colour&		GetGlowColour() const;
+	void						SetGlowColour( const Genesis::Color& colour );
+	const Genesis::Color&		GetGlowColour() const;
 
 private:
 	Ship*						FindClosestShip( const glm::vec3& position );
@@ -78,7 +78,7 @@ private:
 	float						m_LaunchTimer;
 	float						m_SwarmTimer;
 	float						m_GlowSize;
-	Genesis::Colour				m_GlowColour;
+	Genesis::Color				m_GlowColour;
 };
 
 inline void Missile::SetGlowSize( float size )
@@ -91,12 +91,12 @@ inline float Missile::GetGlowSize() const
 	return m_GlowSize;
 }
 
-inline void Missile::SetGlowColour( const Genesis::Colour& glowColour )
+inline void Missile::SetGlowColour( const Genesis::Color& glowColour )
 {
 	m_GlowColour = glowColour;
 }
 
-inline const Genesis::Colour& Missile::GetGlowColour() const
+inline const Genesis::Color& Missile::GetGlowColour() const
 {
 	return m_GlowColour;
 }

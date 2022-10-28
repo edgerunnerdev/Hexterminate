@@ -68,7 +68,7 @@ m_PreviousCursorType( CursorType::Pointer )
 		m_pButton[i] = new ButtonPopup( this );
 		m_pButton[i]->SetPosition( centreX - 128.0f - 4.0f, 32.0f );
 		m_pButton[i]->SetSize( 128.0f, 32.0f );
-		m_pButton[i]->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 0.05f ) );
+		m_pButton[i]->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 		m_pButton[i]->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
 		m_pButton[i]->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
 		m_pButton[i]->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );

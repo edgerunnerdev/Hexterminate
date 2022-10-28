@@ -75,7 +75,7 @@ public:
 	void						SetStart( const glm::vec2& position );
 	void						SetEnd( const glm::vec2& position );
 	void						SetEnd( PointOfInterestTarget* pPointOfInterestTarget );
-	void						SetColour( const Genesis::Colour& colour );
+	void						SetColour( const Genesis::Color& colour );
 
 private:
 	glm::vec2					m_Start;
@@ -85,7 +85,7 @@ private:
 	Genesis::Shader*			m_pShader;
 	Genesis::VertexBuffer*		m_pVertexBuffer;
 
-	Genesis::Colour				m_Colour;
+	Genesis::Color				m_Colour;
 };
 
 inline void PointOfInterest::SetStart( const glm::vec2& position )
@@ -104,7 +104,7 @@ inline void PointOfInterest::SetEnd( PointOfInterestTarget* pPointOfInterestTarg
 	m_pDynamicEnd = pPointOfInterestTarget;
 }
 
-inline void PointOfInterest::SetColour( const Genesis::Colour& colour )
+inline void PointOfInterest::SetColour( const Genesis::Color& colour )
 {
 	m_Colour = colour;
 }

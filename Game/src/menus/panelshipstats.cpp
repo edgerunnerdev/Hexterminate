@@ -250,7 +250,7 @@ void PanelShipStats::UpdateEnergyStats()
 	m_pEnergyRechargeRow->Set( 1, ToString( floor( energyRecharge ) ) + " u/s" );
 	m_pEnergyUsageRow->Set( 1, ToString( floor( m_EnergyUsage ) ) + " u/s" );
 
-	Genesis::Colour clr = ( energyRecharge >= m_EnergyUsage ) ? Genesis::Colour( 1.0f, 1.0f, 1.0f ) : Genesis::Colour( 1.0f, 0.0f, 0.0f );
+	Genesis::Color clr = ( energyRecharge >= m_EnergyUsage ) ? Genesis::Color( 1.0f, 1.0f, 1.0f ) : Genesis::Color( 1.0f, 0.0f, 0.0f );
 	m_pEnergyRechargeRow->SetColour( clr );
 	m_pEnergyUsageRow->SetColour( clr );
 }

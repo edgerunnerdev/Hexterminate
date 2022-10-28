@@ -107,19 +107,19 @@ void FleetStatus::AddShip( Ship* pShip )
 	}
 }
 
-Genesis::Colour FleetStatus::GetShipIntegrityColour( int integrity ) const
+Genesis::Color FleetStatus::GetShipIntegrityColour( int integrity ) const
 {
 	if ( integrity > 75 )
 	{
-		return Genesis::Colour( 1.0f, 1.0f, 1.0f );
+		return Genesis::Color( 1.0f, 1.0f, 1.0f );
 	}
 	else if ( integrity > 0 )
 	{
-		return Genesis::Colour( 1.0f, 0.4f, 0.0f );
+		return Genesis::Color( 1.0f, 0.4f, 0.0f );
 	}
 	else
 	{
-		return Genesis::Colour( 1.0f, 0.0f, 0.0f );
+		return Genesis::Color( 1.0f, 0.0f, 0.0f );
 	}
 }
 

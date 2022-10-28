@@ -22,22 +22,26 @@
 namespace Genesis
 {
 
-class Colour
+class Color
 {
 public:
-    Colour()
+    Color()
         : r( 1.0f )
         , g( 1.0f )
         , b( 1.0f )
-        , a( 1.0f ){};
-    Colour( float R, float G, float B, float A = 1.0f )
+        , a( 1.0f )
+    {
+    }
+
+    Color( float R, float G, float B, float A = 1.0f )
         : r( R )
         , g( G )
         , b( B )
-        , a( A ){};
-    ~Colour(){};
+        , a( A )
+    {
+    }
 
-    void Set( float r, float g, float b, float a );
+    void Set( float r, float g, float b, float a = 1.0f );
     glm::vec4 glm() const;
 
     float r;
@@ -46,7 +50,7 @@ public:
     float a;
 };
 
-inline void Colour::Set( float red, float green, float blue, float alpha )
+inline void Color::Set( float red, float green, float blue, float alpha /* = 1.0f */ )
 {
     r = red;
     g = green;
@@ -54,7 +58,7 @@ inline void Colour::Set( float red, float green, float blue, float alpha )
     a = alpha;
 }
 
-inline glm::vec4 Colour::glm() const
+inline glm::vec4 Color::glm() const
 {
     return glm::vec4( r, g, b, a );
 }

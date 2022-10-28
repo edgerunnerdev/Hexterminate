@@ -100,7 +100,7 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, bool& v
     return true;
 }
 
-bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Genesis::Colour& value )
+bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Genesis::Color& value )
 {
     SDL_assert( pElement != nullptr );
 

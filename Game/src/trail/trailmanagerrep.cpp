@@ -169,7 +169,7 @@ void TrailManagerRep::PushBackUVs( Genesis::UVData& uvData )
     }
 }
 
-void TrailManagerRep::PushBackColours( Genesis::ColourData& colourData, const Genesis::Colour& colour, float initialWidth, float currentWidth, float nextWidth )
+void TrailManagerRep::PushBackColours( Genesis::ColourData& colourData, const Genesis::Color& colour, float initialWidth, float currentWidth, float nextWidth )
 {
 	using namespace Genesis;
 	const float r = colour.r;

@@ -35,7 +35,7 @@
 namespace Hexterminate
 {
 
-static const Genesis::Colour sCampaignGoalColour( 0.0f, 0.0f, 0.6f, 0.6f );
+static const Genesis::Color sCampaignGoalColour( 0.0f, 0.0f, 0.6f, 0.6f );
 
 CampaignRequest::CampaignRequest( RequestManager* pRequestManager ) :
 ImperialRequest( pRequestManager ),

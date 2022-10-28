@@ -19,7 +19,7 @@
 
 #include <vector>
 
-#include <colour.h>
+#include <color.h>
 #include <scene/layer.h>
 #include <scene/sceneobject.h>
 #include <shader.h>
@@ -71,7 +71,7 @@ struct SectorDrawInfo
 		y = _y;
 	};
 
-	Genesis::Colour colour;
+	Genesis::Color colour;
 	int x, y;
 };
 

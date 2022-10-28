@@ -892,13 +892,13 @@ void Game::LoadToState( GameState state )
 
 void Game::SetupBackgrounds()
 {
-	m_Backgrounds.push_back( BackgroundInfo( 0, "CarinaNebula.jpg",		Genesis::Colour( 0.04f, 0.09f, 0.11f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 1, "Tannhauser.jpg",		Genesis::Colour( 0.04f, 0.09f, 0.03f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 2, "TheRim.jpg",			Genesis::Colour( 0.24f, 0.06f, 0.19f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 3, "DepthsOfSpace.jpg",	Genesis::Colour( 0.04f, 0.04f, 0.08f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 4, "HeartOfFire.jpg",		Genesis::Colour( 0.03f, 0.09f, 0.16f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 5, "Gardens.jpg",			Genesis::Colour( 0.29f, 0.17f, 0.34f ) ) );
-	m_Backgrounds.push_back( BackgroundInfo( 6, "TheEnd.jpg",			Genesis::Colour( 0.06f, 0.08f, 0.20f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 0, "CarinaNebula.jpg",		Genesis::Color( 0.04f, 0.09f, 0.11f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 1, "Tannhauser.jpg",		Genesis::Color( 0.04f, 0.09f, 0.03f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 2, "TheRim.jpg",			Genesis::Color( 0.24f, 0.06f, 0.19f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 3, "DepthsOfSpace.jpg",	Genesis::Color( 0.04f, 0.04f, 0.08f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 4, "HeartOfFire.jpg",		Genesis::Color( 0.03f, 0.09f, 0.16f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 5, "Gardens.jpg",			Genesis::Color( 0.29f, 0.17f, 0.34f ) ) );
+	m_Backgrounds.push_back( BackgroundInfo( 6, "TheEnd.jpg",			Genesis::Color( 0.06f, 0.08f, 0.20f ) ) );
 }
 
 void Game::SetupFactions()
@@ -912,14 +912,14 @@ void Game::SetupFactions()
 	// As the "beginner's target" faction, they field no capital ships.
 	FactionInfo infoNeutral;
 	infoNeutral.m_Name = "Neutral";
-	infoNeutral.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoNeutral.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.7f, 0.7f, 0.7f );
-	infoNeutral.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoNeutral.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoNeutral.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoNeutral.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 1.0f, 0.8f, 0.8f );
-	infoNeutral.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 1.0f, 0.8f, 0.8f );
-	infoNeutral.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 1.0f, 1.0f, 1.0f );
+	infoNeutral.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoNeutral.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.7f, 0.7f, 0.7f );
+	infoNeutral.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoNeutral.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoNeutral.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoNeutral.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 1.0f, 0.8f, 0.8f );
+	infoNeutral.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 1.0f, 0.8f, 0.8f );
+	infoNeutral.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 1.0f, 1.0f, 1.0f );
 	infoNeutral.m_BaseFleetPoints = 1000; // Unused
 	infoNeutral.m_SectorToShipyardRatio = 0.0f;
 	infoNeutral.m_Doctrine = FleetDoctrine( FleetBehaviourType::None, 0.75f, 0.25f, 0.0f );
@@ -936,14 +936,14 @@ void Game::SetupFactions()
 	// The Player faction contains a single, player-controlled fleet.
 	FactionInfo infoPlayer;
 	infoPlayer.m_Name = "Player";
-	infoPlayer.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.0f, 1.0f, 1.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.0f, 0.2f, 0.6f );
-	infoPlayer.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.0f, 1.0f, 1.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.0f, 1.0f, 1.0f );
-	infoPlayer.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.0f, 0.2f, 0.6f );
+	infoPlayer.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.0f, 1.0f, 1.0f );
+	infoPlayer.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.0f, 1.0f, 1.0f );
 	infoPlayer.m_BaseFleetPoints = 1000; // Unused
 	infoPlayer.m_SectorToShipyardRatio = 1.0f;
 	infoPlayer.m_Doctrine = FleetDoctrine( FleetBehaviourType::None, 1.0f, 0.0f, 0.0f );
@@ -960,14 +960,14 @@ void Game::SetupFactions()
 	// The Empire deploys large fleets from their few shipyards, with a preference for large number of capitals.
 	FactionInfo infoEmpire;
 	infoEmpire.m_Name = "Empire";
-	infoEmpire.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.0f, 0.0f, 1.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.0f, 0.2f, 0.6f );
-	infoEmpire.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.0f, 1.0f, 1.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.0f, 1.0f, 1.0f );
-	infoEmpire.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.2f, 0.2f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.0f, 0.0f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.0f, 0.2f, 0.6f );
+	infoEmpire.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.0f, 1.0f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.0f, 1.0f, 1.0f );
+	infoEmpire.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.2f, 0.2f, 1.0f );
 	infoEmpire.m_BaseFleetPoints = 1000;
 	infoEmpire.m_SectorToShipyardRatio = 0.10f;
 	infoEmpire.m_Doctrine = FleetDoctrine( FleetBehaviourType::Expansionist, 0.2f, 0.2f, 0.6f );
@@ -985,14 +985,14 @@ void Game::SetupFactions()
 	// during a battle, with fleets joining in mid-fight.
 	FactionInfo infoAscent;
 	infoAscent.m_Name = "Ascent";
-	infoAscent.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 1.0f, 0.3f, 0.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 1.0f, 0.3f, 0.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 1.0f, 0.3f, 0.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 1.0f, 0.3f, 0.0f );
-	infoAscent.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 1.0f, 0.3f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 1.0f, 0.3f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 1.0f, 0.3f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 1.0f, 0.3f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 1.0f, 0.3f, 0.0f );
+	infoAscent.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 1.0f, 0.3f, 0.0f );
 	infoAscent.m_BaseFleetPoints = 1200;
 	infoAscent.m_SectorToShipyardRatio = 0.15f;
 	infoAscent.m_Doctrine = FleetDoctrine( FleetBehaviourType::Expansionist, 1.0f, 1.0f, 0.25f );
@@ -1015,14 +1015,14 @@ void Game::SetupFactions()
 	// Pirates prefer small fleets but plenty of them. They aren't capable of fielding capital ships.
 	FactionInfo infoPirate;
 	infoPirate.m_Name = "Pirate";
-	infoPirate.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.5f, 0.2f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.5f, 0.2f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Colour( 0.5f, 0.2f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.5f, 0.2f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.7f, 0.4f, 0.0f );
-	infoPirate.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.6f, 0.3f, 0.1f );
+	infoPirate.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.5f, 0.2f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.5f, 0.2f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Color( 0.5f, 0.2f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.5f, 0.2f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.7f, 0.4f, 0.0f );
+	infoPirate.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.6f, 0.3f, 0.1f );
 	infoPirate.m_BaseFleetPoints = 800;
 	infoPirate.m_SectorToShipyardRatio = 1.0f;
 	infoPirate.m_Doctrine = FleetDoctrine( FleetBehaviourType::Roaming, 0.8f, 0.2f, 0.0f );
@@ -1043,14 +1043,14 @@ void Game::SetupFactions()
 	// Marauders field capital-heavy fleets
 	FactionInfo infoMarauders;
 	infoMarauders.m_Name = "Marauders";
-	infoMarauders.m_Colours[ (int)FactionColourId::Base ]				= Genesis::Colour( 1.0f, 0.0f, 0.0f );
-	infoMarauders.m_Colours[ (int)FactionColourId::Primary ]			= Genesis::Colour( 0.7f, 0.0f, 0.0f );
-	infoMarauders.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoMarauders.m_Colours[ (int)FactionColourId::PrimaryFlagship ]	= Genesis::Colour( 0.7f, 0.0f, 0.0f );
-	infoMarauders.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Colour( 0.7f, 0.4f, 0.1f );
-	infoMarauders.m_Colours[ (int)FactionColourId::Glow ]				= Genesis::Colour( 0.75f, 0.0f, 0.0f );
-	infoMarauders.m_Colours[ (int)FactionColourId::GlowFlagship ]		= Genesis::Colour( 1.00f, 0.10f, 0.10f );
-	infoMarauders.m_Colours[ (int)FactionColourId::FleetChevron ]		= Genesis::Colour( 1.0f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::Base ]				= Genesis::Color( 1.0f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::Primary ]			= Genesis::Color( 0.7f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::PrimaryFlagship ]	= Genesis::Color( 0.7f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Color( 0.7f, 0.4f, 0.1f );
+	infoMarauders.m_Colours[ (int)FactionColourId::Glow ]				= Genesis::Color( 0.75f, 0.0f, 0.0f );
+	infoMarauders.m_Colours[ (int)FactionColourId::GlowFlagship ]		= Genesis::Color( 1.00f, 0.10f, 0.10f );
+	infoMarauders.m_Colours[ (int)FactionColourId::FleetChevron ]		= Genesis::Color( 1.0f, 0.0f, 0.0f );
 	infoMarauders.m_BaseFleetPoints = 1600;
 	infoMarauders.m_SectorToShipyardRatio = 0.15f;
 	infoMarauders.m_Doctrine = FleetDoctrine( FleetBehaviourType::Raiding, 0.0f, 0.5f, 1.0f );
@@ -1073,14 +1073,14 @@ void Game::SetupFactions()
 	// The Iriani rely on a mix of battlecruisers and battleships. They field few but very hard hitting ships.
 	FactionInfo infoIriani;
 	infoIriani.m_Name = "Iriani";
-	infoIriani.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.8f, 0.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.6f, 0.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 1.0f, 1.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Colour( 0.6f, 0.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.4f, 0.0f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.6f, 0.1f, 1.0f );
-	infoIriani.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.8f, 0.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.8f, 0.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.6f, 0.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::Secondary ]				= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 1.0f, 1.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::SecondaryFlagship ]		= Genesis::Color( 0.6f, 0.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.4f, 0.0f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.6f, 0.1f, 1.0f );
+	infoIriani.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.8f, 0.0f, 1.0f );
 	infoIriani.m_BaseFleetPoints = 1200;
 	infoIriani.m_SectorToShipyardRatio = 0.15f;
 	infoIriani.m_Doctrine = FleetDoctrine( FleetBehaviourType::Expansionist, 0.0f, 1.0f, 1.0f );
@@ -1098,14 +1098,14 @@ void Game::SetupFactions()
 	// Special faction for one-off events
 	FactionInfo infoSpecial;
 	infoSpecial.m_Name = "Special";
-	infoSpecial.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoSpecial.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.0f, 0.0f, 0.8f );
-	infoSpecial.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoSpecial.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.8f );
-	infoSpecial.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoSpecial.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.0f, 0.5f, 1.0f );
-	infoSpecial.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.0f, 0.5f, 1.0f );
-	infoSpecial.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.0f, 0.0f, 0.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.0f, 0.0f, 0.8f );
+	infoSpecial.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.8f );
+	infoSpecial.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.0f, 0.5f, 1.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.0f, 0.5f, 1.0f );
+	infoSpecial.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.0f, 0.0f, 0.0f );
 	infoSpecial.m_BaseFleetPoints = 1000;
 	infoSpecial.m_SectorToShipyardRatio = 0.0f;
 	infoSpecial.m_Doctrine = FleetDoctrine( FleetBehaviourType::Defensive, 1.0f, 1.0f, 1.0f );
@@ -1120,14 +1120,14 @@ void Game::SetupFactions()
 	// Hegemon field capital-heavy fleets
 	FactionInfo infoHegemon;
 	infoHegemon.m_Name = "Hegemon";
-	infoHegemon.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Colour( 0.0f, 1.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Colour( 0.0f, 1.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Colour( 0.0f, 0.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Colour( 0.00f, 1.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Colour( 0.00f, 1.0f, 0.0f );
-	infoHegemon.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Colour( 0.0f, 1.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::Base ]					= Genesis::Color( 0.0f, 1.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::Primary ]				= Genesis::Color( 0.0f, 1.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::Secondary ]			= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::PrimaryFlagship ]		= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::SecondaryFlagship ]	= Genesis::Color( 0.0f, 0.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::Glow ]					= Genesis::Color( 0.00f, 1.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::GlowFlagship ]			= Genesis::Color( 0.00f, 1.0f, 0.0f );
+	infoHegemon.m_Colours[ (int)FactionColourId::FleetChevron ]			= Genesis::Color( 0.0f, 1.0f, 0.0f );
 	infoHegemon.m_BaseFleetPoints = 1600;
 	infoHegemon.m_SectorToShipyardRatio = 0.1f;
 	infoHegemon.m_Doctrine = FleetDoctrine( FleetBehaviourType::Expansionist, 0.0f, 0.5f, 1.0f );

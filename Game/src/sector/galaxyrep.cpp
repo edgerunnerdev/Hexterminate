@@ -367,7 +367,7 @@ void GalaxyRep::UpdateDrawInfo()
 			}
 			else
 			{
-				drawInfo.colour = Genesis::Colour( 0.0f, 0.0f, 0.0f, 0.6f );
+				drawInfo.colour = Genesis::Color( 0.0f, 0.0f, 0.0f, 0.6f );
 			}
 
 			m_SectorDrawInfo.push_back( drawInfo );

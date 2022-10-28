@@ -124,11 +124,11 @@ void LoadGameWindow::CreateTable()
 		{
 			if ( pSaveGameHeader->IsAlive() )
 			{
-				pRow->SetColour( Genesis::Colour( 0.8f, 0.0f, 0.0f, 1.0f ) );
+				pRow->SetColour( Genesis::Color( 0.8f, 0.0f, 0.0f, 1.0f ) );
 			}
 			else
 			{
-				pRow->SetColour( Genesis::Colour( 0.6f, 0.0f, 0.0f, 0.6f ) );
+				pRow->SetColour( Genesis::Color( 0.6f, 0.0f, 0.0f, 0.6f ) );
 			}
 		}
 

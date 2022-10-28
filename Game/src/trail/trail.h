@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <colour.h>
+#include <color.h>
 #include "trail/trailpointdata.h"
 
 namespace Hexterminate
@@ -26,14 +26,14 @@ namespace Hexterminate
 class Trail
 {
 public:
-								Trail( float initialWidth, float decay, const Genesis::Colour& colour );
+								Trail( float initialWidth, float decay, const Genesis::Color& colour );
 								~Trail() {};
 
 	void						AddPoint( const glm::vec3& position );
 	const TrailPointDataList&	GetData() const;
 	float						GetInitialWidth() const;
 	void						SetInitialWidth( float value );
-	const Genesis::Colour&		GetColour() const;
+	const Genesis::Color&		GetColour() const;
 	void						Update( float delta );	
 	void						SetOrphan();
 	bool						IsOrphan() const;
@@ -43,7 +43,7 @@ private:
 	TrailPointDataList			m_Data;
 	float						m_InitialWidth;
 	float						m_Decay;
-	Genesis::Colour				m_Colour;
+	Genesis::Color				m_Colour;
 	bool						m_IsOrphan;
 	int							m_ActivePoints;
 };
@@ -63,7 +63,7 @@ inline void Trail::SetInitialWidth( float value )
 	m_InitialWidth = value;
 }
 
-inline const Genesis::Colour& Trail::GetColour() const
+inline const Genesis::Color& Trail::GetColour() const
 {
 	return m_Colour;
 }

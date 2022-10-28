@@ -71,7 +71,7 @@ m_ShowProgress( false )
 	m_pButtonJump = new ButtonHyperspaceJump( this );
 	m_pButtonJump->SetPosition( centreX - 128.0f - 4.0f, 32.0f );
 	m_pButtonJump->SetSize( 128.0f, 32.0f );
-	m_pButtonJump->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 0.05f ) );
+	m_pButtonJump->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 	m_pButtonJump->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
 	m_pButtonJump->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
 	m_pButtonJump->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );
@@ -82,7 +82,7 @@ m_ShowProgress( false )
 	m_pButtonCancel = new ButtonHyperspaceCancel( this );
 	m_pButtonCancel->SetPosition( centreX + 4.0f, 32.0f );
 	m_pButtonCancel->SetSize( 128.0f, 32.0f );
-	m_pButtonCancel->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 0.05f ) );
+	m_pButtonCancel->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 	m_pButtonCancel->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
 	m_pButtonCancel->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
 	m_pButtonCancel->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );

@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-#include <colour.h>
+#include <color.h>
 
 #include "menus/eva.h"
 
@@ -51,8 +51,8 @@ public:
 	const std::string&		Get( unsigned int pos ) const;
 	void					SetUserData( void* pUserData );
 	void*					GetUserData() const;
-	void					SetColour( const Genesis::Colour& colour );
-	const Genesis::Colour&  GetColour() const;
+	void					SetColour( const Genesis::Color& colour );
+	const Genesis::Color&  GetColour() const;
 	void					SetFont( Genesis::ResourceFont* pFont );
 	Genesis::ResourceFont*	GetFont() const;
 
@@ -64,7 +64,7 @@ public:
 private:
 	TableRowContents		m_Contents;
 	void*					m_pUserData;
-	Genesis::Colour			m_Colour;
+	Genesis::Color			m_Colour;
 	Genesis::ResourceFont*	m_pFont;
 };
 
@@ -98,12 +98,12 @@ inline const TableRowContents& TableRow::GetContents() const
 	return m_Contents;
 }
 
-inline void TableRow::SetColour( const Genesis::Colour& colour )
+inline void TableRow::SetColour( const Genesis::Color& colour )
 {
 	m_Colour = colour;
 }
 
-inline const Genesis::Colour& TableRow::GetColour() const
+inline const Genesis::Color& TableRow::GetColour() const
 {
 	return m_Colour;
 }

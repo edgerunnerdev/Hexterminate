@@ -42,7 +42,7 @@
 namespace Hexterminate
 {
 
-RequestGoalRep::RequestGoalRep( RequestGoal* pOwner, const Colour& colour ) :
+RequestGoalRep::RequestGoalRep( RequestGoal* pOwner, const Color& colour ) :
 m_pDescription( nullptr ),
 m_pBackground( nullptr ),
 m_pPointOfInterest( nullptr ),
@@ -67,7 +67,7 @@ m_pGoalTargetImage( nullptr )
 	m_pDescription = new Genesis::Gui::Text();
 	m_pDescription->SetSize( 256.0f, 16.0f );
 	m_pDescription->SetPosition( 2.0f, 2.0f );
-	m_pDescription->SetColour( Colour( 1.0f, 1.0f, 1.0f, 1.0f ) );
+	m_pDescription->SetColour( Color( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	m_pDescription->SetFont( EVA_FONT );
 	m_pDescription->SetText( "???" );
 	m_pDescription->SetMultiLine( false );
@@ -75,7 +75,7 @@ m_pGoalTargetImage( nullptr )
 
 	m_pPointOfInterest = new PointOfInterest();
 	m_pPointOfInterest->SetPosition( 0.0f, 0.0f );
-	m_pPointOfInterest->SetColour( Genesis::Colour( 0.0f, 0.6f, 0.6f, 0.6f ) );
+	m_pPointOfInterest->SetColour( Genesis::Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
 	pGuiManager->AddElement( m_pPointOfInterest );
 
 	Show( g_pGame->GetGalaxy()->GetRepresentation()->IsVisible() );

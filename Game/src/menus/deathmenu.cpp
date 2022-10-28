@@ -60,7 +60,7 @@ m_pRespawnSector( nullptr )
 
 	m_pButtonExit = new ButtonDeathExit( this );
 	m_pButtonExit->SetSize( 128.0f, 32.0f );
-	m_pButtonExit->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 0.05f ) );
+	m_pButtonExit->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 	m_pButtonExit->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
 	m_pButtonExit->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
 	m_pButtonExit->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );
@@ -71,7 +71,7 @@ m_pRespawnSector( nullptr )
 	m_pButtonRespawn = new ButtonDeathRespawn( this );
 	m_pButtonRespawn->SetPosition( centreX + 4.0f, 32.0f );
 	m_pButtonRespawn->SetSize( 128.0f, 32.0f );
-	m_pButtonRespawn->SetColour( Genesis::Colour( 1.0f, 1.0f, 1.0f, 0.05f ) );
+	m_pButtonRespawn->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 	m_pButtonRespawn->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
 	m_pButtonRespawn->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
 	m_pButtonRespawn->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );

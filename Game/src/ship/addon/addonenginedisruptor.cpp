@@ -142,7 +142,7 @@ void AddonEngineDisruptor::UpdateLaser( float delta )
 				disruptorLaser.m_Laser = Laser(
 					m_pModule->GetWorldPosition(),
 					glm::vec3( disruptorLaser.m_Target.x, disruptorLaser.m_Target.y, 0.0f ),
-					Genesis::Colour( 0.55f, 0.89f, 1.0f ),
+					Genesis::Color( 0.55f, 0.89f, 1.0f ),
 					laserWidth );
 
 				pLaserManager->AddLaser( disruptorLaser.m_Laser );

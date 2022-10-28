@@ -66,7 +66,7 @@ void Meter::SetValue( int value )
 	}
 }
 
-void Meter::SetPipColour( const Genesis::Colour& colour )
+void Meter::SetPipColour( const Genesis::Color& colour )
 {
     m_PipColour = colour;
 
@@ -78,7 +78,7 @@ void Meter::SetPipColour( const Genesis::Colour& colour )
 
 void Meter::SetPipColour( float r, float g, float b, float a )
 {
-    SetPipColour( Genesis::Colour( r, g, b, a ) );
+    SetPipColour( Genesis::Color( r, g, b, a ) );
 }
 
 }

@@ -81,7 +81,7 @@ void InfiniteWarRequest::AddHomeworldGoal( FactionId factionId )
 	{
 		std::stringstream ss;
 		ss << "Conquer homeworld (" << ToString( factionId ) << ")";
-		RequestGoalSharedPtr pGoal = std::make_shared< RequestGoal >( pHomeworld, ss.str(), Genesis::Colour( 0.0f, 0.0f, 0.6f, 0.6f ) );
+		RequestGoalSharedPtr pGoal = std::make_shared< RequestGoal >( pHomeworld, ss.str(), Genesis::Color( 0.0f, 0.0f, 0.6f, 0.6f ) );
 		AddGoal( pGoal );
 	}
 }

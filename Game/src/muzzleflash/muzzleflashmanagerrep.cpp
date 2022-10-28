@@ -149,7 +149,7 @@ void MuzzleflashManagerRep::PushBackUVs( Genesis::UVData& uvData )
     }
 }
 
-void MuzzleflashManagerRep::PushBackColours( Genesis::ColourData& colourData, const Genesis::Colour& colour )
+void MuzzleflashManagerRep::PushBackColours( Genesis::ColourData& colourData, const Genesis::Color& colour )
 {
 	using namespace Genesis;
 	const float r = colour.r;

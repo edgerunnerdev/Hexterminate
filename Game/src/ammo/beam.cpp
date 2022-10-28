@@ -133,7 +133,7 @@ void Beam::Render()
     const mat4 modelMatrix = translation * rotation;
 
 	const float opacity = GetOpacity();
-	const Genesis::Colour& beamColour = m_pOwner->GetInfo()->GetBeamColour();
+	const Genesis::Color& beamColour = m_pOwner->GetInfo()->GetBeamColour();
 
     RenderBeam( modelMatrix, beamColour, opacity );
 	RenderBeamFlare( modelMatrix, beamColour, opacity );
@@ -141,7 +141,7 @@ void Beam::Render()
     FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
 }
 
-void Beam::RenderBeam( const glm::mat4& modelMatrix, const Genesis::Colour& beamColour, float opacity )
+void Beam::RenderBeam( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity )
 {
     using namespace Genesis;
 
@@ -183,7 +183,7 @@ void Beam::RenderBeam( const glm::mat4& modelMatrix, const Genesis::Colour& beam
     m_pBeamVertexBuffer->Draw();
 }
 
-void Beam::RenderBeamFlare( const glm::mat4& modelMatrix, const Genesis::Colour& beamColour, float opacity )
+void Beam::RenderBeamFlare( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity )
 {
     const float w = m_pOwner->GetInfo()->GetBeamWidth() * 1.5f;
     m_pFlareVertexBuffer->CreateTexturedQuad( -w, w, w * 2.0f, -w, beamColour.glm() );
