@@ -107,19 +107,20 @@ Shipyard::~Shipyard()
 void Shipyard::LoadSFX()
 {
 	using namespace Genesis;
+	using namespace std::literals;
 
 	m_pAssemblySFX = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/shipyard_assembly.wav" );
 	if ( m_pAssemblySFX != nullptr )
 	{
 		m_pAssemblySFX->Initialise( SOUND_FLAG_FX );
-		m_pAssemblySFX->SetInstancingLimit( 0.1f );
+		m_pAssemblySFX->SetInstancingLimit( 100ms );
 	}
 
 	m_pDisassemblySFX = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/shipyard_disassembly.wav" );
 	if ( m_pDisassemblySFX != nullptr )
 	{
 		m_pDisassemblySFX->Initialise( SOUND_FLAG_FX );
-		m_pDisassemblySFX->SetInstancingLimit( 0.1f );
+		m_pDisassemblySFX->SetInstancingLimit( 100ms );
 	}
 }
 

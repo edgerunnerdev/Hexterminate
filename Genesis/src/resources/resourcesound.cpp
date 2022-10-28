@@ -27,8 +27,10 @@ namespace Genesis
 ResourceSound::ResourceSound( const Filename& filename )
     : ResourceGeneric( filename )
     , m_Flags( 0 )
-    , m_InstancingLimit( 0.0f )
 {
+    using namespace std::literals;
+    m_InstancingLimit = 0ms;
+    m_LastInstancedAt = std::chrono::system_clock::now();
 }
 
 ResourceSound::~ResourceSound()
@@ -54,6 +56,7 @@ bool ResourceSound::Initialise( int flags /* = 0 */ )
 
 ResourceSound* ResourceSound::LoadAs3D( const std::string& filename )
 {
+    using namespace std::literals;
     ResourceSound* pResource = nullptr;
     if ( filename.empty() == false )
     {
@@ -62,7 +65,7 @@ ResourceSound* ResourceSound::LoadAs3D( const std::string& filename )
         {
             int flags = SOUND_FLAG_3D | SOUND_FLAG_FX;
             pResource->Initialise( flags );
-            pResource->SetInstancingLimit( 0.1f );
+            pResource->SetInstancingLimit( 100ms );
         }
     }
 

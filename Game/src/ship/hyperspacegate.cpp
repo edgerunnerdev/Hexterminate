@@ -112,12 +112,13 @@ void HyperspaceGate::CalculateBoundingBox()
 void HyperspaceGate::LoadSFX()
 {
 	using namespace Genesis;
+	using namespace std::literals;
 
 	m_pSFX = FrameWork::GetResourceManager()->GetResource<ResourceSound*>( "data/sfx/hyperspace.wav" );
 	if ( m_pSFX != nullptr )
 	{
 		m_pSFX->Initialise( SOUND_FLAG_3D | SOUND_FLAG_FX );
-		m_pSFX->SetInstancingLimit( 0.1f );
+		m_pSFX->SetInstancingLimit( 100ms );
 	}
 }
 

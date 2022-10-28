@@ -186,12 +186,13 @@ QuantumState AddonQuantumStateAlternator::GetQuantumState() const
 void AddonQuantumStateAlternator::LoadSFX()
 {
 	using namespace Genesis;
+	using namespace std::literals;
 
 	m_pSFX = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/alternator.wav" );
 	if ( m_pSFX != nullptr )
 	{
 		m_pSFX->Initialise( SOUND_FLAG_3D | SOUND_FLAG_FX );
-		m_pSFX->SetInstancingLimit( 0.25f );
+		m_pSFX->SetInstancingLimit( 250ms );
 	}
 }
 

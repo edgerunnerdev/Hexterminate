@@ -311,6 +311,7 @@ void Module::OnDamageEffect()
 void Module::LoadDeathSFX()
 {
 	using namespace Genesis;
+	using namespace std::literals;
 
 	std::stringstream ss;
 	ss << "data/sfx/large_explosion_" << ( (rand() % 4) + 1 ) << ".wav";
@@ -319,7 +320,7 @@ void Module::LoadDeathSFX()
 	if ( m_pDeathSFX != nullptr )
 	{
 		m_pDeathSFX->Initialise( SOUND_FLAG_3D | SOUND_FLAG_FX );
-		m_pDeathSFX->SetInstancingLimit( 0.1f );
+		m_pDeathSFX->SetInstancingLimit( 100ms );
 	}
 }
 

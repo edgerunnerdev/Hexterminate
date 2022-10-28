@@ -73,7 +73,15 @@ void SoundManager::Update( float delta )
 
 SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound )
 {
-    return pResourceSound->IsStreamed() ? WavStreamCreateSoundInstance(pResourceSound) : WavCreateSoundInstance(pResourceSound);
+    if ( pResourceSound->CanInstance() == false )
+    {
+        return nullptr;
+    }
+    else
+    {
+        pResourceSound->SetInstancingTimePoint();
+        return pResourceSound->IsStreamed() ? WavStreamCreateSoundInstance( pResourceSound ) : WavCreateSoundInstance( pResourceSound );
+    }
 }
 
 SoundInstanceSharedPtr SoundManager::WavCreateSoundInstance( ResourceSound* pResourceSound )

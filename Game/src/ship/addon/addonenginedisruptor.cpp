@@ -64,12 +64,13 @@ m_TimeToNextShot( 0.0f )
 void AddonEngineDisruptor::LoadSFX()
 {
 	using namespace Genesis;
+	using namespace std::literals;
 
 	m_pSFX = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/engine_disruptor.wav" );
 	if ( m_pSFX != nullptr )
 	{
 		m_pSFX->Initialise( SOUND_FLAG_3D | SOUND_FLAG_FX );
-		m_pSFX->SetInstancingLimit( 0.1f );
+		m_pSFX->SetInstancingLimit( 100ms );
 	}
 }
 

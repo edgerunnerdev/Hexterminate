@@ -38,11 +38,12 @@ namespace Gui
 
     ResourceSound* LoadSFX( const std::string& filename )
     {
+        using namespace std::literals;
         ResourceSound* pSFX = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( filename );
         if ( pSFX != nullptr )
         {
             pSFX->Initialise( SOUND_FLAG_FX );
-            pSFX->SetInstancingLimit( 0.1f );
+            pSFX->SetInstancingLimit( 100ms );
             return pSFX;
         }
         else

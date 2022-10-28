@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <chrono>
 #include <string>
 
 #include "../resourcemanager.h"
@@ -48,14 +49,17 @@ public:
     bool IsLooping() const;
     bool Is3D() const;
 
-    void SetInstancingLimit( float time );
-    float GetInstancingLimit() const;
+    void SetInstancingLimit( const std::chrono::milliseconds& value );
+    const std::chrono::milliseconds& GetInstancingLimit() const;
+    bool CanInstance() const;
+    void SetInstancingTimePoint();
 
     static ResourceSound* LoadAs3D( const std::string& filename );
 
 private:
     unsigned int m_Flags;
-    float m_InstancingLimit;
+    std::chrono::milliseconds m_InstancingLimit;
+    std::chrono::time_point<std::chrono::system_clock> m_LastInstancedAt;
 };
 
 inline bool ResourceSound::IsEffect() const
@@ -88,14 +92,24 @@ inline bool ResourceSound::Is3D() const
     return ( m_Flags & SOUND_FLAG_3D ) != 0;
 }
 
-inline void ResourceSound::SetInstancingLimit( float value )
+inline void ResourceSound::SetInstancingLimit( const std::chrono::milliseconds& value )
 {
     m_InstancingLimit = value;
 }
 
-inline float ResourceSound::GetInstancingLimit() const
+inline const std::chrono::milliseconds& ResourceSound::GetInstancingLimit() const
 {
     return m_InstancingLimit;
+}
+
+inline bool ResourceSound::CanInstance() const
+{
+    return std::chrono::system_clock::now() >= ( m_LastInstancedAt + m_InstancingLimit );
+}
+
+inline void ResourceSound::SetInstancingTimePoint()
+{
+    m_LastInstancedAt = std::chrono::system_clock::now();
 }
 
 inline ResourceType ResourceSound::GetType() const
