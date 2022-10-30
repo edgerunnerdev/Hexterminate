@@ -42,4 +42,10 @@ Run `git clone --recurse-submodules https://github.com/edgerunnerdev/Hyperscape.
 You'll need *clang* and *cmake*
 
 You'll need to install the following packages:
-sudo apt install clang cmake libsdl2-dev libsdl2-image-dev libbullet-dev libglew-dev libvpx-dev libsdl2-mixer-dev
+sudo apt install clang cmake
+
+```
+cd vcpkg 
+./bootstrap-vcpkg.sh 
+./vcpkg integrate install 
+```
