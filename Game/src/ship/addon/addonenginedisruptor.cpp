@@ -211,7 +211,7 @@ void AddonEngineDisruptor::PlaySFX()
 	{
 		using namespace Genesis;
 
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX );
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::SFX );
 		if ( pSoundInstance != nullptr )
 		{
 			const glm::vec3& worldTranslation = m_pModule->GetWorldPosition();

@@ -330,7 +330,7 @@ void Module::PlayDeathSFX()
 	{
 		using namespace Genesis;
 
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pDeathSFX );
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pDeathSFX, Genesis::Sound::SoundBus::SFX );
 		if ( pSoundInstance != nullptr )
 		{
 			const glm::vec3& worldTranslation = GetWorldPosition();

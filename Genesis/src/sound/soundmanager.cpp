@@ -51,9 +51,9 @@ TaskStatus SoundManager::Update( float delta )
     return TaskStatus::Continue;
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus )
 {
-    return m_pImpl->CreateSoundInstance( pResourceSound );
+    return m_pImpl->CreateSoundInstance( pResourceSound, bus );
 }
 
 void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle /* = false */ )

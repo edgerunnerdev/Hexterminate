@@ -24,9 +24,8 @@
 
 namespace SoLoud
 {
+class AudioSource;
 class Soloud;
-class Wav;
-class WavStream;
 } // namespace SoLoud
 
 namespace Genesis::Sound::Private::SoLoud
@@ -39,7 +38,7 @@ public:
     virtual ~SoundManager() override;
 
     virtual void Update( float delta ) override;
-    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound ) override;
+    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus ) override;
     virtual void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle ) override;
     virtual ResourcePlaylist* GetPlaylist() const override;
     virtual SoundInstanceSharedPtr GetCurrentTrack() const override;
@@ -51,8 +50,6 @@ public:
     virtual unsigned int GetVirtualSoundCount() const override;
 
 private:
-    SoundInstanceSharedPtr WavCreateSoundInstance( ResourceSound* pResourceSound );
-    SoundInstanceSharedPtr WavStreamCreateSoundInstance( ResourceSound* pResourceSound );
     void UpdatePlaylist();
 
     std::unique_ptr<::SoLoud::Soloud> m_pSoloud;
@@ -63,8 +60,7 @@ private:
     SoundInstanceSharedPtr m_pCurrentTrack;
     bool m_PlaylistShuffle;
 
-    std::unordered_map<std::string, std::shared_ptr<::SoLoud::Wav>> m_AudioSources;
-    std::unordered_map<std::string, std::shared_ptr<::SoLoud::WavStream>> m_StreamedAudioSources;
+    std::unordered_map<std::string, std::shared_ptr<::SoLoud::AudioSource>> m_AudioSources;
 };
 
 } // namespace Genesis::Sound::Private::SoLoud

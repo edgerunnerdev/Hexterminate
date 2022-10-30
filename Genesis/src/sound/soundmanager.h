@@ -45,6 +45,12 @@ using SoundInstanceList = std::list<SoundInstanceSharedPtr>;
 using ResourceSoundVector = std::vector<ResourceSound*>;
 class Window;
 
+enum class SoundBus
+{
+    SFX,
+    Music
+};
+
 class SoundManager : public Task
 {
 public:
@@ -53,7 +59,7 @@ public:
 
     TaskStatus Update( float delta );
 
-    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound );
+    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus );
 
     void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle = false );
     ResourcePlaylist* GetPlaylist() const;

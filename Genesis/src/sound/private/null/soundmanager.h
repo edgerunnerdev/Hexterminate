@@ -29,7 +29,7 @@ public:
     virtual ~SoundManager() override;
 
     virtual void Update( float delta ) override;
-    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound ) override;
+    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus ) override;
     virtual void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle ) override;
     virtual ResourcePlaylist* GetPlaylist() const override;
     virtual SoundInstanceSharedPtr GetCurrentTrack() const override;

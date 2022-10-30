@@ -71,7 +71,7 @@ void SoundManager::Update( float delta )
     }
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus )
 {
     if ( pResourceSound->CanInstance() == false )
     {
@@ -79,73 +79,52 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
     }
     else
     {
-        pResourceSound->SetInstancingTimePoint();
-        return pResourceSound->IsStreamed() ? WavStreamCreateSoundInstance( pResourceSound ) : WavCreateSoundInstance( pResourceSound );
-    }
-}
-
-SoundInstanceSharedPtr SoundManager::WavCreateSoundInstance( ResourceSound* pResourceSound )
-{
-    std::shared_ptr<::SoLoud::Wav> pAudioSource = nullptr;
-    auto audioSourceIt = m_AudioSources.find( pResourceSound->GetFilename().GetFullPath() );
-    if ( audioSourceIt == m_AudioSources.end() )
-    {
-        pAudioSource = std::make_shared<::SoLoud::Wav>();
-        int result = pAudioSource->load( pResourceSound->GetFilename().GetFullPath().c_str() );
-        if ( result == ::SoLoud::SO_NO_ERROR )
+        ::SoLoud::AudioSource* pAudioSourceRaw = nullptr;
+        auto audioSourceIt = m_AudioSources.find( pResourceSound->GetFilename().GetFullPath() );
+        if ( audioSourceIt == m_AudioSources.end() )
         {
-            // The attenuation model has to be explicitly set, as the default is not to attenuate over distance.
-            if (pResourceSound->Is3D())
+            int result = ::SoLoud::UNKNOWN_ERROR;
+            std::shared_ptr<::SoLoud::AudioSource> pAudioSource;
+            if ( pResourceSound->IsStreamed() )
             {
-                pAudioSource->set3dAttenuation(::SoLoud::AudioSource::INVERSE_DISTANCE, 1.0f);
+                pAudioSource = std::make_shared<::SoLoud::WavStream>();
+                pAudioSourceRaw = pAudioSource.get();
+                result = reinterpret_cast<::SoLoud::WavStream*>(pAudioSourceRaw)->load( pResourceSound->GetFilename().GetFullPath().c_str() );
             }
+            else
+            {
+                pAudioSource = std::make_shared<::SoLoud::Wav>();
+                pAudioSourceRaw = pAudioSource.get();
+                result = reinterpret_cast<::SoLoud::Wav*>(pAudioSourceRaw)->load( pResourceSound->GetFilename().GetFullPath().c_str() );
+            }
+        
+            if ( result == ::SoLoud::SO_NO_ERROR )
+            {
+                // The attenuation model has to be explicitly set, as the default is not to attenuate over distance.
+                if (pResourceSound->Is3D())
+                {
+                    pAudioSource->set3dAttenuation(::SoLoud::AudioSource::INVERSE_DISTANCE, 1.0f);
+                }
 
-            m_AudioSources[ pResourceSound->GetFilename().GetFullPath().c_str() ] = pAudioSource;
+                m_AudioSources[ pResourceSound->GetFilename().GetFullPath().c_str() ] = pAudioSource;
+            }
+            else
+            {
+                Genesis::FrameWork::GetLogger()->LogError( "SoundManager::CreateSoundInstance ('%s'): %s", pResourceSound->GetFilename().GetFullPath().c_str(), m_pSoloud->getErrorString( result ) );
+                return nullptr;
+            }
         }
         else
         {
-            Genesis::FrameWork::GetLogger()->LogError( "SoundManager::WavCreateSoundInstance ('%s'): %s", pResourceSound->GetFilename().GetFullPath().c_str(), m_pSoloud->getErrorString( result ) );
-            return nullptr;
+            pAudioSourceRaw = audioSourceIt->second.get();
         }
-    }
-    else
-    {
-        pAudioSource = audioSourceIt->second;
-    }
 
-    SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
-    pInstance->Initialise( pResourceSound, pAudioSource.get() );
-    m_SoundInstances.push_back(pInstance);
-    return pInstance;
-}
-
-SoundInstanceSharedPtr SoundManager::WavStreamCreateSoundInstance( ResourceSound* pResourceSound )
-{
-    std::shared_ptr<::SoLoud::WavStream> pAudioSource = nullptr;
-    auto audioSourceIt = m_StreamedAudioSources.find( pResourceSound->GetFilename().GetFullPath() );
-    if ( audioSourceIt == m_StreamedAudioSources.end() )
-    {
-        pAudioSource = std::make_shared<::SoLoud::WavStream>();
-        int result = pAudioSource->load( pResourceSound->GetFilename().GetFullPath().c_str() );
-        if ( result == ::SoLoud::SO_NO_ERROR )
-        {
-            m_StreamedAudioSources[ pResourceSound->GetFilename().GetFullPath().c_str() ] = pAudioSource;
-        }
-        else
-        {
-            Genesis::FrameWork::GetLogger()->LogError( "SoundManager::WavStreamCreateSoundInstance ('%s'): %s", pResourceSound->GetFilename().GetFullPath().c_str(), m_pSoloud->getErrorString( result ) );
-            return nullptr;
-        }
+        SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
+        pInstance->Initialise( pResourceSound, pAudioSourceRaw );
+        m_SoundInstances.push_back(pInstance);
+        pResourceSound->SetInstancingTimePoint();
+        return pInstance;
     }
-    else
-    {
-        pAudioSource = audioSourceIt->second;
-    }
-
-    SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
-    pInstance->Initialise( pResourceSound, pAudioSource.get() );
-    m_SoundInstances.push_back(pInstance);
-    return pInstance;
 }
 
 void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle )
@@ -221,7 +200,7 @@ void SoundManager::UpdatePlaylist()
             ResourceSound* pNextTrackResource = pPlaylist->GetNextTrack( m_PlaylistShuffle );
             if ( pNextTrackResource )
             {
-                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource );
+                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource, SoundBus::Music );
             }
         }
     }
