@@ -356,7 +356,7 @@ void Ship::Initialise()
 
 	Genesis::ResourceSound* pEngineSoundResource = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/engine.mp3" );
 	pEngineSoundResource->Initialise( SOUND_FLAG_FX | SOUND_FLAG_LOOPING | SOUND_FLAG_3D );
-	m_pEngineSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::SFX );
+	m_pEngineSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX );
 	if ( m_pEngineSound != nullptr )
 	{
 		m_pEngineSound->SetMinimumDistance( 50.0f );
@@ -1714,7 +1714,7 @@ void Ship::RammingSpeed()
 
 		Genesis::ResourceSound* pEngineSoundResource = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/ramming_speed.wav" );
 		pEngineSoundResource->Initialise( SOUND_FLAG_FX | SOUND_FLAG_3D );
-		m_pRammingSpeedSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::SFX );
+		m_pRammingSpeedSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX );
 		if ( m_pRammingSpeedSound != nullptr )
 		{
 			m_pRammingSpeedSound->SetMinimumDistance( 300.0f );

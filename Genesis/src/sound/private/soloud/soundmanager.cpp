@@ -71,7 +71,7 @@ void SoundManager::Update( float delta )
     }
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
 {
     if ( pResourceSound->CanInstance() == false )
     {
@@ -200,7 +200,7 @@ void SoundManager::UpdatePlaylist()
             ResourceSound* pNextTrackResource = pPlaylist->GetNextTrack( m_PlaylistShuffle );
             if ( pNextTrackResource )
             {
-                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource, SoundBus::Music );
+                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource, SoundBus::Type::Music );
             }
         }
     }

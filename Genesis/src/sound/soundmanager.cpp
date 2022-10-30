@@ -22,6 +22,7 @@
 #include "sound/private/null/soundmanager.h"
 #include "sound/private/soloud/soundmanager.h"
 #include "sound/private/soundinstanceimpl.h"
+#include "sound/soundbus.h"
 #include "sound/soundinstance.h"
 #include "sound/window.h"
 
@@ -36,12 +37,17 @@ SoundManager::SoundManager()
     m_pImpl = std::make_unique<Private::Null::SoundManager>();
 #endif
 
+    for ( size_t i = 0; i < static_cast<size_t>( SoundBus::Type::Count ); ++i )
+    {
+        m_Buses[ i ] = std::make_shared<SoundBus>( static_cast<SoundBus::Type>( i ) );
+    }
+
     m_pDebugWindow = std::make_unique<Window>(this);
 }
 
 SoundManager::~SoundManager()
 {
-
+    // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
 }
 
 TaskStatus SoundManager::Update( float delta )
@@ -51,7 +57,7 @@ TaskStatus SoundManager::Update( float delta )
     return TaskStatus::Continue;
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
 {
     return m_pImpl->CreateSoundInstance( pResourceSound, bus );
 }

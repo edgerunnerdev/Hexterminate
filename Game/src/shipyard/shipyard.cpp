@@ -128,7 +128,7 @@ void Shipyard::PlaySFX( Genesis::ResourceSound* pSFX )
 {
 	if ( pSFX != nullptr )
 	{
-		Genesis::FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::SFX );
+		Genesis::FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX );
 	}
 }
 

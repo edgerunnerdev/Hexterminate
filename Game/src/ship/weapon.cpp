@@ -280,7 +280,7 @@ Genesis::Sound::SoundInstanceSharedPtr Weapon::PlayFireSFX()
 	ResourceSound* pSFX = GetInfo()->GetOnFireSFX();
 	if ( pSFX != nullptr )
 	{
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::SFX );
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX );
 		if ( pSoundInstance != nullptr )
 		{
 			const glm::vec3 position( glm::column( m_WorldTransform, 3 ) );

@@ -202,7 +202,7 @@ void AddonQuantumStateAlternator::PlaySFX()
 	{
 		using namespace Genesis;
 
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::SFX );
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::Type::SFX );
 		if ( pSoundInstance != nullptr )
 		{
 			const glm::vec3& worldTranslation = m_pModule->GetWorldPosition();

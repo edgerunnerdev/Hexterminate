@@ -57,7 +57,7 @@ namespace Gui
     {
         if ( pSFX != nullptr )
         {
-            FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::SFX );
+            FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX );
         }
     }
 

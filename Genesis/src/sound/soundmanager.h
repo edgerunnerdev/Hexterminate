@@ -17,12 +17,14 @@
 
 #pragma once
 
+#include <array>
 #include <list>
 #include <memory>
 #include <vector>
 
 #include <glm/vec3.hpp>
 
+#include "sound/soundbus.h"
 #include "taskmanager.h"
 
 namespace Genesis
@@ -45,12 +47,6 @@ using SoundInstanceList = std::list<SoundInstanceSharedPtr>;
 using ResourceSoundVector = std::vector<ResourceSound*>;
 class Window;
 
-enum class SoundBus
-{
-    SFX,
-    Music
-};
-
 class SoundManager : public Task
 {
 public:
@@ -59,7 +55,7 @@ public:
 
     TaskStatus Update( float delta );
 
-    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus bus );
+    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus );
 
     void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle = false );
     ResourcePlaylist* GetPlaylist() const;
@@ -77,6 +73,7 @@ public:
 private:
     std::unique_ptr<Private::SoundManagerImpl> m_pImpl;
     std::unique_ptr<Window> m_pDebugWindow;
+    std::array<SoundBusSharedPtr, static_cast<size_t>(SoundBus::Type::Count)> m_Buses;
 };
 
 } // namespace Sound

@@ -40,7 +40,7 @@ SoundInstance::SoundInstance()
     
 SoundInstance::~SoundInstance()
 {
-
+    // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
 }
 
 void SoundInstance::Initialise( ResourceSound* pResourceSound, void* pData )
