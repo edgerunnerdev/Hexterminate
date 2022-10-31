@@ -71,7 +71,7 @@ void SoundManager::Update( float delta )
     }
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBusSharedPtr pBus )
 {
     if ( pResourceSound->CanInstance() == false )
     {
@@ -120,7 +120,7 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
         }
 
         SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
-        pInstance->Initialise( pResourceSound, pAudioSourceRaw );
+        pInstance->Initialise( pResourceSound, pBus, pAudioSourceRaw );
         m_SoundInstances.push_back(pInstance);
         pResourceSound->SetInstancingTimePoint();
         return pInstance;
@@ -200,7 +200,7 @@ void SoundManager::UpdatePlaylist()
             ResourceSound* pNextTrackResource = pPlaylist->GetNextTrack( m_PlaylistShuffle );
             if ( pNextTrackResource )
             {
-                m_pCurrentTrack = CreateSoundInstance( pNextTrackResource, SoundBus::Type::Music );
+                m_pCurrentTrack = FrameWork::GetSoundManager()->CreateSoundInstance( pNextTrackResource, SoundBus::Type::Music );
             }
         }
     }

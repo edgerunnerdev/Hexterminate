@@ -35,7 +35,7 @@ void SoundManager::Update( float delta )
 
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBusSharedPtr pBus )
 {
     return nullptr;
 }

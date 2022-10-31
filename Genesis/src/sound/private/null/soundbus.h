@@ -27,6 +27,9 @@ class SoundBus : public SoundBusImpl
 public:
     SoundBus();
     virtual ~SoundBus() override;
+
+protected:
+    virtual void* GetNativeBus() const override;
 };
 
 } // namespace Genesis::Sound::Private::Null

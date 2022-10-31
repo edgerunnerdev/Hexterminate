@@ -19,6 +19,8 @@
 
 #include <glm/vec3.hpp>
 
+#include "sound/soundbus.h"
+
 namespace Genesis
 {
     class ResourceSound;
@@ -31,7 +33,7 @@ class SoundInstanceImpl
 {
 public:
     virtual ~SoundInstanceImpl() {}
-    virtual void Initialise( ResourceSound* pResourceSound, void* pData ) = 0;
+    virtual void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData ) = 0;
     virtual bool IsPlaying() const = 0;
     virtual bool IsPaused( ) const = 0;
     virtual void Stop() = 0;

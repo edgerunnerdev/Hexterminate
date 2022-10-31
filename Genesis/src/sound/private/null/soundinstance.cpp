@@ -30,7 +30,7 @@ SoundInstance::~SoundInstance()
     
 }
 
-void SoundInstance::Initialise( ResourceSound* pResourceSound, void* pData )
+void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData )
 {
 
 }

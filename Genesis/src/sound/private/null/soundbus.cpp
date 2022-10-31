@@ -30,4 +30,9 @@ SoundBus::~SoundBus()
 
 }
 
+void* SoundBus::GetNativeBus() const
+{
+	return nullptr;
+}
+
 } // namespace Genesis::Sound::Private::Null

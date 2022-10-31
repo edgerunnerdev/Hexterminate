@@ -35,6 +35,9 @@ public:
     SoundBus();
     virtual ~SoundBus() override;
 
+protected:
+    virtual void* GetNativeBus() const override;
+
 private:
     std::unique_ptr<::SoLoud::Bus> m_pBus;
     unsigned int m_Handle;

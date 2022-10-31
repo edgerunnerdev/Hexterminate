@@ -31,10 +31,13 @@ namespace Private
 }
 
 GENESIS_DECLARE_SMART_PTR( SoundBus );
+GENESIS_DECLARE_SMART_PTR( SoundInstance );
 
 class SoundBus
 {
 public:
+    friend class SoundInstance;
+
     enum class Type
     {
         SFX,
@@ -45,10 +48,12 @@ public:
 
     SoundBus(Type type);
     virtual ~SoundBus();
+    virtual void* GetNativeBus() const;
     
     Type GetType() const;
 
 private:
+
     Private::SoundBusImplUniquePtr m_pImpl;
     Type m_Type;
 };

@@ -40,4 +40,9 @@ SoundBus::~SoundBus()
 
 }
 
+void* SoundBus::GetNativeBus() const
+{
+	return m_pBus.get();
+}
+
 } // namespace Genesis::Sound::Private::SoLoud

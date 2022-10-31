@@ -24,6 +24,7 @@
 #include <glm/vec3.hpp>
 #include "endexternalheaders.h"
 
+#include "sound/soundbus.h"
 #include "taskmanager.h"
 
 namespace Genesis
@@ -46,7 +47,7 @@ public:
     SoundInstance();
     ~SoundInstance();
 
-    void Initialise( ResourceSound* pResourceSound, void* pData );
+    void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData );
     bool IsPlaying() const;
     bool IsPaused() const;
     void Stop();

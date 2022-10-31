@@ -28,7 +28,12 @@ namespace Sound::Private
 class SoundBusImpl
 {
 public:
+    friend class Genesis::Sound::SoundBus;
+
     virtual ~SoundBusImpl() {}
+
+protected:
+    virtual void* GetNativeBus() const = 0;
 };
 
 } // namespace Sound::Private

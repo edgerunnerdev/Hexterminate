@@ -43,9 +43,9 @@ SoundInstance::~SoundInstance()
     // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
 }
 
-void SoundInstance::Initialise( ResourceSound* pResourceSound, void* pData )
+void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData )
 {
-    m_pImpl->Initialise( pResourceSound, pData );
+    m_pImpl->Initialise( pResourceSound, pSoundBus, pData );
 }
 
 bool SoundInstance::IsPlaying() const

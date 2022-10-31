@@ -42,18 +42,19 @@ SoundInstance::~SoundInstance()
     
 }
 
-void SoundInstance::Initialise( ResourceSound* pResourceSound, void* pData )
+void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData )
 {
     m_pResourceSound = pResourceSound;
     ::SoLoud::AudioSource* pAudioSource = reinterpret_cast<::SoLoud::AudioSource*>( pData );
+    ::SoLoud::Bus* pBus = reinterpret_cast<::SoLoud::Bus*>( pSoundBus->GetNativeBus() );
     if (pResourceSound->Is3D())
     {
         // For 3D sounds, delay playing them until Set3DAttributes() has been called.
-        m_Handle = g_pSoloud->play3d( *pAudioSource, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, true );
+        m_Handle = pBus->play3d( *pAudioSource, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, true );
     }
     else
     {
-        m_Handle = g_pSoloud->play( *pAudioSource );
+        m_Handle = pBus->play( *pAudioSource );
     }
 
     if (pResourceSound->IsLooping())

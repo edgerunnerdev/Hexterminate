@@ -38,4 +38,9 @@ SoundBus::~SoundBus()
     // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
 }
 
+void* SoundBus::GetNativeBus() const
+{
+    return m_pImpl->GetNativeBus();
+}
+
 } // namespace Genesis::Sound

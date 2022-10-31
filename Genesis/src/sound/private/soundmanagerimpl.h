@@ -30,7 +30,7 @@ class SoundManagerImpl
 public:
     virtual ~SoundManagerImpl() {}
     virtual void Update( float delta ) = 0;
-    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus ) = 0;
+    virtual SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBusSharedPtr pBus ) = 0;
     virtual void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle ) = 0;
     virtual ResourcePlaylist* GetPlaylist() const = 0;
     virtual SoundInstanceSharedPtr GetCurrentTrack() const = 0;
