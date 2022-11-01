@@ -17,30 +17,37 @@
 
 #include "sound/soundbus.h"
 
-#include "sound/private/null/soundbus.h"
-#include "sound/private/soloud/soundbus.h"
+// clang-format off
+#include "beginexternalheaders.h"
+#include <SDL.h>
+#include <soloud.h>
+#include <soloud_bus.h>
+#include "endexternalheaders.h"
+// clang-format on
 
 namespace Genesis::Sound
 {
 
+extern std::unique_ptr<SoLoud::Soloud> g_pSoloud;
+
 SoundBus::SoundBus( Type type )
-    : m_Type( type )
+    : m_Volume( 1.0f )
+    , m_Type( type )
 {
-#if defined SOUND_USE_SOLOUD
-    m_pImpl = std::make_unique<Private::SoLoud::SoundBus>();
-#else
-    m_pImpl = std::make_unique<Private::Null::SoundManager>();
-#endif
+    m_pBus = std::make_unique<SoLoud::Bus>();
+    m_Handle = g_pSoloud->play( *m_pBus );
 }
 
 SoundBus::~SoundBus()
 {
-    // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
+    g_pSoloud->stop( m_Handle );
 }
 
-void* SoundBus::GetNativeBus() const
+void SoundBus::SetVolume( float value )
 {
-    return m_pImpl->GetNativeBus();
+    SDL_assert( value >= 0.0f && value <= 1.0f );
+    m_pBus->setVolume( value );
+    m_Volume = value;
 }
 
 } // namespace Genesis::Sound

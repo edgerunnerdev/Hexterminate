@@ -20,12 +20,19 @@
 #include <array>
 #include <list>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 #include <glm/vec3.hpp>
 
 #include "sound/soundbus.h"
 #include "taskmanager.h"
+
+namespace SoLoud
+{
+class AudioSource;
+class Soloud;
+} // namespace SoLoud
 
 namespace Genesis
 {
@@ -35,11 +42,6 @@ class ResourceSound;
 
 namespace Sound
 {
-
-namespace Private
-{
-class SoundManagerImpl;
-}
 
 class SoundInstance;
 using SoundInstanceSharedPtr = std::shared_ptr<SoundInstance>;
@@ -71,9 +73,19 @@ public:
     unsigned int GetVirtualSoundCount() const;
 
 private:
-    std::unique_ptr<Private::SoundManagerImpl> m_pImpl;
+    void UpdatePlaylist();
+    void UpdateVolumes();
+
+    bool m_Initialized;
+    glm::vec3 m_ListenerPosition;
+    SoundInstanceList m_SoundInstances;
+    ResourcePlaylist* m_pPlaylist;
+    SoundInstanceSharedPtr m_pCurrentTrack;
+    bool m_PlaylistShuffle;
+
     std::unique_ptr<Window> m_pDebugWindow;
     std::array<SoundBusSharedPtr, static_cast<size_t>(SoundBus::Type::Count)> m_Buses;
+    std::unordered_map<std::string, std::shared_ptr<::SoLoud::AudioSource>> m_AudioSources;
 };
 
 } // namespace Sound

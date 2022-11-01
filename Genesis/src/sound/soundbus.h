@@ -21,14 +21,13 @@
 
 #include "coredefines.h"
 
+namespace SoLoud
+{
+class Bus;
+} // namespace SoLoud
+
 namespace Genesis::Sound
 {
-
-namespace Private
-{
-    class SoundBusImpl;
-    using SoundBusImplUniquePtr = std::unique_ptr<SoundBusImpl>;
-}
 
 GENESIS_DECLARE_SMART_PTR( SoundBus );
 GENESIS_DECLARE_SMART_PTR( SoundInstance );
@@ -47,16 +46,23 @@ public:
     };
 
     SoundBus(Type type);
-    virtual ~SoundBus();
-    virtual void* GetNativeBus() const;
+    ~SoundBus();
+    float GetVolume() const;
+    void SetVolume( float value );
     
     Type GetType() const;
 
 private:
-
-    Private::SoundBusImplUniquePtr m_pImpl;
+    std::unique_ptr<::SoLoud::Bus> m_pBus;
+    unsigned int m_Handle;
     Type m_Type;
+    float m_Volume;
 };
+
+inline float SoundBus::GetVolume() const
+{
+    return m_Volume;
+}
 
 inline SoundBus::Type SoundBus::GetType() const
 {

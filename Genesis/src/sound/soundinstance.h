@@ -35,19 +35,15 @@ namespace Genesis
 namespace Genesis::Sound
 {
 
-namespace Private
-{
-    class SoundInstanceImpl;
-    using SoundInstanceImplUniquePtr = std::unique_ptr<SoundInstanceImpl>;
-}
-
 class SoundInstance
 {
 public:
+    friend class SoundManager;
+
     SoundInstance();
     ~SoundInstance();
 
-    void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData );
+    void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData );
     bool IsPlaying() const;
     bool IsPaused() const;
     void Stop();
@@ -64,9 +60,30 @@ public:
     void Get3DAttributes( glm::vec3* pPosition = nullptr, glm::vec3* pVelocity = nullptr );
     void SetVolume( float value );
     float GetVolume() const;
+    SoundBusSharedPtr& GetSoundBus();
 
 private:
-    Private::SoundInstanceImplUniquePtr m_pImpl;
+    Genesis::ResourceSound* m_pResourceSound;
+    unsigned int m_Handle;
+    glm::vec3 m_Position;
+    glm::vec3 m_Velocity;
+    float m_Volume;
+    SoundBusSharedPtr m_pSoundBus;
 };
+
+inline float SoundInstance::GetVolume() const
+{
+    return m_Volume;
+}
+
+inline void SoundInstance::SetVolume( float value )
+{
+    m_Volume = value;
+}
+
+inline SoundBusSharedPtr& SoundInstance::GetSoundBus()
+{
+    return m_pSoundBus;
+}
 
 } // namespace Genesis

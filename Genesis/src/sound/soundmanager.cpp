@@ -17,25 +17,44 @@
 
 #include "sound/soundmanager.h"
 
+// clang-format off
+#include "beginexternalheaders.h"
+#include <soloud.h>
+#include <soloud_wav.h>
+#include <soloud_wavstream.h>
+#include "endexternalheaders.h"
+// clang-format on
+
+#include "resources/resourceplaylist.h"
 #include "resources/resourcesound.h"
-#include "sound/private/soundmanagerimpl.h"
-#include "sound/private/null/soundmanager.h"
-#include "sound/private/soloud/soundmanager.h"
-#include "sound/private/soundinstanceimpl.h"
 #include "sound/soundbus.h"
 #include "sound/soundinstance.h"
 #include "sound/window.h"
+#include "configuration.h"
+#include "genesis.h"
 
 namespace Genesis::Sound
 {
 
+std::unique_ptr<SoLoud::Soloud> g_pSoloud = nullptr;
+
 SoundManager::SoundManager()
+: m_Initialized( false )
+, m_ListenerPosition( 0.0f )
+, m_pPlaylist( nullptr )
+, m_PlaylistShuffle( false )
 {
-#if defined SOUND_USE_SOLOUD
-    m_pImpl = std::make_unique<Private::SoLoud::SoundManager>();
-#else
-    m_pImpl = std::make_unique<Private::Null::SoundManager>();
-#endif
+    g_pSoloud = std::make_unique<SoLoud::Soloud>();
+    int result = g_pSoloud->init();
+    if ( result == ::SoLoud::SO_NO_ERROR )
+    {
+        m_Initialized = true;
+        g_pSoloud->setMaxActiveVoiceCount( 64u );
+    }
+    else
+    {
+        Genesis::FrameWork::GetLogger()->LogError( "Failed to initialize SoLoud audio library: %s", g_pSoloud->getErrorString( result ) );
+    }
 
     for ( size_t i = 0; i < static_cast<size_t>( SoundBus::Type::Count ); ++i )
     {
@@ -47,64 +66,180 @@ SoundManager::SoundManager()
 
 SoundManager::~SoundManager()
 {
-    // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
+    if ( m_Initialized )
+    {
+        g_pSoloud->deinit();
+    }
 }
 
 TaskStatus SoundManager::Update( float delta )
 {
-    m_pImpl->Update( delta );
+
+    if ( m_Initialized )
+    {
+        g_pSoloud->update3dAudio();
+        m_SoundInstances.remove_if( []( const SoundInstanceSharedPtr& pInstance ) { return !pInstance->IsValid(); } );
+        UpdatePlaylist();
+        UpdateVolumes();
+    }
+
     m_pDebugWindow->Update(delta);
     return TaskStatus::Continue;
 }
 
 SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
 {
-    return m_pImpl->CreateSoundInstance( pResourceSound, m_Buses[ static_cast<size_t>( bus ) ] );
+    if ( pResourceSound->CanInstance() == false )
+    {
+        return nullptr;
+    }
+    else
+    {
+        ::SoLoud::AudioSource* pAudioSourceRaw = nullptr;
+        auto audioSourceIt = m_AudioSources.find( pResourceSound->GetFilename().GetFullPath() );
+        if ( audioSourceIt == m_AudioSources.end() )
+        {
+            int result = SoLoud::UNKNOWN_ERROR;
+            std::shared_ptr<SoLoud::AudioSource> pAudioSource;
+            if ( pResourceSound->IsStreamed() )
+            {
+                pAudioSource = std::make_shared<::SoLoud::WavStream>();
+                pAudioSourceRaw = pAudioSource.get();
+                result = reinterpret_cast<::SoLoud::WavStream*>( pAudioSourceRaw )->load( pResourceSound->GetFilename().GetFullPath().c_str() );
+            }
+            else
+            {
+                pAudioSource = std::make_shared<::SoLoud::Wav>();
+                pAudioSourceRaw = pAudioSource.get();
+                result = reinterpret_cast<::SoLoud::Wav*>( pAudioSourceRaw )->load( pResourceSound->GetFilename().GetFullPath().c_str() );
+            }
+
+            if ( result == SoLoud::SO_NO_ERROR )
+            {
+                // The attenuation model has to be explicitly set, as the default is not to attenuate over distance.
+                if ( pResourceSound->Is3D() )
+                {
+                    pAudioSource->set3dAttenuation( SoLoud::AudioSource::INVERSE_DISTANCE, 1.0f );
+                }
+
+                m_AudioSources[ pResourceSound->GetFilename().GetFullPath().c_str() ] = pAudioSource;
+            }
+            else
+            {
+                Genesis::FrameWork::GetLogger()->LogError( "SoundManager::CreateSoundInstance ('%s'): %s", pResourceSound->GetFilename().GetFullPath().c_str(), g_pSoloud->getErrorString( result ) );
+                return nullptr;
+            }
+        }
+        else
+        {
+            pAudioSourceRaw = audioSourceIt->second.get();
+        }
+
+        SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
+        SoundBusSharedPtr pSoundBus = m_Buses[ static_cast<size_t>( bus ) ];
+        pInstance->Initialise( pResourceSound, pSoundBus, pAudioSourceRaw );
+        m_SoundInstances.push_back( pInstance );
+        pResourceSound->SetInstancingTimePoint();
+        return pInstance;
+    }
 }
 
-void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle /* = false */ )
+void SoundManager::SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle )
 {
-    m_pImpl->SetPlaylist( pResourcePlaylist, shuffle );
+    if ( pResourcePlaylist == m_pPlaylist )
+    {
+        return;
+    }
+
+    // If we're changing playlists, stop the previous one.
+    // There's no need to start playing the first track here, that will be handled in the next Update().
+    m_pPlaylist = pResourcePlaylist;
+    m_PlaylistShuffle = shuffle;
+
+    if ( m_pCurrentTrack != nullptr && m_pCurrentTrack->IsValid() )
+    {
+        m_pCurrentTrack->Stop();
+        m_pCurrentTrack = nullptr;
+    }
 }
 
 ResourcePlaylist* SoundManager::GetPlaylist() const
 {
-    return m_pImpl->GetPlaylist();
+    return m_pPlaylist;
 }
 
 SoundInstanceSharedPtr SoundManager::GetCurrentTrack() const
 {
-    return m_pImpl->GetCurrentTrack();
+    return m_pCurrentTrack;
 }
 
 const SoundInstanceList& SoundManager::GetSoundInstances() const
 {
-    return m_pImpl->GetSoundInstances();
+    return m_SoundInstances;
 }
 
 void SoundManager::SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up )
-{  
-    m_pImpl->SetListener( position, velocity, forward, up );
+{
+    g_pSoloud->set3dListenerPosition( position.x, position.y, position.z );
+    g_pSoloud->set3dListenerVelocity( velocity.x, velocity.y, velocity.z );
+    g_pSoloud->set3dListenerAt( forward.x, forward.y, forward.z );
+    g_pSoloud->set3dListenerUp( up.x, up.y, up.z );
+    m_ListenerPosition = position;
 }
 
 glm::vec3 SoundManager::GetListenerPosition() const
 {
-    return m_pImpl->GetListenerPosition();
+    return m_ListenerPosition;
 }
 
 unsigned int SoundManager::GetActiveSoundCount() const
 {
-    return m_pImpl->GetActiveSoundCount();
+    return g_pSoloud->getActiveVoiceCount();
 }
 
 unsigned int SoundManager::GetMaximumSoundCount() const
 {
-    return m_pImpl->GetMaximumSoundCount();
+    return g_pSoloud->getMaxActiveVoiceCount();
 }
 
 unsigned int SoundManager::GetVirtualSoundCount() const
 {
-    return m_pImpl->GetVirtualSoundCount();
+    return g_pSoloud->getVoiceCount();
+}
+
+void SoundManager::UpdatePlaylist()
+{
+    ResourcePlaylist* pPlaylist = GetPlaylist();
+    if ( pPlaylist )
+    {
+        if ( m_pCurrentTrack == nullptr || m_pCurrentTrack->IsValid() == false )
+        {
+            ResourceSound* pNextTrackResource = pPlaylist->GetNextTrack( m_PlaylistShuffle );
+            if ( pNextTrackResource )
+            {
+                m_pCurrentTrack = FrameWork::GetSoundManager()->CreateSoundInstance( pNextTrackResource, SoundBus::Type::Music );
+            }
+        }
+    }
+}
+
+void SoundManager::UpdateVolumes()
+{
+    const float sfxVolume = static_cast<float>( Configuration::GetSFXVolume() / 100.0f );
+    SDL_assert( sfxVolume >= 0.0f && sfxVolume <= 1.0f );
+    m_Buses[ static_cast<size_t>( SoundBus::Type::SFX ) ]->SetVolume( sfxVolume );
+
+    const float musicVolume = static_cast<float>( Configuration::GetMusicVolume() / 100.0f );
+    SDL_assert( musicVolume >= 0.0f && musicVolume <= 1.0f );
+    m_Buses[ static_cast<size_t>( SoundBus::Type::Music ) ]->SetVolume( musicVolume );
+
+    const float masterVolume = static_cast<float>( Configuration::GetMasterVolume() / 100.0f );
+
+    for ( auto& pSoundInstance : m_SoundInstances )
+    {
+        float volume = pSoundInstance->GetVolume() * pSoundInstance->GetSoundBus()->GetVolume() * masterVolume;
+        g_pSoloud->setVolume( pSoundInstance->m_Handle, volume );
+    }
 }
 
 } // namespace Genesis::Sound

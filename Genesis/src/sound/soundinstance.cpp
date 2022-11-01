@@ -15,102 +15,135 @@
 // You should have received a copy of the GNU General Public License
 // along with Genesis. If not, see <http://www.gnu.org/licenses/>.
 
+#include "sound/soundinstance.h"
+
 #include <list>
 #include <memory>
 
-#if SOUND_USE_SOLOUD
-#include "sound/private/soloud/soundinstance.h"
-#else
-#include "sound/private/null/soundinstance.h"
-#endif
+// clang-format off
+#include "beginexternalheaders.h"
+#include <soloud.h>
+#include <soloud_wav.h>
+#include <soloud_wavstream.h>
+#include "endexternalheaders.h"
+// clang-format on
 
-#include "sound/soundinstance.h"
+#include "resources/resourcesound.h"
+#include "configuration.h"
+#include "genesis.h"
 
 namespace Genesis::Sound
 {
 
+extern std::unique_ptr<SoLoud::Soloud> g_pSoloud;
+
 SoundInstance::SoundInstance()
+    : m_pResourceSound( nullptr )
+    , m_Handle( 0 )
+    , m_Position( 0.0f )
+    , m_Velocity( 0.0f )
+    , m_Volume( 1.0f )
 {
-#if SOUND_USE_SOLOUD
-    m_pImpl = std::make_unique<Private::SoLoud::SoundInstance>();
-#else
-    m_pImpl = std::make_unique<Private::Null::SoundInstance>();
-#endif
-}
-    
-SoundInstance::~SoundInstance()
-{
-    // Don't move empty destructor to header, needed for m_pImpl to be deleted correctly.
 }
 
-void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr pSoundBus, void* pData )
+SoundInstance::~SoundInstance()
 {
-    m_pImpl->Initialise( pResourceSound, pSoundBus, pData );
+}
+
+void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData )
+{
+    m_pResourceSound = pResourceSound;
+    m_pSoundBus = pSoundBus;
+    SoLoud::AudioSource* pAudioSource = reinterpret_cast<::SoLoud::AudioSource*>( pData );
+    SoLoud::Bus* pSoLoudBus = pSoundBus->m_pBus.get();
+    const float volume = m_Volume * pSoundBus->GetVolume() * ( static_cast<float>( Configuration::GetMasterVolume() ) / 100.0f );
+    if ( pResourceSound->Is3D() )
+    {
+        // For 3D sounds, delay playing them until Set3DAttributes() has been called.
+        m_Handle = pSoLoudBus->play3d( *pAudioSource, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, volume, true );
+    }
+    else
+    {
+        m_Handle = pSoLoudBus->play( *pAudioSource, volume );
+    }
+
+    if ( pResourceSound->IsLooping() )
+    {
+        g_pSoloud->setLooping( m_Handle, true );
+    }
 }
 
 bool SoundInstance::IsPlaying() const
 {
-    return m_pImpl->IsPlaying();
+    return g_pSoloud->isValidVoiceHandle( m_Handle ) && !g_pSoloud->getPause( m_Handle );
 }
 
 bool SoundInstance::IsPaused() const
 {
-    return m_pImpl->IsPaused();
+    return g_pSoloud->getPause( m_Handle );
 }
 
 void SoundInstance::Stop()
 {
-    m_pImpl->Stop();
+    g_pSoloud->stop( m_Handle );
 }
 
 bool SoundInstance::IsValid() const
 {
-    return m_pImpl->IsValid();
+    return g_pSoloud->isValidVoiceHandle( m_Handle );
 }
 
 unsigned int SoundInstance::GetLength() const
 {
-    return m_pImpl->GetLength();
+    return 0u;
 }
 
 unsigned int SoundInstance::GetPosition() const
 {
-    return m_pImpl->GetPosition();
+    return 0u;
 }
 
 float SoundInstance::GetAudability() const
 {
-    return m_pImpl->GetAudability();
+    return 0.0f;
 }
 
 ResourceSound* SoundInstance::GetResource() const
 {
-    return m_pImpl->GetResource();
+    return m_pResourceSound;
 }
 
 void SoundInstance::SetMinimumDistance( float value )
 {
-    m_pImpl->SetMinimumDistance( value );
+    g_pSoloud->set3dSourceMinMaxDistance( m_Handle, value, 10000.0f );
 }
 
-void SoundInstance::Set3DAttributes( const glm::vec3* pPosition /* = nullptr */, const glm::vec3* pVelocity /* = nullptr */ )
+void SoundInstance::Set3DAttributes( const glm::vec3* pPosition, const glm::vec3* pVelocity )
 {
-    m_pImpl->Set3DAttributes( pPosition, pVelocity );
-}
-    
-void SoundInstance::Get3DAttributes( glm::vec3* pPosition /* = nullptr */, glm::vec3* pVelocity /* = nullptr */ )
-{
-    m_pImpl->Get3DAttributes( pPosition, pVelocity );
-}
-    
-void SoundInstance::SetVolume( float value )
-{
-    m_pImpl->SetVolume( value );
+    if ( pPosition != nullptr )
+    {
+        g_pSoloud->set3dSourcePosition( m_Handle, pPosition->x, pPosition->y, pPosition->z );
+    }
+
+    if ( pVelocity != nullptr )
+    {
+        g_pSoloud->set3dSourceVelocity( m_Handle, pVelocity->x, pVelocity->y, pVelocity->z );
+    }
+
+    g_pSoloud->setPause( m_Handle, false );
 }
 
-float SoundInstance::GetVolume() const
+void SoundInstance::Get3DAttributes( glm::vec3* pPosition, glm::vec3* pVelocity )
 {
-    return m_pImpl->GetVolume();
+    if ( pPosition != nullptr )
+    {
+        *pPosition = m_Position;
+    }
+
+    if ( pVelocity != nullptr )
+    {
+        *pVelocity = m_Velocity;
+    }
 }
 
 } // namespace Genesis::Sound
