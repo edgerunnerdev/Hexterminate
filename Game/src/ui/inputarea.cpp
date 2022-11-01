@@ -86,7 +86,10 @@ void InputArea::RenderProperties()
 {
     Element::RenderProperties();
 
-	ImGui::InputText( "Default text", &m_DefaultText );
+	if ( ImGui::CollapsingHeader( "Input Area", ImGuiTreeNodeFlags_DefaultOpen ) )
+    {
+		ImGui::InputText( "Default text", &m_DefaultText );
+	}
 }
 
 } // namespace Hexterminate::UI

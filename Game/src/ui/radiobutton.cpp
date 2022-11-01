@@ -102,16 +102,19 @@ void RadioButton::RenderProperties()
 {
     Element::RenderProperties();
 
-    bool isChecked = m_pRadioButton->IsChecked();
-    if ( ImGui::Checkbox( "Checked", &isChecked ) )
+    if ( ImGui::CollapsingHeader( "Radio Button", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-        m_pRadioButton->SetChecked( isChecked );
-    }
+        bool isChecked = m_pRadioButton->IsChecked();
+        if ( ImGui::Checkbox( "Checked", &isChecked ) )
+        {
+            m_pRadioButton->SetChecked( isChecked );
+        }
 
-    bool isEnabled = m_pRadioButton->IsEnabled();
-    if ( ImGui::Checkbox( "Enabled", &isEnabled ) )
-    {
-        m_pRadioButton->Enable( isEnabled );
+        bool isEnabled = m_pRadioButton->IsEnabled();
+        if ( ImGui::Checkbox( "Enabled", &isEnabled ) )
+        {
+            m_pRadioButton->Enable( isEnabled );
+        }
     }
 }
 

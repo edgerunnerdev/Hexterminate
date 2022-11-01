@@ -74,9 +74,12 @@ void Meter::RenderProperties()
 {
     Element::RenderProperties();
 
-	if ( ImGui::SliderInt( "Pips", &m_Pips, 0, static_cast<int>( m_Panels.size() ) ) )
-	{
-		UpdatePips();
+	if ( ImGui::CollapsingHeader( "Meter", ImGuiTreeNodeFlags_DefaultOpen ) )
+    {
+		if ( ImGui::SliderInt( "Pips", &m_Pips, 0, static_cast<int>( m_Panels.size() ) ) )
+		{
+			UpdatePips();
+		}
 	}
 }
 

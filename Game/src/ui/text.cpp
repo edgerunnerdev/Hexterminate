@@ -122,41 +122,44 @@ void Text::RenderProperties()
 {
     Element::RenderProperties();
 
-    if ( ImGui::BeginListBox( "Font" ) )
+    if ( ImGui::CollapsingHeader( "Text", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-        for ( auto& pFont : Fonts::Get() )
+        if ( ImGui::BeginListBox( "Font" ) )
         {
-            bool isSelected = ( pFont == m_pText->GetFont() );
-            if ( ImGui::Selectable( pFont->GetFilename().GetName().c_str(), &isSelected ) )
+            for ( auto& pFont : Fonts::Get() )
             {
-                m_pText->SetFont( pFont );
+                bool isSelected = ( pFont == m_pText->GetFont() );
+                if ( ImGui::Selectable( pFont->GetFilename().GetName().c_str(), &isSelected ) )
+                {
+                    m_pText->SetFont( pFont );
+                }
             }
+            ImGui::EndListBox();
         }
-        ImGui::EndListBox();
-    }
 
-    if ( ImGui::Checkbox( "Multiline", &m_Multiline ) )
-    {
-        m_pText->SetMultiLine( m_Multiline );
-    }
+        if ( ImGui::Checkbox( "Multiline", &m_Multiline ) )
+        {
+            m_pText->SetMultiLine( m_Multiline );
+        }
 
-    if ( m_Multiline )
-    {
-        ImGui::InputTextMultiline( "Text", &m_Label, ImVec2( 0, ImGui::GetTextLineHeight() * 8 ) );
-    }
-    else
-    {
-        ImGui::InputText( "Text", &m_Label );
-    }
-    m_pText->SetText( m_Label );
+        if ( m_Multiline )
+        {
+            ImGui::InputTextMultiline( "Text", &m_Label, ImVec2( 0, ImGui::GetTextLineHeight() * 8 ) );
+        }
+        else
+        {
+            ImGui::InputText( "Text", &m_Label );
+        }
+        m_pText->SetText( m_Label );
 
-    float lineSpacing = m_pText->GetLineSpacing();
-    ImGui::InputFloat( "Line spacing", &lineSpacing );
-    m_pText->SetLineSpacing( lineSpacing );
+        float lineSpacing = m_pText->GetLineSpacing();
+        ImGui::InputFloat( "Line spacing", &lineSpacing );
+        m_pText->SetLineSpacing( lineSpacing );
 
-    if ( ImGui::ColorEdit4( "Colour", m_Colour.data() ) )
-    {
-        m_pText->SetColour( m_Colour[ 0 ], m_Colour[ 1 ], m_Colour[ 2 ], m_Colour[ 3 ] );
+        if ( ImGui::ColorEdit4( "Colour", m_Colour.data() ) )
+        {
+            m_pText->SetColour( m_Colour[ 0 ], m_Colour[ 1 ], m_Colour[ 2 ], m_Colour[ 3 ] );
+        }   
     }
 }
 

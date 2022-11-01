@@ -78,11 +78,14 @@ void Checkbox::RenderProperties()
 {
 	Element::RenderProperties();
 
-    bool isChecked = m_pCheckbox->IsPressed();
-	if ( ImGui::Checkbox( "Checked", &isChecked ) )
-	{
-		m_pCheckbox->SetPressed( isChecked );
-	}
+    if ( ImGui::CollapsingHeader( "Checkbox", ImGuiTreeNodeFlags_DefaultOpen ) )
+    {
+        bool isChecked = m_pCheckbox->IsPressed();
+	    if ( ImGui::Checkbox( "Checked", &isChecked ) )
+	    {
+		    m_pCheckbox->SetPressed( isChecked );
+	    }
+    }
 }
 
 void Checkbox::SetSize( int width, int height ) 

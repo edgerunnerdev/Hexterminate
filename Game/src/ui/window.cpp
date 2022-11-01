@@ -89,14 +89,17 @@ void Window::RenderProperties()
 {
 	Element::RenderProperties();
 
-	if (ImGui::Checkbox("Center H", &m_CenterHorizontally) && m_CenterHorizontally)
-	{
-		CenterWindowHorizontally();
-	}
+	if ( ImGui::CollapsingHeader( "Window", ImGuiTreeNodeFlags_DefaultOpen ) )
+    {
+		if (ImGui::Checkbox("Center H", &m_CenterHorizontally) && m_CenterHorizontally)
+		{
+			CenterWindowHorizontally();
+		}
 
-	if (ImGui::Checkbox("Center V", &m_CenterVertically) && m_CenterVertically)
-	{
-		CenterWindowVertically();
+		if (ImGui::Checkbox("Center V", &m_CenterVertically) && m_CenterVertically)
+		{
+			CenterWindowVertically();
+		}
 	}
 }
 

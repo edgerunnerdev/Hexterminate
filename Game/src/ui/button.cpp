@@ -225,17 +225,20 @@ void Button::RenderProperties()
 {
     Element::RenderProperties();
 
-    ImGui::InputText( "Default image", &m_DefaultPath );
-    ImGui::InputText( "Hovered image", &m_HoveredPath );
-    ImGui::InputText( "Pressed image", &m_PressedPath );
-    if ( ImGui::Button( "Reload images" ) )
+    if ( ImGui::CollapsingHeader( "Button", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-        LoadResources();
-    }
+        ImGui::InputText( "Default image", &m_DefaultPath );
+        ImGui::InputText( "Hovered image", &m_HoveredPath );
+        ImGui::InputText( "Pressed image", &m_PressedPath );
+        if ( ImGui::Button( "Reload images" ) )
+        {
+            LoadResources();
+        }
 
-    ImGui::InputText( "Label", &m_Label );
-    m_pText->SetText( m_Label );
-    CenterText();
+        ImGui::InputText( "Label", &m_Label );
+        m_pText->SetText( m_Label );
+        CenterText();
+    }
 }
 
 void Button::CenterText( bool horizontally /* = true */, bool vertically /* = true */ )

@@ -80,6 +80,8 @@ protected:
     void LoadFromDesign();
     void SaveInternal( json& data, bool saveProperties = true );
 
+    void InputIntExt( const char* label, int* v, bool isReadOnly = false );
+
 private:
     std::string m_Name;
     std::string m_Path;
@@ -87,11 +89,15 @@ private:
     ElementList m_Children;
 
     bool m_Highlighted;
-    bool m_FullWidth;
-    bool m_FullHeight;
     bool m_IsPopupElement;
     bool m_IsEditable;
     bool m_IsDynamic;
+    bool m_AnchorTop;
+    bool m_AnchorLeft;
+    bool m_AnchorBottom;
+    bool m_AnchorRight;
+    int m_PaddingRight;
+    int m_PaddingBottom;
 };
 
 inline bool Element::IsResizeable() const 

@@ -123,11 +123,14 @@ void Image::RenderProperties()
 {
     Element::RenderProperties();
 
-    ImGui::Checkbox( "Auto size", &m_AutoSize );
-    ImGui::InputText( "Image", &m_Path );
-    if ( ImGui::Button( "Reload images" ) )
+    if ( ImGui::CollapsingHeader( "Image", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-        LoadResources();
+        ImGui::Checkbox( "Auto size", &m_AutoSize );
+        ImGui::InputText( "Image", &m_Path );
+        if ( ImGui::Button( "Reload images" ) )
+        {
+            LoadResources();
+        }
     }
 }
 

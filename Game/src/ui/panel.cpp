@@ -62,12 +62,15 @@ void Panel::RenderProperties()
 {
     Element::RenderProperties();
 
-    ImGui::Text( "%s", "Border:" );
-    ImGui::Checkbox( "Left", &m_BorderLeft ); ImGui::SameLine();
-    ImGui::Checkbox( "Right", &m_BorderRight ); ImGui::SameLine();
-    ImGui::Checkbox( "Top", &m_BorderTop ); ImGui::SameLine();
-    ImGui::Checkbox( "Bottom", &m_BorderBottom );
-    ApplyBorder();
+    if ( ImGui::CollapsingHeader( "Panel", ImGuiTreeNodeFlags_DefaultOpen ) )
+    {
+        ImGui::Text( "%s", "Border:" );
+        ImGui::Checkbox( "Left", &m_BorderLeft ); ImGui::SameLine();
+        ImGui::Checkbox( "Right", &m_BorderRight ); ImGui::SameLine();
+        ImGui::Checkbox( "Top", &m_BorderTop ); ImGui::SameLine();
+        ImGui::Checkbox( "Bottom", &m_BorderBottom );
+        ApplyBorder();
+    }
 }
 
 void Panel::SetColour( float r, float g, float b, float a )
