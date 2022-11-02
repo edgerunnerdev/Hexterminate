@@ -19,7 +19,7 @@
 
 namespace Hexterminate
 {
-	static float		GalaxySize				= 1600.0f * 1.25f;
+	static const float	GalaxyMinSize			= 1600.0f * 1.25f;
 	static const float	GalaxyTimeCompression	= 4.0f;				// Galaxy ticks this much slower when the player is in combat
 	static const float	TurnDuration			= 30.0f;			// Length of a turn, in seconds
 	static const int	NumSectorsX				= 24;

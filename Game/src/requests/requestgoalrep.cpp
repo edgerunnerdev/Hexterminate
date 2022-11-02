@@ -108,7 +108,8 @@ void RequestGoalRep::Update( GalaxyRep* pGalaxyRep )
 {
 	Show( IsVisible() );
 
-	const float sectorSize = GalaxySize / NumSectorsX;
+	const glm::vec2& galaxySize = g_pGame->GetGalaxy()->GetRepresentation()->GetSize();
+	const float sectorSize = galaxySize.x / NumSectorsX;
 	const float halfSectorSize = sectorSize / 2.0f;
 
 	// Goals can be either on sectors or fleets
@@ -127,8 +128,8 @@ void RequestGoalRep::Update( GalaxyRep* pGalaxyRep )
 		{
 			const glm::vec2& fleetPos = pFleet->GetPosition();
 			const Math::FPoint2 offset = pGalaxyRep->GetOffset();
-			m_Position.x = fleetPos.x * GalaxySize + offset.x;
-			m_Position.y = fleetPos.y * GalaxySize + offset.y;
+			m_Position.x = fleetPos.x * GalaxyMinSize + offset.x;
+			m_Position.y = fleetPos.y * GalaxyMinSize + offset.y;
 		}
 	}
 

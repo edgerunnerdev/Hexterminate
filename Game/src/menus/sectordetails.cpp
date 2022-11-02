@@ -28,6 +28,8 @@
 #include "menus/pointofinterest.h"
 #include "requests/imperialrequest.h"
 #include "requests/requestmanager.h"
+#include "sector/galaxy.h"
+#include "sector/galaxyrep.h"
 #include "ship/inventory.h"
 #include "ship/moduleinfo.h"
 #include "ship/shipinfo.h"
@@ -120,8 +122,10 @@ SectorDetails::~SectorDetails()
 
 void SectorDetails::SetAnchor( float x, float y )
 {
-	const float sectorWidth = GalaxySize / NumSectorsX;
-	const float sectorHeight = GalaxySize / NumSectorsY;
+	const glm::vec2& galaxySize = g_pGame->GetGalaxy()->GetRepresentation()->GetSize();
+
+	const float sectorWidth = galaxySize.x / NumSectorsX;
+	const float sectorHeight = galaxySize.y / NumSectorsY;
 
 	bool horizontalFlip = false;
 	const float lineLength = sectorWidth * 1.25f - 8.0f;

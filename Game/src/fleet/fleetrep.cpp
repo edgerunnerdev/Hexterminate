@@ -154,10 +154,11 @@ void FleetRep::DrawChevron()
 	if ( g_pGame->IsPaused() == false && m_BlinkTimer > FleetBlinkDuration / 2.0f )
 		return;
 
+	GalaxyRep* pGalaxyRep = g_pGame->GetGalaxy()->GetRepresentation();
 	glm::vec2 fleetPos = m_pFleet->GetPosition();
-	glm::vec2 screenPos = fleetPos * GalaxySize;
+	glm::vec2 screenPos = fleetPos * pGalaxyRep->GetSize();
 
-	const Math::FPoint2 galaxyOffset = g_pGame->GetGalaxy()->GetRepresentation()->GetOffset();
+	const Math::FPoint2 galaxyOffset = pGalaxyRep->GetOffset();
 	screenPos.x += galaxyOffset.x;
 	screenPos.y += galaxyOffset.y;
 

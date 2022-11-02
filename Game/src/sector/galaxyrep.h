@@ -19,6 +19,12 @@
 
 #include <vector>
 
+// clang-format off
+#include <beginexternalheaders.h>
+#include <glm/vec2.hpp>
+#include <endexternalheaders.h>
+// clang-format on
+
 #include <color.h>
 #include <scene/layer.h>
 #include <scene/sceneobject.h>
@@ -102,6 +108,7 @@ public:
 	Math::FPoint2				GetOffset() const									{ return Math::FPoint2( m_OffsetX, m_OffsetY ); }
 
 	GalaxyWindow*				GetGalaxyWindow() const;
+	const glm::vec2& GetSize() const;
 
 private:
 	void						UpdateInput();
@@ -170,6 +177,13 @@ private:
 
 	bool						m_InputPending;
 	uint32_t					m_InputTimer;
+
+	glm::vec2 m_Size;
 };
+
+inline const glm::vec2& GalaxyRep::GetSize() const
+{
+	return m_Size;
+}
 
 }

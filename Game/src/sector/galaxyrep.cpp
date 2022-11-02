@@ -89,10 +89,8 @@ m_InputTimer( 0u )
 {
 	using namespace Genesis;
 
-	// Horrible, horrible hack to recalculate on the fly the maximum size of the Galaxy so we can 
-	// handle displays of arbitrary resolutions.
-	GalaxySize = std::max( GalaxySize, static_cast< float >( Configuration::GetScreenWidth() ) );
-	GalaxySize = std::max( GalaxySize, static_cast< float >( Configuration::GetScreenHeight() ) );
+	// The visual size of the galaxy is dependent on the screen resolution and on GalaxyMinSize, whichever is larger.
+	m_Size = glm::max( glm::vec2( GalaxyMinSize ), glm::max( static_cast<float>( Configuration::GetScreenWidth() ), static_cast<float>( Configuration::GetScreenHeight() ) ) );
 
 	ResourceManager* pRm = FrameWork::GetResourceManager();
 	ResourceImage* pBackgroundImage = static_cast< ResourceImage* >( pRm->GetResource( "data/backgrounds/galaxy.png" ) );
@@ -296,7 +294,7 @@ void GalaxyRep::UpdateInput()
 				if ( acceptsInput )
 				{
 					const glm::vec2& mousePos = Genesis::FrameWork::GetInputManager()->GetMousePosition();
-					pPlayerFleet->SetDestination( (mousePos.x - m_OffsetX) / GalaxySize, (mousePos.y - m_OffsetY) / GalaxySize );
+					pPlayerFleet->SetDestination( (mousePos.x - m_OffsetX) / m_Size.x, (mousePos.y - m_OffsetY) / m_Size.y );
 				}
 			}
 		}
@@ -416,8 +414,8 @@ void GalaxyRep::FocusOnPlayerFleet()
 			SDL_assert( pPlayerFleet != nullptr );
 
 			glm::vec2 screenSizeNormalised = glm::vec2(
-				(float)Genesis::Configuration::GetScreenWidth() / GalaxySize,
-				(float)Genesis::Configuration::GetScreenHeight() / GalaxySize
+				(float)Genesis::Configuration::GetScreenWidth() / m_Size.x,
+				(float)Genesis::Configuration::GetScreenHeight() / m_Size.y
 			);
 
 			glm::vec2 halfScreenSizeNormalised;
@@ -435,8 +433,8 @@ void GalaxyRep::FocusOnPlayerFleet()
 			if ( fleetPosition.y > ( 1.0f - halfScreenSizeNormalised.y ) )
 				m_OffsetY = -( 1.0f - screenSizeNormalised.y );
 
-			m_OffsetX *= GalaxySize;
-			m_OffsetY *= GalaxySize;
+			m_OffsetX *= m_Size.x;
+			m_OffsetY *= m_Size.y;
 		}
 	}
 }
@@ -466,8 +464,8 @@ void GalaxyRep::SetHoverSector()
 				m_pSectorDetails->SetSectorInfo( pCurrentSector );
 				int sectorX, sectorY;
 				pCurrentSector->GetCoordinates( sectorX, sectorY );
-				const float posX = (float)sectorX / (float)NumSectorsX * GalaxySize + m_OffsetX;
-				const float posY = (float)sectorY / (float)NumSectorsY * GalaxySize + m_OffsetY;
+				const float posX = (float)sectorX / (float)NumSectorsX * m_Size.x + m_OffsetX;
+				const float posY = (float)sectorY / (float)NumSectorsY * m_Size.y + m_OffsetY;
 				m_pSectorDetails->SetAnchor( floor(posX), floor(posY) );
 				m_pSectorDetails->Show( true );
 			}
@@ -518,7 +516,7 @@ void GalaxyRep::DrawBackground()
 {
 	using namespace Genesis;
 
-	m_pBackgroundVB->CreateTexturedQuad( m_OffsetX, m_OffsetY, GalaxySize, GalaxySize );
+	m_pBackgroundVB->CreateTexturedQuad( m_OffsetX, m_OffsetY, m_Size.x, m_Size.y );
 	m_pBackgroundShader->Use();
 	m_pBackgroundVB->Draw();
 }
@@ -532,7 +530,7 @@ void GalaxyRep::DrawHomeworldSectors()
 		return;
 	}
 
-	const float sectorSize = GalaxySize / NumSectorsX;
+	const float sectorSize = m_Size.x / NumSectorsX;
 
 	PositionData posData;
 	UVData uvData;
@@ -619,7 +617,7 @@ void GalaxyRep::DrawSectors( SectorDrawInfoVector& drawInfoVec, Genesis::Shader*
 	if ( m_Show == false || m_pGalaxy->IsInitialised() == false || drawInfoVec.empty() )
 		return;
 
-	const float sectorSize = GalaxySize / NumSectorsX;
+	const float sectorSize = m_Size.x / NumSectorsX;
 
 	PositionData posData;
 	UVData uvData;
@@ -674,7 +672,7 @@ void GalaxyRep::DrawGrid()
 		return;
 	}
 
-	const float sectorSize = GalaxySize / NumSectorsX;
+	const float sectorSize = m_Size.x / NumSectorsX;
 	const float crossHalfSize = 4.0f;
 
     PositionData posData;
