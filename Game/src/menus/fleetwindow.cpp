@@ -43,7 +43,7 @@ namespace Hexterminate
 /////////////////////////////////////////////////////////////////////
 
 FleetWindow::FleetWindow() : 
-UI::Window( "Fleet window" ),
+UI::Window( "Fleet window", true ),
 m_RequisitionTextInitialized( false )
 {
 	m_pFleetPanel = std::make_shared<UI::Panel>( "Fleet panel" );
@@ -138,6 +138,12 @@ void FleetWindow::Show( bool state )
 
 		RefreshFleetShips();
 		RefreshRequisitionShips();
+
+		g_pGame->Pause();
+	}
+	else
+	{
+		g_pGame->Unpause();
 	}
 }
 

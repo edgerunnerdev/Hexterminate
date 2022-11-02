@@ -64,7 +64,7 @@ public:
     void Add( ElementSharedPtr pElement );
     const ElementList& GetChildren() const;
     const std::string& GetName() const;
-    void Show( bool state );
+    virtual void Show( bool state );
 
     // This shouldn't be exposed, but it is necessary until all the 
     // Genesis::Gui elements have been ported to the new system.

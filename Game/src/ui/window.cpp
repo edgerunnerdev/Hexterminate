@@ -19,6 +19,7 @@
 #include <imgui/imgui.h>
 #include <configuration.h>
 
+#include "ui/button.h"
 #include "ui/panel.h"
 #include "ui/text.h"
 #include "ui/window.h"
@@ -30,7 +31,7 @@ static const char* sWindowPropertyCenterH = "center_h";
 static const char* sWindowPropertyCenterV = "center_v";
 static const int sTitleHeight = 32;
 
-Window::Window(const std::string& name) :
+Window::Window(const std::string& name, bool canBeClosed /* = false */) :
 	Element(name),
 	m_CenterHorizontally(false),
 	m_CenterVertically(false)
@@ -48,6 +49,12 @@ Window::Window(const std::string& name) :
 	m_pTitleText->SetColour(0.309f, 0.639f, 0.690f, 1.0f);
 	m_pTitleText->SetPosition(8, 6);
 	m_pTitlePanel->Add(m_pTitleText);
+
+	if (canBeClosed)
+	{
+		m_pCloseButton = std::make_shared<UI::Button>( "Close button", [this]( std::any userData ){ Show( false ); } );
+		m_pTitlePanel->Add( m_pCloseButton );	
+	}
 
 	m_pContentPanel = std::make_shared<Panel>("Content");
 	m_pContentPanel->SetBorders(false, false, true, true);

@@ -38,8 +38,7 @@ class FleetWindow : public UI::Window
 public:
 	FleetWindow();
 	virtual ~FleetWindow();
-
-	void Show(bool state);
+	virtual void Show(bool state) override;
 
 private:
 	void PopulateFleetShips();
