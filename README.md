@@ -3,9 +3,9 @@
 ## Table of contents
 
 - 1.0 [About](#10-about)
-    - 1.1 [Supported platforms](#11-supported-platforms]
-    - 1.2 [Hardware requirements](#12-hardware-requirements]
-    - 1.3 [Getting the game](#13-getting-the-game]
+    - 1.1 [Supported platforms](#11-supported-platforms)
+    - 1.2 [Hardware requirements](#12-hardware-requirements)
+    - 1.3 [Getting the game](#13-getting-the-game)
 
 ## 1.0) About
 
