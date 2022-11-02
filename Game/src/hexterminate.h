@@ -40,7 +40,7 @@
 #include "ship/ship.h"
 #include "blackboard.h"
 
-static const int HEXTERMINATE_BUILD = 19;
+static const std::string HEXTERMINATE_BUILD( "1.20.0" );
 
 namespace Genesis
 {

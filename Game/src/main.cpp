@@ -222,7 +222,9 @@ void Game::Initialise()
 	m_pConsole = new Console(); // Should happen early so all the warnings / log entries are visible
 #endif
 
-	Genesis::FrameWork::GetLogger()->LogInfo( "HEXTERMINATE build %d", HEXTERMINATE_BUILD );
+	std::stringstream build;
+	build << "HEXTERMINATE build" << HEXTERMINATE_BUILD;
+	Genesis::FrameWork::GetLogger()->LogInfo( "%s", build.str().c_str() );
 
 	m_pLoadingScreen = LoadingScreenUniquePtr( new LoadingScreen );
 	m_pBlackboard = std::make_shared<Blackboard>();
