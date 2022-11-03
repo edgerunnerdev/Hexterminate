@@ -20,6 +20,7 @@
 #include <array>
 #include <list>
 #include <memory>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -57,7 +58,7 @@ public:
 
     TaskStatus Update( float delta );
 
-    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus );
+    SoundInstanceSharedPtr CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus, std::optional<glm::vec3> position = std::nullopt, float minDistance = 0.0f, float maxDistance = 10000.0f );
 
     void SetPlaylist( ResourcePlaylist* pResourcePlaylist, bool shuffle = false );
     ResourcePlaylist* GetPlaylist() const;

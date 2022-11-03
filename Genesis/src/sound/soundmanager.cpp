@@ -87,9 +87,14 @@ TaskStatus SoundManager::Update( float delta )
     return TaskStatus::Continue;
 }
 
-SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus )
+SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus, std::optional<glm::vec3> position /* = std::nullopt */, float minDistance /* = 0.0f */, float maxDistance /* = 10000.0f */ )
 {
-    if ( pResourceSound->CanInstance() == false )
+    if ( pResourceSound->Is3D() && position.has_value() == false )
+    {
+        FrameWork::GetLogger()->LogWarning( "Attempting to play ResourceSound '%s' has a 3D sound with no position.", pResourceSound->GetFilename().GetFullPath().c_str() );
+        return nullptr;
+    }
+    else if ( pResourceSound->CanInstance() == false )
     {
         return nullptr;
     }
@@ -137,7 +142,7 @@ SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResour
 
         SoundInstanceSharedPtr pInstance = std::make_shared<SoundInstance>();
         SoundBusSharedPtr pSoundBus = m_Buses[ static_cast<size_t>( bus ) ];
-        pInstance->Initialise( pResourceSound, pSoundBus, pAudioSourceRaw );
+        pInstance->Initialise( pResourceSound, pSoundBus, pAudioSourceRaw, position, minDistance, maxDistance );
         m_SoundInstances.push_back( pInstance );
         pResourceSound->SetInstancingTimePoint();
         return pInstance;

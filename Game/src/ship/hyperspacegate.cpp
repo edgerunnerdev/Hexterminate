@@ -128,12 +128,7 @@ void HyperspaceGate::PlaySFX()
 	{
 		using namespace Genesis;
 
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::Type::SFX );
-		if ( pSoundInstance != nullptr )
-		{
-			pSoundInstance->Set3DAttributes( &m_GatePosition );
-			pSoundInstance->SetMinimumDistance( 1000.0f );
-		}
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::Type::SFX, m_GatePosition, 1000.0f );
 	}
 }
 

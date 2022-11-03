@@ -50,17 +50,34 @@ SoundInstance::~SoundInstance()
 {
 }
 
-void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData )
+void SoundInstance::Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData, std::optional<glm::vec3> position /* = std::nullopt */, float minDistance /* = 0.0f */, float maxDistance /* = 0.0f */ )
 {
     m_pResourceSound = pResourceSound;
     m_pSoundBus = pSoundBus;
+    m_MinDistance = minDistance;
+    m_MaxDistance = maxDistance;
     SoLoud::AudioSource* pAudioSource = reinterpret_cast<::SoLoud::AudioSource*>( pData );
+
+    // Set sound properties based on the type of sound we're playing.
+    if ( pSoundBus->GetType() == SoundBus::Type::SFX )
+    {
+        // A sound effect doesn't need to keep ticking in the background, but will be killed if it ends up in the inaudible list.
+        pAudioSource->setInaudibleBehavior( false, true );
+    }
+    else if ( pSoundBus->GetType() == SoundBus::Type::Music )
+    {
+        // Music must always tick in the background.
+        pAudioSource->setInaudibleBehavior( true, false );
+    }
+
     SoLoud::Bus* pSoLoudBus = pSoundBus->m_pBus.get();
     const float volume = m_Volume * pSoundBus->GetVolume() * ( static_cast<float>( Configuration::GetMasterVolume() ) / 100.0f );
     if ( pResourceSound->Is3D() )
     {
-        // For 3D sounds, delay playing them until Set3DAttributes() has been called.
-        m_Handle = pSoLoudBus->play3d( *pAudioSource, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, volume, true );
+        SDL_assert( position.has_value() ); // Shouldn't have really got here, this should have been caught by the SoundManager!
+        glm::vec3 pos = position.value_or( glm::vec3( 0.0f ) );
+        pAudioSource->set3dMinMaxDistance( minDistance, maxDistance );
+        m_Handle = pSoLoudBus->play3d( *pAudioSource, pos.x, pos.y, pos.z, 0.0f, 0.0f, 0.0f, volume );
     }
     else
     {
@@ -115,11 +132,14 @@ ResourceSound* SoundInstance::GetResource() const
 
 void SoundInstance::SetMinimumDistance( float value )
 {
-    g_pSoloud->set3dSourceMinMaxDistance( m_Handle, value, 10000.0f );
+    m_MinDistance = value;
+    g_pSoloud->set3dSourceMinMaxDistance( m_Handle, m_MinDistance, m_MaxDistance );
 }
 
 void SoundInstance::Set3DAttributes( const glm::vec3* pPosition, const glm::vec3* pVelocity )
 {
+    SDL_assert( GetResource()->Is3D() );
+
     if ( pPosition != nullptr )
     {
         g_pSoloud->set3dSourcePosition( m_Handle, pPosition->x, pPosition->y, pPosition->z );
@@ -129,8 +149,6 @@ void SoundInstance::Set3DAttributes( const glm::vec3* pPosition, const glm::vec3
     {
         g_pSoloud->set3dSourceVelocity( m_Handle, pVelocity->x, pVelocity->y, pVelocity->z );
     }
-
-    g_pSoloud->setPause( m_Handle, false );
 }
 
 void SoundInstance::Get3DAttributes( glm::vec3* pPosition, glm::vec3* pVelocity )

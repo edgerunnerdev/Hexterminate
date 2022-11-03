@@ -45,7 +45,7 @@ public:
         Count
     };
 
-    SoundBus(Type type);
+    SoundBus( Type type );
     ~SoundBus();
     float GetVolume() const;
     void SetVolume( float value );

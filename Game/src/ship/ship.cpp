@@ -356,14 +356,8 @@ void Ship::Initialise()
 
 	Genesis::ResourceSound* pEngineSoundResource = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/engine.mp3" );
 	pEngineSoundResource->Initialise( SOUND_FLAG_FX | SOUND_FLAG_LOOPING | SOUND_FLAG_3D );
-	m_pEngineSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX );
-	if ( m_pEngineSound != nullptr )
-	{
-		m_pEngineSound->SetMinimumDistance( 50.0f );
-
-		const glm::vec3 startPosition = m_pRigidBody->GetPosition();
-		m_pEngineSound->Set3DAttributes(&startPosition);
-	}
+	const glm::vec3 startPosition = m_pRigidBody->GetPosition();
+	m_pEngineSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX, startPosition, 50.0f );
 
 	using namespace std::placeholders;
 	auto collisionCallbackFn = std::bind( &Ship::OnCollision, this, _1, _2, _3, _4, _5 );
@@ -1714,11 +1708,7 @@ void Ship::RammingSpeed()
 
 		Genesis::ResourceSound* pEngineSoundResource = (ResourceSound*)FrameWork::GetResourceManager()->GetResource( "data/sfx/ramming_speed.wav" );
 		pEngineSoundResource->Initialise( SOUND_FLAG_FX | SOUND_FLAG_3D );
-		m_pRammingSpeedSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX );
-		if ( m_pRammingSpeedSound != nullptr )
-		{
-			m_pRammingSpeedSound->SetMinimumDistance( 300.0f );
-		}
+		m_pRammingSpeedSound = FrameWork::GetSoundManager()->CreateSoundInstance( pEngineSoundResource, Genesis::Sound::SoundBus::Type::SFX, GetRigidBody()->GetPosition(), 300.0f );
 	}
 }
 

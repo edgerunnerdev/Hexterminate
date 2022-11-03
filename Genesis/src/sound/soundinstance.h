@@ -19,6 +19,7 @@
 
 #include <list>
 #include <memory>
+#include <optional>
 
 #include "beginexternalheaders.h"
 #include <glm/vec3.hpp>
@@ -43,7 +44,7 @@ public:
     SoundInstance();
     ~SoundInstance();
 
-    void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData );
+    void Initialise( ResourceSound* pResourceSound, SoundBusSharedPtr& pSoundBus, void* pData, std::optional<glm::vec3> position = std::nullopt, float minDistance = 0.0f, float maxDistance = 10000.0f );
     bool IsPlaying() const;
     bool IsPaused() const;
     void Stop();
@@ -69,6 +70,8 @@ private:
     glm::vec3 m_Velocity;
     float m_Volume;
     SoundBusSharedPtr m_pSoundBus;
+    float m_MinDistance;
+    float m_MaxDistance;
 };
 
 inline float SoundInstance::GetVolume() const

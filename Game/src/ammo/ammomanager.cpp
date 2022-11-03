@@ -331,12 +331,7 @@ void AmmoManager::PlayHitSFX( const glm::vec3& position, Weapon* pWeapon )
 	ResourceSound* pSFX = pWeapon->GetInfo()->GetOnHitSFX();
 	if ( pSFX != nullptr )
 	{
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX );
-		if ( pSoundInstance != nullptr )
-		{
-			pSoundInstance->Set3DAttributes( &position );
-			pSoundInstance->SetMinimumDistance( pWeapon->GetInfo()->GetOnHitSFXDistance() );
-		}
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX, position, pWeapon->GetInfo()->GetOnHitSFXDistance() );
 	}
 }
 

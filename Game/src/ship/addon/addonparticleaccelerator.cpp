@@ -291,13 +291,7 @@ void AddonParticleAccelerator::PlaySFX()
 	{
 		using namespace Genesis;
 
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::Type::SFX );
-		if ( pSoundInstance != nullptr )
-		{
-			const glm::vec3& worldTranslation = m_pModule->GetWorldPosition();
-			pSoundInstance->Set3DAttributes( &worldTranslation );
-			pSoundInstance->SetMinimumDistance( 750.0f );
-		}
+		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( m_pSFX, Genesis::Sound::SoundBus::Type::SFX, m_pModule->GetWorldPosition(), 300.0f );
 	}
 }
 

@@ -280,24 +280,9 @@ Genesis::Sound::SoundInstanceSharedPtr Weapon::PlayFireSFX()
 	ResourceSound* pSFX = GetInfo()->GetOnFireSFX();
 	if ( pSFX != nullptr )
 	{
-		Sound::SoundInstanceSharedPtr pSoundInstance = FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX );
-		if ( pSoundInstance != nullptr )
-		{
-			const glm::vec3 position( glm::column( m_WorldTransform, 3 ) );
-			pSoundInstance->Set3DAttributes( &position );
-
-			// Makes the player's ship sound more important and not get drowned by other ships firing
-			if ( g_pGame->GetPlayer()->GetShip() == m_pOwner )
-            {
-				pSoundInstance->SetMinimumDistance( 750.0f );
-            }
-			else
-            {
-				pSoundInstance->SetMinimumDistance( 400.0f );
-            }
-
-            return pSoundInstance;
-		}
+		const glm::vec3 position( glm::column( m_WorldTransform, 3 ) );
+		const bool isPlayerShip = ( g_pGame->GetPlayer()->GetShip() == m_pOwner ); // Makes the player's ship sound more important and not get drowned by other ships firing
+		return FrameWork::GetSoundManager()->CreateSoundInstance( pSFX, Genesis::Sound::SoundBus::Type::SFX, position, isPlayerShip ? 750.0f : 400.0f );
 	}
 
     return nullptr;
