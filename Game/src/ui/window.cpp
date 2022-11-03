@@ -35,7 +35,8 @@ static const int sTitleHeight = 32;
 Window::Window(const std::string& name, bool canBeClosed /* = false */) :
 	Element(name),
 	m_CenterHorizontally(false),
-	m_CenterVertically(false)
+	m_CenterVertically(false),
+	m_CanBeClosed(canBeClosed)
 {
 	using namespace Genesis;
 
@@ -119,7 +120,13 @@ void Window::RenderProperties()
 void Window::Show(bool state)
 {
 	Element::Show(state);
-	g_pGame->SetInputBlocked(state);
+
+	// This should be set if this window can be closed. Otherwise it will trigger when displaying permanent windows (such as the galaxy view)
+	// and block input forever.
+	if (m_CanBeClosed)
+	{
+		g_pGame->SetInputBlocked(state);
+	}
 }
 
 void Window::CenterWindowHorizontally()

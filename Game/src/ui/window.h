@@ -52,6 +52,7 @@ private:
 
 	bool m_CenterHorizontally;
 	bool m_CenterVertically;
+	bool m_CanBeClosed;
 };
 
 inline Panel* Window::GetContentPanel()
