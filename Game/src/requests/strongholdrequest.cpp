@@ -45,7 +45,7 @@ void StrongholdRequest::OnBegin()
 	m_Reward = m_pSectorInfo->GetConquestReward();
 
 	std::stringstream ss;
-	ss << "Destroy stronghold: +" << m_Reward << "RU";
+	ss << "Destroy stronghold: +" << m_Reward << " influence";
 
 	m_pGoal = std::make_shared< RequestGoal >( m_pSectorInfo, ss.str() );
 	AddGoal( m_pGoal );

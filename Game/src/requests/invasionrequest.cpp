@@ -51,7 +51,7 @@ void InvasionRequest::OnBegin()
 	m_Reward = m_pSectorInfo->GetConquestReward();
 
 	std::stringstream ss;
-	ss << "Sector being invaded: +" << m_Reward << "RU";
+	ss << "Sector being invaded: +" << m_Reward << " influence";
 
 	m_pGoal = std::make_shared< RequestGoal >( m_pSectorInfo, ss.str(), Genesis::Color( 0.0f, 0.0f, 0.6f, 0.6f ) );
 	AddGoal( m_pGoal );
