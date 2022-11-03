@@ -23,6 +23,7 @@
 #include "ui/panel.h"
 #include "ui/text.h"
 #include "ui/window.h"
+#include "hexterminate.h"
 
 namespace Hexterminate::UI
 {
@@ -52,7 +53,12 @@ Window::Window(const std::string& name, bool canBeClosed /* = false */) :
 
 	if (canBeClosed)
 	{
-		m_pCloseButton = std::make_shared<UI::Button>( "Close button", [this]( std::any userData ){ Show( false ); } );
+		m_pCloseButton = std::make_shared<UI::Button>( "Close button", 
+			[this]( std::any userData )
+			{ 
+				Show( false ); 
+			} 
+		);
 		m_pTitlePanel->Add( m_pCloseButton );	
 	}
 
@@ -108,6 +114,12 @@ void Window::RenderProperties()
 			CenterWindowVertically();
 		}
 	}
+}
+
+void Window::Show(bool state)
+{
+	Element::Show(state);
+	g_pGame->SetInputBlocked(state);
 }
 
 void Window::CenterWindowHorizontally()

@@ -30,7 +30,7 @@ public:
 
 	virtual void SetSize(int width, int height) override;
 	virtual void Reset() {}
-
+	virtual void Show(bool state) override;
 	virtual void RenderProperties() override;
 
 	void SetTitle(const std::string& text);
