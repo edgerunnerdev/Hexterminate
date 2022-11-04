@@ -66,7 +66,7 @@ private:
 
 		bool isPlayerShip;
 		const ShipInfo* pShipInfo;
-		UI::PanelSharedPtr pPanel;
+		UI::ImageSharedPtr pBackground;
 		UI::TextSharedPtr pNameText;
 		UI::TextSharedPtr pCategoryText;
 		UI::ButtonSharedPtr pReturnButton;

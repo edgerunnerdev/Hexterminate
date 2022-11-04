@@ -63,6 +63,7 @@ public:
     void SetPressedImage( const std::string& path );
     void SetText( const std::string& text, bool centerHorizontally = true, bool centerVertically = true );
     void SetFont( const std::string& fontName );
+    void SetOnPressed( ButtonPressedCallback onPressed );
 
 protected:
     enum class State
@@ -104,6 +105,11 @@ protected:
 inline bool Button::IsResizeable() const
 {
     return false;
+}
+
+inline void Button::SetOnPressed( ButtonPressedCallback onPressed )
+{
+    m_OnPressed = onPressed;
 }
 
 } // namespace Hexterminate::UI

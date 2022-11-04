@@ -156,20 +156,20 @@ void FleetWindow::PopulateFleetShips()
 
 		FleetShipInfo fsi;
 		fsi.isPlayerShip = ( i == 0 );
-		fsi.pPanel = std::make_shared<UI::Panel>( panelId.str() );
-		m_pFleetPanel->Add( fsi.pPanel );
+		fsi.pBackground = std::make_shared<UI::Image>( panelId.str() );
+		m_pFleetPanel->Add( fsi.pBackground );
 		fsi.pNameText = std::make_shared<UI::Text>( "Name text" );
-		fsi.pPanel->Add( fsi.pNameText );
+		fsi.pBackground->Add( fsi.pNameText );
 		fsi.pCategoryText = std::make_shared<UI::Text>( "Category text" );
-		fsi.pPanel->Add( fsi.pCategoryText );
+		fsi.pBackground->Add( fsi.pCategoryText );
 		fsi.pReturnButton = std::make_shared<UI::Button>( "Return button", []( std::any userData ){} );
-		fsi.pPanel->Add( fsi.pReturnButton );
+		fsi.pBackground->Add( fsi.pReturnButton );
 		fsi.pUnavailableIcon = std::make_shared<UI::Image>( "Unavailable icon" );
 		fsi.pUnavailableIcon->SetShader( "gui_textured" );
 		fsi.pUnavailableIcon->SetColour( 1.0f, 0.0f, 0.0f, 1.0f );
-		fsi.pPanel->Add( fsi.pUnavailableIcon );
+		fsi.pBackground->Add( fsi.pUnavailableIcon );
 		fsi.pUnavailableText = std::make_shared<UI::Text>( "Unavailable text" );
-		fsi.pPanel->Add( fsi.pUnavailableText );
+		fsi.pBackground->Add( fsi.pUnavailableText );
 
 		m_FleetShipInfos.push_back( fsi );
 	}
@@ -259,6 +259,14 @@ void FleetWindow::RefreshFleetShips()
 		fsi.pCategoryText->Show( true );
 		fsi.pCategoryText->SetText( ToString( pShipInfo->GetShipType() ) );
 		fsi.pReturnButton->Show( true );
+		fsi.pReturnButton->SetOnPressed(
+			[pShipInfo, this]( const std::any& userData )
+			{
+				g_pGame->ReturnShip( pShipInfo );
+				RefreshFleetShips();
+				RefreshRequisitionShips();
+			}
+		);
 		fsi.pUnavailableIcon->Show( false );
 		fsi.pUnavailableText->Show( false );
 	}
