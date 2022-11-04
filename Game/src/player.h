@@ -65,7 +65,7 @@ inline int Player::GetInfluence() const
 inline void Player::SetInfluence( int value ) 
 {
     // The amount of influence units the player can have is capped in order to fit the user interface
-	m_Influence = std::min( m_Influence, 999999 );
+	m_Influence = std::min( value, 999999 );
 }
 
 inline int Player::GetPerkPoints() const
