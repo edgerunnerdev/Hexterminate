@@ -209,7 +209,7 @@ void ScrollingElement::OnMouseWheelCallback( float x, float y )
         return;
     }
 
-    m_CurrentOffset = gClamp( m_CurrentOffset + 16.0f * y, static_cast<float>( -m_OffsetLimit ), 0.0f );
+    m_CurrentOffset = gClamp( m_CurrentOffset + 32.0f * y, static_cast<float>( -m_OffsetLimit ), 0.0f );
     m_pScrollingArea->GetPanel()->SetPosition( m_pScrollingArea->GetPanel()->GetPosition().x, ceilf( m_CurrentOffset ) );
 }
 
