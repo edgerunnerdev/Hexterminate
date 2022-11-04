@@ -85,7 +85,7 @@ void StrongholdRequest::OnSuccess()
 	ImperialRequest::OnSuccess();
 
 	std::stringstream ss;
-	ss << "The enemy stronghold has been destroyed and no further hostile signatures have been detected. Imperial HQ has awarded us " << m_Reward << "RU for our victory.";
+	ss << "The enemy stronghold has been destroyed and no further hostile signatures have been detected. Our influence with Imperial HQ has increased by " << m_Reward << ".";
 	g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
 
 	RemoveGoal( m_pGoal );

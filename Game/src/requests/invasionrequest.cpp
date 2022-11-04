@@ -109,7 +109,7 @@ void InvasionRequest::OnSuccess()
 	ImperialRequest::OnSuccess();
 
 	std::stringstream ss;
-	ss << "The sector has been successfully defended. Imperial HQ has awarded us " << m_Reward << "RU.";
+	ss << "The sector has been successfully defended. Our influence with Imperial HQ has increased by " << m_Reward << ".";
 	g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
 
 	static std::string invasionTag( InvasionRequestInfo::GetBlackboardTag( m_InvadingFaction ) );

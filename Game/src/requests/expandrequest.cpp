@@ -78,7 +78,7 @@ void ExpandRequest::OnSuccess()
 	ImperialRequest::OnSuccess();
 
 	std::stringstream ss;
-	ss << "Excellent, the sector is now ours. Imperial HQ has awarded us " << m_Reward << "RU.";
+	ss << "Excellent, the sector is now ours. Our influence with Imperial HQ has increased by " << m_Reward << ".";
 	g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
 
 	RemoveGoal( m_pGoal );

@@ -130,7 +130,7 @@ void ArbiterRequest::OnSuccess()
 	ImperialRequest::OnSuccess();
 
 	std::stringstream ss;
-	ss << "The Arbiter has been destroyed - one less reinforcement for Iriani Prime. Imperial HQ has awarded us " << m_Reward << "RU.";
+	ss << "The Arbiter has been destroyed - one less reinforcement for Iriani Prime. Our influence with Imperial HQ has increased by " << m_Reward << ".";
 	g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
 
 	RemoveGoal( m_pGoal );
