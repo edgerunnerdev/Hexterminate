@@ -1,51 +1,31 @@
 # HEXTERMINATE
 
-## Table of contents
-
-- 1.0 [About](#10-about)
-    - 1.1 [Supported platforms](#11-supported-platforms)
-    - 1.2 [Hardware requirements](#12-hardware-requirements)
-    - 1.3 [Getting the game](#13-getting-the-game)
-
-## 1.0) About
-
 HEXTERMINATE is an open-source top-down shooter which puts you in the role of an Imperial Captain with the mission of reclaiming a galaxy shattered by centuries of in-fighting. You customise your ship with dozens of different modules, fight side by side with allied fleets and reunite the galaxy under Imperial rule.
 
-## 1.1) Supported platforms
+## Supported platforms
 
 - Windows 10 and 11, 64 bits. Older versions of Windows will likely work but haven't been tested.
 - Linux, 64 bits. Tested against Linux Mint 20.2 Cinnamon. Other distributions (particularly Debian-based) are likely to work without changes.
 
-## 1.2) Hardware requirements
+## Hardware requirements
 
 - Processor: Interl(R) Core(TM) i5-2500 CPU @ 3.30GHz
 - Memory: 8 GB RAM
 - Graphics: NVIDIA GeForce GTX 1850 Ti
 
-## 1.3) Getting the game
+## Downloading the game
 
-Currently the game can be bought from [Steam](https://store.steampowered.com/app/1123230/HEXTERMINATE/), but is an older version which is Windows-only.
+You can download the game from [Steam](https://store.steampowered.com/app/1123230/HEXTERMINATE/) (with support for cloud saves and achievements) or download pre-built binaries.
 
 The latest version, which is still in development, must be built from source.
 
-## Checking out the project
-Run `git clone --recurse-submodules https://github.com/edgerunnerdev/Hyperscape.git`
+## Building from source
 
-## Building on Windows
+- If you're on Linux, please follow the Linux development guide.
+- If you're on Windows, please follow the Windows 10 development guide.
 
-- Install Visual Studio 2022 (you can use the [Community edition](https://visualstudio.microsoft.com/vs/community/)).
+## Licensing
 
-## Building on Linux
+Source code is under [GPL3](https://github.com/edgerunnerdev/Hexterminate/blob/main/LICENSE) unless stated otherwise.
 
-### Requirements
-
-You'll need *clang* and *cmake*
-
-You'll need to install the following packages:
-sudo apt install clang cmake
-
-```
-cd vcpkg 
-./bootstrap-vcpkg.sh 
-./vcpkg integrate install 
-```
+All assets are licensed under the non-commercial [CC-BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/) or similar non-commercial licenses and will need to be removed if you wish to use this project commercially.
