@@ -184,6 +184,7 @@ void PerksWindow::Show( bool state )
 
 	if ( state )
 	{
+		GameEventManager::Broadcast( new GameEvent( GameEventType::PerkAcquired ) );
 		m_pScrollingElement->UpdateScrollingAreaHeight();
 		g_pGame->Pause();
 	}
