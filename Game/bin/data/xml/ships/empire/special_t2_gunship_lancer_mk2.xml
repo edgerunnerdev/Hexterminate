@@ -2,7 +2,7 @@
 	<DisplayName>Lancer MKII</DisplayName>
 	<LongDisplayName>Lancer MKII class gunship</LongDisplayName>
 	<Tier>2</Tier>
-	<Cost>500</Cost>
+	<Cost>2000</Cost>
 	<DisplayImage>data/ui/ships/lancer2.png</DisplayImage>
 	<Weapons>Experimental lances (184 DPS)</Weapons>
 	<Defense>Light regenerative armour</Defense>

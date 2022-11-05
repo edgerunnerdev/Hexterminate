@@ -2,7 +2,7 @@
 	<DisplayName>Tyrant</DisplayName>
 	<LongDisplayName>Tyrant class battlecruiser</LongDisplayName>
 	<Tier>3</Tier>
-	<Cost>3000</Cost>
+	<Cost>12000</Cost>
 	<DisplayImage>data/ui/ships/tyrant.png</DisplayImage>
 	<Weapons>Lances (736 DPS)</Weapons>
 	<Defense>Covariant shields</Defense>
