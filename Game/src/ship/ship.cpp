@@ -1374,12 +1374,16 @@ void Ship::OnShipDestroyed()
 	PlayDestructionSequence();
 
 	// Removes an instance of this ship from the owning fleet
-	// The exact ship doesn't matter as other than the player's ship, they're all created
-	// from a ShipInfo.
-	const ShipInfo* pShipInfo = GetShipInfo();
-	if ( pShipInfo != nullptr && m_pFleet != nullptr )
+	// The exact ship doesn't matter as other than the player's ship, they're all created from a ShipInfo.
+	// We do not remove the ships in the player fleet from the fleet though: they remain throughout the game and
+	// can only be removed through the fleet management screen.
+	if ( m_pFleet != g_pGame->GetPlayerFleet().lock() )
 	{
-		m_pFleet->RemoveShip( pShipInfo );
+		const ShipInfo* pShipInfo = GetShipInfo();
+		if ( pShipInfo != nullptr && m_pFleet != nullptr )
+		{
+			m_pFleet->RemoveShip( pShipInfo );
+		}
 	}
 
 	if ( m_pEngineSound != nullptr && m_pEngineSound->IsPlaying() )
