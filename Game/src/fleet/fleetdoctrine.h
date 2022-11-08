@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include <array>
+
 #include "fleet/fleetbehaviour.h"
 #include "ship/ship.fwd.h"
 
@@ -40,7 +42,7 @@ public:
 	FleetBehaviourType GetBehaviourType() const		{ return m_BehaviourType; }
 
 private:
-	float m_Ratio[ static_cast<unsigned int>( ShipType::Count ) ];
+	std::array<float, static_cast<size_t>( ShipType::Count )> m_Ratio;
 	FleetBehaviourType m_BehaviourType;
 };
 

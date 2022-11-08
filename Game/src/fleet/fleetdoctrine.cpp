@@ -15,11 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <cassert>
-
-#include <SDL.h>
-
 #include "fleet/fleetdoctrine.h"
+
+// clang-format off
+#include <beginexternalheaders.h>
+#include <SDL.h>
+#include <endexternalheaders.h>
+// clang-format on
 
 namespace Hexterminate
 {
@@ -31,20 +33,23 @@ namespace Hexterminate
 FleetDoctrine::FleetDoctrine()
 {
 	m_BehaviourType = FleetBehaviourType::None;
-	m_Ratio[ (int)ShipType::Gunship ]		= 1.0f;
-	m_Ratio[ (int)ShipType::Battlecruiser ]	= 0.0f;
-	m_Ratio[ (int)ShipType::Capital ]		= 0.0f;
+	m_Ratio = { 0.0f };
+
+	m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = 1.0f;
+	m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = 0.0f;
+	m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = 0.0f;
 }
 
 FleetDoctrine::FleetDoctrine( FleetBehaviourType behaviourType, float gunships, float battlecruisers, float capitals )
 {
 	m_BehaviourType = behaviourType;
+	m_Ratio = { 0.0f };
 
-	float l = ( gunships + battlecruisers + capitals );
+	const float l = ( gunships + battlecruisers + capitals );
 	SDL_assert( l > 0.0f );
-	m_Ratio[ (int)ShipType::Gunship ] = gunships / l;
-	m_Ratio[ (int)ShipType::Battlecruiser ] = battlecruisers / l;
-	m_Ratio[ (int)ShipType::Capital ] = capitals / l;
+	m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = gunships / l;
+	m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = battlecruisers / l;
+	m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = capitals / l;
 }
 
-}
+} // namespace Hexterminate
