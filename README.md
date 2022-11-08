@@ -22,7 +22,7 @@ The latest version, which is still in development, must be built from source.
 ## Building from source
 
 - If you're on Linux, please follow the Linux development guide.
-- If you're on Windows, please follow the Windows 10 development guide.
+- If you're on Windows, please follow the [Windows 10 development guide](https://forum.edgerunner.dev/t/building-hexterminate-on-windows-from-source).
 
 ## Licensing
 
