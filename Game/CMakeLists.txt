@@ -41,6 +41,8 @@ if(WIN32)
     target_compile_definitions(Game PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
     target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
     target_compile_options(Game PUBLIC /MP) # Enable parallel compilation.
+    target_compile_options(Game PUBLIC /Zi) # Debug information format: Program database.
+    target_link_options(Game PRIVATE /DEBUG>) # Enable PDB generation.
     target_link_options(Game PRIVATE $<$<CONFIG:Final>:/INCREMENTAL:NO /LTCG>)
     target_link_libraries(Game PRIVATE Opengl32 glu32 ws2_32)
     set_target_properties(Game PROPERTIES VS_STARTUP_PROJECT ${OUTPUT_DIRECTORY})
@@ -57,7 +59,7 @@ target_link_libraries(Game PRIVATE LinearMath Bullet3Common BulletDynamics Bulle
 
 target_compile_definitions(Game PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
 
-option(USE_STEAM "Use the Steam integration" ON)
+option(USE_STEAM "Use the Steam integration" OFF)
 if(USE_STEAM)
   message(STATUS "Using Steam integration.")
   find_package(steamworks REQUIRED)
