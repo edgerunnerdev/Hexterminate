@@ -30,6 +30,7 @@ if(WIN32)
     target_compile_definitions(Genesis PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Final>:/Ob2 /GL>)
+    target_compile_options(Genesis PUBLIC /Zi) # Debug information format: Program database.
     target_compile_options(Genesis PUBLIC /MP) # Enable parallel compilation.
 endif()
 
@@ -39,7 +40,6 @@ target_link_libraries(Genesis PRIVATE SDL2::SDL2_image)
 target_link_libraries(Genesis PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)
 
 target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
-target_compile_definitions(Genesis PRIVATE SOUND_USE_SOLOUD=1)
 
 target_compile_options(Genesis PRIVATE
      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
