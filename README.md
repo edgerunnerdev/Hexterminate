@@ -15,7 +15,7 @@ HEXTERMINATE is an open-source top-down shooter which puts you in the role of an
 
 ## Downloading the game
 
-You can download the game from [Steam](https://store.steampowered.com/app/1123230/HEXTERMINATE/) (with support for cloud saves and achievements) or download pre-built binaries.
+You can download the game from [Steam](https://store.steampowered.com/app/1123230/HEXTERMINATE/) (with support for cloud saves and achievements) or download pre-built binaries from [GitHub](https://github.com/edgerunnerdev/Hexterminate/releases).
 
 The latest version, which is still in development, must be built from source.
 
