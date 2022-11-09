@@ -49,7 +49,7 @@ if(WIN32)
     set_target_properties(Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${OUTPUT_DIRECTORY})
 else()
     add_executable(Game ${SOURCE_FILES})
-    target_link_libraries(Game PRIVATE GL pthread SDL2_mixer)
+    target_link_libraries(Game PRIVATE GL pthread)
 endif()
 
 target_link_libraries(Game PRIVATE GLEW::GLEW)
