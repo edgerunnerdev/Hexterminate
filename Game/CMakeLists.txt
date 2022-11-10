@@ -73,3 +73,30 @@ set_target_properties(Game PROPERTIES OUTPUT_NAME "Hexterminate")
 set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIRECTORY})
 set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIRECTORY})
 set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_FINAL ${OUTPUT_DIRECTORY})
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+     target_compile_options(Game PRIVATE
+          -Wall 
+          -Werror
+          -Wno-reorder-ctor
+          -fstandalone-debug
+     )
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+     target_compile_options(Game PRIVATE
+          -Wall 
+          -Werror
+          -Wno-reorder-ctor
+     )
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+     target_compile_options(Game PRIVATE
+          /W4
+          /WX # warnings as errors
+          /wd4100 # unreferenced formal parameter
+          /wd4121 # alignment of a member was sensitive to packing
+          /wd4127 # conditional expression is constant
+          /wd4505 # unreferenced local function has been removed
+          /wd4189 # local variable is initialized but not referenced
+          /wd4201 # nonstandard extension used : nameless struct/union
+          /wd4702 # unreachable code
+     )
+endif()

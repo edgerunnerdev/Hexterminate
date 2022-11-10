@@ -164,6 +164,8 @@ bool GalaxyWindow::HasSubWindowsVisible() const
 
 void GalaxyWindow::Update()
 {
+	UI::Element::Update();
+
 	if (g_pGame->GetPlayer())
 	{
 		UpdateStardateText();

@@ -924,9 +924,9 @@ Module( pInfo )
 	
 }
 
-void TowerModule::Initialise()
+void TowerModule::Initialise( Ship* pShip )
 {
-	Module::Initialise();
+	Module::Initialise( pShip );
 	AddBonus();
 }
 

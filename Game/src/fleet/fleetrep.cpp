@@ -52,8 +52,6 @@ m_pImageFlagship( nullptr ),
 m_pShader( nullptr ),
 m_pDiffuseSampler( nullptr ),
 m_pVertexBuffer( nullptr ),
-m_OffsetX( 0.0f ),
-m_OffsetY( 0.0f ),
 m_Angle( 0.0f ),
 m_BlinkTimer( 0.0f ),
 m_DisplayFlagship( false )

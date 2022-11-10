@@ -32,7 +32,6 @@
 namespace Hexterminate
 {
 
-static const Uint32 sMaxMuzzleflashVertices = 32768;
 static const Uint32 sMuzzleflashNumBaseIndices = 6;
 static const Uint32 sMuzzleflashBaseIndices[sMuzzleflashNumBaseIndices] = { 0, 1, 2, 0, 2, 3 };
 

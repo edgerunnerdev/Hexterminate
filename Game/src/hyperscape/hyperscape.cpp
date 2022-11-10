@@ -120,7 +120,6 @@ void Hyperscape::UpdateDebugUI()
 				ImGui::TableSetupColumn( "Seed" );
 				ImGui::TableHeadersRow();
 
-				const size_t scanned = m_pSilverThread->GetScannedLocationCount();
 				const HyperscapeLocationVector& locations = m_pSilverThread->GetLocations();
 				for ( auto it = locations.rbegin(); it != locations.rend(); ++it )
 				{

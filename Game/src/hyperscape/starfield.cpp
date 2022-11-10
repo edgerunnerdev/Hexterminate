@@ -39,7 +39,7 @@ Starfield::Starfield()
 
 	for ( StarfieldEntry& entry : m_Entries )
 	{
-		entry = std::move( CreateEntry( true ) );
+		entry = CreateEntry( true );
 	}
 }
 

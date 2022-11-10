@@ -34,6 +34,7 @@ class ImperialRequest : public std::enable_shared_from_this< ImperialRequest >
 {
 public:
 									ImperialRequest( RequestManager* pRequestManager );
+	virtual							~ImperialRequest() {}
 
 	virtual ImperialRequestType		GetType() const = 0;
 

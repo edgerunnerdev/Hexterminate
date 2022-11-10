@@ -67,12 +67,9 @@ inline SectorInfo* DeathMenu::GetRespawnSector() const
 class ButtonDeathExit : public Genesis::Gui::Button
 {
 public:
-							ButtonDeathExit( DeathMenu* pOwner );
+							ButtonDeathExit();
 	virtual					~ButtonDeathExit() override {};
 	virtual void			OnPress() override;
-
-private:
-	DeathMenu*				m_pOwner;
 };
 
 

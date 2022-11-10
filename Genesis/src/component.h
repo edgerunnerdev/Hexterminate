@@ -71,6 +71,7 @@ DECLARE_COMPONENT_SMART_PTR( Component )
 class Component
 {
 public:
+	virtual ~Component() {}
 	virtual bool Initialise() { return true; }
 	virtual void Update( float delta ) {}
 	void SetTypeID( ComponentTypeID id ) { m_TypeID = id; }

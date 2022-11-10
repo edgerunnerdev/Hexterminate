@@ -75,8 +75,6 @@ class GenericSectorButton: public Genesis::Gui::Button
 public:
 						GenericSectorButton();
 	void				SetSectorInfo( SectorInfo* pSectorInfo );
-	virtual void		Update();
-
 
 protected:
 	SectorInfo*			m_pSectorInfo;
@@ -91,7 +89,7 @@ class DeployProbeButton: public GenericSectorButton
 {
 public:
 						DeployProbeButton();
-	virtual void		Update() override;
+	virtual void 		Update( float delta ) override;
 	virtual void		OnPress() override;
 
 private:
@@ -108,7 +106,7 @@ class DeployStarfortButton: public GenericSectorButton
 {
 public:
 						DeployStarfortButton();
-	virtual void		Update() override;
+	virtual void		Update( float delta ) override;
 	virtual void		OnPress() override;
 
 private:

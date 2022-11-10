@@ -41,7 +41,6 @@ bool SaveGameHeader::Read( tinyxml2::XMLDocument& xmlDoc )
 	bool shipNameSerialised = false;
 	bool playedTimeSerialised = false;
 	bool aliveSerialised = false;
-	bool gameModeSerialised = false;
 
 	XMLElement* pRootElem = xmlDoc.FirstChildElement();
 	if ( pRootElem == nullptr )

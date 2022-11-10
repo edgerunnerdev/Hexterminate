@@ -46,9 +46,9 @@ public:
 
 	virtual	void			HandleGameEvent( GameEvent* pEvent ) override;
 
-	void					Show( bool state );
+	void					Show( bool state ) override;
 
-	void					Update();
+	virtual void Update() override;
 
 	void					ShowFleetWindow( bool state );
 	void					ShowPerksWindow( bool state );

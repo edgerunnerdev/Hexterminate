@@ -46,8 +46,6 @@ private:
 
 	UI::ScrollingElementSharedPtr m_pScrollingElement;
 	Table* m_pTable;
-
-	ButtonLoad* m_pLoadGameButton;
 	LoadGameSelectionVector	m_Selections;
 	bool m_TableDirty;
 };

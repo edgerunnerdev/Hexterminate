@@ -51,6 +51,7 @@ public:
 	};
 
 										ImperialRequestInfo()						{}
+	virtual								~ImperialRequestInfo() {}
 
 	virtual ImperialRequestType			GetType() const								{ return ImperialRequestType::Invalid; }
 

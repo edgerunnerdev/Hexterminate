@@ -58,7 +58,7 @@ m_pRespawnSector( nullptr )
 	m_pText->SetSize( Genesis::Configuration::GetScreenWidth(), 64 );
 	m_pWindow->GetMainPanel()->AddElement( m_pText );
 
-	m_pButtonExit = new ButtonDeathExit( this );
+	m_pButtonExit = new ButtonDeathExit();
 	m_pButtonExit->SetSize( 128.0f, 32.0f );
 	m_pButtonExit->SetColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 0.05f ) );
 	m_pButtonExit->SetHoverColour( EVA_BUTTON_COLOUR_HOVER );
@@ -156,8 +156,7 @@ void DeathMenu::AlignToCentre( Genesis::Gui::Text* pText )
 // ButtonDeathExit
 ///////////////////////////////////////////////////////////////////////////////
 
-ButtonDeathExit::ButtonDeathExit( DeathMenu* pOwner ):
-m_pOwner( pOwner )
+ButtonDeathExit::ButtonDeathExit()
 {
 
 }

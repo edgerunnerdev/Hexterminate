@@ -41,14 +41,22 @@ target_link_libraries(Genesis PRIVATE LinearMath Bullet3Common BulletDynamics Bu
 
 target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
 
-target_compile_options(Genesis PRIVATE
-     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+     target_compile_options(Genesis PRIVATE
           -Wall 
           -Werror
           -Wno-reorder-ctor
           -fstandalone-debug
-          >
-     $<$<CXX_COMPILER_ID:MSVC>:
+     )
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+     target_compile_options(Genesis PRIVATE
+          -Wall 
+          -Werror
+          -Wno-reorder-ctor
+          -Wno-unused-variable
+     )
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+     target_compile_options(Genesis PRIVATE
           /W4
           /WX # warnings as errors
           /wd4100 # unreferenced formal parameter
@@ -58,7 +66,7 @@ target_compile_options(Genesis PRIVATE
           /wd4189 # local variable is initialized but not referenced
           /wd4201 # nonstandard extension used : nameless struct/union
           /wd4702 # unreachable code
-          >
-)
+     )
+endif()
 
 target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Debug>:OPENGL_ERROR_CHECKING=1> $<$<CONFIG:Release>:OPENGL_ERROR_CHECKING=1> $<$<CONFIG:Final>:OPENGL_ERROR_CHECKING=0>)

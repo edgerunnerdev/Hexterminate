@@ -85,7 +85,7 @@ public:
 									Module( ModuleInfo* pInfo );
 	virtual							~Module();
 
-	virtual void					Initialise()			{}
+	virtual void					Initialise( Ship* pShip ) {}
 	virtual void					OnAllModulesCreated()	{}
 
 	virtual void					Update( float delta ) override;
@@ -211,7 +211,7 @@ public:
 						WeaponModule( ModuleInfo* pInfo );
 	virtual				~WeaponModule();
 
-	void				Initialise( Ship* pShip );
+	virtual void		Initialise( Ship* pShip ) override;
 	virtual void		Update( float delta ) override;
 	virtual void		Render( const glm::mat4& modelTransform, bool drawOutline ) override;
 
@@ -380,7 +380,7 @@ class TowerModule: public Module
 public:
 						TowerModule( ModuleInfo* pInfo );
 	virtual				~TowerModule() override {};
-	virtual void		Initialise() override;
+	virtual void		Initialise( Ship* pShip ) override;
 	virtual	void		ApplyDamage( float amount, DamageType damageType, Ship* pDealtBy ) override;
 
 	const glm::vec4		GetOverlayColour( Ship* pShip ) const;

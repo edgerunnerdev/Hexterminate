@@ -53,7 +53,6 @@ private:
     Genesis::VertexBuffer*              m_pVertexBuffer;
 	Genesis::ShaderUniform*				m_pInternalRadiusUniform;
 	Genesis::ShaderUniform*				m_pExternalRadiusUniform;
-	Genesis::ShaderUniform*				m_pQuantumStateUniform;
 	QuantumState						m_QuantumState;
 };
 

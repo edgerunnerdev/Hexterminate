@@ -243,9 +243,7 @@ void SectorDetails::SetSectorInfo( SectorInfo* pSectorInfo )
 		if ( g_pGame->GetGameMode() == GameMode::InfiniteWar )
 		{
 			m_pDeployProbeButton->SetSectorInfo( pSectorInfo );
-			m_pDeployProbeButton->Update();
 			m_pDeployStarfortButton->SetSectorInfo( pSectorInfo );
-			m_pDeployStarfortButton->Update();
 
 			m_pDeployProbeButton->SetPosition( 8.0f, offsetY );
 			offsetY += m_pDeployProbeButton->GetSize().y + 8.0f;
@@ -334,11 +332,6 @@ void GenericSectorButton::SetSectorInfo( SectorInfo* pSectorInfo )
 	m_pSectorInfo = pSectorInfo; 
 }
 
-void GenericSectorButton::Update()
-{
-
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // DeployProbeButton
@@ -350,8 +343,10 @@ DeployProbeButton::DeployProbeButton()
 	m_Cost = 750;
 }
 
-void DeployProbeButton::Update()
+void DeployProbeButton::Update( float delta )
 {
+	GenericSectorButton::Update( delta );
+
 	if ( m_pSectorInfo->HasProbe() )
 	{
 		SetTextColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 1.0f ) );
@@ -382,7 +377,6 @@ void DeployProbeButton::OnPress()
 		m_pSectorInfo->SetProbe( true );
 		g_pGame->GetPlayer()->SetInfluence( g_pGame->GetPlayer()->GetInfluence() - m_Cost );
 		g_pGame->AddFleetCommandIntel( "Hyperspace probe deployed." );
-		Update();
 	}
 	else
 	{
@@ -407,8 +401,10 @@ DeployStarfortButton::DeployStarfortButton()
 	m_Cost = 6000;
 }
 
-void DeployStarfortButton::Update()
+void DeployStarfortButton::Update( float delta )
 {
+	GenericSectorButton::Update( delta );
+
 	if ( m_pSectorInfo->HasStarfort() )
 	{
 		SetTextColour( Genesis::Color( 1.0f, 0.0f, 0.0f, 1.0f ) );
@@ -439,7 +435,6 @@ void DeployStarfortButton::OnPress()
 		m_pSectorInfo->SetStarfort( true );
 		g_pGame->GetPlayer()->SetInfluence( g_pGame->GetPlayer()->GetInfluence() - m_Cost );
 		g_pGame->AddFleetCommandIntel( "Starfort deployed." );
-		Update();
 	}
 	else
 	{

@@ -36,7 +36,6 @@ private:
 	Genesis::Gui::Image* m_pBackground;
 	Genesis::Gui::Panel* m_pProgressBorderPanel;
 	Genesis::Gui::Panel* m_pProgressPanel;
-	Genesis::Gui::Text*	m_pText;
 	size_t m_CurrentProgress;
 	size_t m_MaximumProgress;
 	int m_ProgressMaxWidth;

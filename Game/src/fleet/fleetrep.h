@@ -63,8 +63,6 @@ private:
 
 	Genesis::LayerSharedPtr		m_pLayer;
 
-	float						m_OffsetX;
-	float						m_OffsetY;
 	float						m_Angle;
 
 	float						m_BlinkTimer;
