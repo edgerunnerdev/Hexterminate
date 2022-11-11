@@ -21,6 +21,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE WITH_SDL2_STATIC)
 
 if(WIN32)
     target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
+else()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE WITH_ALSA)
 endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
