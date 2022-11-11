@@ -53,7 +53,7 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
           -Wall 
           -Werror
           -Wno-reorder-ctor
-          -Wno-unused-variable
+          -g # generate debug symbols
      )
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
      target_compile_options(Genesis PRIVATE
@@ -69,4 +69,4 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
      )
 endif()
 
-target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Debug>:OPENGL_ERROR_CHECKING=1> $<$<CONFIG:Release>:OPENGL_ERROR_CHECKING=1> $<$<CONFIG:Final>:OPENGL_ERROR_CHECKING=0>)
+target_compile_definitions(Genesis PRIVATE $<$<CONFIG:Debug>:OPENGL_ERROR_CHECKING=1>)
