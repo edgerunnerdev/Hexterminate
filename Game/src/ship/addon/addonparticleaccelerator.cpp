@@ -243,8 +243,6 @@ float AddonParticleAccelerator::ProcessCollision( bool appliesDamage, float delt
 		}
 		else if ( pCollisionInfo->GetType() == ShipCollisionType::Shield )
 		{
-			glm::vec3 hitPosition = glm::mix( source, target, hitFraction );
-
 			Shield* pShield = pCollisionInfo->GetShield();
 			if ( pShield && pShield->GetQuantumState() == ShieldState::Activated )
 			{

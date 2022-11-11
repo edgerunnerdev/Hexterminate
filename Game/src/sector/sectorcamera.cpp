@@ -175,7 +175,6 @@ void SectorCamera::UpdateBorders()
 	const float farDist = position.z;
 	const float screenRatio = static_cast< float >( Configuration::GetScreenWidth() ) / static_cast< float >( Configuration::GetScreenHeight() );
 	const float fovY = 45.0f;
-	const float fovX = fovY * screenRatio;
 
 	const float hh = tanf( fovY / 2.0f ) * farDist;
 	m_BorderTopLeft.y = position.y + hh;

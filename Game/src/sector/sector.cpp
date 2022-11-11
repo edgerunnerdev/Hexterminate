@@ -280,16 +280,6 @@ bool Sector::Initialise()
 			SelectRandomEvent();
 		}
 
-		bool hostilesPresent = false;
-		for ( auto& pShip : m_ShipList )
-		{
-			if ( pShip->GetFaction() != g_pGame->GetFaction( FactionId::Player ) && pShip->GetFaction() != g_pGame->GetFaction( FactionId::Empire ) )
-			{
-				hostilesPresent = true;
-				break;
-			}
-		}
-
 		SelectPlaylist();
 
 		// How many waves should we create for the faction that owns this sector?

@@ -80,9 +80,6 @@ private:
 	Genesis::ShaderUniform*			m_pAmbientColourUniform;
 	Genesis::ShaderUniform*			m_pActiveUniform;
 
-	float							m_RadiusX;
-	float							m_RadiusY;
-
 	Genesis::Physics::Ghost*		m_pGhost;
 
 	glm::mat4x4						m_RenderTransform;

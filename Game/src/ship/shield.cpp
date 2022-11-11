@@ -47,7 +47,6 @@
 namespace Hexterminate
 {
 
-static const Uint32 sMaxShieldVertices = 32768;
 static const float sShieldOfflineDuration = 20.0f;
 
 Shield::Shield( Ship* pShip ) :
@@ -56,7 +55,6 @@ m_pTexture( nullptr ),
 m_pShader( nullptr ),
 m_pVertexBuffer( nullptr ),
 m_pShieldStrengthUniform( nullptr ),
-m_VisualsDirty( true ),
 m_RadiusX( 1.0f ),
 m_RadiusY( 1.0f ),
 m_RechargeRate( 0.0f ),

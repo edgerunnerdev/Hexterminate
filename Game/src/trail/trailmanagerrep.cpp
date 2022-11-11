@@ -32,7 +32,6 @@
 namespace Hexterminate
 {
 
-static const Uint32 sMaxTrailVertices = 32768;
 static const Uint32 sNumBaseIndices = 6;
 static const Uint32 sBaseIndices[sNumBaseIndices] = { 0, 1, 2, 0, 2, 3 };
 

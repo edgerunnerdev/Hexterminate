@@ -75,7 +75,6 @@ m_pSectorCrossShader( nullptr ),
 m_pSectorCrossVB( nullptr ),
 m_pSectorHomeworldDiffuseSampler( nullptr ),
 m_pSectorThreatShader( nullptr ),
-m_pGoalTargetShader( nullptr ),
 m_pGoalTargetVB( nullptr ),
 m_pLayer( nullptr ),
 m_OffsetX( 0.0f ),
@@ -107,8 +106,6 @@ m_InputTimer( 0u )
 	pScreenHeight->Set( (float)Configuration::GetScreenHeight() );
 
 	m_pBackgroundVB = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV );
-
-	ResourceImage* pSectorImage = static_cast< ResourceImage* >( pRm->GetResource("data/ui/sector/neutral.png") );
 	m_pSectorShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "sector" );
 
 	ResourceImage* pSectorShipyardImage = static_cast< ResourceImage* >( pRm->GetResource("data/ui/sector/shipyard.png") );

@@ -391,7 +391,6 @@ void ButtonUndock::OnPress()
 ///////////////////////////////////////////////////////////////////////////////
 
 TableRowInventory::TableRowInventory( PanelShipyard* pOwner, ModuleInfo* pModuleInfo ):
-m_pOwner( pOwner ),
 m_pModuleInfo( pModuleInfo )
 {
 

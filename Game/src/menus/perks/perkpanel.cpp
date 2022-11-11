@@ -164,7 +164,6 @@ void PerkPanel::SetPendingPurchase()
 
 PerkButton::PerkButton( PerkPanel* pOwner, Perk perk, int cost ) :
 m_pOwner( pOwner ),
-m_Perk( perk ),
 m_Cost( cost ),
 m_Enabled( false )
 {

@@ -449,7 +449,6 @@ bool ControllerAI::MoveToPosition( const glm::vec2& position, float goalRadius, 
 		Genesis::Physics::RayTestResultVector rayTestResults;
 		pSimulation->RayTest( feelerStartPosition, feeler, rayTestResults );
 
-		std::size_t numResults = rayTestResults.size();
 		bool hasHit = false;
 		for ( auto& result : rayTestResults )
 		{

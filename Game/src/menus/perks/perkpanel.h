@@ -94,7 +94,6 @@ public:
 
 private:
 	PerkPanel*					m_pOwner;
-	Perk			            m_Perk;
 	int				            m_Cost;
     bool                        m_Enabled;
 };

@@ -53,8 +53,6 @@ namespace Hexterminate
 
 static const float sChargeDuration = 10.0f;
 static const float sDischargeDuration = 5.0f;
-
-static const Uint32 sMaxPhaseBarrierVertices = 256;
 static const Uint32 sMaxPhaseBarrierPoints = 4;
 
 AddonPhaseBarrier::AddonPhaseBarrier( AddonModule* pModule, Ship* pOwner ):
@@ -69,8 +67,6 @@ m_pClipUniform( nullptr ),
 m_pClipForwardUniform( nullptr ),
 m_pAmbientColourUniform( nullptr ),
 m_pActiveUniform( nullptr ),
-m_RadiusX( 45.0f ),
-m_RadiusY( 15.0f ),
 m_pGhost( nullptr ),
 m_pCollisionInfo( nullptr ),
 m_Coverage( 30.0f ),

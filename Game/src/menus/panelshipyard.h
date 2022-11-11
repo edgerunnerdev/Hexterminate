@@ -119,7 +119,6 @@ public:
 	virtual void			OnHover() override;
 
 private:
-	PanelShipyard*			m_pOwner;
 	ModuleInfo*				m_pModuleInfo;
 };
 

@@ -40,7 +40,6 @@ static const char* sElementPropertyAnchor = "anchor";
 
 Element::Element( const std::string& name ) :
 m_Name( name ),
-m_Highlighted( false ),
 m_IsPopupElement( false ),
 m_IsEditable( true ),
 m_IsDynamic( false ),

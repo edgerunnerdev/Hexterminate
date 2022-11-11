@@ -43,10 +43,16 @@ std::wstring ToWString( const std::string& str )
 
 std::string ToString( const std::wstring& str )
 {
+#if _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 4244 ) // warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data
+#endif
+
 	return std::string( str.begin(), str.end() );
+
+#if _MSC_VER
 #pragma warning( pop )
+#endif
 }
 
 std::string ToString( const std::string& str )

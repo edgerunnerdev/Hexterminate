@@ -88,7 +88,6 @@ private:
     Genesis::Gui::Panel* m_pPanel;
     ElementList m_Children;
 
-    bool m_Highlighted;
     bool m_IsPopupElement;
     bool m_IsEditable;
     bool m_IsDynamic;

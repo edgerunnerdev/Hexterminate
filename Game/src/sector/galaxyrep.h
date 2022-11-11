@@ -153,7 +153,6 @@ private:
 	Genesis::Shader*			m_pSectorThreatShader;
 	std::array< Genesis::ShaderUniformInstances, static_cast<size_t>( ThreatRating::Count ) > m_pSectorThreatUniforms;
 
-	Genesis::Shader*			m_pGoalTargetShader;
 	Genesis::VertexBuffer*		m_pGoalTargetVB;
 
 	Genesis::LayerSharedPtr		m_pLayer;

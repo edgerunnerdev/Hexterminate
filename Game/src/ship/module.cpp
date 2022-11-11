@@ -388,7 +388,6 @@ void WeaponModule::Initialise( Ship* pShip )
 {
 	WeaponInfo* pInfo = static_cast<WeaponInfo*>( GetModuleInfo() );
 
-	glm::vec3 modulePos = GetLocalPosition();
 	WeaponHardpoint hardpoint;
 	hardpoint.isTurret = ( pInfo->GetBehaviour() == WeaponBehaviour::Turret );
 	hardpoint.offset = glm::vec3( 0.0f, 0.0f, 0.0f );

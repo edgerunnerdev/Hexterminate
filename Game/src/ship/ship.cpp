@@ -243,7 +243,7 @@ Module* Ship::AddModule( ModuleInfo* pModuleInfo, int x, int y )
 			m_ModuleHexGrid.Set( x, y, pModule );
 			pModule->SetHexGridSlot( x, y );
 			pModule->SetOwner( this );
-			pModule->Initialise();
+			pModule->Initialise( this );
 
 			ModuleType type = pModule->GetModuleInfo()->GetType();
 			if ( type == ModuleType::Engine )
@@ -1233,7 +1233,6 @@ void Ship::OnCollision
 		return;
 	}
 
-	const Genesis::Physics::RigidBody* pOtherRigidBody = ( pRigidBodyA == GetRigidBody() ) ? pRigidBodyB : pRigidBodyA;
 	const Genesis::Physics::ShapeWeakPtr pOtherShape = ( pRigidBodyA == GetRigidBody() ) ? pShapeB : pShapeA;
 	const Genesis::Physics::ShapeWeakPtr pOurShape = ( pRigidBodyA == GetRigidBody() ) ? pShapeA : pShapeB;
 	auto extractModuleFn = []( const Genesis::Physics::ShapeWeakPtr pShape ) -> Module*

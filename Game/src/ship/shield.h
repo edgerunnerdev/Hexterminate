@@ -94,9 +94,7 @@ private:
 	Genesis::ShaderUniform*         m_pQuantumShieldTriangleGapUniform;
 	Genesis::ShaderUniform*         m_pQuantumShieldIntensityUniform;
 	Genesis::ShaderUniform*			m_pQuantumShieldColourUniform;
-    bool                            m_VisualsDirty;
 
-	int								m_ShapeKey;
 	float							m_RadiusX;
 	float							m_RadiusY;
 
