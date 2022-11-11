@@ -435,7 +435,7 @@ void Sector::SelectPlaylist()
 
 void Sector::Update( float delta )
 {
-#ifndef _FINAL
+#ifdef _DEBUG
 	m_pShipTweaks->Update( delta );
 #endif
 

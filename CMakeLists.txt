@@ -17,10 +17,9 @@ else()
 endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/Genesis/cmake/shared)
 
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Final" CACHE STRING "Custom build types" FORCE)
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Custom build types" FORCE)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_EXE_LINKER_FLAGS_FINAL "")
 
 # vcpkg dependencies
 find_package(Bullet CONFIG REQUIRED)

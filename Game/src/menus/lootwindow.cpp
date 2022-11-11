@@ -208,10 +208,6 @@ void LootWindow::Update( float delta )
 
 		m_Dirty = false;
     }
-
-//#ifndef _FINAL
-//    Test( delta );
-//#endif
 }
 
 void LootWindow::HandleGameEvent( GameEvent* pEvent )

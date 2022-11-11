@@ -179,7 +179,7 @@ void AddonEngineDisruptor::UpdateShockwave( float delta )
 			glm::vec3 p1( disruptorTarget.x + c * visualRadius, disruptorTarget.y + s * visualRadius, 0.0f );
 			glm::vec3 p2( disruptorTarget.x - c * visualRadius, disruptorTarget.y - s * visualRadius, 0.0f );
 
-#ifndef _FINAL
+#ifdef _DEBUG
 			if ( g_pGame->GetCurrentSector()->GetShipTweaks()->GetDrawEngineDisruptor() )
 			{
 				Genesis::Render::DebugRender* pDebugRender = Genesis::FrameWork::GetDebugRender();

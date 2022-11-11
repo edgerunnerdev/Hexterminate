@@ -277,7 +277,6 @@ private:
 
     Perks*              m_pNPCPerks;
 
-    Genesis::Gui::Text* m_pFrameText;
     bool                m_ContextualTipsEnabled;
 	bool				m_QuitRequested;
 	Genesis::Gui::Video* m_pVideoElement;
@@ -285,7 +284,6 @@ private:
 	GameState			m_LoadToState;
 	std::filesystem::path m_GameToLoad;
 
-	Genesis::InputCallbackToken m_ImGuiToggleToken;
 	Genesis::Physics::Simulation* m_pPhysicsSimulation;
 
 	std::unique_ptr< SaveGameStorage > m_pSaveGameStorage;

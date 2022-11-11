@@ -53,7 +53,7 @@ ShipTweaks::~ShipTweaks()
 
 void ShipTweaks::Update( float delta )
 {
-#ifndef _FINAL
+#ifdef _DEBUG
 	if ( m_Open )
 	{
 		ImGui::SetNextWindowSize( ImVec2( 600.0f, 500.0f ) );

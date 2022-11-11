@@ -359,7 +359,7 @@ bool Galaxy::Read( tinyxml2::XMLElement* pRootElement )
 
 void Galaxy::UpdateDebugUI()
 {
-#ifndef _FINAL
+#ifdef _DEBUG
 	if ( m_DebugWindowOpen )
 	{
 		ImGui::SetNextWindowSize( ImVec2( 600.0f, 800.0f ) );

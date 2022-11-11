@@ -39,11 +39,11 @@ set(OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 if(WIN32)
     add_executable(Game WIN32 ${SOURCE_FILES})
     target_compile_definitions(Game PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
-    target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT> $<$<CONFIG:Final>:/MT>)
+    target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>>)
     target_compile_options(Game PUBLIC /MP) # Enable parallel compilation.
     target_compile_options(Game PUBLIC /Zi) # Debug information format: Program database.
     target_link_options(Game PRIVATE /DEBUG>) # Enable PDB generation.
-    target_link_options(Game PRIVATE $<$<CONFIG:Final>:/INCREMENTAL:NO /LTCG>)
+    target_link_options(Game PRIVATE $<$<CONFIG:Release>:/INCREMENTAL:NO /LTCG>)
     target_link_libraries(Game PRIVATE Opengl32 glu32 ws2_32)
     set_target_properties(Game PROPERTIES VS_STARTUP_PROJECT ${OUTPUT_DIRECTORY})
     set_target_properties(Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${OUTPUT_DIRECTORY})
@@ -57,7 +57,7 @@ target_link_libraries(Game PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static)
 target_link_libraries(Game PRIVATE SDL2::SDL2_image)
 target_link_libraries(Game PRIVATE LinearMath Bullet3Common BulletDynamics BulletCollision)
 
-target_compile_definitions(Game PRIVATE $<$<CONFIG:Final>:NDEBUG _FINAL>)
+target_compile_definitions(Game PRIVATE $<$<CONFIG:Debug>:_DEBUG>)
 
 option(USE_STEAM "Use the Steam integration" OFF)
 if(USE_STEAM)
@@ -72,7 +72,6 @@ endif()
 set_target_properties(Game PROPERTIES OUTPUT_NAME "Hexterminate")
 set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIRECTORY})
 set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIRECTORY})
-set_target_properties(Game PROPERTIES RUNTIME_OUTPUT_DIRECTORY_FINAL ${OUTPUT_DIRECTORY})
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
      target_compile_options(Game PRIVATE

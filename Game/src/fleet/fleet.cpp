@@ -472,7 +472,7 @@ void Fleet::GenerateFlagshipFleet()
         AddShip( shipInfo );
     }
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	Genesis::FrameWork::GetLogger()->LogInfo( "Created flagship fleet for faction '%s' (%d points):", GetFaction()->GetName().c_str(), m_Points );
 	for ( auto& pShipInfo : m_Ships )
 	{

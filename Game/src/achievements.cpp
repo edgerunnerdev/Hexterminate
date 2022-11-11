@@ -101,7 +101,7 @@ void AchievementsManager::Update()
 		return;
 	}
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	UpdateDebugUI();
 #endif
 }
@@ -162,7 +162,7 @@ void AchievementsManager::OnUserStatsReceived( UserStatsReceived_t *pCallback )
 	}
 }
 
-#ifndef _FINAL
+#ifdef _DEBUG
 void AchievementsManager::UpdateDebugUI()
 {
 	if ( Genesis::ImGuiImpl::IsEnabled() && m_DebugUIOpen )
@@ -211,6 +211,6 @@ void AchievementsManager::UpdateDebugUI()
 		ImGui::End();
 	}
 }
-#endif // !_FINAL
+#endif // _DEBUG
 #endif // USE_STEAM
 }

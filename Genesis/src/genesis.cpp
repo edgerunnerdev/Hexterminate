@@ -72,7 +72,7 @@ bool FrameWork::Initialize()
     gLogger->AddLogTarget( new FileLogger( "log.txt" ) );
     gLogger->AddLogTarget( new MessageBoxLogger() );
 #ifdef _WIN32
-#ifndef _FINAL
+#ifdef _DEBUG
     gLogger->AddLogTarget( new VisualStudioLogger() );
 #endif
 #endif

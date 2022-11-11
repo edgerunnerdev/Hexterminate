@@ -219,7 +219,7 @@ void AddonPhaseBarrier::Update( float delta )
 
 		glm::mat4x4 barrierTransform = glm::column( barrierDirectionTransform, 3, glm::vec4( shipCentre, 1.0f ) + forward * distanceFromCentre );
 
-#ifndef _FINAL
+#ifdef _DEBUG
 		if ( g_pGame->GetCurrentSector()->GetShipTweaks()->GetDrawPhaseBarrier() )
 		{
 			Genesis::Render::DebugRender* pDebugRender = Genesis::FrameWork::GetDebugRender();

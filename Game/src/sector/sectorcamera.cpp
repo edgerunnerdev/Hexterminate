@@ -17,7 +17,7 @@
 namespace Hexterminate
 {
 
-#ifdef _FINAL
+#ifdef _DEBUG
 static const float ZOOM_MINIMUM = 0.4f;
 #else
 static const float ZOOM_MINIMUM = 0.3f;

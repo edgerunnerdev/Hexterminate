@@ -94,7 +94,7 @@ void NewGameWindow::Update()
 		 m_pButtonNext->Enable( canCreate );
 	}
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	if ( Genesis::FrameWork::GetCommandLineParameters()->HasParameter("--new-hyperscape") )
 	{
 		static bool sStartHyperscape = true;
@@ -241,7 +241,7 @@ void NewGameWindow::CreateGameModeSelectionPage()
 	m_Pages[ static_cast<size_t>( PageId::GameMode ) ] = pPage;
 	pButtonCampaign->Toggle( true );
 
-#ifdef _FINAL
+#ifdef _DEBUG
 	pButtonHyperscape->Enable( false );
 #else
 	pButtonHyperscape->Enable( true );

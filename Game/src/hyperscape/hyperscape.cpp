@@ -102,7 +102,7 @@ int Hyperscape::GetVersion() const
 
 void Hyperscape::UpdateDebugUI()
 {
-#ifndef _FINAL
+#ifdef _DEBUG
 	{
 		ImGui::SetNextWindowSize( ImVec2( 600.0f, 800.0f ) );
 		ImGui::Begin( "Hyperscape", &m_DebugWindowOpen );

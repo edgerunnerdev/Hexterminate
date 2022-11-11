@@ -131,7 +131,6 @@ m_IsPaused( false ),
 m_IsInputBlocked( false ),
 m_InputBlockedTimer( 0.0f ),
 m_pNPCPerks( nullptr ),
-m_pFrameText( nullptr ),
 m_ContextualTipsEnabled( true ),
 m_QuitRequested( false ),
 m_pVideoElement( nullptr ),
@@ -159,7 +158,7 @@ m_pShipInfoManager( nullptr )
 		m_pFaction[ i ] = nullptr;
 	}
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	InputManager* pInputManager = FrameWork::GetInputManager();
 	m_ImGuiToggleToken = pInputManager->AddKeyboardCallback( std::bind( &Game::ToggleImGui, this ), SDL_SCANCODE_F1, ButtonState::Pressed );
 #endif
@@ -195,7 +194,7 @@ Game::~Game()
 	}
 	m_SectorEvents.clear();
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
 	if ( pInputManager != nullptr )
 	{
@@ -218,7 +217,7 @@ void Game::Initialise()
 	Random::Initialise();
 	RandomShuffle::Initialise();
 
-#ifndef _FINAL
+#ifdef _DEBUG
 	m_pConsole = new Console(); // Should happen early so all the warnings / log entries are visible
 #endif
 
@@ -253,7 +252,7 @@ void Game::Initialise()
 	m_pPopup = new Popup();
 	m_pMusicTitle = new MusicTitle();
 
-#ifndef _FINAL
+#ifdef _DEBUG
     m_pFrameText = GuiExtended::CreateText( 8, 8, 1024, 128, "", nullptr );
 	m_pFrameText->SetColour( 1.0f, 0.4f, 0.0f, 1.0f ); 
 #endif
@@ -305,7 +304,7 @@ SaveGameStorage* Game::GetSaveGameStorage() const
 
 void Game::ToggleImGui()
 {
-#ifndef _FINAL
+#ifdef _DEBUG
 	Genesis::ImGuiImpl::Enable( !Genesis::ImGuiImpl::IsEnabled() );
 #endif
 }

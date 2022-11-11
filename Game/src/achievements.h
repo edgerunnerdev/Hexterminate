@@ -65,7 +65,7 @@ public:
 	STEAM_CALLBACK( AchievementsManager, OnUserStatsReceived, UserStatsReceived_t, m_CallbackUserStatsReceived );
 
 private:
-#ifndef _FINAL
+#ifdef _DEBUG
 	// Support for ImGui, appears under Game -> Achievements
 	void UpdateDebugUI();
 #endif
