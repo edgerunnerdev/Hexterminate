@@ -50,15 +50,15 @@ SoundManager::SoundManager()
     {
         m_Initialized = true;
         g_pSoloud->setMaxActiveVoiceCount( 64u );
+
+        for ( size_t i = 0; i < static_cast<size_t>( SoundBus::Type::Count ); ++i )
+        {
+            m_Buses[ i ] = std::make_shared<SoundBus>( static_cast<SoundBus::Type>( i ) );
+        }
     }
     else
     {
-        Genesis::FrameWork::GetLogger()->LogError( "Failed to initialize SoLoud audio library: %s", g_pSoloud->getErrorString( result ) );
-    }
-
-    for ( size_t i = 0; i < static_cast<size_t>( SoundBus::Type::Count ); ++i )
-    {
-        m_Buses[ i ] = std::make_shared<SoundBus>( static_cast<SoundBus::Type>( i ) );
+        Genesis::FrameWork::GetLogger()->LogWarning( "Failed to initialize SoLoud audio library: %s [%s]", g_pSoloud->getErrorString( result ), SDL_GetError() );
     }
 
     m_pDebugWindow = std::make_unique<Window>(this);
@@ -89,7 +89,11 @@ TaskStatus SoundManager::Update( float delta )
 
 SoundInstanceSharedPtr SoundManager::CreateSoundInstance( ResourceSound* pResourceSound, SoundBus::Type bus, std::optional<glm::vec3> position /* = std::nullopt */, float minDistance /* = 0.0f */, float maxDistance /* = 10000.0f */ )
 {
-    if ( pResourceSound->Is3D() && position.has_value() == false )
+    if ( m_Initialized == false )
+    {
+        return nullptr;
+    }
+    else if ( pResourceSound->Is3D() && position.has_value() == false )
     {
         FrameWork::GetLogger()->LogWarning( "Attempting to play ResourceSound '%s' has a 3D sound with no position.", pResourceSound->GetFilename().GetFullPath().c_str() );
         return nullptr;
@@ -185,6 +189,11 @@ const SoundInstanceList& SoundManager::GetSoundInstances() const
 
 void SoundManager::SetListener( const glm::vec3& position, const glm::vec3& velocity, const glm::vec3& forward, const glm::vec3& up )
 {
+    if ( m_Initialized )
+    {
+        return;
+    }
+
     g_pSoloud->set3dListenerPosition( position.x, position.y, position.z );
     g_pSoloud->set3dListenerVelocity( velocity.x, velocity.y, velocity.z );
     g_pSoloud->set3dListenerAt( forward.x, forward.y, forward.z );
@@ -230,6 +239,11 @@ void SoundManager::UpdatePlaylist()
 
 void SoundManager::UpdateVolumes()
 {
+    if ( m_Initialized == false )
+    {
+        return;
+    }
+
     const float sfxVolume = static_cast<float>( Configuration::GetSFXVolume() / 100.0f );
     SDL_assert( sfxVolume >= 0.0f && sfxVolume <= 1.0f );
     m_Buses[ static_cast<size_t>( SoundBus::Type::SFX ) ]->SetVolume( sfxVolume );
