@@ -21,84 +21,84 @@
 #include <render/debugrender.h>
 #include <resources/resourcemodel.h>
 
-#include "hexterminate.h"
-#include "sector/sector.h"
 #include "ammo/ammo.h"
-#include "ship/collisionmasks.h"
+#include "hexterminate.h"
 #include "misc/mathaux.h"
+#include "sector/sector.h"
+#include "ship/collisionmasks.h"
 
 namespace Hexterminate
 {
 
-Ammo::Ammo():
-m_pOwner( nullptr ),
-m_IsAlive( false ),
-m_IsGlowSource( false ),
-m_DiesOnHit( true ),
-m_Intercepted( false ),
-m_Speed( 0.0f ),
-m_RayLength( 0.0f ),
-m_CollisionFilter( 0 ),
-m_HitFraction( 1.0f ),
-m_AdditionalRotation( 0.0f )
+Ammo::Ammo()
+    : m_pOwner( nullptr )
+    , m_IsAlive( false )
+    , m_IsGlowSource( false )
+    , m_DiesOnHit( true )
+    , m_Intercepted( false )
+    , m_Speed( 0.0f )
+    , m_RayLength( 0.0f )
+    , m_CollisionFilter( 0 )
+    , m_HitFraction( 1.0f )
+    , m_AdditionalRotation( 0.0f )
 {
-	m_Src = glm::vec3(0.0f);
-	m_Dst = glm::vec3(0.0f);
+    m_Src = glm::vec3( 0.0f );
+    m_Dst = glm::vec3( 0.0f );
 }
 
 void Ammo::Create( Weapon* pWeapon, float additionalRotation /* = 0.0f */ )
 {
-	m_pOwner = pWeapon;
-	m_IsAlive = true;
-	m_AdditionalRotation = additionalRotation;
-	m_Angle = pWeapon->GetAngle() + m_AdditionalRotation;
+    m_pOwner = pWeapon;
+    m_IsAlive = true;
+    m_AdditionalRotation = additionalRotation;
+    m_Angle = pWeapon->GetAngle() + m_AdditionalRotation;
 
-	glm::mat4x4 weaponTransform = pWeapon->GetWorldTransform();
+    glm::mat4x4 weaponTransform = pWeapon->GetWorldTransform();
 
-	m_MuzzleOffset = pWeapon->GetMuzzleOffset();
-	pWeapon->MarkMuzzleAsUsed();
-	glm::mat4x4 muzzleOffsetTransform = glm::translate( m_MuzzleOffset );
+    m_MuzzleOffset = pWeapon->GetMuzzleOffset();
+    pWeapon->MarkMuzzleAsUsed();
+    glm::mat4x4 muzzleOffsetTransform = glm::translate( m_MuzzleOffset );
 
-	weaponTransform = weaponTransform * muzzleOffsetTransform;
+    weaponTransform = weaponTransform * muzzleOffsetTransform;
 
-	glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
-	glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
-	Math::RotateVector( weaponForward, Genesis::kDegToRad * m_AdditionalRotation );
+    glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
+    glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
+    Math::RotateVector( weaponForward, Genesis::kDegToRad * m_AdditionalRotation );
 
-	m_RayLength = pWeapon->GetInfo()->GetRayLength();
-	m_Speed = pWeapon->GetInfo()->GetSpeed(); 
-	m_Src = weaponPosition;
-	m_Dst = m_Src + weaponForward * m_RayLength;
-	m_Dir = weaponForward;
-	m_Range = pWeapon->GetInfo()->GetRange( pWeapon->GetOwner() );
+    m_RayLength = pWeapon->GetInfo()->GetRayLength();
+    m_Speed = pWeapon->GetInfo()->GetSpeed();
+    m_Src = weaponPosition;
+    m_Dst = m_Src + weaponForward * m_RayLength;
+    m_Dir = weaponForward;
+    m_Range = pWeapon->GetInfo()->GetRange( pWeapon->GetOwner() );
 }
 
 void Ammo::Kill()
 {
-	if ( !m_IsAlive )
-	{
-		return;
-	}
+    if ( !m_IsAlive )
+    {
+        return;
+    }
 
-	m_IsAlive = false;
+    m_IsAlive = false;
 }
 
 bool Ammo::CanBeIntercepted() const
 {
-	return false;
+    return false;
 }
 
 void Ammo::Intercept()
 {
-	if ( CanBeIntercepted() )
-	{
-		m_Intercepted = true;
-	}
+    if ( CanBeIntercepted() )
+    {
+        m_Intercepted = true;
+    }
 }
 
 bool Ammo::WasIntercepted() const
 {
-	return m_Intercepted;
+    return m_Intercepted;
 }
 
-}
+} // namespace Hexterminate

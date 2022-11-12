@@ -36,9 +36,9 @@ enum class MainMenuOption
 {
     NewGame,
     LoadGame,
-	Settings,
-	Codex,
-	Credits,
+    Settings,
+    Codex,
+    Credits,
     Quit,
     Count
 };
@@ -46,30 +46,30 @@ enum class MainMenuOption
 class MainMenu
 {
 public:
-	MainMenu();
-	~MainMenu();
-	void Show( bool state );
-	void SetOption( MainMenuOption option );
+    MainMenu();
+    ~MainMenu();
+    void Show( bool state );
+    void SetOption( MainMenuOption option );
 
 private:
-	void OnButtonPressed( const std::any& userData );
-	void CreateCharacterImage();
-	void CreateVersionText();
+    void OnButtonPressed( const std::any& userData );
+    void CreateCharacterImage();
+    void CreateVersionText();
 
     UI::PanelSharedPtr m_pMenu;
     UI::ElementSharedPtr m_pTitle2;
-	UI::ToggleGroupSharedPtr m_pToggleGroup;
-	UI::ImageSharedPtr m_pCharacterImage;
+    UI::ToggleGroupSharedPtr m_pToggleGroup;
+    UI::ImageSharedPtr m_pCharacterImage;
 
-	EvaWindow* m_pTitle;
+    EvaWindow* m_pTitle;
 
-	Genesis::Gui::Image* m_pTitleImage;
-	Genesis::Gui::Text* m_pVersionText;
+    Genesis::Gui::Image* m_pTitleImage;
+    Genesis::Gui::Text* m_pVersionText;
 
-	using MenuOptionArray = std::array<UI::ButtonSharedPtr, static_cast<std::size_t>( MainMenuOption::Count )>;
-	MenuOptionArray m_Buttons;
-	using WindowArray = std::array<UI::WindowSharedPtr, static_cast<std::size_t>( MainMenuOption::Count )>;
-	WindowArray m_Windows;
+    using MenuOptionArray = std::array<UI::ButtonSharedPtr, static_cast<std::size_t>( MainMenuOption::Count )>;
+    MenuOptionArray m_Buttons;
+    using WindowArray = std::array<UI::WindowSharedPtr, static_cast<std::size_t>( MainMenuOption::Count )>;
+    WindowArray m_Windows;
 };
 
 } // namespace Hexterminate

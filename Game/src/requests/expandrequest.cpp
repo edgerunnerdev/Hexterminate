@@ -20,82 +20,81 @@
 #include <cassert>
 #include <sstream>
 
-#include <genesis.h>
-#include "sector/sector.h"
-#include "player.h"
 #include "hexterminate.h"
-
+#include "player.h"
+#include "sector/sector.h"
+#include <genesis.h>
 
 namespace Hexterminate
 {
 
-ExpandRequest::ExpandRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo ) :
-ImperialRequest( pRequestManager ),
-m_pSectorInfo( pSectorInfo ),
-m_Reward( 0 )
+ExpandRequest::ExpandRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo )
+    : ImperialRequest( pRequestManager )
+    , m_pSectorInfo( pSectorInfo )
+    , m_Reward( 0 )
 {
-	SDL_assert( pSectorInfo != nullptr );	
+    SDL_assert( pSectorInfo != nullptr );
 }
 
 void ExpandRequest::OnBegin()
 {
-	ImperialRequest::OnBegin();
+    ImperialRequest::OnBegin();
 
-	m_Reward = m_pSectorInfo->GetConquestReward();
+    m_Reward = m_pSectorInfo->GetConquestReward();
 
-	std::stringstream ss;
-	ss << "Claim sector: +" << m_Reward << " influence";
+    std::stringstream ss;
+    ss << "Claim sector: +" << m_Reward << " influence";
 
-	m_pGoal = std::make_shared< RequestGoal >( m_pSectorInfo, ss.str() );
-	AddGoal( m_pGoal );
+    m_pGoal = std::make_shared<RequestGoal>( m_pSectorInfo, ss.str() );
+    AddGoal( m_pGoal );
 
 #ifdef _DEBUG
-	int x, y;
-	m_pSectorInfo->GetCoordinates( x, y );
-	Genesis::FrameWork::GetLogger()->LogInfo( "Starting ExpandRequest on sector %d / %d", x, y );
+    int x, y;
+    m_pSectorInfo->GetCoordinates( x, y );
+    Genesis::FrameWork::GetLogger()->LogInfo( "Starting ExpandRequest on sector %d / %d", x, y );
 #endif
 }
 
-void ExpandRequest::Update( float delta ) 
+void ExpandRequest::Update( float delta )
 {
-	ImperialRequest::Update( delta );
+    ImperialRequest::Update( delta );
 
-	// If the player was in this sector and it is now ours, then the request is completed successfully
-	Sector* pCurrentSector = g_pGame->GetCurrentSector();
-	if ( pCurrentSector != nullptr && pCurrentSector->GetSectorInfo() == m_pSectorInfo && pCurrentSector->IsPlayerVictorious() )
-	{
-		OnSuccess();
-	}
-	// But if the sector now belongs to the Empire without the player interfering, then the request fails
-	else if ( m_pSectorInfo->GetFaction() == g_pGame->GetFaction( FactionId::Empire ) )
-	{
-		OnFailure();
-	}
+    // If the player was in this sector and it is now ours, then the request is completed successfully
+    Sector* pCurrentSector = g_pGame->GetCurrentSector();
+    if ( pCurrentSector != nullptr && pCurrentSector->GetSectorInfo() == m_pSectorInfo && pCurrentSector->IsPlayerVictorious() )
+    {
+        OnSuccess();
+    }
+    // But if the sector now belongs to the Empire without the player interfering, then the request fails
+    else if ( m_pSectorInfo->GetFaction() == g_pGame->GetFaction( FactionId::Empire ) )
+    {
+        OnFailure();
+    }
 }
 
 void ExpandRequest::OnSuccess()
 {
-	ImperialRequest::OnSuccess();
+    ImperialRequest::OnSuccess();
 
-	std::stringstream ss;
-	ss << "Excellent, the sector is now ours. Our influence with Imperial HQ has increased by " << m_Reward << ".";
-	g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
+    std::stringstream ss;
+    ss << "Excellent, the sector is now ours. Our influence with Imperial HQ has increased by " << m_Reward << ".";
+    g_pGame->AddIntel( GameCharacter::FleetIntelligence, ss.str() );
 
-	RemoveGoal( m_pGoal );
-	m_pGoal.reset();
+    RemoveGoal( m_pGoal );
+    m_pGoal.reset();
 }
 
 void ExpandRequest::OnFailure()
 {
-	ImperialRequest::OnFailure();
+    ImperialRequest::OnFailure();
 
-	RemoveGoal( m_pGoal );
-	m_pGoal.reset();
+    RemoveGoal( m_pGoal );
+    m_pGoal.reset();
 }
 
-int	ExpandRequest::GetConquestReward( const SectorInfo* pSectorInfo ) const
+int ExpandRequest::GetConquestReward( const SectorInfo* pSectorInfo ) const
 {
-	return ( pSectorInfo == m_pSectorInfo ) ? ExpandRequestReward : 0;
+    return ( pSectorInfo == m_pSectorInfo ) ? ExpandRequestReward : 0;
 }
 
-}
+} // namespace Hexterminate

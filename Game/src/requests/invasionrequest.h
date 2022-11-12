@@ -29,30 +29,30 @@ static const float sInvasionRequestTimer = 5.0f * 60.0f; // Time until this sect
 class InvasionRequest : public ImperialRequest
 {
 public:
-									InvasionRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo, FactionId invadingFaction );
+    InvasionRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo, FactionId invadingFaction );
 
-	virtual ImperialRequestType		GetType() const override				{ return ImperialRequestType::Invasion; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Invasion; }
 
-	virtual void					Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
-	virtual void					OnBegin() override;
-	virtual void					OnSuccess() override;
-	virtual void					OnFailure() override;
-	virtual void					OnPlayerEnterSector() override;
+    virtual void OnBegin() override;
+    virtual void OnSuccess() override;
+    virtual void OnFailure() override;
+    virtual void OnPlayerEnterSector() override;
 
-	virtual int						GetConquestReward( const SectorInfo* pSectorInfo ) const override;
+    virtual int GetConquestReward( const SectorInfo* pSectorInfo ) const override;
 
-	inline SectorInfo*				GetSectorInfo() const					{ return m_pSectorInfo; }
-    inline FactionId                GetInvadingFaction() const              { return m_InvadingFaction; }
+    inline SectorInfo* GetSectorInfo() const { return m_pSectorInfo; }
+    inline FactionId GetInvadingFaction() const { return m_InvadingFaction; }
 
 private:
-	ShipInfoList					GetShipsToSpawn() const;
+    ShipInfoList GetShipsToSpawn() const;
 
-	RequestGoalSharedPtr			m_pGoal;
-	SectorInfo*						m_pSectorInfo;
-	int								m_Reward;
-    float                           m_FailureTimer;
-    FactionId                       m_InvadingFaction;
+    RequestGoalSharedPtr m_pGoal;
+    SectorInfo* m_pSectorInfo;
+    int m_Reward;
+    float m_FailureTimer;
+    FactionId m_InvadingFaction;
 };
 
-}
+} // namespace Hexterminate

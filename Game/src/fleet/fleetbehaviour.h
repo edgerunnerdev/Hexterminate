@@ -25,7 +25,7 @@ namespace Hexterminate
 class Faction;
 class Fleet;
 class SectorInfo;
-typedef std::vector< SectorInfo* > SectorInfoVector;
+typedef std::vector<SectorInfo*> SectorInfoVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // FleetBehaviourType
@@ -33,13 +33,12 @@ typedef std::vector< SectorInfo* > SectorInfoVector;
 
 enum class FleetBehaviourType
 {
-	None = -1,		// Probably a player fleet, no indepedent behaviour
-	Roaming = 0,
-	Raiding,
-	Expansionist,
-	Defensive
+    None = -1, // Probably a player fleet, no indepedent behaviour
+    Roaming = 0,
+    Raiding,
+    Expansionist,
+    Defensive
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // FleetBehaviour
@@ -49,24 +48,24 @@ enum class FleetBehaviourType
 class FleetBehaviour
 {
 protected:
-					FleetBehaviour( Fleet* pFleet );
+    FleetBehaviour( Fleet* pFleet );
+
 public:
-	virtual			~FleetBehaviour() {};
-	virtual bool	ProcessTurn(); // Returns whether to continue processing the turn or not.
-	virtual void	NotifyBattleWon();
+    virtual ~FleetBehaviour(){};
+    virtual bool ProcessTurn(); // Returns whether to continue processing the turn or not.
+    virtual void NotifyBattleWon();
 
 protected:
-	SectorInfo*		GetSectorToAssist() const;
-	void			NotifyAssist( SectorInfo* pSectorToAssist );
-    bool            CanAttackSector( SectorInfo* pSectorInfo ) const;
-	int				GetAssistingFleetsCount( SectorInfo* pSectorToAssist ) const;
+    SectorInfo* GetSectorToAssist() const;
+    void NotifyAssist( SectorInfo* pSectorToAssist );
+    bool CanAttackSector( SectorInfo* pSectorInfo ) const;
+    int GetAssistingFleetsCount( SectorInfo* pSectorToAssist ) const;
 
-	Fleet*			m_pFleet;
-	bool			m_ClaimsSectors;		// Does this fleet claim the sectors it fights in?
-	bool			m_AssistsFriendlies;	// If a friendly fleet is fighting in this fleet's range, does it move in to assist?
-	bool			m_JoinsTheFray;			// If there is an on-going battle not involving friendlies, does this fleet jump in?
+    Fleet* m_pFleet;
+    bool m_ClaimsSectors; // Does this fleet claim the sectors it fights in?
+    bool m_AssistsFriendlies; // If a friendly fleet is fighting in this fleet's range, does it move in to assist?
+    bool m_JoinsTheFray; // If there is an on-going battle not involving friendlies, does this fleet jump in?
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // FleetBehaviourRoaming
@@ -74,48 +73,46 @@ protected:
 // up to a maximum distance from its base.
 ///////////////////////////////////////////////////////////////////////////////
 
-class FleetBehaviourRoaming: public FleetBehaviour
+class FleetBehaviourRoaming : public FleetBehaviour
 {
 public:
-	FleetBehaviourRoaming( Fleet* pFleet, const SectorInfo* pBaseSector );
-	virtual ~FleetBehaviourRoaming() {};
-	virtual bool ProcessTurn();
+    FleetBehaviourRoaming( Fleet* pFleet, const SectorInfo* pBaseSector );
+    virtual ~FleetBehaviourRoaming(){};
+    virtual bool ProcessTurn();
 
 protected:
-	bool HasValidBaseSector() const;
-	void RelocateBaseSector();
-	bool TryAttackSector( SectorInfo* pSector );
+    bool HasValidBaseSector() const;
+    void RelocateBaseSector();
+    bool TryAttackSector( SectorInfo* pSector );
 
-	const SectorInfo* m_pBaseSector;
+    const SectorInfo* m_pBaseSector;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // FleetBehaviourRaiding
 ///////////////////////////////////////////////////////////////////////////////
 
-class FleetBehaviourRaiding: public FleetBehaviour
+class FleetBehaviourRaiding : public FleetBehaviour
 {
 public:
-	FleetBehaviourRaiding( Fleet* pFleet );
-	virtual ~FleetBehaviourRaiding() {};
-	virtual bool ProcessTurn();
+    FleetBehaviourRaiding( Fleet* pFleet );
+    virtual ~FleetBehaviourRaiding(){};
+    virtual bool ProcessTurn();
 };
-
 
 /////////////////////////////////////s//////////////////////////////////////////
 // FleetBehaviourExpansionist
 // Attempts to expand along the borders of its faction.
 ///////////////////////////////////////////////////////////////////////////////
 
-class FleetBehaviourExpansionist: public FleetBehaviour
+class FleetBehaviourExpansionist : public FleetBehaviour
 {
 public:
-	FleetBehaviourExpansionist( Fleet* pFleet );
-	virtual ~FleetBehaviourExpansionist() {};
-	virtual bool ProcessTurn();
+    FleetBehaviourExpansionist( Fleet* pFleet );
+    virtual ~FleetBehaviourExpansionist(){};
+    virtual bool ProcessTurn();
 
-	static void sGetHostileBorderingSectors( Faction* pFaction, const SectorInfo* pAroundSector, SectorInfoVector& hostileSectors );
+    static void sGetHostileBorderingSectors( Faction* pFaction, const SectorInfo* pAroundSector, SectorInfoVector& hostileSectors );
 };
 
-}
+} // namespace Hexterminate

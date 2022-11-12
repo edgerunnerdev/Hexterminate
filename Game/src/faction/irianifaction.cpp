@@ -17,29 +17,26 @@
 
 #include "faction/irianifaction.h"
 
-#include "requests/campaigntags.h"
 #include "blackboard.h"
 #include "hexterminate.h"
-
+#include "requests/campaigntags.h"
 
 namespace Hexterminate
 {
 
-IrianiFaction::IrianiFaction( const FactionInfo& info ) : 
-Faction( info, FactionId::Iriani )
+IrianiFaction::IrianiFaction( const FactionInfo& info )
+    : Faction( info, FactionId::Iriani )
 {
-
 }
 
 void IrianiFaction::AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer )
 {
     Faction::AddControlledSector( pSector, immediate, takenByPlayer );
 
-	if ( g_pGame->GetGameMode() == GameMode::Campaign &&
-		 g_pGame->GetBlackboard()->Exists( sPlayerHasOrionsSword ) == false )
-	{
-		pSector->SetHyperspaceInhibitor( true );
-	}
+    if ( g_pGame->GetGameMode() == GameMode::Campaign && g_pGame->GetBlackboard()->Exists( sPlayerHasOrionsSword ) == false )
+    {
+        pSector->SetHyperspaceInhibitor( true );
+    }
 }
 
-}
+} // namespace Hexterminate

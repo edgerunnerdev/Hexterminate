@@ -17,12 +17,11 @@
 
 #include "faction/empirefaction.h"
 
+#include "hexterminate.h"
+#include "player.h"
 #include "requests/requestmanager.h"
 #include "sector/fogofwar.h"
 #include "sector/galaxy.h"
-#include "player.h"
-#include "hexterminate.h"
-
 
 namespace Hexterminate
 {
@@ -35,81 +34,80 @@ static const float sPassiveInfluenceAllocationTimer = 30.0f;
 // allocation timer expires.
 static const int sInfluenceAllocationPerSector = 20;
 
-
-EmpireFaction::EmpireFaction( const FactionInfo& info ) : 
-Faction( info, FactionId::Empire ),
-m_InfluenceTimer( sPassiveInfluenceAllocationTimer ),
-m_pRequestManager( nullptr )
+EmpireFaction::EmpireFaction( const FactionInfo& info )
+    : Faction( info, FactionId::Empire )
+    , m_InfluenceTimer( sPassiveInfluenceAllocationTimer )
+    , m_pRequestManager( nullptr )
 {
-	m_pRequestManager = new RequestManager();
+    m_pRequestManager = new RequestManager();
 }
 
 EmpireFaction::~EmpireFaction()
 {
-	delete m_pRequestManager;
+    delete m_pRequestManager;
 }
 
 void EmpireFaction::Update( float delta )
 {
-	Faction::Update( delta );
+    Faction::Update( delta );
 
-	if ( g_pGame->GetPlayer()->GetPerks()->IsEnabled( Perk::UnityIsStrength ) )
-	{
-		m_InfluenceTimer -= delta;
-		if ( m_InfluenceTimer <= 0.0f )
-		{
-			m_InfluenceTimer += sPassiveInfluenceAllocationTimer;
+    if ( g_pGame->GetPlayer()->GetPerks()->IsEnabled( Perk::UnityIsStrength ) )
+    {
+        m_InfluenceTimer -= delta;
+        if ( m_InfluenceTimer <= 0.0f )
+        {
+            m_InfluenceTimer += sPassiveInfluenceAllocationTimer;
 
-			Player* pPlayer = g_pGame->GetPlayer();
-			if ( pPlayer != nullptr )
-			{
-				const int numControlledSectors = static_cast<int>(GetControlledSectors().size());
-				const int influence = numControlledSectors * sInfluenceAllocationPerSector;
-				pPlayer->SetInfluence( pPlayer->GetInfluence() + influence );
-			}
-		}
-	}
+            Player* pPlayer = g_pGame->GetPlayer();
+            if ( pPlayer != nullptr )
+            {
+                const int numControlledSectors = static_cast<int>( GetControlledSectors().size() );
+                const int influence = numControlledSectors * sInfluenceAllocationPerSector;
+                pPlayer->SetInfluence( pPlayer->GetInfluence() + influence );
+            }
+        }
+    }
 
-	FogOfWar* pFogOfWar = g_pGame->GetGalaxy()->GetFogOfWar();
-	if ( pFogOfWar != nullptr )
-	{
-		const SectorInfoVector& controlledSectors = GetControlledSectors();
-		for ( const SectorInfo* pSectorInfo : controlledSectors )
-		{
-			pFogOfWar->MarkAsVisible( pSectorInfo, 1 );
-		}
-	}
+    FogOfWar* pFogOfWar = g_pGame->GetGalaxy()->GetFogOfWar();
+    if ( pFogOfWar != nullptr )
+    {
+        const SectorInfoVector& controlledSectors = GetControlledSectors();
+        for ( const SectorInfo* pSectorInfo : controlledSectors )
+        {
+            pFogOfWar->MarkAsVisible( pSectorInfo, 1 );
+        }
+    }
 
-	m_pRequestManager->Update( delta );
+    m_pRequestManager->Update( delta );
 }
 
 void EmpireFaction::AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer )
 {
-	Faction* pOriginalFaction = pSector->GetFaction();
+    Faction* pOriginalFaction = pSector->GetFaction();
 
     Faction::AddControlledSector( pSector, immediate, takenByPlayer );
 
-	// If the Empire has gained a new sector from another faction, then we need to take into account the
-	// perks "Reclaimed sectors" (increased strength of the regional fleet) and Shared glory (additional 
-	// influence if taken by an Imperial AI fleet).
-	if ( pOriginalFaction != nullptr )
-	{
+    // If the Empire has gained a new sector from another faction, then we need to take into account the
+    // perks "Reclaimed sectors" (increased strength of the regional fleet) and Shared glory (additional
+    // influence if taken by an Imperial AI fleet).
+    if ( pOriginalFaction != nullptr )
+    {
         Player* pPlayer = g_pGame->GetPlayer();
-		const Perks* pPerks = pPlayer->GetPerks();
+        const Perks* pPerks = pPlayer->GetPerks();
 
         if ( takenByPlayer == false && pPerks->IsEnabled( Perk::SharedGlory ) )
-		{
+        {
             // Shared glory gives the player half of the normal reward for a sector when an AI fleet conquers it
             const int conquestReward = pOriginalFaction->GetConquestReward( pSector ) / 2;
             const int influence = pPlayer->GetInfluence() + conquestReward;
             pPlayer->SetInfluence( influence );
-		}
-		
-		if ( pPerks->IsEnabled( Perk::ReclaimedSectors ) )
-		{
-			pSector->RestoreRegionalFleet();
-		}
-	}
+        }
+
+        if ( pPerks->IsEnabled( Perk::ReclaimedSectors ) )
+        {
+            pSector->RestoreRegionalFleet();
+        }
+    }
 }
 
-}
+} // namespace Hexterminate

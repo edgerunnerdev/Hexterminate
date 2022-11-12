@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <list>
-#include <gui/gui.h>
-#include "ship/ship.h"
 #include "globals.h"
 #include "hexterminate.h"
+#include "ship/ship.h"
+#include <gui/gui.h>
+#include <list>
 
 namespace Hexterminate
 {
@@ -31,47 +31,47 @@ class ModuleInfo;
 class IntelFragment
 {
 public:
-	IntelFragment( GameCharacter character, const std::string& title, const std::string& content, ModuleInfo* pModuleInfo = nullptr, bool canBeQueued = true );
-	~IntelFragment() {};
+    IntelFragment( GameCharacter character, const std::string& title, const std::string& content, ModuleInfo* pModuleInfo = nullptr, bool canBeQueued = true );
+    ~IntelFragment(){};
 
-	GameCharacter m_Icon;
-	std::string m_Title;
-	std::string m_Content;
-	float m_Duration;
-	ModuleInfo* m_pModuleInfo;
-	bool m_CanBeQueued;
+    GameCharacter m_Icon;
+    std::string m_Title;
+    std::string m_Content;
+    float m_Duration;
+    ModuleInfo* m_pModuleInfo;
+    bool m_CanBeQueued;
 };
 
-typedef std::list< IntelFragment > IntelFragmentList;
+typedef std::list<IntelFragment> IntelFragmentList;
 
 class IntelWindow
 {
 public:
-							IntelWindow();
-							~IntelWindow();
-	void					Update( float delta );
+    IntelWindow();
+    ~IntelWindow();
+    void Update( float delta );
 
-	void					AddFragment( const IntelFragment& fragment );
-	void					Clear();
-	bool					IsVisible() const;
-	const glm::vec2&		GetPosition() const;
-	const glm::vec2&		GetSize() const;
+    void AddFragment( const IntelFragment& fragment );
+    void Clear();
+    bool IsVisible() const;
+    const glm::vec2& GetPosition() const;
+    const glm::vec2& GetSize() const;
 
 private:
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pContent;
-	Genesis::Gui::Text*		m_pLoot;
-	Genesis::Gui::Text*		m_pTitle;
-	Genesis::Gui::Image*	m_pIcon;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pContent;
+    Genesis::Gui::Text* m_pLoot;
+    Genesis::Gui::Text* m_pTitle;
+    Genesis::Gui::Image* m_pIcon;
 
-	Genesis::ResourceImage* m_pIcons[ (int)GameCharacter::Count ];
-	IntelFragmentList		m_Fragments;
+    Genesis::ResourceImage* m_pIcons[ (int)GameCharacter::Count ];
+    IntelFragmentList m_Fragments;
 
-	int						m_LineLength;
-	bool					m_Dirty;
-    float                   m_HoldTimer;
+    int m_LineLength;
+    bool m_Dirty;
+    float m_HoldTimer;
 
     Genesis::ResourceSound* m_pSFX;
 };
 
-}
+} // namespace Hexterminate

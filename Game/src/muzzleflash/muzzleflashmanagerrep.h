@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <scene/sceneobject.h>
 #include <rendersystem.h>
+#include <scene/sceneobject.h>
 #include <vertexbuffer.h>
 
 namespace Genesis
@@ -26,7 +26,7 @@ namespace Genesis
 class ResourceImage;
 class Shader;
 class ShaderParameters;
-}
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -37,20 +37,20 @@ class Trail;
 class MuzzleflashManagerRep : public Genesis::SceneObject
 {
 public:
-	MuzzleflashManagerRep( MuzzleflashManager* pManager );
-	virtual	~MuzzleflashManagerRep() override;
-	virtual void Update( float delta ) override;
-	virtual void Render() override;
-	void SetManager( MuzzleflashManager* pManager );
+    MuzzleflashManagerRep( MuzzleflashManager* pManager );
+    virtual ~MuzzleflashManagerRep() override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
+    void SetManager( MuzzleflashManager* pManager );
 
 private:
     void PushBackUVs( Genesis::UVData& uvData );
-	void PushBackColours( Genesis::ColourData& colourData, const Genesis::Color& colour );
+    void PushBackColours( Genesis::ColourData& colourData, const Genesis::Color& colour );
 
-	MuzzleflashManager* m_pManager;
+    MuzzleflashManager* m_pManager;
     Genesis::Shader* m_pShader;
     Genesis::VertexBuffer* m_pVertexBuffer;
     unsigned int m_NumVertices;
 };
 
-}
+} // namespace Hexterminate

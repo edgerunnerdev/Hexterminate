@@ -29,50 +29,49 @@ namespace Hexterminate
 class Resource
 {
 public:
-	enum class Type
-	{
-		CommonMetals,
-		RareMetals,
-		Helium3,
-		QuantumCore,
+    enum class Type
+    {
+        CommonMetals,
+        RareMetals,
+        Helium3,
+        QuantumCore,
 
-		Count
-	};
+        Count
+    };
 
-	Type GetType() const;
-	const std::string& GetName() const;
-	unsigned int GetQuantity() const;
-	void SetQuantity( unsigned int quantity );
+    Type GetType() const;
+    const std::string& GetName() const;
+    unsigned int GetQuantity() const;
+    void SetQuantity( unsigned int quantity );
 
 protected:
-	Resource( Type type, const std::string& name, unsigned int quantity );
+    Resource( Type type, const std::string& name, unsigned int quantity );
 
 private:
-	Type m_Type;
-	std::string m_Name;
-	unsigned int m_Quantity;
+    Type m_Type;
+    std::string m_Name;
+    unsigned int m_Quantity;
 };
 
 inline Resource::Type Resource::GetType() const
 {
-	return m_Type;
+    return m_Type;
 }
 
 inline const std::string& Resource::GetName() const
 {
-	return m_Name;
+    return m_Name;
 }
 
 inline unsigned int Resource::GetQuantity() const
 {
-	return m_Quantity;
+    return m_Quantity;
 }
 
 inline void Resource::SetQuantity( unsigned int quantity )
 {
-	m_Quantity = quantity;
+    m_Quantity = quantity;
 }
-
 
 //-----------------------------------------------------------------------------
 // CommonMetalsResource
@@ -81,9 +80,8 @@ inline void Resource::SetQuantity( unsigned int quantity )
 class CommonMetalsResource : public Resource
 {
 public:
-	CommonMetalsResource( unsigned int quantity = 0 );
+    CommonMetalsResource( unsigned int quantity = 0 );
 };
-
 
 //-----------------------------------------------------------------------------
 // RareMetalsResource
@@ -92,9 +90,8 @@ public:
 class RareMetalsResource : public Resource
 {
 public:
-	RareMetalsResource( unsigned int quantity = 0 );
+    RareMetalsResource( unsigned int quantity = 0 );
 };
-
 
 //-----------------------------------------------------------------------------
 // Helium3Resource
@@ -103,9 +100,8 @@ public:
 class Helium3Resource : public Resource
 {
 public:
-	Helium3Resource( unsigned int quantity = 0 );
+    Helium3Resource( unsigned int quantity = 0 );
 };
-
 
 //-----------------------------------------------------------------------------
 // QuantumCoreResource
@@ -114,7 +110,7 @@ public:
 class QuantumCoreResource : public Resource
 {
 public:
-	QuantumCoreResource( unsigned int quantity = 0 );
+    QuantumCoreResource( unsigned int quantity = 0 );
 };
 
 } // namespace Hexterminate

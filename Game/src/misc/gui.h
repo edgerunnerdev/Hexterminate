@@ -27,10 +27,10 @@ namespace Hexterminate
 
 namespace GuiExtended
 {
-	Genesis::Gui::Text* CreateText( int x, int y, int w, int h, const std::string& text, Genesis::Gui::GuiElement* pParent, bool bold = false, bool multiline = false );
+    Genesis::Gui::Text* CreateText( int x, int y, int w, int h, const std::string& text, Genesis::Gui::GuiElement* pParent, bool bold = false, bool multiline = false );
 
-	// Add the element to a parent -or- to the GuiManager's root if pParent is null
-	void AddToParent( Genesis::Gui::GuiElement* pElement, Genesis::Gui::GuiElement* pParent );
-}
+    // Add the element to a parent -or- to the GuiManager's root if pParent is null
+    void AddToParent( Genesis::Gui::GuiElement* pElement, Genesis::Gui::GuiElement* pParent );
+} // namespace GuiExtended
 
-}
+} // namespace Hexterminate

@@ -21,19 +21,19 @@ namespace Hexterminate
 {
 
 /////////////////////////////////////////////////////////////////////
-// Any sector with this component will disable ships' shields at 
+// Any sector with this component will disable ships' shields at
 // regular intervals.
 /////////////////////////////////////////////////////////////////////
 
-class ShieldInhibitorComponent : public Genesis::Component 
+class ShieldInhibitorComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( ShieldInhibitorComponent )
+    DECLARE_COMPONENT( ShieldInhibitorComponent )
 public:
-	virtual bool Initialise() override;
-	virtual void Update( float delta ) override;
+    virtual bool Initialise() override;
+    virtual void Update( float delta ) override;
 
 private:
-	float m_Timer;
+    float m_Timer;
 };
 
-}
+} // namespace Hexterminate

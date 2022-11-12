@@ -17,36 +17,36 @@
 
 #pragma once
 
-#include <vector>
 #include "muzzleflash/muzzleflashdata.h"
+#include <vector>
 
 namespace Hexterminate
 {
 
-using MuzzleflashDataVector = std::vector< MuzzleflashData >;
+using MuzzleflashDataVector = std::vector<MuzzleflashData>;
 
 class MuzzleflashManager
 {
 public:
-	MuzzleflashManager();
-	~MuzzleflashManager();
+    MuzzleflashManager();
+    ~MuzzleflashManager();
 
-	void Update( float delta );
-	const MuzzleflashDataVector& GetMuzzleflashes() const;
-	void Add( const MuzzleflashData& muzzleflash );
+    void Update( float delta );
+    const MuzzleflashDataVector& GetMuzzleflashes() const;
+    void Add( const MuzzleflashData& muzzleflash );
 
 private:
-	MuzzleflashDataVector m_Muzzleflashes;
+    MuzzleflashDataVector m_Muzzleflashes;
 };
 
 inline const MuzzleflashDataVector& MuzzleflashManager::GetMuzzleflashes() const
 {
-	return m_Muzzleflashes;
+    return m_Muzzleflashes;
 }
 
 inline void MuzzleflashManager::Add( const MuzzleflashData& muzzleflash )
 {
-	m_Muzzleflashes.push_back( muzzleflash );
+    m_Muzzleflashes.push_back( muzzleflash );
 }
 
-}
+} // namespace Hexterminate

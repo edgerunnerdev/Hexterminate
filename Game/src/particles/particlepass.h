@@ -26,14 +26,14 @@
 
 namespace Genesis
 {
-	namespace Gui
-	{
-		class Atlas;
-	}
-
-	class Shader;
-	class ShaderUniform;
+namespace Gui
+{
+    class Atlas;
 }
+
+class Shader;
+class ShaderUniform;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -42,35 +42,35 @@ class Particle;
 class ParticleManager;
 class ParticleEmitter;
 
-typedef std::vector< const Particle* > ParticlePointerVector;
+typedef std::vector<const Particle*> ParticlePointerVector;
 
 struct ParticleRenderData
 {
-	int textureId;
-	const Genesis::Gui::Atlas* pAtlas;
-	ParticlePointerVector particles;
+    int textureId;
+    const Genesis::Gui::Atlas* pAtlas;
+    ParticlePointerVector particles;
 };
 
-typedef std::vector< ParticleRenderData > EmitterRenderData;
+typedef std::vector<ParticleRenderData> EmitterRenderData;
 
 class ParticlePass
 {
 public:
-								ParticlePass( Genesis::BlendMode blendMode, const std::string& shader, bool glowEnabled );
-								~ParticlePass();
-	
-	bool						m_GlowEnabled;
+    ParticlePass( Genesis::BlendMode blendMode, const std::string& shader, bool glowEnabled );
+    ~ParticlePass();
 
-	Genesis::BlendMode			m_BlendMode;
-	Genesis::Shader*			m_pShader;
-	Genesis::ShaderUniform*		m_pSamplerUniform;
+    bool m_GlowEnabled;
 
-	Genesis::VertexBuffer*		m_pVertexBuffer;
-	Genesis::PositionData		m_PositionData;
-	Genesis::UVData				m_UVData;
-	Genesis::ColourData			m_ColourData;
+    Genesis::BlendMode m_BlendMode;
+    Genesis::Shader* m_pShader;
+    Genesis::ShaderUniform* m_pSamplerUniform;
 
-	EmitterRenderData			m_Data;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    Genesis::PositionData m_PositionData;
+    Genesis::UVData m_UVData;
+    Genesis::ColourData m_ColourData;
+
+    EmitterRenderData m_Data;
 };
 
-}
+} // namespace Hexterminate

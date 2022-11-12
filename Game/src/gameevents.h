@@ -32,18 +32,19 @@ class Ship;
 enum class GameEventType
 {
     PerkAcquired,
-	PerkPointAcquired,
-	PerkPointPartAcquired,
+    PerkPointAcquired,
+    PerkPointPartAcquired,
     ModuleAcquired,
-	ShipDestroyed
+    ShipDestroyed
 };
 
 class GameEvent
 {
 public:
-    GameEvent( GameEventType gameEventType ) : m_GameEventType( gameEventType ) {};
+    GameEvent( GameEventType gameEventType )
+        : m_GameEventType( gameEventType ){};
 
-    inline GameEventType GetType() const { return m_GameEventType; } 
+    inline GameEventType GetType() const { return m_GameEventType; }
 
 private:
     GameEventType m_GameEventType;
@@ -54,12 +55,13 @@ private:
 class GameEventModuleAcquired : public GameEvent
 {
 public:
-    GameEventModuleAcquired( ModuleInfo* pModuleInfo, unsigned int quantity, bool triggersNotification ) :
-        GameEvent( GameEventType::ModuleAcquired ), 
-        m_pModuleInfo( pModuleInfo ),
-        m_Quantity( quantity ),
-        m_TriggersNotification( triggersNotification )
-    {}
+    GameEventModuleAcquired( ModuleInfo* pModuleInfo, unsigned int quantity, bool triggersNotification )
+        : GameEvent( GameEventType::ModuleAcquired )
+        , m_pModuleInfo( pModuleInfo )
+        , m_Quantity( quantity )
+        , m_TriggersNotification( triggersNotification )
+    {
+    }
 
     inline ModuleInfo* GetModuleInfo() const { return m_pModuleInfo; }
     inline unsigned int GetQuantity() const { return m_Quantity; }
@@ -75,17 +77,17 @@ private:
 class GameEventShipDestroyed : public GameEvent
 {
 public:
-    GameEventShipDestroyed( Ship* pShip ) :
-        GameEvent( GameEventType::ShipDestroyed ), 
-        m_pShip( pShip )
-    {}
+    GameEventShipDestroyed( Ship* pShip )
+        : GameEvent( GameEventType::ShipDestroyed )
+        , m_pShip( pShip )
+    {
+    }
 
-	inline Ship* GetShip() const { return m_pShip; }
+    inline Ship* GetShip() const { return m_pShip; }
 
 private:
     Ship* m_pShip;
 };
-
 
 /////////////////////////////////////////////////////////////////////
 // GameEventHandler
@@ -100,8 +102,7 @@ public:
     virtual void HandleGameEvent( GameEvent* pEvent ) = 0;
 };
 
-typedef std::list< GameEventHandler* > GameEventHandlerList;
-
+typedef std::list<GameEventHandler*> GameEventHandlerList;
 
 /////////////////////////////////////////////////////////////////////
 // GameEventManager
@@ -112,9 +113,9 @@ class GameEventManager
 public:
     static void RegisterHandler( GameEventHandler* pListener );
     static void RemoveHandler( GameEventHandler* pListener );
-    static void Broadcast( GameEvent* pEvent ); 
+    static void Broadcast( GameEvent* pEvent );
 
     static GameEventHandlerList m_Handlers;
 };
 
-};
+}; // namespace Hexterminate

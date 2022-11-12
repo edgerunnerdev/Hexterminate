@@ -17,23 +17,22 @@
 
 #include "requests/infinitewarrequestinfo.h"
 
-#include "requests/infinitewarrequest.h"
 #include "hexterminate.h"
-
+#include "requests/infinitewarrequest.h"
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr InfiniteWarRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) )
-	{
-		return std::make_shared<InfiniteWarRequest>( pRequestManager );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    if ( CommonInstantiationChecks( pRequestManager ) )
+    {
+        return std::make_shared<InfiniteWarRequest>( pRequestManager );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
-}
+} // namespace Hexterminate

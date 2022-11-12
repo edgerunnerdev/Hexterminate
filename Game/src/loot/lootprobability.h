@@ -25,12 +25,13 @@ namespace Hexterminate
 class LootProbability
 {
 public:
-					LootProbability();
-					LootProbability( float commonChance, float uncommonChance, float rareChance, float artifactChance, float legendaryChance );
-					~LootProbability() {};
-	bool			Get( ModuleRarity& rarity ) const;
+    LootProbability();
+    LootProbability( float commonChance, float uncommonChance, float rareChance, float artifactChance, float legendaryChance );
+    ~LootProbability(){};
+    bool Get( ModuleRarity& rarity ) const;
+
 private:
-	float			m_Value[ static_cast<unsigned int>( ModuleRarity::Count ) ];
+    float m_Value[ static_cast<unsigned int>( ModuleRarity::Count ) ];
 };
 
-}
+} // namespace Hexterminate

@@ -27,69 +27,70 @@ namespace Hexterminate::UI
 
 static const char* sInputAreaPropertyDefaultText = "default_text";
 
-InputArea::InputArea( const std::string& name ) : Panel( name )
+InputArea::InputArea( const std::string& name )
+    : Panel( name )
 {
     using namespace Genesis;
 
-	GetPanel()->SetBorderMode( Gui::PANEL_BORDER_ALL );
+    GetPanel()->SetBorderMode( Gui::PANEL_BORDER_ALL );
 
-	m_pInputArea = new Gui::InputArea();
-	m_pInputArea->SetFont( (ResourceFont*)FrameWork::GetResourceManager()->GetResource( "data/fonts/kimberley18light.fnt" ) );
-	m_pInputArea->SetFilter( Gui::InputAreaFilter::ACCEPT_LETTERS | Gui::InputAreaFilter::ACCEPT_SPACES );
-	m_pInputArea->SetColour( 0.0f, 0.0f, 0.0f, 0.5f );
-	m_pInputArea->SetHoverColour( 1.0f, 1.0f, 1.0f, 0.15f );
-	m_pInputArea->SetBorderMode( Gui::PANEL_BORDER_NONE );
-	GetPanel()->AddElement( m_pInputArea );
+    m_pInputArea = new Gui::InputArea();
+    m_pInputArea->SetFont( (ResourceFont*)FrameWork::GetResourceManager()->GetResource( "data/fonts/kimberley18light.fnt" ) );
+    m_pInputArea->SetFilter( Gui::InputAreaFilter::ACCEPT_LETTERS | Gui::InputAreaFilter::ACCEPT_SPACES );
+    m_pInputArea->SetColour( 0.0f, 0.0f, 0.0f, 0.5f );
+    m_pInputArea->SetHoverColour( 1.0f, 1.0f, 1.0f, 0.15f );
+    m_pInputArea->SetBorderMode( Gui::PANEL_BORDER_NONE );
+    GetPanel()->AddElement( m_pInputArea );
 }
 
 void InputArea::Update()
 {
-	Panel::Update();
-	m_pInputArea->SetAcceptsInput( IsAcceptingInput() );
+    Panel::Update();
+    m_pInputArea->SetAcceptsInput( IsAcceptingInput() );
 }
 
 void InputArea::SetSize( int width, int height )
 {
-	Panel::SetSize( width, height );
-	m_pInputArea->SetSize( width, height );
+    Panel::SetSize( width, height );
+    m_pInputArea->SetSize( width, height );
 }
 
 const std::string& InputArea::GetText() const
 {
-	return m_pInputArea->GetText();
+    return m_pInputArea->GetText();
 }
 
 void InputArea::SetText( const std::string& text )
 {
-	m_pInputArea->SetText( text );
+    m_pInputArea->SetText( text );
 }
 
 void InputArea::SaveProperties( json& properties )
 {
     Element::SaveProperties( properties );
 
-	properties[ sInputAreaPropertyDefaultText ] = m_DefaultText;
+    properties[ sInputAreaPropertyDefaultText ] = m_DefaultText;
 }
 
 void InputArea::LoadProperties( const json& properties )
 {
     Element::LoadProperties( properties );
 
-	if ( properties.contains( sInputAreaPropertyDefaultText ) )
-	{
-		m_DefaultText = properties[ sInputAreaPropertyDefaultText ].get<std::string>();
-		m_pInputArea->SetText( m_DefaultText );
-	}
+    if ( properties.contains( sInputAreaPropertyDefaultText ) )
+    {
+        m_DefaultText = properties[ sInputAreaPropertyDefaultText ].get<std::string>();
+        m_pInputArea->SetText( m_DefaultText );
+    }
 }
 
 void InputArea::RenderProperties()
 {
     Element::RenderProperties();
 
-	if ( ImGui::CollapsingHeader( "Input Area", ImGuiTreeNodeFlags_DefaultOpen ) )
+    if ( ImGui::CollapsingHeader( "Input Area", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-		ImGui::InputText( "Default text", &m_DefaultText );
-	}
+        ImGui::InputText( "Default text", &m_DefaultText );
+    }
 }
 
 } // namespace Hexterminate::UI

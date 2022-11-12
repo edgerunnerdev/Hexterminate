@@ -71,7 +71,7 @@ inline int ScrollingElement::GetScrollbarWidth() const
 
 inline bool ScrollingElement::IsScrollingEnabled() const
 {
-	return m_OffsetLimit != 0;
+    return m_OffsetLimit != 0;
 }
 
 } // namespace Hexterminate::UI

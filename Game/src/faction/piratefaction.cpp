@@ -16,38 +16,38 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "faction/piratefaction.h"
+#include "blackboard.h"
+#include "globals.h"
+#include "hexterminate.h"
 #include "requests/campaigntags.h"
 #include "sector/galaxy.h"
 #include "sector/sector.h"
-#include "blackboard.h"
-#include "hexterminate.h"
-#include "globals.h"
 
 namespace Hexterminate
 {
 
-PirateFaction::PirateFaction( const FactionInfo& info ): Faction( info, FactionId::Pirate )
+PirateFaction::PirateFaction( const FactionInfo& info )
+    : Faction( info, FactionId::Pirate )
 {
-
 }
 
 void PirateFaction::ProcessTurn()
 {
-	Faction::ProcessTurn();
+    Faction::ProcessTurn();
 
-	if ( IsCollapsing() == false )
-	{
-		// Attempt to claim a random sector if we are under the NumPirateSectors threshold
-		size_t numSectors = GetControlledSectors().size();
-		if ( numSectors < NumPirateSectors )
-		{
-			SectorInfo* pSector = g_pGame->GetGalaxy()->GetSectorInfo( rand() % NumSectorsX, rand() % NumSectorsY );
-			if ( pSector->GetFaction() == g_pGame->GetFaction( FactionId::Neutral ) )
-			{
-				pSector->SetFaction( this, false, false );
-			}
-		}
-	}
+    if ( IsCollapsing() == false )
+    {
+        // Attempt to claim a random sector if we are under the NumPirateSectors threshold
+        size_t numSectors = GetControlledSectors().size();
+        if ( numSectors < NumPirateSectors )
+        {
+            SectorInfo* pSector = g_pGame->GetGalaxy()->GetSectorInfo( rand() % NumSectorsX, rand() % NumSectorsY );
+            if ( pSector->GetFaction() == g_pGame->GetFaction( FactionId::Neutral ) )
+            {
+                pSector->SetFaction( this, false, false );
+            }
+        }
+    }
 }
 
-}
+} // namespace Hexterminate

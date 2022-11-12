@@ -18,94 +18,96 @@
 #include <genesis.h>
 #include <logger.h>
 
-#include "ship/moduleinfo.h"
-#include "ship/hexgrid.h"
 #include "hexterminate.h"
+#include "ship/hexgrid.h"
+#include "ship/moduleinfo.h"
 #include "xmlaux.h"
-
 
 namespace Hexterminate
 {
 
 bool WriteHexGridModuleInfo( HexGrid<ModuleInfo*>* pHexGrid, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement )
 {
-	using namespace tinyxml2;
+    using namespace tinyxml2;
 
-	XMLElement* pElement = xmlDoc.NewElement( "HexGrid" );
-	pRootElement->LinkEndChild( pElement );
+    XMLElement* pElement = xmlDoc.NewElement( "HexGrid" );
+    pRootElement->LinkEndChild( pElement );
 
-	Xml::Write( xmlDoc, pElement, "Version", pHexGrid->GetVersion() );
+    Xml::Write( xmlDoc, pElement, "Version", pHexGrid->GetVersion() );
 
-	int x1, y1, x2, y2;
-	pHexGrid->GetBoundingBox( x1, y1, x2, y2 );
+    int x1, y1, x2, y2;
+    pHexGrid->GetBoundingBox( x1, y1, x2, y2 );
 
-	for ( int x = x1; x <= x2; ++x )
-	{
-		for ( int y = y1; y <= y2; ++y )
-		{
-			ModuleInfo* pModuleInfo = pHexGrid->Get( x, y );
-			if ( pModuleInfo != nullptr )
-			{
-				XMLElement* pModuleElement = xmlDoc.NewElement( "Module" );
-				pElement->LinkEndChild( pModuleElement );
+    for ( int x = x1; x <= x2; ++x )
+    {
+        for ( int y = y1; y <= y2; ++y )
+        {
+            ModuleInfo* pModuleInfo = pHexGrid->Get( x, y );
+            if ( pModuleInfo != nullptr )
+            {
+                XMLElement* pModuleElement = xmlDoc.NewElement( "Module" );
+                pElement->LinkEndChild( pModuleElement );
 
-				pModuleElement->SetAttribute( "x", x );
-				pModuleElement->SetAttribute( "y", y );
-				pModuleElement->SetText( pModuleInfo->GetName().c_str() );
-			}
-		}
-	}
+                pModuleElement->SetAttribute( "x", x );
+                pModuleElement->SetAttribute( "y", y );
+                pModuleElement->SetText( pModuleInfo->GetName().c_str() );
+            }
+        }
+    }
 
-	return true; 
+    return true;
 }
 
 bool ReadHexGridModuleInfo( HexGrid<ModuleInfo*>* pHexGrid, tinyxml2::XMLElement* pRootElement )
 {
-	Genesis::FrameWork::GetLogger()->LogInfo( "Loading hexgrid..." );
+    Genesis::FrameWork::GetLogger()->LogInfo( "Loading hexgrid..." );
 
-	for ( tinyxml2::XMLElement* pElement = pRootElement->FirstChildElement(); pElement != nullptr; pElement = pElement->NextSiblingElement() ) 
-	{
-		if ( std::string( pElement->Value() ) == "Module" )
-		{
-			std::string moduleName = pElement->GetText();
-			ModuleInfo* pModuleInfo = g_pGame->GetModuleInfoManager()->GetModuleByName( moduleName );
+    for ( tinyxml2::XMLElement* pElement = pRootElement->FirstChildElement(); pElement != nullptr; pElement = pElement->NextSiblingElement() )
+    {
+        if ( std::string( pElement->Value() ) == "Module" )
+        {
+            std::string moduleName = pElement->GetText();
+            ModuleInfo* pModuleInfo = g_pGame->GetModuleInfoManager()->GetModuleByName( moduleName );
 
-			if ( pModuleInfo == nullptr )
-			{
-				Genesis::FrameWork::GetLogger()->LogWarning( "Unable to find module '%s', skipping.", moduleName.c_str() );
-				return false;
-			}
-			else
-			{
-				int x, y;
-				pElement->QueryIntAttribute( "x", &x );
-				pElement->QueryIntAttribute( "y", &y );
-			
-				pHexGrid->Set( x, y, pModuleInfo );
-			}
-		}
-	}
+            if ( pModuleInfo == nullptr )
+            {
+                Genesis::FrameWork::GetLogger()->LogWarning( "Unable to find module '%s', skipping.", moduleName.c_str() );
+                return false;
+            }
+            else
+            {
+                int x, y;
+                pElement->QueryIntAttribute( "x", &x );
+                pElement->QueryIntAttribute( "y", &y );
 
-	return true;
+                pHexGrid->Set( x, y, pModuleInfo );
+            }
+        }
+    }
+
+    return true;
 }
 
 #ifndef _MSC_VER
 
-template<> int HexGrid<ModuleInfo*>::GetVersion() const
+template <>
+int HexGrid<ModuleInfo*>::GetVersion() const
 {
-	return 1;
+    return 1;
 }
 
-template<> bool HexGrid<ModuleInfo*>::Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) 
-{ 
-	return WriteHexGridModuleInfo( this, xmlDoc, pRootElement );
+template <>
+bool HexGrid<ModuleInfo*>::Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement )
+{
+    return WriteHexGridModuleInfo( this, xmlDoc, pRootElement );
 }
 
-template<> bool HexGrid<ModuleInfo*>::Read( tinyxml2::XMLElement* pRootElement ) 
-{ 
-	return ReadHexGridModuleInfo( this, pRootElement ); 
+template <>
+bool HexGrid<ModuleInfo*>::Read( tinyxml2::XMLElement* pRootElement )
+{
+    return ReadHexGridModuleInfo( this, pRootElement );
 }
 
 #endif
 
-}
+} // namespace Hexterminate

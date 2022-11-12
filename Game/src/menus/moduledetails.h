@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "globals.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -34,33 +34,33 @@ class ModuleInfo;
 class ModuleDetails
 {
 public:
-							ModuleDetails();
-	virtual					~ModuleDetails();
+    ModuleDetails();
+    virtual ~ModuleDetails();
 
-	void					Update( float delta );
-	void					SetModuleInfo( ModuleInfo* pModuleInfo, bool iconOnly = false );
+    void Update( float delta );
+    void SetModuleInfo( ModuleInfo* pModuleInfo, bool iconOnly = false );
 
 private:
-	void					CreateElements();
-	void					SetTitle();
-	void					SetIcon();
-	void					SetContents();
-	void					PlaceAtCursor();
+    void CreateElements();
+    void SetTitle();
+    void SetIcon();
+    void SetContents();
+    void PlaceAtCursor();
 
-	ModuleInfo*				m_pModuleInfo;
+    ModuleInfo* m_pModuleInfo;
 
-	// These elements compose the full detailed window and are only visible 
-	// when -not- in "iconOnly" mode.
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Image*	m_pIcon;
-	Genesis::Gui::Text*		m_pTitleText;
-	Genesis::Gui::Text*		m_pContentsText;
+    // These elements compose the full detailed window and are only visible
+    // when -not- in "iconOnly" mode.
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Image* m_pIcon;
+    Genesis::Gui::Text* m_pTitleText;
+    Genesis::Gui::Text* m_pContentsText;
 
-	// This element is only visible when in "iconOnly" mode
-	Genesis::Gui::Image*	m_pIconOnly;
-	bool					m_InIconOnlyMode;
+    // This element is only visible when in "iconOnly" mode
+    Genesis::Gui::Image* m_pIconOnly;
+    bool m_InIconOnlyMode;
 
-	int						m_HideNextFrame;
+    int m_HideNextFrame;
 };
 
-}
+} // namespace Hexterminate

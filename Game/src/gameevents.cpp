@@ -45,9 +45,8 @@ void GameEventManager::Broadcast( GameEvent* pEvent )
         pHandler->HandleGameEvent( pEvent );
     }
 
-	delete pEvent;
+    delete pEvent;
 }
-
 
 /////////////////////////////////////////////////////////////////////
 // GameEventHandler
@@ -63,4 +62,4 @@ GameEventHandler::~GameEventHandler()
     GameEventManager::RemoveHandler( this );
 }
 
-}
+} // namespace Hexterminate

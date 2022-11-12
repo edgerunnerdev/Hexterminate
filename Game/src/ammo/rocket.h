@@ -26,14 +26,15 @@ namespace Hexterminate
 // Rocket
 ///////////////////////////////////////////////////////////////////////////////
 
-class Rocket: public Missile
+class Rocket : public Missile
 {
 public:
-								Rocket();
+    Rocket();
+
 protected:
-	virtual MissileType			GetType() const override;
-	virtual const std::string	GetResourceName() const override;
-	virtual Trail*				CreateTrail() const override;
+    virtual MissileType GetType() const override;
+    virtual const std::string GetResourceName() const override;
+    virtual Trail* CreateTrail() const override;
 };
 
-}
+} // namespace Hexterminate

@@ -21,7 +21,7 @@
 
 namespace Genesis
 {
-	class ResourceModel;
+class ResourceModel;
 }
 
 namespace Hexterminate
@@ -29,23 +29,22 @@ namespace Hexterminate
 
 class Weapon;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Projectile
 ///////////////////////////////////////////////////////////////////////////////
 
-class Projectile: public Ammo
+class Projectile : public Ammo
 {
 public:
-								Projectile();
-	virtual						~Projectile() {};
+    Projectile();
+    virtual ~Projectile(){};
 
-	virtual void				Create( Weapon* pWeapon, float additionalRotation = 0.0f  ) override;
-	virtual void				Update( float delta ) override;
-	virtual void				Render() override;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
 private:
-	Genesis::ResourceModel*		m_pModel;
+    Genesis::ResourceModel* m_pModel;
 };
 
-}
+} // namespace Hexterminate

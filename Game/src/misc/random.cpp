@@ -32,38 +32,38 @@ std::default_random_engine Random::m_Engine = std::default_random_engine();
 
 void Random::Initialise()
 {
-	const unsigned int seed = static_cast<unsigned int>( std::chrono::system_clock::now().time_since_epoch().count() );
-	m_Engine = std::default_random_engine( seed );
+    const unsigned int seed = static_cast<unsigned int>( std::chrono::system_clock::now().time_since_epoch().count() );
+    m_Engine = std::default_random_engine( seed );
 }
 
 uint32_t Random::Next()
 {
-	return static_cast<uint32_t>( m_Engine() % UINT32_MAX );
+    return static_cast<uint32_t>( m_Engine() % UINT32_MAX );
 }
 
 uint32_t Random::Next( uint32_t max )
 {
-	return static_cast<uint32_t>( m_Engine() % max );
+    return static_cast<uint32_t>( m_Engine() % max );
 }
 
 uint32_t Random::Next( uint32_t min, uint32_t max )
 {
-	SDL_assert( min < max );
-	return min + static_cast<uint32_t>( m_Engine() % ( max - min ) );
+    SDL_assert( min < max );
+    return min + static_cast<uint32_t>( m_Engine() % ( max - min ) );
 }
 
 float Random::Next( float max )
 {
-	SDL_assert( max > 0.0f );
-	std::uniform_real_distribution<float> dist( 0.0f, max );
-	return dist( m_Engine );
+    SDL_assert( max > 0.0f );
+    std::uniform_real_distribution<float> dist( 0.0f, max );
+    return dist( m_Engine );
 }
 
 float Random::Next( float min, float max )
 {
-	SDL_assert( min < max );
-	std::uniform_real_distribution<float> dist( min, max );
-	return dist( m_Engine );
+    SDL_assert( min < max );
+    std::uniform_real_distribution<float> dist( min, max );
+    return dist( m_Engine );
 }
 
 } // namespace Hexterminate

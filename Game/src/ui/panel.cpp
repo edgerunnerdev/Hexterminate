@@ -20,10 +20,11 @@
 
 #include "ui/panel.h"
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
-Panel::Panel( const std::string& name ) : Element( name )
+Panel::Panel( const std::string& name )
+    : Element( name )
 {
     m_BorderLeft = m_BorderRight = m_BorderBottom = m_BorderTop = false;
 
@@ -65,9 +66,12 @@ void Panel::RenderProperties()
     if ( ImGui::CollapsingHeader( "Panel", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
         ImGui::Text( "%s", "Border:" );
-        ImGui::Checkbox( "Left", &m_BorderLeft ); ImGui::SameLine();
-        ImGui::Checkbox( "Right", &m_BorderRight ); ImGui::SameLine();
-        ImGui::Checkbox( "Top", &m_BorderTop ); ImGui::SameLine();
+        ImGui::Checkbox( "Left", &m_BorderLeft );
+        ImGui::SameLine();
+        ImGui::Checkbox( "Right", &m_BorderRight );
+        ImGui::SameLine();
+        ImGui::Checkbox( "Top", &m_BorderTop );
+        ImGui::SameLine();
         ImGui::Checkbox( "Bottom", &m_BorderBottom );
         ApplyBorder();
     }

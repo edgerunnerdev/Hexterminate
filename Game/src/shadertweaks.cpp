@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <imgui/imgui.h>
 #include "shadertweaks.h"
+#include <imgui/imgui.h>
 
 namespace Hexterminate
 {
@@ -38,80 +38,80 @@ float ShaderTweaksDebugWindow::m_AntiprotonExternalRadius = 1.0f;
 
 void ShaderTweaksDebugWindow::Register()
 {
-	Genesis::ImGuiImpl::RegisterMenu( "Tools", "Shader tweaks", &m_Open );
+    Genesis::ImGuiImpl::RegisterMenu( "Tools", "Shader tweaks", &m_Open );
 }
 
 void ShaderTweaksDebugWindow::Unregister()
 {
-	Genesis::ImGuiImpl::UnregisterMenu( "Tools", "Shader tweaks" );
+    Genesis::ImGuiImpl::UnregisterMenu( "Tools", "Shader tweaks" );
 }
 
 void ShaderTweaksDebugWindow::Update()
 {
-	using namespace Genesis;
-	if ( m_Open )
-	{
-		ImGui::SetNextWindowSize( ImVec2( 400.0f, 400.0f ) );
-		ImGui::Begin( "Shader tweaks", &m_Open );
+    using namespace Genesis;
+    if ( m_Open )
+    {
+        ImGui::SetNextWindowSize( ImVec2( 400.0f, 400.0f ) );
+        ImGui::Begin( "Shader tweaks", &m_Open );
 
-		if ( ImGui::CollapsingHeader( "Quantum shield" ) )
-		{
-			ImGui::SliderFloat( "Geometry scale", &m_QuantumShieldGeometryScale, 0.5f, 2.0f );
-			ImGui::SliderFloat( "Pattern scale", &m_QuantumShieldPatternScale, 1.0f, 25.0f );
-			ImGui::SliderFloat( "Triangle gap", &m_QuantumShieldTriangleGap, -1.0f, 1.0f );
-			ImGui::SliderFloat( "Intensity", &m_QuantumShieldIntensity, 0.0f, 8.0f );
-			ImGui::Checkbox( "Glow pass", &m_QuantumShieldGlowPass );
-		}
+        if ( ImGui::CollapsingHeader( "Quantum shield" ) )
+        {
+            ImGui::SliderFloat( "Geometry scale", &m_QuantumShieldGeometryScale, 0.5f, 2.0f );
+            ImGui::SliderFloat( "Pattern scale", &m_QuantumShieldPatternScale, 1.0f, 25.0f );
+            ImGui::SliderFloat( "Triangle gap", &m_QuantumShieldTriangleGap, -1.0f, 1.0f );
+            ImGui::SliderFloat( "Intensity", &m_QuantumShieldIntensity, 0.0f, 8.0f );
+            ImGui::Checkbox( "Glow pass", &m_QuantumShieldGlowPass );
+        }
 
-		if ( ImGui::CollapsingHeader( "Antiproton" ) )
-		{
-			ImGui::SliderFloat( "Geometry size", &m_AntiprotonGeometrySize, 8.0f, 128.0f );
-			ImGui::SliderFloat( "Internal radius", &m_AntiprotonInternalRadius, 0.0f, 1.0f );
-			ImGui::SliderFloat( "External radius", &m_AntiprotonExternalRadius, 0.0f, 2.0f );
-		}
+        if ( ImGui::CollapsingHeader( "Antiproton" ) )
+        {
+            ImGui::SliderFloat( "Geometry size", &m_AntiprotonGeometrySize, 8.0f, 128.0f );
+            ImGui::SliderFloat( "Internal radius", &m_AntiprotonInternalRadius, 0.0f, 1.0f );
+            ImGui::SliderFloat( "External radius", &m_AntiprotonExternalRadius, 0.0f, 2.0f );
+        }
 
-		ImGui::End();
-	}
+        ImGui::End();
+    }
 }
 
 float ShaderTweaksDebugWindow::GetQuantumShieldGeometryScale()
 {
-	return m_QuantumShieldGeometryScale;
+    return m_QuantumShieldGeometryScale;
 }
 
 float ShaderTweaksDebugWindow::GetQuantumShieldPatternScale()
 {
-	return m_QuantumShieldPatternScale;
+    return m_QuantumShieldPatternScale;
 }
 
 float ShaderTweaksDebugWindow::GetQuantumShieldTriangleGap()
 {
-	return m_QuantumShieldTriangleGap;
+    return m_QuantumShieldTriangleGap;
 }
 
 float ShaderTweaksDebugWindow::GetQuantumShieldIntensity()
 {
-	return m_QuantumShieldIntensity;
+    return m_QuantumShieldIntensity;
 }
 
 bool ShaderTweaksDebugWindow::GetQuantumShieldGlowPass()
 {
-	return m_QuantumShieldGlowPass;
+    return m_QuantumShieldGlowPass;
 }
 
 float ShaderTweaksDebugWindow::GetAntiprotonGeometrySize()
 {
-	return m_AntiprotonGeometrySize;
+    return m_AntiprotonGeometrySize;
 }
 
 float ShaderTweaksDebugWindow::GetAntiprotonInternalRadius()
 {
-	return m_AntiprotonInternalRadius;
+    return m_AntiprotonInternalRadius;
 }
 
 float ShaderTweaksDebugWindow::GetAntiprotonExternalRadius()
 {
-	return m_AntiprotonExternalRadius;
+    return m_AntiprotonExternalRadius;
 }
 
-}
+} // namespace Hexterminate

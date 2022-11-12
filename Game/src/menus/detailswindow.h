@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gui/gui.h>
-#include "../ship/ship.h"
 #include "../globals.h"
+#include "../ship/ship.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -27,24 +27,24 @@ namespace Hexterminate
 class DetailsWindow
 {
 public:
-							DetailsWindow();
-	virtual					~DetailsWindow();
-	virtual void			Update( float delta );
-	virtual void			Show( bool state );
-	void					SetContents( const std::string& contents );
-	virtual void			SetAnchor( float x, float y );
+    DetailsWindow();
+    virtual ~DetailsWindow();
+    virtual void Update( float delta );
+    virtual void Show( bool state );
+    void SetContents( const std::string& contents );
+    virtual void SetAnchor( float x, float y );
 
 protected:
-	virtual bool			UsesDynamicLineLength() const		{ return false; }
-	inline int				GetNumLines() const					{ return m_NumLines; }
+    virtual bool UsesDynamicLineLength() const { return false; }
+    inline int GetNumLines() const { return m_NumLines; }
 
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pText;
-	float					m_AnchorX;
-	float					m_AnchorY;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pText;
+    float m_AnchorX;
+    float m_AnchorY;
 
 private:
-	int						m_NumLines;
+    int m_NumLines;
 };
 
-}
+} // namespace Hexterminate

@@ -29,11 +29,10 @@ class Ship;
 
 enum class ShipCollisionType
 {
-	Module,
-	Shield,
-	PhaseBarrier
+    Module,
+    Shield,
+    PhaseBarrier
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ShipCollisionInfo
@@ -44,23 +43,23 @@ enum class ShipCollisionType
 class ShipCollisionInfo
 {
 public:
-	ShipCollisionInfo( Ship* pShip, Module* pModule );
-	ShipCollisionInfo( Ship* pShip, AddonPhaseBarrier* pAddonPhaseBarrier );
-	ShipCollisionInfo( Ship* pShip, Shield* pShield );
+    ShipCollisionInfo( Ship* pShip, Module* pModule );
+    ShipCollisionInfo( Ship* pShip, AddonPhaseBarrier* pAddonPhaseBarrier );
+    ShipCollisionInfo( Ship* pShip, Shield* pShield );
 
-	inline Ship* GetShip() const { return m_pShip; }
-	inline ShipCollisionType GetType() { return m_Type; }
-	inline Module* GetModule() const { return m_pModule; }
-	inline AddonPhaseBarrier* GetAddonPhaseBarrier() const { return m_pAddonPhaseBarrier; }
-	inline Shield* GetShield() const { return m_pShield; }
+    inline Ship* GetShip() const { return m_pShip; }
+    inline ShipCollisionType GetType() { return m_Type; }
+    inline Module* GetModule() const { return m_pModule; }
+    inline AddonPhaseBarrier* GetAddonPhaseBarrier() const { return m_pAddonPhaseBarrier; }
+    inline Shield* GetShield() const { return m_pShield; }
 
 private:
-	Ship* m_pShip;
-	Module*	m_pModule;
-	AddonPhaseBarrier* m_pAddonPhaseBarrier;
-	Shield* m_pShield;
-	ShipCollisionType m_Type;
+    Ship* m_pShip;
+    Module* m_pModule;
+    AddonPhaseBarrier* m_pAddonPhaseBarrier;
+    Shield* m_pShield;
+    ShipCollisionType m_Type;
 };
 GENESIS_DECLARE_SMART_PTR( ShipCollisionInfo );
 
-}
+} // namespace Hexterminate

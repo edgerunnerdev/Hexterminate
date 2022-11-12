@@ -17,17 +17,17 @@
 
 #pragma once
 
-#include <vector>
-#include <gui/gui.h>
 #include <gui/atlas.h>
+#include <gui/gui.h>
 #include <rendersystem.h>
+#include <vector>
 #include <vertexbuffer.h>
 
 namespace Genesis
 {
-	class ResourceImage;
-	class Shader;
-}
+class ResourceImage;
+class Shader;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -39,61 +39,60 @@ namespace Hexterminate
 class RadarIcon
 {
 public:
-	RadarIcon( int atlasIndex, float x, float y, float scale );
-	int	GetAtlasIndex() const;
-	float GetX() const;
-	float GetY() const;
-	float GetScale() const;
+    RadarIcon( int atlasIndex, float x, float y, float scale );
+    int GetAtlasIndex() const;
+    float GetX() const;
+    float GetY() const;
+    float GetScale() const;
 
 private:
-	int	m_AtlasIndex;
-	float m_X;
-	float m_Y;
-	float m_Scale;
+    int m_AtlasIndex;
+    float m_X;
+    float m_Y;
+    float m_Scale;
 };
 
-typedef std::vector< RadarIcon > RadarIconVector;
-
+typedef std::vector<RadarIcon> RadarIconVector;
 
 /////////////////////////////////////////////////////////////////////
 // Radar
 /////////////////////////////////////////////////////////////////////
 
-class Radar: public Genesis::Gui::GuiElement
+class Radar : public Genesis::Gui::GuiElement
 {
 public:
-								Radar();
-	virtual						~Radar();
-	virtual void				Update( float delta ) override;
-	virtual void				Render() override;
-	
+    Radar();
+    virtual ~Radar();
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
+
 private:
-	void						CachePlayerShipPosition();
-	void						AddQuad( int atlasIndex, float x, float y, float scale = 1.0f );
-	void						AddShips();
-	void						AddShipyard();
-	void						AddIcon( int atlasIndex, const glm::vec3& position );
+    void CachePlayerShipPosition();
+    void AddQuad( int atlasIndex, float x, float y, float scale = 1.0f );
+    void AddShips();
+    void AddShipyard();
+    void AddIcon( int atlasIndex, const glm::vec3& position );
 
-	Genesis::ResourceImage*		m_pTexture;
-	Genesis::Gui::Atlas			m_Atlas;
-	RadarIconVector				m_Icons;
-	
-	// Atlas indices
-	int							m_BackgroundIdx;
-	int							m_BackgroundMaskIdx;
-	int							m_FriendlyShipIdx;
-	int							m_HostileShipIdx;
-	int							m_ShipyardIdx;
+    Genesis::ResourceImage* m_pTexture;
+    Genesis::Gui::Atlas m_Atlas;
+    RadarIconVector m_Icons;
 
-	// Rendering
-	Genesis::VertexBuffer*		m_pVertexBuffer;
-	Genesis::Shader*			m_pShader;
-	glm::vec3					m_CachedPlayerShipPosition;
-	Genesis::PositionData		m_PositionData;
-	Genesis::UVData				m_UVData;
-	unsigned int				m_QuadCount;
+    // Atlas indices
+    int m_BackgroundIdx;
+    int m_BackgroundMaskIdx;
+    int m_FriendlyShipIdx;
+    int m_HostileShipIdx;
+    int m_ShipyardIdx;
+
+    // Rendering
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    Genesis::Shader* m_pShader;
+    glm::vec3 m_CachedPlayerShipPosition;
+    Genesis::PositionData m_PositionData;
+    Genesis::UVData m_UVData;
+    unsigned int m_QuadCount;
 };
 
-}
+} // namespace Hexterminate
 
 #include "radar.inl"

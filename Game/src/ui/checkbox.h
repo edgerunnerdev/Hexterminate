@@ -22,18 +22,18 @@
 
 namespace Genesis
 {
-    class ResourceSound;
+class ResourceSound;
 }
 
 namespace Genesis::Gui
 {
-	class Checkbox;
+class Checkbox;
 }
 
 namespace Hexterminate::UI
 {
 
-using CheckboxPressedCallback = std::function<void(bool)>;
+using CheckboxPressedCallback = std::function<void( bool )>;
 
 class Checkbox : public Element
 {

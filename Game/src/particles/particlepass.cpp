@@ -16,36 +16,36 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include <genesis.h>
-#include <resources/resourceimage.h>
+#include <memory.h>
 #include <rendersystem.h>
+#include <resources/resourceimage.h>
 #include <shader.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
-#include <memory.h>
 
 #include "particles/particlepass.h"
 
-namespace Hexterminate 
+namespace Hexterminate
 {
 
-ParticlePass::ParticlePass( Genesis::BlendMode blendMode, const std::string& shader, bool glowEnabled ) :
-m_GlowEnabled( glowEnabled ),
-m_BlendMode( blendMode ),
-m_pShader( nullptr ),
-m_pSamplerUniform( nullptr ),
-m_pVertexBuffer( nullptr )
+ParticlePass::ParticlePass( Genesis::BlendMode blendMode, const std::string& shader, bool glowEnabled )
+    : m_GlowEnabled( glowEnabled )
+    , m_BlendMode( blendMode )
+    , m_pShader( nullptr )
+    , m_pSamplerUniform( nullptr )
+    , m_pVertexBuffer( nullptr )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
-	m_pShader = pRenderSystem->GetShaderCache()->Load( shader );
-	m_pSamplerUniform = m_pShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
-	m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
+    RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
+    m_pShader = pRenderSystem->GetShaderCache()->Load( shader );
+    m_pSamplerUniform = m_pShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
+    m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
 }
 
 ParticlePass::~ParticlePass()
 {
-	delete m_pVertexBuffer;
+    delete m_pVertexBuffer;
 }
 
-}
+} // namespace Hexterminate

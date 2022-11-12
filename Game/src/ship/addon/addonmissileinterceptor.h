@@ -33,24 +33,24 @@ class Ammo;
 class AddonMissileInterceptor : public Addon
 {
 public:
-					AddonMissileInterceptor( AddonModule* pModule, Ship* pOwner );
-	virtual			~AddonMissileInterceptor() {};
+    AddonMissileInterceptor( AddonModule* pModule, Ship* pOwner );
+    virtual ~AddonMissileInterceptor(){};
 
-	virtual void	Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
 private:
-	bool			CanIntercept() const;
-	Ammo*			FindClosestMissile() const;
-	void			InterceptMissile( Ammo* pMissile );
-	void			LoadSFX();
-	void			PlaySFX();
+    bool CanIntercept() const;
+    Ammo* FindClosestMissile() const;
+    void InterceptMissile( Ammo* pMissile );
+    void LoadSFX();
+    void PlaySFX();
 
-	float			m_ReloadDuration;
-	float			m_ReloadTimer;
-	float			m_LaserTimer;
-	Laser			m_Laser;
+    float m_ReloadDuration;
+    float m_ReloadTimer;
+    float m_LaserTimer;
+    Laser m_Laser;
 
-	Genesis::ResourceSound* m_pSFX;
+    Genesis::ResourceSound* m_pSFX;
 };
 
-}
+} // namespace Hexterminate

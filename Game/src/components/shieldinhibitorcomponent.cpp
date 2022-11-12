@@ -15,9 +15,9 @@
 
 #include "components/shieldinhibitorcomponent.h"
 
+#include "hexterminate.h"
 #include "sector/sector.h"
 #include "ship/shield.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
@@ -26,37 +26,37 @@ IMPLEMENT_COMPONENT( ShieldInhibitorComponent )
 
 static const float sShieldInhibitorTimer = 15.0f;
 
-bool ShieldInhibitorComponent::Initialise() 
+bool ShieldInhibitorComponent::Initialise()
 {
-	m_Timer = sShieldInhibitorTimer;
+    m_Timer = sShieldInhibitorTimer;
 
-	g_pGame->AddIntel(
-		GameCharacter::FleetIntelligence,
-		"Due to the proximity of a black hole, shields will not work properly in this sector." );
+    g_pGame->AddIntel(
+        GameCharacter::FleetIntelligence,
+        "Due to the proximity of a black hole, shields will not work properly in this sector." );
 
-	return true;
+    return true;
 }
 
 void ShieldInhibitorComponent::Update( float delta )
 {
-	if ( m_Timer <= 0.0f )
-	{
-		const ShipList& ships = g_pGame->GetCurrentSector()->GetShipList();
-		for ( auto& pShip : ships )
-		{
-			Shield* pShield = pShip->GetShield();
-			if ( pShield != nullptr && pShield->GetQuantumState() == ShieldState::Activated )
-			{
-				pShield->Deactivate();
-			}
-		}
+    if ( m_Timer <= 0.0f )
+    {
+        const ShipList& ships = g_pGame->GetCurrentSector()->GetShipList();
+        for ( auto& pShip : ships )
+        {
+            Shield* pShield = pShip->GetShield();
+            if ( pShield != nullptr && pShield->GetQuantumState() == ShieldState::Activated )
+            {
+                pShield->Deactivate();
+            }
+        }
 
-		m_Timer = sShieldInhibitorTimer;
-	}
-	else
-	{
-		m_Timer -= delta;
-	}
+        m_Timer = sShieldInhibitorTimer;
+    }
+    else
+    {
+        m_Timer -= delta;
+    }
 }
 
-}
+} // namespace Hexterminate

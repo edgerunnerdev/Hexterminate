@@ -29,34 +29,34 @@ namespace Hexterminate
 class ShaderTweaksDebugWindow
 {
 public:
-	static void Register();
-	static void Unregister();
-	static void Update();
+    static void Register();
+    static void Unregister();
+    static void Update();
 
-	static float GetQuantumShieldGeometryScale();
-	static float GetQuantumShieldPatternScale();
-	static float GetQuantumShieldTriangleGap();
-	static float GetQuantumShieldIntensity();
-	static bool GetQuantumShieldGlowPass();
+    static float GetQuantumShieldGeometryScale();
+    static float GetQuantumShieldPatternScale();
+    static float GetQuantumShieldTriangleGap();
+    static float GetQuantumShieldIntensity();
+    static bool GetQuantumShieldGlowPass();
 
-	static float GetAntiprotonGeometrySize();
-	static float GetAntiprotonInternalRadius();
-	static float GetAntiprotonExternalRadius();
+    static float GetAntiprotonGeometrySize();
+    static float GetAntiprotonInternalRadius();
+    static float GetAntiprotonExternalRadius();
 
 private:
-	static bool m_Open;
-	
-	// Shield tweakables
-	static float m_QuantumShieldGeometryScale;
-	static float m_QuantumShieldPatternScale;
-	static float m_QuantumShieldTriangleGap;
-	static float m_QuantumShieldIntensity;
-	static bool m_QuantumShieldGlowPass; 
+    static bool m_Open;
 
-	// Antiproton
-	static float m_AntiprotonGeometrySize;
-	static float m_AntiprotonInternalRadius;
-	static float m_AntiprotonExternalRadius;
+    // Shield tweakables
+    static float m_QuantumShieldGeometryScale;
+    static float m_QuantumShieldPatternScale;
+    static float m_QuantumShieldTriangleGap;
+    static float m_QuantumShieldIntensity;
+    static bool m_QuantumShieldGlowPass;
+
+    // Antiproton
+    static float m_AntiprotonGeometrySize;
+    static float m_AntiprotonInternalRadius;
+    static float m_AntiprotonExternalRadius;
 };
 
-}
+} // namespace Hexterminate

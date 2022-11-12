@@ -15,10 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
+#include "drawutils.h"
 #include <cassert>
 #include <rendersystem.h>
-#include "drawutils.h"
-
 
 namespace Hexterminate
 {
@@ -29,39 +28,39 @@ namespace Hexterminate
 
 void DrawUtils::Rect2D( Genesis::Shader* pShader, int x, int y, int width, int height )
 {
-	Rect2D( pShader, (float)x, (float)y, (float)width, (float)height);
+    Rect2D( pShader, (float)x, (float)y, (float)width, (float)height );
 }
 
 void DrawUtils::Rect2D( Genesis::Shader* pShader, float x, float y, float width, float height )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	SDL_assert( pShader != nullptr );
+    SDL_assert( pShader != nullptr );
 
-	const float x1 = x;
-	const float x2 = x1 + width;
-	const float y1 = y;
-	const float y2 = y1 + height;
+    const float x1 = x;
+    const float x2 = x1 + width;
+    const float y1 = y;
+    const float y2 = y1 + height;
 
     pShader->Use();
 
-	glBegin( GL_QUADS );
+    glBegin( GL_QUADS );
 
-	glTexCoord2f( 0.0f, 0.0f );
-	glVertex2f( x1, y1 );
-	glTexCoord2f( 0.0f, 1.0f );
-	glVertex2f( x1, y2 );
-	glTexCoord2f( 1.0f, 1.0f );
-	glVertex2f( x2, y2 );
-	glTexCoord2f( 1.0f, 0.0f );
-	glVertex2f( x2, y1 );
+    glTexCoord2f( 0.0f, 0.0f );
+    glVertex2f( x1, y1 );
+    glTexCoord2f( 0.0f, 1.0f );
+    glVertex2f( x1, y2 );
+    glTexCoord2f( 1.0f, 1.0f );
+    glVertex2f( x2, y2 );
+    glTexCoord2f( 1.0f, 0.0f );
+    glVertex2f( x2, y1 );
 
-	glEnd();
+    glEnd();
 }
 
 void DrawUtils::Rect2DOriented( Genesis::Shader* pShader, int x, int y, int width, int height, float angle )
 {
-	SDL_assert( false ); // TODO: Implement
+    SDL_assert( false ); // TODO: Implement
 }
 
-}
+} // namespace Hexterminate

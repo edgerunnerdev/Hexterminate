@@ -19,22 +19,21 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl.h>
 
+#include "hexterminate.h"
 #include "ui/editor.h"
 #include "ui/rootelement.h"
-#include "hexterminate.h"
 
 namespace Hexterminate::UI
 {
 
-Editor::Editor() :
-m_IsOpen( false )
+Editor::Editor()
+    : m_IsOpen( false )
 {
     Genesis::ImGuiImpl::RegisterMenu( "Tools", "UI editor", &m_IsOpen );
 }
 
 Editor::~Editor()
 {
-
 }
 
 void Editor::UpdateDebugUI()
@@ -51,7 +50,7 @@ void Editor::UpdateDebugUI()
 
         if ( ImGui::Button( "Save" ) )
         {
-            pRoot->Save();            
+            pRoot->Save();
         }
         ImGui::SameLine();
         if ( ImGui::Button( "Reload" ) )
@@ -60,15 +59,15 @@ void Editor::UpdateDebugUI()
         }
 
         ImGui::BeginChild( "Hierarchy", ImVec2( ImGui::GetWindowContentRegionWidth() * 0.4f, -1.0f ), true );
-		for ( auto& pChild : pRoot->GetChildren() )
-		{
-			RenderHierarchy( pChild );
-		}
+        for ( auto& pChild : pRoot->GetChildren() )
+        {
+            RenderHierarchy( pChild );
+        }
         ImGui::EndChild();
 
         ImGui::SameLine();
 
-		ImGui::BeginChild( "Properties", ImVec2( -1.0f, -1.0f), true );
+        ImGui::BeginChild( "Properties", ImVec2( -1.0f, -1.0f ), true );
         ElementSharedPtr pElement = m_pSelectedElement.lock();
         if ( pElement != nullptr )
         {
@@ -85,8 +84,8 @@ void Editor::UpdateDebugUI()
                 pElement->RenderProperties();
             }
         }
-		
-		ImGui::EndChild();
+
+        ImGui::EndChild();
         ImGui::End();
     }
 }
@@ -102,32 +101,32 @@ void Editor::RenderHierarchy( ElementSharedPtr pElement )
 
     if ( pElement->GetChildren().empty() ) // Leaf node?
     {
-		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | extraNodeFlags;
+        ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | extraNodeFlags;
         ImGui::TreeNodeEx( pElement->GetName().c_str(), nodeFlags, "%s", pElement->GetName().c_str() );
 
-		if (ImGui::IsItemClicked())
-		{
-			m_pSelectedElement = pElement;
-		}
+        if ( ImGui::IsItemClicked() )
+        {
+            m_pSelectedElement = pElement;
+        }
     }
     else
     {
         ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth | extraNodeFlags;
-		const bool nodeOpen = ImGui::TreeNodeEx( pElement->GetName().c_str(), nodeFlags, "%s", pElement->GetName().c_str() );
-		if ( ImGui::IsItemClicked() )
-		{
+        const bool nodeOpen = ImGui::TreeNodeEx( pElement->GetName().c_str(), nodeFlags, "%s", pElement->GetName().c_str() );
+        if ( ImGui::IsItemClicked() )
+        {
             m_pSelectedElement = pElement;
-		}
+        }
 
-		if ( nodeOpen )
-		{
-			for ( auto& pChild : pElement->GetChildren() )
-			{
-				RenderHierarchy( pChild );
-			}
+        if ( nodeOpen )
+        {
+            for ( auto& pChild : pElement->GetChildren() )
+            {
+                RenderHierarchy( pChild );
+            }
 
-			ImGui::TreePop();
-		}
+            ImGui::TreePop();
+        }
     }
 }
 

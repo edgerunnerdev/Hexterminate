@@ -25,9 +25,9 @@ namespace Hexterminate
 class SectorEventCorsairFleet : public SectorEvent
 {
 public:
-					SectorEventCorsairFleet();
+    SectorEventCorsairFleet();
 
-	virtual void	OnPlayerEnterSector() override;
+    virtual void OnPlayerEnterSector() override;
 };
 
-}
+} // namespace Hexterminate

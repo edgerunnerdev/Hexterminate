@@ -17,26 +17,26 @@
 
 #pragma once
 
-#include <scene/sceneobject.h>
 #include <rendersystem.h>
+#include <scene/sceneobject.h>
 #include <vertexbuffer.h>
 
-#include "ship/shipcollisioninfo.h"
-#include "ship/shieldhitregistry.h"
-#include "ship/moduleinfo.h"
 #include "ship/module.h"
+#include "ship/moduleinfo.h"
+#include "ship/shieldhitregistry.h"
+#include "ship/shipcollisioninfo.h"
 
 namespace Genesis
 {
-	class ResourceImage;
+class ResourceImage;
 
-	namespace Physics
-	{
-		class Shape;
-		class Ghost;
-		GENESIS_DECLARE_SMART_PTR( Ghost );
-	};
-};
+namespace Physics
+{
+    class Shape;
+    class Ghost;
+    GENESIS_DECLARE_SMART_PTR( Ghost );
+}; // namespace Physics
+}; // namespace Genesis
 
 namespace Hexterminate
 {
@@ -48,88 +48,88 @@ static const Uint32 sMaxShieldPoints = 180;
 
 enum class ShieldState
 {
-	Deactivated,
-	Activating,
-	Activated,
-	Deactivating
+    Deactivated,
+    Activating,
+    Activated,
+    Deactivating
 };
 
 class Shield : public Genesis::SceneObject
 {
 public:
-									Shield( Ship* pShip );
-	virtual							~Shield();
+    Shield( Ship* pShip );
+    virtual ~Shield();
 
-	virtual void					Update( float delta ) override;
-    virtual void                    Render() override {};
-	virtual void					Render( const glm::mat4& modelTransform );
+    virtual void Update( float delta ) override;
+    virtual void Render() override{};
+    virtual void Render( const glm::mat4& modelTransform );
 
-	void							InitialisePhysics( const glm::vec3& translation, float radiusX, float radiusY );
+    void InitialisePhysics( const glm::vec3& translation, float radiusX, float radiusY );
 
-	float							GetCurrentHealthPoints() const;
-	float							GetMaximumHealthPoints() const;
-	float							GetRechargeRate() const;
-	ShieldState						GetQuantumState() const;
+    float GetCurrentHealthPoints() const;
+    float GetMaximumHealthPoints() const;
+    float GetRechargeRate() const;
+    ShieldState GetQuantumState() const;
 
-	void							ApplyDamage( float displayAmount, float frameAmount, float angle, WeaponSystem weaponSystem, DamageType damageType, Ship* pDealtBy );
-	void							Deactivate();
+    void ApplyDamage( float displayAmount, float frameAmount, float angle, WeaponSystem weaponSystem, DamageType damageType, Ship* pDealtBy );
+    void Deactivate();
 
-	static float					CalculateEfficiency( const ShieldModuleList& shieldModules );
+    static float CalculateEfficiency( const ShieldModuleList& shieldModules );
 
 private:
-	void							CreateGeometry();
-	void							UpdateColour();
-	void							RenderRegularShield( const glm::mat4& modelTransform );
-	void							RenderQuantumShield( const glm::mat4& modelTransform );
+    void CreateGeometry();
+    void UpdateColour();
+    void RenderRegularShield( const glm::mat4& modelTransform );
+    void RenderQuantumShield( const glm::mat4& modelTransform );
 
-	Ship*							m_pOwner;
-		
-	Genesis::ResourceImage*			m_pTexture;
-	Genesis::Shader*				m_pShader;
-	Genesis::VertexBuffer*          m_pVertexBuffer;
-    Genesis::ColourData             m_ColourData;
-	Genesis::ShaderUniform*			m_pQuantumModeUniform;
-    Genesis::ShaderUniform*         m_pShieldStrengthUniform;
-	Genesis::ShaderUniform*         m_pQuantumShieldScaleUniform;
-	Genesis::ShaderUniform*         m_pQuantumShieldTriangleGapUniform;
-	Genesis::ShaderUniform*         m_pQuantumShieldIntensityUniform;
-	Genesis::ShaderUniform*			m_pQuantumShieldColourUniform;
+    Ship* m_pOwner;
 
-	float							m_RadiusX;
-	float							m_RadiusY;
+    Genesis::ResourceImage* m_pTexture;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    Genesis::ColourData m_ColourData;
+    Genesis::ShaderUniform* m_pQuantumModeUniform;
+    Genesis::ShaderUniform* m_pShieldStrengthUniform;
+    Genesis::ShaderUniform* m_pQuantumShieldScaleUniform;
+    Genesis::ShaderUniform* m_pQuantumShieldTriangleGapUniform;
+    Genesis::ShaderUniform* m_pQuantumShieldIntensityUniform;
+    Genesis::ShaderUniform* m_pQuantumShieldColourUniform;
 
-	float							m_RechargeRate;			// Maximum hit points per second that the shield is capable of regenerating
-	float							m_MaximumHitPoints;
-	float							m_CurrentHitPoints;
-	float							m_DeactivatedTimer;		// Time, in seconds, until the shield is reactivated after it is taken down
-	float							m_ActivationRatio;		// For rendering purposes. 0.0f: disabled, 1.0f: enabled
-	float							m_EmergencyCapacitorsCooldown;
-	ShieldState						m_State;
+    float m_RadiusX;
+    float m_RadiusY;
 
-	ShieldHitRegistry				m_HitRegistry;
+    float m_RechargeRate; // Maximum hit points per second that the shield is capable of regenerating
+    float m_MaximumHitPoints;
+    float m_CurrentHitPoints;
+    float m_DeactivatedTimer; // Time, in seconds, until the shield is reactivated after it is taken down
+    float m_ActivationRatio; // For rendering purposes. 0.0f: disabled, 1.0f: enabled
+    float m_EmergencyCapacitorsCooldown;
+    ShieldState m_State;
 
-	Genesis::Physics::GhostUniquePtr m_pGhost;
-	ShipCollisionInfoUniquePtr		m_pCollisionInfo;
+    ShieldHitRegistry m_HitRegistry;
+
+    Genesis::Physics::GhostUniquePtr m_pGhost;
+    ShipCollisionInfoUniquePtr m_pCollisionInfo;
 };
 
 inline float Shield::GetCurrentHealthPoints() const
 {
-	return m_CurrentHitPoints;
+    return m_CurrentHitPoints;
 }
 
 inline float Shield::GetMaximumHealthPoints() const
 {
-	return m_MaximumHitPoints;
+    return m_MaximumHitPoints;
 }
 
 inline float Shield::GetRechargeRate() const
 {
-	return m_RechargeRate;
+    return m_RechargeRate;
 }
 
 inline ShieldState Shield::GetQuantumState() const
 {
-	return m_State;
+    return m_State;
 }
 
-}
+} // namespace Hexterminate

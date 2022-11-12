@@ -19,8 +19,8 @@
 
 #include <configuration.h>
 #include <genesis.h>
-#include <resources/resourceimage.h>
 #include <rendersystem.h>
+#include <resources/resourceimage.h>
 #include <shader.h>
 #include <shadercache.h>
 #include <vertexbuffer.h>
@@ -32,49 +32,49 @@ namespace Hexterminate
 // PointOfInterest
 ///////////////////////////////////////////////////////////////////////////////
 
-PointOfInterest::PointOfInterest() :
-m_pDynamicEnd( nullptr ),
-m_pShader( nullptr ),
-m_pVertexBuffer( nullptr )
+PointOfInterest::PointOfInterest()
+    : m_pDynamicEnd( nullptr )
+    , m_pShader( nullptr )
+    , m_pVertexBuffer( nullptr )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	m_Colour.Set( 1.0f, 1.0f, 1.0f, 1.0f );
+    m_Colour.Set( 1.0f, 1.0f, 1.0f, 1.0f );
 
-	SetSize( 
-		static_cast<float>( Genesis::Configuration::GetScreenWidth() ), 
-		static_cast<float>( Genesis::Configuration::GetScreenHeight() ) );
+    SetSize(
+        static_cast<float>( Genesis::Configuration::GetScreenWidth() ),
+        static_cast<float>( Genesis::Configuration::GetScreenHeight() ) );
 
-	m_pVertexBuffer = new VertexBuffer( GeometryType::Line, VBO_POSITION | VBO_UV | VBO_COLOUR );
-	m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "untextured_vertex_coloured" );
+    m_pVertexBuffer = new VertexBuffer( GeometryType::Line, VBO_POSITION | VBO_UV | VBO_COLOUR );
+    m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "untextured_vertex_coloured" );
 }
 
 PointOfInterest::~PointOfInterest()
 {
-	delete m_pVertexBuffer;
+    delete m_pVertexBuffer;
 }
 
 void PointOfInterest::Render()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	Gui::GuiElement::Render();
+    Gui::GuiElement::Render();
 
-	const glm::vec2& end = ( m_pDynamicEnd ? m_pDynamicEnd->GetPointOfInterestEnd() : m_StaticEnd );
+    const glm::vec2& end = ( m_pDynamicEnd ? m_pDynamicEnd->GetPointOfInterestEnd() : m_StaticEnd );
 
-	PositionData posData;
-	posData.push_back( glm::vec3( m_Start.x, m_Start.y, 0.0f ) );
-	posData.push_back( glm::vec3( end.x, end.y, 0.0f ) );
+    PositionData posData;
+    posData.push_back( glm::vec3( m_Start.x, m_Start.y, 0.0f ) );
+    posData.push_back( glm::vec3( end.x, end.y, 0.0f ) );
 
-	ColourData colourData;
-	colourData.push_back( m_Colour.glm() );
-	colourData.push_back( m_Colour.glm() );
+    ColourData colourData;
+    colourData.push_back( m_Colour.glm() );
+    colourData.push_back( m_Colour.glm() );
 
-	m_pVertexBuffer->CopyPositions( posData );
-	m_pVertexBuffer->CopyColours( colourData );
+    m_pVertexBuffer->CopyPositions( posData );
+    m_pVertexBuffer->CopyColours( colourData );
 
-	m_pShader->Use();
-	m_pVertexBuffer->Draw();
+    m_pShader->Use();
+    m_pVertexBuffer->Draw();
 }
 
-}
+} // namespace Hexterminate

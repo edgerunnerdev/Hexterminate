@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <array>
-#include <random>
-
 #include "laser/laser.h"
 #include "ship/addon/addon.h"
+
+#include <array>
+#include <random>
 
 namespace Genesis
 {
@@ -37,46 +37,46 @@ static const float sParticleAcceleratorLaserDuration = 1.0f; // in seconds
 class AddonParticleAccelerator : public Addon
 {
 public:
-					AddonParticleAccelerator( AddonModule* pModule, Ship* pOwner );
-	virtual			~AddonParticleAccelerator() {};
+    AddonParticleAccelerator( AddonModule* pModule, Ship* pOwner );
+    virtual ~AddonParticleAccelerator(){};
 
-	virtual void	Activate() override;
-	virtual void	Update( float delta ) override;
-	virtual bool	CanUse() const override;
+    virtual void Activate() override;
+    virtual void Update( float delta ) override;
+    virtual bool CanUse() const override;
 
 private:
-	void			PlaySFX();
-	void			UpdateFiring( float delta );
-	void			UpdateLaser( float delta );
-	float			ProcessCollision( bool appliesDamage, float delta );
-	void			CalculateVectors( glm::vec3& source, glm::vec3& target, glm::vec3& right ) const;
-	
-	enum class Stage
-	{
-		Aiming,
-		Firing,
-		Done
-	};
+    void PlaySFX();
+    void UpdateFiring( float delta );
+    void UpdateLaser( float delta );
+    float ProcessCollision( bool appliesDamage, float delta );
+    void CalculateVectors( glm::vec3& source, glm::vec3& target, glm::vec3& right ) const;
 
-	struct ParticleLaser
-	{
-		float m_Timer;
-		float m_Duration;
-		float m_Width;
-		float m_Offset;
-		Laser m_Laser;
-		Genesis::Color m_Colour;
-	};
+    enum class Stage
+    {
+        Aiming,
+        Firing,
+        Done
+    };
 
-	std::array< ParticleLaser, sParticleAcceleratorLaserCount > m_ParticleAcceleratorLasers;
-	ParticleLaser m_AimingLaser;
+    struct ParticleLaser
+    {
+        float m_Timer;
+        float m_Duration;
+        float m_Width;
+        float m_Offset;
+        Laser m_Laser;
+        Genesis::Color m_Colour;
+    };
 
-	Genesis::ResourceSound* m_pSFX;
-	int m_TimesToFire;
-	float m_TimeToNextShot;
-	Stage m_Stage;
-	std::default_random_engine m_RandomEngine;
-	glm::vec3 m_EmitterOffset;
+    std::array<ParticleLaser, sParticleAcceleratorLaserCount> m_ParticleAcceleratorLasers;
+    ParticleLaser m_AimingLaser;
+
+    Genesis::ResourceSound* m_pSFX;
+    int m_TimesToFire;
+    float m_TimeToNextShot;
+    Stage m_Stage;
+    std::default_random_engine m_RandomEngine;
+    glm::vec3 m_EmitterOffset;
 };
 
-}
+} // namespace Hexterminate

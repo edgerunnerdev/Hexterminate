@@ -18,25 +18,25 @@
 #include <imgui/imgui.h>
 #include <imgui/misc/cpp/imgui_stdlib.h>
 
-#include <gui/gui.h>
 #include <genesis.h>
+#include <gui/gui.h>
 #include <logger.h>
 #include <shadercache.h>
 
 #include "ui/image.h"
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
 static const char* sImagePropertyFile = "file";
 static const char* sImagePropertyAutoSize = "auto_size";
 
-Image::Image( const std::string& name, const std::string& path /* = "" */ ) : 
-Element( name ),
-m_pImage( nullptr ),
-m_pResource( nullptr ),
-m_Path( path ),
-m_AutoSize( true )
+Image::Image( const std::string& name, const std::string& path /* = "" */ )
+    : Element( name )
+    , m_pImage( nullptr )
+    , m_pResource( nullptr )
+    , m_Path( path )
+    , m_AutoSize( true )
 {
     using namespace Genesis;
 
@@ -50,7 +50,6 @@ m_AutoSize( true )
 
 Image::~Image()
 {
-
 }
 
 void Image::SetBlendMode( BlendMode blendMode )
@@ -58,7 +57,7 @@ void Image::SetBlendMode( BlendMode blendMode )
     m_pImage->SetBlendMode( static_cast<Genesis::BlendMode>( blendMode ) );
 }
 
-void Image::SetColour( float r,  float g, float b, float a )
+void Image::SetColour( float r, float g, float b, float a )
 {
     m_pImage->SetColour( r, g, b, a );
 }
@@ -137,7 +136,7 @@ void Image::RenderProperties()
 void Image::SetSize( int width, int height )
 {
     Element::SetSize( width, height );
-	m_pImage->SetSize( width, height );
+    m_pImage->SetSize( width, height );
 }
 
 } // namespace Hexterminate::UI

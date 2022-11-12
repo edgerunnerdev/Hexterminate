@@ -24,30 +24,29 @@ namespace Hexterminate
 
 class RequestManager;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // EmpireFaction
 // Generates influence over time to give to the player and handles
 // giving out ImperialRequests
 ///////////////////////////////////////////////////////////////////////////////
 
-class EmpireFaction: public Faction
+class EmpireFaction : public Faction
 {
 public:
-						EmpireFaction( const FactionInfo& info );
-	virtual				~EmpireFaction();
-	virtual void		Update( float delta ) override;
-	virtual void		AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer ) override;
-	RequestManager*		GetRequestManager() const;
+    EmpireFaction( const FactionInfo& info );
+    virtual ~EmpireFaction();
+    virtual void Update( float delta ) override;
+    virtual void AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer ) override;
+    RequestManager* GetRequestManager() const;
 
 protected:
-	float				m_InfluenceTimer;
-	RequestManager*		m_pRequestManager;
+    float m_InfluenceTimer;
+    RequestManager* m_pRequestManager;
 };
 
 inline RequestManager* EmpireFaction::GetRequestManager() const
 {
-	return m_pRequestManager;
+    return m_pRequestManager;
 }
 
-}
+} // namespace Hexterminate

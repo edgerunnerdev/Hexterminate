@@ -17,10 +17,10 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
 #include "faction/faction.h"
 #include "gameevents.h"
+#include <string>
+#include <vector>
 
 namespace Hexterminate
 {
@@ -29,56 +29,56 @@ class SectorInfo;
 class Ship;
 class SectorEvent;
 
-typedef std::vector< SectorEvent* > SectorEventVector;
+typedef std::vector<SectorEvent*> SectorEventVector;
 
 class SectorEvent : public GameEventHandler
 {
 public:
-	SectorEvent();
-	virtual ~SectorEvent() {}
+    SectorEvent();
+    virtual ~SectorEvent() {}
 
-	virtual void HandleGameEvent( GameEvent* pEvent ) override;
+    virtual void HandleGameEvent( GameEvent* pEvent ) override;
 
-	const std::string& GetName() const;
-	bool IsRepeatable() const;
-	virtual bool IsAvailableAt( const SectorInfo* pSectorInfo ) const;
-	
-	virtual void OnPlayerEnterSector() = 0;
-	virtual void OnShipDestroyed( Ship* pShip ) {}
+    const std::string& GetName() const;
+    bool IsRepeatable() const;
+    virtual bool IsAvailableAt( const SectorInfo* pSectorInfo ) const;
+
+    virtual void OnPlayerEnterSector() = 0;
+    virtual void OnShipDestroyed( Ship* pShip ) {}
 
 protected:
-	bool IsAllowedForFaction( FactionId factionId ) const;
-	void AllowForFaction( FactionId factionId );
-	void DisallowForFaction( FactionId factionId );
-	
-	void SetMinimumPlayTime( unsigned int minutes );	// This event can only spawn after the player has played for this many minutes
-	void SetName( const std::string& name );
+    bool IsAllowedForFaction( FactionId factionId ) const;
+    void AllowForFaction( FactionId factionId );
+    void DisallowForFaction( FactionId factionId );
+
+    void SetMinimumPlayTime( unsigned int minutes ); // This event can only spawn after the player has played for this many minutes
+    void SetName( const std::string& name );
 
 private:
-	std::string m_Name;
-	int m_FactionMask;
-	bool m_IsRepeatable;
-	unsigned int m_MinimumPlayTime;
+    std::string m_Name;
+    int m_FactionMask;
+    bool m_IsRepeatable;
+    unsigned int m_MinimumPlayTime;
 };
 
 inline const std::string& SectorEvent::GetName() const
 {
-	return m_Name;
+    return m_Name;
 }
 
 inline void SectorEvent::SetName( const std::string& name )
 {
-	m_Name = name;
+    m_Name = name;
 }
 
 inline void SectorEvent::SetMinimumPlayTime( unsigned int minutes )
 {
-	m_MinimumPlayTime = minutes;
+    m_MinimumPlayTime = minutes;
 }
 
 inline bool SectorEvent::IsRepeatable() const
 {
-	return m_IsRepeatable;
+    return m_IsRepeatable;
 }
 
-}
+} // namespace Hexterminate

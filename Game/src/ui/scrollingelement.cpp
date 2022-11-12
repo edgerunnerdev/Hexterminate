@@ -28,10 +28,11 @@
 namespace Hexterminate::UI
 {
 
-ScrollingElement::ScrollingElement( const std::string& name ) : Element( name ),
-m_GrabAndHold( false ),
-m_CurrentOffset( 0.0f ),
-m_OffsetLimit( 0 )
+ScrollingElement::ScrollingElement( const std::string& name )
+    : Element( name )
+    , m_GrabAndHold( false )
+    , m_CurrentOffset( 0.0f )
+    , m_OffsetLimit( 0 )
 {
     using namespace Genesis;
 
@@ -112,11 +113,13 @@ void ScrollingElement::Update()
         {
             if ( m_pScrollUp->IsHovered() )
             {
-                offset += scrollingSpeed * 0.033f; /*delta*/;
+                offset += scrollingSpeed * 0.033f; /*delta*/
+                ;
             }
             else if ( m_pScrollDown->IsHovered() )
             {
-                offset -= scrollingSpeed * 0.033f; /*delta*/;
+                offset -= scrollingSpeed * 0.033f; /*delta*/
+                ;
             }
         }
     }
@@ -135,7 +138,7 @@ void ScrollingElement::Update()
 
         // Offset is rounded up to prevent shimmering of child elements
         m_pScrollingArea->GetPanel()->SetPosition( m_pScrollingArea->GetPanel()->GetPosition().x, ceilf( m_CurrentOffset ) );
-        Genesis::FrameWork::GetLogger()->LogInfo("grab and hold offset: %f, limit %d", m_CurrentOffset, m_OffsetLimit);
+        Genesis::FrameWork::GetLogger()->LogInfo( "grab and hold offset: %f, limit %d", m_CurrentOffset, m_OffsetLimit );
     }
 
     UpdateScrollbarPosition();
@@ -143,28 +146,28 @@ void ScrollingElement::Update()
 
 void ScrollingElement::UpdateScrollingAreaHeight()
 {
-	int totalHeight = 0;
-	const Genesis::Gui::GuiElementList& children = m_pScrollingArea->GetPanel()->GetChildren();
-	for ( auto& pElement : children )
-	{
-		if ( pElement->IsVisible() )
+    int totalHeight = 0;
+    const Genesis::Gui::GuiElementList& children = m_pScrollingArea->GetPanel()->GetChildren();
+    for ( auto& pElement : children )
+    {
+        if ( pElement->IsVisible() )
         {
-		    int height = static_cast<int>( ceilf( pElement->GetPosition().y ) ) + pElement->GetHeight();
-		    if (totalHeight < height)
+            int height = static_cast<int>( ceilf( pElement->GetPosition().y ) ) + pElement->GetHeight();
+            if ( totalHeight < height )
             {
-			    totalHeight = height;
+                totalHeight = height;
             }
         }
-	}
-
-	if ( totalHeight < GetHeight() )
-    {
-		totalHeight = GetHeight();
     }
 
-	m_pScrollingArea->SetSize( m_pScrollingArea->GetWidth(), totalHeight );
-	m_OffsetLimit = std::max( 0, totalHeight - GetHeight() );
-	m_pScrollbar->Show( IsScrollingEnabled() );
+    if ( totalHeight < GetHeight() )
+    {
+        totalHeight = GetHeight();
+    }
+
+    m_pScrollingArea->SetSize( m_pScrollingArea->GetWidth(), totalHeight );
+    m_OffsetLimit = std::max( 0, totalHeight - GetHeight() );
+    m_pScrollbar->Show( IsScrollingEnabled() );
 }
 
 void ScrollingElement::SetSize( int width, int height )

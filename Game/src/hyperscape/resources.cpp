@@ -24,56 +24,47 @@ namespace Hexterminate
 // Resource
 //-----------------------------------------------------------------------------
 
-Resource::Resource( Type type, const std::string& name, unsigned int quantity ) :
-m_Type( type ),
-m_Name( name ),
-m_Quantity( quantity )
+Resource::Resource( Type type, const std::string& name, unsigned int quantity )
+    : m_Type( type )
+    , m_Name( name )
+    , m_Quantity( quantity )
 {
-	
 }
-
 
 //-----------------------------------------------------------------------------
 // CommonMetalsResource
 //-----------------------------------------------------------------------------
 
-CommonMetalsResource::CommonMetalsResource( unsigned int quantity /* = 0 */ ) :
-Resource( Type::CommonMetals, "Common metals", quantity )
+CommonMetalsResource::CommonMetalsResource( unsigned int quantity /* = 0 */ )
+    : Resource( Type::CommonMetals, "Common metals", quantity )
 {
-
 }
-
 
 //-----------------------------------------------------------------------------
 // RareMetalsResource
 //-----------------------------------------------------------------------------
 
-RareMetalsResource::RareMetalsResource( unsigned int quantity /* = 0 */ ) :
-Resource( Type::RareMetals, "Rare metals", quantity )
+RareMetalsResource::RareMetalsResource( unsigned int quantity /* = 0 */ )
+    : Resource( Type::RareMetals, "Rare metals", quantity )
 {
-
 }
-
 
 //-----------------------------------------------------------------------------
 // Helium3Resource
 //-----------------------------------------------------------------------------
 
-Helium3Resource::Helium3Resource( unsigned int quantity /* = 0 */ ) :
-Resource( Type::Helium3, "Helium-3", quantity )
+Helium3Resource::Helium3Resource( unsigned int quantity /* = 0 */ )
+    : Resource( Type::Helium3, "Helium-3", quantity )
 {
-
 }
-
 
 //-----------------------------------------------------------------------------
 // QuantumCoreResource
 //-----------------------------------------------------------------------------
 
-QuantumCoreResource::QuantumCoreResource( unsigned int quantity /* = 0 */ ) :
-Resource( Type::QuantumCore, "Quantum core", quantity )
+QuantumCoreResource::QuantumCoreResource( unsigned int quantity /* = 0 */ )
+    : Resource( Type::QuantumCore, "Quantum core", quantity )
 {
-
 }
 
 } // namespace Hexterminate

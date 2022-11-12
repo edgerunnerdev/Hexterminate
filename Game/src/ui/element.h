@@ -21,12 +21,12 @@
 #include <memory>
 #include <string>
 
-#include "ui/types.fwd.h"
 #include "json.hpp"
+#include "ui/types.fwd.h"
 
 using json = nlohmann::json;
 
-namespace Genesis::Gui 
+namespace Genesis::Gui
 {
 class Panel;
 }
@@ -66,7 +66,7 @@ public:
     const std::string& GetName() const;
     virtual void Show( bool state );
 
-    // This shouldn't be exposed, but it is necessary until all the 
+    // This shouldn't be exposed, but it is necessary until all the
     // Genesis::Gui elements have been ported to the new system.
     Genesis::Gui::Panel* GetPanel() const;
 
@@ -99,7 +99,7 @@ private:
     int m_PaddingBottom;
 };
 
-inline bool Element::IsResizeable() const 
+inline bool Element::IsResizeable() const
 {
     return true;
 }

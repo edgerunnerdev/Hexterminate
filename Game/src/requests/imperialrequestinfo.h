@@ -28,8 +28,7 @@ class ImperialRequestInfo;
 class RequestManager;
 class SectorInfo;
 
-typedef std::list< ImperialRequestInfo* > ImperialRequestInfoList;
-
+typedef std::list<ImperialRequestInfo*> ImperialRequestInfoList;
 
 /////////////////////////////////////////////////////////////////////
 // ImperialRequestInfo
@@ -43,40 +42,40 @@ typedef std::list< ImperialRequestInfo* > ImperialRequestInfoList;
 class ImperialRequestInfo
 {
 public:
-	enum class AllowedGameMode
-	{
-		Campaign,
-		InfiniteWar,
-		Any
-	};
+    enum class AllowedGameMode
+    {
+        Campaign,
+        InfiniteWar,
+        Any
+    };
 
-										ImperialRequestInfo()						{}
-	virtual								~ImperialRequestInfo() {}
+    ImperialRequestInfo() {}
+    virtual ~ImperialRequestInfo() {}
 
-	virtual ImperialRequestType			GetType() const								{ return ImperialRequestType::Invalid; }
+    virtual ImperialRequestType GetType() const { return ImperialRequestType::Invalid; }
 
-	virtual AllowedGameMode				GetAllowedGameMode() const					{ return AllowedGameMode::Any; }
+    virtual AllowedGameMode GetAllowedGameMode() const { return AllowedGameMode::Any; }
 
-	// How many requests of this type can be active in-game at the 
-	// same time.
-	virtual int							GetMaximumRequests() const					{ return 1; }
+    // How many requests of this type can be active in-game at the
+    // same time.
+    virtual int GetMaximumRequests() const { return 1; }
 
-	// In seconds
-	virtual float						GetMinimumTimeBetweenRequests() const		{ return 60.0f; }			
+    // In seconds
+    virtual float GetMinimumTimeBetweenRequests() const { return 60.0f; }
 
     // In seconds, gameplay time before this request can trigger
-    virtual float                       GetMinimumTimeBeforeRequest() const         { return 0.0f; }
+    virtual float GetMinimumTimeBeforeRequest() const { return 0.0f; }
 
-	// TryInstantiate() should return an empty shared ptr if the 
-	// conditions needed to create a new request aren't met.
-	virtual ImperialRequestSharedPtr	TryInstantiate( RequestManager* pRequestManager ) const	{ return ImperialRequestSharedPtr(); }
+    // TryInstantiate() should return an empty shared ptr if the
+    // conditions needed to create a new request aren't met.
+    virtual ImperialRequestSharedPtr TryInstantiate( RequestManager* pRequestManager ) const { return ImperialRequestSharedPtr(); }
 
 protected:
-	// Always call in a child class' TryInstantiate()
-	bool								CommonInstantiationChecks( RequestManager* pRequestManager ) const;
+    // Always call in a child class' TryInstantiate()
+    bool CommonInstantiationChecks( RequestManager* pRequestManager ) const;
 
-	// Checks if there is another request which is already using this sector
-	bool								IsDuplicateSector( RequestManager* pRequestManager, SectorInfo* pSectorInfo ) const;
+    // Checks if there is another request which is already using this sector
+    bool IsDuplicateSector( RequestManager* pRequestManager, SectorInfo* pSectorInfo ) const;
 };
 
-}
+} // namespace Hexterminate

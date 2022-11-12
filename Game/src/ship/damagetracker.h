@@ -17,10 +17,10 @@
 
 #pragma once
 
-#include <array>
-#include <list>
-#include <imgui/imgui_impl.h>
 #include "faction/faction.h"
+#include <array>
+#include <imgui/imgui_impl.h>
+#include <list>
 
 namespace Hexterminate
 {
@@ -36,22 +36,21 @@ class Ship;
 class DamageTracker
 {
 public:
-	DamageTracker( Ship* pShip );
-	~DamageTracker();
+    DamageTracker( Ship* pShip );
+    ~DamageTracker();
 
-	Ship* GetShip() const;
-	float GetDamage( FactionId id ) const;
-	void AddDamage( FactionId id, float amount );
-	void GetHighestContributor( FactionId& id, float& amount ) const;
-	int GetID() const;
+    Ship* GetShip() const;
+    float GetDamage( FactionId id ) const;
+    void AddDamage( FactionId id, float amount );
+    void GetHighestContributor( FactionId& id, float& amount ) const;
+    int GetID() const;
 
 private:
-	Ship* m_pShip;
-	std::array<float, static_cast<size_t>( FactionId::Count )> m_Damage;
-	int m_ID;
-	static int sID;
+    Ship* m_pShip;
+    std::array<float, static_cast<size_t>( FactionId::Count )> m_Damage;
+    int m_ID;
+    static int sID;
 };
-
 
 /////////////////////////////////////////////////////////////////////
 // DamageTrackerDebugWindow
@@ -61,15 +60,15 @@ private:
 class DamageTrackerDebugWindow
 {
 public:
-	static void Register();
-	static void Unregister();
-	static void Update();
-	static void AddDamageTracker( DamageTracker* pTracker );
-	static void RemoveDamageTracker( DamageTracker* pTracker );
+    static void Register();
+    static void Unregister();
+    static void Update();
+    static void AddDamageTracker( DamageTracker* pTracker );
+    static void RemoveDamageTracker( DamageTracker* pTracker );
 
 private:
-	static bool m_Open;
-	static std::list<DamageTracker*> m_Trackers;
+    static bool m_Open;
+    static std::list<DamageTracker*> m_Trackers;
 };
 
-}
+} // namespace Hexterminate

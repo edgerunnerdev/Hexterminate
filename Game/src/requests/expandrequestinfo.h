@@ -27,15 +27,15 @@ class SectorInfo;
 class ExpandRequestInfo : public ImperialRequestInfo
 {
 public:
-	virtual ImperialRequestType			GetType() const override						{ return ImperialRequestType::Expand; }
-	virtual int							GetMaximumRequests() const override				{ return 2; }
-	virtual float						GetMinimumTimeBetweenRequests() const override	{ return 45.0f; }		
-    virtual float                       GetMinimumTimeBeforeRequest() const override { return 30.0f; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Expand; }
+    virtual int GetMaximumRequests() const override { return 2; }
+    virtual float GetMinimumTimeBetweenRequests() const override { return 45.0f; }
+    virtual float GetMinimumTimeBeforeRequest() const override { return 30.0f; }
 
-	virtual ImperialRequestSharedPtr	TryInstantiate( RequestManager* pRequestManager ) const override;
+    virtual ImperialRequestSharedPtr TryInstantiate( RequestManager* pRequestManager ) const override;
 
 private:
-	SectorInfo*							FindSector() const;
+    SectorInfo* FindSector() const;
 };
 
-}
+} // namespace Hexterminate

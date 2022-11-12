@@ -24,19 +24,19 @@ namespace Hexterminate
 
 ///////////////////////////////////////////////////////////////////////////////
 // ControllerAssault
-// Assault behaviour for AI ships. 
+// Assault behaviour for AI ships.
 // It will always try and get close to the target ship.
 ///////////////////////////////////////////////////////////////////////////////
 
-class ControllerAssault: public ControllerAI
+class ControllerAssault : public ControllerAI
 {
 public:
-					ControllerAssault( Ship* pShip );
-	virtual			~ControllerAssault() {};
-	virtual void	HandleOrders( float delta ) override;
+    ControllerAssault( Ship* pShip );
+    virtual ~ControllerAssault(){};
+    virtual void HandleOrders( float delta ) override;
 
 private:
-	bool			ApproachTargetShip();
+    bool ApproachTargetShip();
 };
 
-}
+} // namespace Hexterminate

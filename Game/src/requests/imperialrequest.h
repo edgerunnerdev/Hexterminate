@@ -29,75 +29,72 @@ namespace Hexterminate
 class RequestManager;
 class SectorInfo;
 
-
-class ImperialRequest : public std::enable_shared_from_this< ImperialRequest >
+class ImperialRequest : public std::enable_shared_from_this<ImperialRequest>
 {
 public:
-									ImperialRequest( RequestManager* pRequestManager );
-	virtual							~ImperialRequest() {}
+    ImperialRequest( RequestManager* pRequestManager );
+    virtual ~ImperialRequest() {}
 
-	virtual ImperialRequestType		GetType() const = 0;
+    virtual ImperialRequestType GetType() const = 0;
 
-	virtual void					Update( float delta ) {}
+    virtual void Update( float delta ) {}
 
-	virtual void					OnBegin();
-	virtual void					OnSuccess();
-	virtual void					OnFailure();
-	virtual void					OnPlayerEnterSector() {}
+    virtual void OnBegin();
+    virtual void OnSuccess();
+    virtual void OnFailure();
+    virtual void OnPlayerEnterSector() {}
 
-	virtual int						GetConquestReward( const SectorInfo* pSectorInfo ) const;
+    virtual int GetConquestReward( const SectorInfo* pSectorInfo ) const;
 
-	float							GetStartTime() const;
-	const RequestGoalSharedPtrList&	GetGoals() const;
-	RequestManager*					GetRequestManager() const;
-	unsigned int					GetThreatScore() const;
+    float GetStartTime() const;
+    const RequestGoalSharedPtrList& GetGoals() const;
+    RequestManager* GetRequestManager() const;
+    unsigned int GetThreatScore() const;
 
-	bool							GoalExists( const SectorInfo* pSectorInfo ) const;
-
+    bool GoalExists( const SectorInfo* pSectorInfo ) const;
 
 protected:
-	void							AddGoal( RequestGoalSharedPtr pGoal );
-	void							RemoveGoal( RequestGoalSharedPtr pGoal );
-	void							RemoveGoal( const SectorInfo* pSectorInfo );
-	void							SetThreatScore( unsigned int value );
-    unsigned int                    GetShipThreatScore( const std::string& ship, FactionId factionId ) const;
+    void AddGoal( RequestGoalSharedPtr pGoal );
+    void RemoveGoal( RequestGoalSharedPtr pGoal );
+    void RemoveGoal( const SectorInfo* pSectorInfo );
+    void SetThreatScore( unsigned int value );
+    unsigned int GetShipThreatScore( const std::string& ship, FactionId factionId ) const;
 
 private:
-	RequestManager*					m_pRequestManager;
-	float							m_StartTime;
-	RequestGoalSharedPtrList		m_Goals;
-	unsigned int					m_ThreatScore;
+    RequestManager* m_pRequestManager;
+    float m_StartTime;
+    RequestGoalSharedPtrList m_Goals;
+    unsigned int m_ThreatScore;
 };
-
 
 inline float ImperialRequest::GetStartTime() const
 {
-	return m_StartTime;
+    return m_StartTime;
 }
 
 inline const RequestGoalSharedPtrList& ImperialRequest::GetGoals() const
 {
-	return m_Goals;
+    return m_Goals;
 }
 
 inline RequestManager* ImperialRequest::GetRequestManager() const
 {
-	return m_pRequestManager;
+    return m_pRequestManager;
 }
 
 inline int ImperialRequest::GetConquestReward( const SectorInfo* pSectorInfo ) const
 {
-	return 0;
+    return 0;
 }
 
 inline unsigned int ImperialRequest::GetThreatScore() const
 {
-	return m_ThreatScore;
+    return m_ThreatScore;
 }
 
 inline void ImperialRequest::SetThreatScore( unsigned int value )
 {
-	m_ThreatScore = value;
+    m_ThreatScore = value;
 }
 
-}
+} // namespace Hexterminate

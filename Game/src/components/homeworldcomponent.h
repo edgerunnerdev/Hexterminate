@@ -27,19 +27,19 @@ namespace Hexterminate
 
 class Faction;
 class ShipInfo;
-using ShipInfoVector = std::vector< const ShipInfo* >;
+using ShipInfoVector = std::vector<const ShipInfo*>;
 using StringVector = std::vector<std::string>;
 
 /////////////////////////////////////////////////////////////////////
 
-class HomeworldComponent : public Genesis::Component 
+class HomeworldComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( HomeworldComponent )
+    DECLARE_COMPONENT( HomeworldComponent )
 public:
-	virtual bool Initialise() override;
+    virtual bool Initialise() override;
 
 private:
-	void SpawnReinforcements( const StringVector& shipNames );
+    void SpawnReinforcements( const StringVector& shipNames );
 };
 
-}
+} // namespace Hexterminate

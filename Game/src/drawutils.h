@@ -33,13 +33,13 @@ namespace Hexterminate
 class DrawUtils
 {
 public:
-	// Draws a 2D rectangle with a given shader. X and Y are the top left coordinates.
-	static void Rect2D( Genesis::Shader* pShader, int x, int y, int width, int height );
-	static void Rect2D( Genesis::Shader* pShader, float x, float y, float width, float height );
+    // Draws a 2D rectangle with a given shader. X and Y are the top left coordinates.
+    static void Rect2D( Genesis::Shader* pShader, int x, int y, int width, int height );
+    static void Rect2D( Genesis::Shader* pShader, float x, float y, float width, float height );
 
-	// Draws an oriented 2D rectangle with a given shader. X and Y are the center of rectangle and the rotation
-	// happens around this point.
-	static void Rect2DOriented( Genesis::Shader* pShader, int x, int y, int width, int height, float angle );
+    // Draws an oriented 2D rectangle with a given shader. X and Y are the center of rectangle and the rotation
+    // happens around this point.
+    static void Rect2DOriented( Genesis::Shader* pShader, int x, int y, int width, int height, float angle );
 };
 
-}
+} // namespace Hexterminate

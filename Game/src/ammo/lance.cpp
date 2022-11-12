@@ -18,50 +18,50 @@
 #include <cassert>
 
 #include <math/misc.h>
-#include <resources/resourceimage.h>
 #include <rendersystem.h>
+#include <resources/resourceimage.h>
 
 #include "ammo/lance.h"
 
 namespace Hexterminate
 {
 
-Lance::Lance() :
-m_Lifetime( FLT_MAX ),
-m_MaxLifetime( FLT_MAX )
+Lance::Lance()
+    : m_Lifetime( FLT_MAX )
+    , m_MaxLifetime( FLT_MAX )
 {
 }
 
 void Lance::Create( Weapon* pWeapon, float additionalRotation /* = 0.0f */ )
 {
-	Beam::Create( pWeapon, additionalRotation );
+    Beam::Create( pWeapon, additionalRotation );
 
-	m_MaxLifetime = pWeapon->GetInfo()->GetBeamLifetime();
-	m_Lifetime = m_MaxLifetime;
+    m_MaxLifetime = pWeapon->GetInfo()->GetBeamLifetime();
+    m_Lifetime = m_MaxLifetime;
 }
 
 void Lance::Update( float delta )
 {
-	Beam::Update( delta );
+    Beam::Update( delta );
 
-	m_Lifetime -= delta;
-	if ( m_Lifetime < 0.0f )
-	{
-		Kill();
-	}
+    m_Lifetime -= delta;
+    if ( m_Lifetime < 0.0f )
+    {
+        Kill();
+    }
 }
 
 float Lance::GetOpacity() const
 {
-	float r = 1.0f - m_Lifetime / m_MaxLifetime;
-	float opacity = 1.0f;
-	if ( r > 0.5f )
-	{
-		opacity = 1.0f - ( r - 0.5f ) * ( r - 0.5f ) * 4.0f;
-		opacity = gClamp<float>( opacity, 0.0, 1.0f );
-	}
+    float r = 1.0f - m_Lifetime / m_MaxLifetime;
+    float opacity = 1.0f;
+    if ( r > 0.5f )
+    {
+        opacity = 1.0f - ( r - 0.5f ) * ( r - 0.5f ) * 4.0f;
+        opacity = gClamp<float>( opacity, 0.0, 1.0f );
+    }
 
-	return opacity;
+    return opacity;
 }
 
-}
+} // namespace Hexterminate

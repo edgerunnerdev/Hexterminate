@@ -15,16 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <sstream>
-#include <genesis.h>
-#include "math/misc.h"
 #include "menus/moduledetails.h"
-#include "menus/eva.h"
-#include "ship/moduleinfo.h"
 #include "globals.h"
-#include "player.h"
-#include "stringaux.h"
 #include "hexterminate.h"
+#include "math/misc.h"
+#include "menus/eva.h"
+#include "player.h"
+#include "ship/moduleinfo.h"
+#include "stringaux.h"
+#include <genesis.h>
+#include <sstream>
 
 namespace Hexterminate
 {
@@ -33,225 +33,226 @@ namespace Hexterminate
 // ModuleDetails
 ///////////////////////////////////////////////////////////////////////////////
 
-ModuleDetails::ModuleDetails():
-m_pModuleInfo( nullptr ),
-m_pMainPanel( nullptr ),
-m_pIcon( nullptr ),
-m_pTitleText( nullptr ),
-m_pContentsText( nullptr ),
-m_pIconOnly( nullptr ),
-m_InIconOnlyMode( false ),
-m_HideNextFrame( false )
+ModuleDetails::ModuleDetails()
+    : m_pModuleInfo( nullptr )
+    , m_pMainPanel( nullptr )
+    , m_pIcon( nullptr )
+    , m_pTitleText( nullptr )
+    , m_pContentsText( nullptr )
+    , m_pIconOnly( nullptr )
+    , m_InIconOnlyMode( false )
+    , m_HideNextFrame( false )
 {
-	CreateElements();
+    CreateElements();
 }
 
 ModuleDetails::~ModuleDetails()
 {
-	Genesis::Gui::GuiManager* pGuiManager = Genesis::FrameWork::GetGuiManager();
-	if ( pGuiManager != nullptr )
-	{
-		pGuiManager->RemoveElement( m_pMainPanel );
-		pGuiManager->RemoveElement( m_pIconOnly );
-	}
+    Genesis::Gui::GuiManager* pGuiManager = Genesis::FrameWork::GetGuiManager();
+    if ( pGuiManager != nullptr )
+    {
+        pGuiManager->RemoveElement( m_pMainPanel );
+        pGuiManager->RemoveElement( m_pIconOnly );
+    }
 }
 
 void ModuleDetails::Update( float delta )
 {
-	PlaceAtCursor();
+    PlaceAtCursor();
 
-	if ( m_HideNextFrame > 2 )
-	{
-		m_pMainPanel->Show( false );
-		m_pIconOnly->Show( false );
-	}
+    if ( m_HideNextFrame > 2 )
+    {
+        m_pMainPanel->Show( false );
+        m_pIconOnly->Show( false );
+    }
 }
 
 void ModuleDetails::SetModuleInfo( ModuleInfo* pModuleInfo, bool iconOnly /* = false */ )
 {
-	if ( m_pModuleInfo != pModuleInfo || m_InIconOnlyMode != iconOnly )
-	{
-		m_pModuleInfo = pModuleInfo;
+    if ( m_pModuleInfo != pModuleInfo || m_InIconOnlyMode != iconOnly )
+    {
+        m_pModuleInfo = pModuleInfo;
 
-		if ( m_pModuleInfo != nullptr )
-		{
-			if ( iconOnly )
-			{
-				m_pMainPanel->Show( false );
-				m_pIconOnly->Show( true );
-				m_InIconOnlyMode = true;
+        if ( m_pModuleInfo != nullptr )
+        {
+            if ( iconOnly )
+            {
+                m_pMainPanel->Show( false );
+                m_pIconOnly->Show( true );
+                m_InIconOnlyMode = true;
 
-				SetIcon();
-			}
-			else
-			{
-				m_pMainPanel->Show( true );
-				m_pIconOnly->Show( false );
-				m_InIconOnlyMode = false;
+                SetIcon();
+            }
+            else
+            {
+                m_pMainPanel->Show( true );
+                m_pIconOnly->Show( false );
+                m_InIconOnlyMode = false;
 
-				SetTitle();
-				SetIcon();
-				SetContents();
-			}
+                SetTitle();
+                SetIcon();
+                SetContents();
+            }
 
-			m_HideNextFrame = 0;
-		}
-	}
+            m_HideNextFrame = 0;
+        }
+    }
 
-	if ( m_pModuleInfo == nullptr )
-	{
-		m_HideNextFrame++;
-	}
+    if ( m_pModuleInfo == nullptr )
+    {
+        m_HideNextFrame++;
+    }
 }
 
 void ModuleDetails::PlaceAtCursor()
 {
-	// Positions are slightly offset so they don't overlap the cursor.
-	if ( m_pMainPanel->IsVisible() )
-	{
-		const glm::vec2& mousePosition = Genesis::FrameWork::GetInputManager()->GetMousePosition();
-		m_pMainPanel->SetPosition( mousePosition.x + 8.0f, mousePosition.y + 8.0f );
-	}
-	else if ( m_pIconOnly->IsVisible() )
-	{
-		const glm::vec2& mousePosition = Genesis::FrameWork::GetInputManager()->GetMousePosition();
-		m_pIconOnly->SetPosition( mousePosition.x + 8.0f, mousePosition.y + 4.0f );
-	}
+    // Positions are slightly offset so they don't overlap the cursor.
+    if ( m_pMainPanel->IsVisible() )
+    {
+        const glm::vec2& mousePosition = Genesis::FrameWork::GetInputManager()->GetMousePosition();
+        m_pMainPanel->SetPosition( mousePosition.x + 8.0f, mousePosition.y + 8.0f );
+    }
+    else if ( m_pIconOnly->IsVisible() )
+    {
+        const glm::vec2& mousePosition = Genesis::FrameWork::GetInputManager()->GetMousePosition();
+        m_pIconOnly->SetPosition( mousePosition.x + 8.0f, mousePosition.y + 4.0f );
+    }
 }
 
 void ModuleDetails::CreateElements()
 {
-	Genesis::Gui::GuiManager* pGuiManager = Genesis::FrameWork::GetGuiManager();
+    Genesis::Gui::GuiManager* pGuiManager = Genesis::FrameWork::GetGuiManager();
 
-	m_pMainPanel = new Genesis::Gui::Panel();
-	m_pMainPanel->SetSize( 320.0f, 68.0f );
-	m_pMainPanel->SetPosition( 0.0f, 0.0f );
-	m_pMainPanel->SetColour( 0.0f, 0.0f, 0.0f, 0.8f );
-	m_pMainPanel->SetBorderColour( EVA_COLOUR_BORDER );
-	m_pMainPanel->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
-	m_pMainPanel->SetDepth( 10 );
-	pGuiManager->AddElement( m_pMainPanel );
+    m_pMainPanel = new Genesis::Gui::Panel();
+    m_pMainPanel->SetSize( 320.0f, 68.0f );
+    m_pMainPanel->SetPosition( 0.0f, 0.0f );
+    m_pMainPanel->SetColour( 0.0f, 0.0f, 0.0f, 0.8f );
+    m_pMainPanel->SetBorderColour( EVA_COLOUR_BORDER );
+    m_pMainPanel->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
+    m_pMainPanel->SetDepth( 10 );
+    pGuiManager->AddElement( m_pMainPanel );
 
-	m_pTitleText = new Genesis::Gui::Text();
-	m_pTitleText->SetSize( 256.0f, 16.0f );
-	m_pTitleText->SetPosition( 80.0f, 8.0f );
-	m_pTitleText->SetColour( EVA_TEXT_COLOUR );
-	m_pTitleText->SetFont( EVA_FONT );
-	m_pTitleText->SetMultiLine( false );
-	m_pTitleText->SetText( "" );
-	m_pMainPanel->AddElement( m_pTitleText );
+    m_pTitleText = new Genesis::Gui::Text();
+    m_pTitleText->SetSize( 256.0f, 16.0f );
+    m_pTitleText->SetPosition( 80.0f, 8.0f );
+    m_pTitleText->SetColour( EVA_TEXT_COLOUR );
+    m_pTitleText->SetFont( EVA_FONT );
+    m_pTitleText->SetMultiLine( false );
+    m_pTitleText->SetText( "" );
+    m_pMainPanel->AddElement( m_pTitleText );
 
-	m_pContentsText = new Genesis::Gui::Text();
-	m_pContentsText->SetSize( 256.0f, 32.0f );
-	m_pContentsText->SetPosition( 80.0f, 28.0f );
-	m_pContentsText->SetColour( EVA_TEXT_COLOUR );
-	m_pContentsText->SetFont( EVA_FONT );
-	m_pContentsText->SetText( "" );
-	m_pMainPanel->AddElement( m_pContentsText );
+    m_pContentsText = new Genesis::Gui::Text();
+    m_pContentsText->SetSize( 256.0f, 32.0f );
+    m_pContentsText->SetPosition( 80.0f, 28.0f );
+    m_pContentsText->SetColour( EVA_TEXT_COLOUR );
+    m_pContentsText->SetFont( EVA_FONT );
+    m_pContentsText->SetText( "" );
+    m_pMainPanel->AddElement( m_pContentsText );
 
-	m_pIcon = new Genesis::Gui::Image();
-	m_pIcon->SetSize( 64.0f, 64.0f );
-	m_pIcon->SetPosition( 8.0f, 8.0f );
-	m_pIcon->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
-	m_pMainPanel->AddElement( m_pIcon );	
+    m_pIcon = new Genesis::Gui::Image();
+    m_pIcon->SetSize( 64.0f, 64.0f );
+    m_pIcon->SetPosition( 8.0f, 8.0f );
+    m_pIcon->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
+    m_pMainPanel->AddElement( m_pIcon );
 
-	m_pIconOnly = new Genesis::Gui::Image();
-	m_pIconOnly->SetSize( 64.0f, 64.0f );
-	m_pIconOnly->SetPosition( 8.0f, 8.0f );
-	m_pIconOnly->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
-	m_pIconOnly->SetDepth( 10 );
-	pGuiManager->AddElement( m_pIconOnly );
+    m_pIconOnly = new Genesis::Gui::Image();
+    m_pIconOnly->SetSize( 64.0f, 64.0f );
+    m_pIconOnly->SetPosition( 8.0f, 8.0f );
+    m_pIconOnly->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
+    m_pIconOnly->SetDepth( 10 );
+    pGuiManager->AddElement( m_pIconOnly );
 
-	m_pMainPanel->Show( false );
-	m_pIconOnly->Show( false );
+    m_pMainPanel->Show( false );
+    m_pIconOnly->Show( false );
 }
 
 void ModuleDetails::SetTitle()
 {
-	m_pTitleText->SetText( m_pModuleInfo->GetFullName() );
-	m_pTitleText->SetColour( ModuleRarityToColour( m_pModuleInfo->GetRarity() ) );
+    m_pTitleText->SetText( m_pModuleInfo->GetFullName() );
+    m_pTitleText->SetColour( ModuleRarityToColour( m_pModuleInfo->GetRarity() ) );
 }
 
 void ModuleDetails::SetIcon()
 {
-	using namespace Genesis;
-	ResourceImage* pIconImage = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( m_pModuleInfo->GetIcon() );
+    using namespace Genesis;
+    ResourceImage* pIconImage = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( m_pModuleInfo->GetIcon() );
 
-	if ( m_InIconOnlyMode )
-	{
-		m_pIconOnly->SetTexture( pIconImage );
-	}
-	else
-	{
-		m_pIcon->SetTexture( pIconImage );
-	}
+    if ( m_InIconOnlyMode )
+    {
+        m_pIconOnly->SetTexture( pIconImage );
+    }
+    else
+    {
+        m_pIcon->SetTexture( pIconImage );
+    }
 }
 
 void ModuleDetails::SetContents()
 {
-	// Make sure the item's title always fits 
-	const float titleWidth = m_pTitleText->GetPosition().x + m_pTitleText->GetText().length() * 8.0f + 8.0f;
-	const float panelWidth = gMax( 344.0f, titleWidth );
-	m_pMainPanel->SetWidth( panelWidth );
-	
-	std::stringstream contentsText;
-	contentsText << "Rarity: " << ToString( m_pModuleInfo->GetRarity() ) << "\n";
+    // Make sure the item's title always fits
+    const float titleWidth = m_pTitleText->GetPosition().x + m_pTitleText->GetText().length() * 8.0f + 8.0f;
+    const float panelWidth = gMax( 344.0f, titleWidth );
+    m_pMainPanel->SetWidth( panelWidth );
+
+    std::stringstream contentsText;
+    contentsText << "Rarity: " << ToString( m_pModuleInfo->GetRarity() ) << "\n";
 
     Ship* pShip = g_pGame->GetPlayer()->GetShip();
-	ModuleType type = m_pModuleInfo->GetType();
-	if ( type == ModuleType::Engine )
-	{
-		EngineInfo* pEngineInfo = static_cast<EngineInfo*>( m_pModuleInfo );
-		contentsText << "Armour: " << pEngineInfo->GetHealth( pShip ) << "\n" 
-		    << "Thrust: " << pEngineInfo->GetThrust() << "\n" 
-			<< "Torque: " << pEngineInfo->GetTorque() << "\n";
-	}
-	else if ( type == ModuleType::Armour )
-	{
-		ArmourInfo* pArmourInfo = static_cast<ArmourInfo*>( m_pModuleInfo );
-		contentsText << "Armour: " << pArmourInfo->GetHealth( pShip ) << "\n"
-			<< "Mass: " << static_cast<int>( BaseModuleMass * pArmourInfo->GetMassMultiplier( pShip ) ) << "\n"
-			<< "Resistance (kinetic): " << ToStringPercentage( pArmourInfo->GetKineticResistance() ) << "\n"
-			<< "Resistance (energy): " << ToStringPercentage( pArmourInfo->GetEnergyResistance() ) << "\n"
-			<< "Regenerative: " << ( pArmourInfo->IsRegenerative() ? "Yes" : "No" ) << "\n"
-			<< "Ramming prow: " << ( pArmourInfo->IsRammingProw() ? "Yes" : "No" ) << "\n";
-	}
-	else if ( type == ModuleType::Shield )
-	{
-		ShieldInfo* pShieldInfo = static_cast<ShieldInfo*>( m_pModuleInfo );
-		contentsText << "Capacity: " << pShieldInfo->GetCapacity() << " u\n"
-			<< "Peak recharge: " << pShieldInfo->GetPeakRecharge() << " u/s\n"
-			<< "Energy usage: " << pShieldInfo->GetEnergyUsage( pShip ) << " u/s\n";
-	}
-	else if ( type == ModuleType::Weapon )
-	{
-		WeaponInfo* pWeaponInfo = static_cast<WeaponInfo*>( m_pModuleInfo );
-		contentsText << "Type: " << ToString( pWeaponInfo->GetSystem() ) << "\n"
-			<< "Damage type: " << ToString( pWeaponInfo->GetDamageType() ) << "\n"
-			<< "DPS: " << static_cast<int>( pWeaponInfo->GetDPS( pShip ) ) << "\n"
-			<< "Range: " << pWeaponInfo->GetRange( pShip ) << "\n"
-			<< "Energy cost: " << static_cast<int>( pWeaponInfo->GetActivationCost( pShip ) * pWeaponInfo->GetRateOfFire( pShip ) ) << " u/s\n";
-	}
-	else if ( type == ModuleType::Reactor )
-	{
-		ReactorInfo* pReactorInfo = static_cast<ReactorInfo*>( m_pModuleInfo );
-		contentsText << "Capacity: " << pReactorInfo->GetCapacity() << "u\n"
-			<< "Recharge: " << pReactorInfo->GetRechargeRate() << " u/s\n";
-	}
+    ModuleType type = m_pModuleInfo->GetType();
+    if ( type == ModuleType::Engine )
+    {
+        EngineInfo* pEngineInfo = static_cast<EngineInfo*>( m_pModuleInfo );
+        contentsText << "Armour: " << pEngineInfo->GetHealth( pShip ) << "\n"
+                     << "Thrust: " << pEngineInfo->GetThrust() << "\n"
+                     << "Torque: " << pEngineInfo->GetTorque() << "\n";
+    }
+    else if ( type == ModuleType::Armour )
+    {
+        ArmourInfo* pArmourInfo = static_cast<ArmourInfo*>( m_pModuleInfo );
+        contentsText << "Armour: " << pArmourInfo->GetHealth( pShip ) << "\n"
+                     << "Mass: " << static_cast<int>( BaseModuleMass * pArmourInfo->GetMassMultiplier( pShip ) ) << "\n"
+                     << "Resistance (kinetic): " << ToStringPercentage( pArmourInfo->GetKineticResistance() ) << "\n"
+                     << "Resistance (energy): " << ToStringPercentage( pArmourInfo->GetEnergyResistance() ) << "\n"
+                     << "Regenerative: " << ( pArmourInfo->IsRegenerative() ? "Yes" : "No" ) << "\n"
+                     << "Ramming prow: " << ( pArmourInfo->IsRammingProw() ? "Yes" : "No" ) << "\n";
+    }
+    else if ( type == ModuleType::Shield )
+    {
+        ShieldInfo* pShieldInfo = static_cast<ShieldInfo*>( m_pModuleInfo );
+        contentsText << "Capacity: " << pShieldInfo->GetCapacity() << " u\n"
+                     << "Peak recharge: " << pShieldInfo->GetPeakRecharge() << " u/s\n"
+                     << "Energy usage: " << pShieldInfo->GetEnergyUsage( pShip ) << " u/s\n";
+    }
+    else if ( type == ModuleType::Weapon )
+    {
+        WeaponInfo* pWeaponInfo = static_cast<WeaponInfo*>( m_pModuleInfo );
+        contentsText << "Type: " << ToString( pWeaponInfo->GetSystem() ) << "\n"
+                     << "Damage type: " << ToString( pWeaponInfo->GetDamageType() ) << "\n"
+                     << "DPS: " << static_cast<int>( pWeaponInfo->GetDPS( pShip ) ) << "\n"
+                     << "Range: " << pWeaponInfo->GetRange( pShip ) << "\n"
+                     << "Energy cost: " << static_cast<int>( pWeaponInfo->GetActivationCost( pShip ) * pWeaponInfo->GetRateOfFire( pShip ) ) << " u/s\n";
+    }
+    else if ( type == ModuleType::Reactor )
+    {
+        ReactorInfo* pReactorInfo = static_cast<ReactorInfo*>( m_pModuleInfo );
+        contentsText << "Capacity: " << pReactorInfo->GetCapacity() << "u\n"
+                     << "Recharge: " << pReactorInfo->GetRechargeRate() << " u/s\n";
+    }
 
-	if ( m_pModuleInfo->GetDescription().empty() == false )
-	{
-		contentsText << "Description:\n" << m_pModuleInfo->GetDescription();
-	}
+    if ( m_pModuleInfo->GetDescription().empty() == false )
+    {
+        contentsText << "Description:\n"
+                     << m_pModuleInfo->GetDescription();
+    }
 
-	const float contentsWidth = panelWidth - m_pContentsText->GetPosition().x - 16.0f;
-	m_pContentsText->SetWidth( contentsWidth );
-	m_pContentsText->SetText( contentsText.str() );
+    const float contentsWidth = panelWidth - m_pContentsText->GetPosition().x - 16.0f;
+    m_pContentsText->SetWidth( contentsWidth );
+    m_pContentsText->SetText( contentsText.str() );
 
-	// Panel height needs to be set after we figure out how many lines we actually have to show
-	const float lineHeight = m_pContentsText->GetFont()->GetLineHeight();
-	const float panelHeight = gMax( 80.0f, m_pContentsText->GetPosition().y + lineHeight * m_pContentsText->GetLineCount() + 4.0f );
-	m_pMainPanel->SetHeight( panelHeight );
+    // Panel height needs to be set after we figure out how many lines we actually have to show
+    const float lineHeight = m_pContentsText->GetFont()->GetLineHeight();
+    const float panelHeight = gMax( 80.0f, m_pContentsText->GetPosition().y + lineHeight * m_pContentsText->GetLineCount() + 4.0f );
+    m_pMainPanel->SetHeight( panelHeight );
 }
 
-}
+} // namespace Hexterminate

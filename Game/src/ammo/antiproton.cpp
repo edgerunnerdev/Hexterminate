@@ -19,17 +19,17 @@
 
 #include <math/constants.h>
 #include <math/misc.h>
-#include <resources/resourceimage.h>
 #include <rendersystem.h>
+#include <resources/resourceimage.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
 #include <vertexbuffer.h>
 
 #include "ammo/antiproton.h"
+#include "hexterminate.h"
 #include "misc/mathaux.h"
 #include "muzzleflash/muzzleflashmanager.h"
 #include "sector/sector.h"
-#include "hexterminate.h"
 #include "shadertweaks.h"
 
 namespace Hexterminate
@@ -37,9 +37,9 @@ namespace Hexterminate
 
 Genesis::Shader* Antiproton::m_pShader = nullptr;
 
-Antiproton::Antiproton() :
-m_pVertexBuffer( nullptr ),
-m_QuantumState( QuantumState::Black )
+Antiproton::Antiproton()
+    : m_pVertexBuffer( nullptr )
+    , m_QuantumState( QuantumState::Black )
 {
 }
 
@@ -50,77 +50,77 @@ Antiproton::~Antiproton()
 
 void Antiproton::Create( Weapon* pWeapon, float additionalRotation /* = 0.0f */ )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	Ammo::Create( pWeapon, additionalRotation );
+    Ammo::Create( pWeapon, additionalRotation );
 
-	m_IsGlowSource = false;
-	m_DiesOnHit = true;
-	
-	float muzzleflashScale = pWeapon->GetInfo()->GetMuzzleflashScale();
-	g_pGame->GetCurrentSector()->GetMuzzleflashManager()->Add(
-		MuzzleflashData( pWeapon, m_MuzzleOffset, 0, gRand( muzzleflashScale * 0.8f, muzzleflashScale * 1.2f ), gRand( 0.075f, 0.125f ) ) );
+    m_IsGlowSource = false;
+    m_DiesOnHit = true;
 
-	AddonQuantumStateAlternator* pAlternator = pWeapon->GetOwner()->GetQuantumStateAlternator();
-	if ( pAlternator != nullptr )
-	{
-		m_QuantumState = pAlternator->GetQuantumState();
+    float muzzleflashScale = pWeapon->GetInfo()->GetMuzzleflashScale();
+    g_pGame->GetCurrentSector()->GetMuzzleflashManager()->Add(
+        MuzzleflashData( pWeapon, m_MuzzleOffset, 0, gRand( muzzleflashScale * 0.8f, muzzleflashScale * 1.2f ), gRand( 0.075f, 0.125f ) ) );
 
-		if ( m_QuantumState == QuantumState::Inactive )
-		{
-			m_QuantumState = QuantumState::Black;
-		}
-	}
+    AddonQuantumStateAlternator* pAlternator = pWeapon->GetOwner()->GetQuantumStateAlternator();
+    if ( pAlternator != nullptr )
+    {
+        m_QuantumState = pAlternator->GetQuantumState();
 
-	m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
+        if ( m_QuantumState == QuantumState::Inactive )
+        {
+            m_QuantumState = QuantumState::Black;
+        }
+    }
 
-	if ( m_pShader == nullptr )
-	{
-		RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
-		m_pShader = pRenderSystem->GetShaderCache()->Load( "antiproton" );
-	}
+    m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
 
-	m_pInternalRadiusUniform = m_pShader->RegisterUniform( "k_internalRadius", ShaderUniformType::Float );
-	m_pExternalRadiusUniform = m_pShader->RegisterUniform( "k_externalRadius", ShaderUniformType::Float );
+    if ( m_pShader == nullptr )
+    {
+        RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
+        m_pShader = pRenderSystem->GetShaderCache()->Load( "antiproton" );
+    }
+
+    m_pInternalRadiusUniform = m_pShader->RegisterUniform( "k_internalRadius", ShaderUniformType::Float );
+    m_pExternalRadiusUniform = m_pShader->RegisterUniform( "k_externalRadius", ShaderUniformType::Float );
 }
 
 void Antiproton::Update( float delta )
 {
-	m_pInternalRadiusUniform->Set( ShaderTweaksDebugWindow::GetAntiprotonInternalRadius() );
-	m_pExternalRadiusUniform->Set( ShaderTweaksDebugWindow::GetAntiprotonExternalRadius() );
+    m_pInternalRadiusUniform->Set( ShaderTweaksDebugWindow::GetAntiprotonInternalRadius() );
+    m_pExternalRadiusUniform->Set( ShaderTweaksDebugWindow::GetAntiprotonExternalRadius() );
 
-	if ( m_Range <= 0.0f )
-	{
-		Kill();
-	}
-	else
-	{
-		m_Src += m_Dir * m_Speed * delta;
-		m_Dst += m_Dir * m_Speed * delta;
-		m_Range -= m_Speed * delta;
-	}
+    if ( m_Range <= 0.0f )
+    {
+        Kill();
+    }
+    else
+    {
+        m_Src += m_Dir * m_Speed * delta;
+        m_Dst += m_Dir * m_Speed * delta;
+        m_Range -= m_Speed * delta;
+    }
 }
 
 void Antiproton::Render()
 {
     using namespace glm;
-	using namespace Genesis;
+    using namespace Genesis;
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Blend );
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Blend );
 
     const mat4 modelMatrix = translate( m_Src );
 
-	const float w = ShaderTweaksDebugWindow::GetAntiprotonGeometrySize();
-	m_pVertexBuffer->CreateTexturedQuad( -w, w, w * 2.0f, -w * 2.0f, m_QuantumState == QuantumState::Black ? vec4( 1 ) : vec4( 0 ) );
-	m_pShader->Use( modelMatrix );
-	m_pVertexBuffer->Draw();
+    const float w = ShaderTweaksDebugWindow::GetAntiprotonGeometrySize();
+    m_pVertexBuffer->CreateTexturedQuad( -w, w, w * 2.0f, -w * 2.0f, m_QuantumState == QuantumState::Black ? vec4( 1 ) : vec4( 0 ) );
+    m_pShader->Use( modelMatrix );
+    m_pVertexBuffer->Draw();
 
     FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
 }
 
 QuantumState Antiproton::GetQuantumState() const
 {
-	return m_QuantumState;
+    return m_QuantumState;
 }
 
-}
+} // namespace Hexterminate

@@ -17,16 +17,16 @@
 
 #pragma once
 
-#include <vector>
 #include <genesis.h>
 #include <physics/raytestresult.h>
 #include <physics/simulation.h>
 #include <resourcemanager.h>
 #include <scene/sceneobject.h>
+#include <vector>
 
 namespace Genesis
 {
-	class ResourceModel;
+class ResourceModel;
 }
 
 namespace Hexterminate
@@ -35,37 +35,36 @@ namespace Hexterminate
 class Ammo;
 class Weapon;
 
-typedef std::vector< Ammo* > AmmoVector;
-
+typedef std::vector<Ammo*> AmmoVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // AmmoManager
-// Circular buffer containing all bullets, missiles, beams, etc flying around 
+// Circular buffer containing all bullets, missiles, beams, etc flying around
 // in space.
 ///////////////////////////////////////////////////////////////////////////////
 
 static const unsigned int AmmoManagerCapacity = 1024;
 
-class AmmoManager: public Genesis::SceneObject
+class AmmoManager : public Genesis::SceneObject
 {
 public:
-					AmmoManager();
-	virtual			~AmmoManager() override;
+    AmmoManager();
+    virtual ~AmmoManager() override;
 
-	Ammo*			Create( Weapon* pWeapon, float additionalRotation = 0.0f );
-	virtual void	Update( float delta ) override;
-	virtual void	Render() override;
+    Ammo* Create( Weapon* pWeapon, float additionalRotation = 0.0f );
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-	void			GetInterceptables( AmmoVector& vec ) const;
+    void GetInterceptables( AmmoVector& vec ) const;
 
 private:
-	Ammo**			GetFreeAmmo();
-	void			CreateHitEffect( const glm::vec3& position, const glm::vec3& hitNormal, Weapon* pWeapon );
-	void			PlayHitSFX( const glm::vec3& position, Weapon* pWeapon );
+    Ammo** GetFreeAmmo();
+    void CreateHitEffect( const glm::vec3& position, const glm::vec3& hitNormal, Weapon* pWeapon );
+    void PlayHitSFX( const glm::vec3& position, Weapon* pWeapon );
 
-	int				m_Idx;
-	Ammo*			m_pAmmo[ AmmoManagerCapacity ];
-	Genesis::Physics::RayTestResultVector m_RayTestResults;
+    int m_Idx;
+    Ammo* m_pAmmo[ AmmoManagerCapacity ];
+    Genesis::Physics::RayTestResultVector m_RayTestResults;
 };
 
-}
+} // namespace Hexterminate

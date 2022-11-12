@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <memory>
 #include <gui/gui.h>
+#include <memory>
 
 namespace Hexterminate
 {
@@ -26,21 +26,21 @@ namespace Hexterminate
 class LoadingScreen
 {
 public:
-	LoadingScreen();
-	~LoadingScreen();
-	void Show( bool state );
-	void SetProgress( size_t current, size_t maximum );
-	void Update();
+    LoadingScreen();
+    ~LoadingScreen();
+    void Show( bool state );
+    void SetProgress( size_t current, size_t maximum );
+    void Update();
 
 private:
-	Genesis::Gui::Image* m_pBackground;
-	Genesis::Gui::Panel* m_pProgressBorderPanel;
-	Genesis::Gui::Panel* m_pProgressPanel;
-	size_t m_CurrentProgress;
-	size_t m_MaximumProgress;
-	int m_ProgressMaxWidth;
+    Genesis::Gui::Image* m_pBackground;
+    Genesis::Gui::Panel* m_pProgressBorderPanel;
+    Genesis::Gui::Panel* m_pProgressPanel;
+    size_t m_CurrentProgress;
+    size_t m_MaximumProgress;
+    int m_ProgressMaxWidth;
 };
 
-typedef std::unique_ptr< LoadingScreen > LoadingScreenUniquePtr;
+typedef std::unique_ptr<LoadingScreen> LoadingScreenUniquePtr;
 
-}
+} // namespace Hexterminate

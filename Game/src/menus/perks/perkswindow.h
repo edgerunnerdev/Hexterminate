@@ -31,24 +31,24 @@ class ButtonEvent;
 class PerksWindow : public Genesis::Gui::GuiEventHandler
 {
 public:
-							PerksWindow();
-	virtual					~PerksWindow();
+    PerksWindow();
+    virtual ~PerksWindow();
 
-	virtual bool			HandleEvent( Genesis::Gui::GuiEvent event )	override;
+    virtual bool HandleEvent( Genesis::Gui::GuiEvent event ) override;
 
-	void					Init();
-	void					Show( bool state );
-	bool					IsVisible() const;
+    void Init();
+    void Show( bool state );
+    bool IsVisible() const;
 
 private:
-	void					InitCategories();
-	PerkCategoryPanel*		AddCategory( const std::string& category, const std::string& backgroundImage );
+    void InitCategories();
+    PerkCategoryPanel* AddCategory( const std::string& category, const std::string& backgroundImage );
 
-	Genesis::Gui::Panel*	m_pMainPanel;
-	ButtonEvent*			m_pButtonClose;
-	Genesis::Gui::Text*		m_pTitle;
-	Genesis::Gui::ScrollingElement*	m_pScrollingElement;
-	PerkCategoryPanelArray	m_Categories;
+    Genesis::Gui::Panel* m_pMainPanel;
+    ButtonEvent* m_pButtonClose;
+    Genesis::Gui::Text* m_pTitle;
+    Genesis::Gui::ScrollingElement* m_pScrollingElement;
+    PerkCategoryPanelArray m_Categories;
 };
 
-}
+} // namespace Hexterminate

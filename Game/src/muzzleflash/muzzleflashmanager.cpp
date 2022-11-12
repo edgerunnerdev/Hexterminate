@@ -17,34 +17,34 @@
 
 #include <memory.h>
 
-#include "muzzleflash/muzzleflashmanager.h"
 #include "hexterminate.h"
+#include "muzzleflash/muzzleflashmanager.h"
 
 namespace Hexterminate
 {
 
 MuzzleflashManager::MuzzleflashManager()
 {
-	m_Muzzleflashes.reserve( 32 );
+    m_Muzzleflashes.reserve( 32 );
 }
 
 MuzzleflashManager::~MuzzleflashManager()
 {
-
 }
 
 void MuzzleflashManager::Update( float delta )
 {
-	if ( g_pGame->IsPaused() == false )
-	{
-		for ( auto& data : m_Muzzleflashes )
-		{
-			data.SetLifetime( data.GetLifetime() - delta );
-		}
+    if ( g_pGame->IsPaused() == false )
+    {
+        for ( auto& data : m_Muzzleflashes )
+        {
+            data.SetLifetime( data.GetLifetime() - delta );
+        }
 
-		m_Muzzleflashes.erase( std::remove_if( m_Muzzleflashes.begin(), m_Muzzleflashes.end(), 
-			[]( const MuzzleflashData& data ) { return data.GetLifetime() <= 0.0f; } ), m_Muzzleflashes.end() );
-	}
+        m_Muzzleflashes.erase( std::remove_if( m_Muzzleflashes.begin(), m_Muzzleflashes.end(),
+                                   []( const MuzzleflashData& data ) { return data.GetLifetime() <= 0.0f; } ),
+            m_Muzzleflashes.end() );
+    }
 }
 
-}
+} // namespace Hexterminate

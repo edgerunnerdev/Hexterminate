@@ -30,20 +30,20 @@ class Faction;
 class InfiniteWarRequest : public ImperialRequest
 {
 public:
-									InfiniteWarRequest( RequestManager* pRequestManager );
+    InfiniteWarRequest( RequestManager* pRequestManager );
 
-	virtual ImperialRequestType		GetType() const override				{ return ImperialRequestType::InfiniteWar; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::InfiniteWar; }
 
-	virtual void					OnBegin() override;
-	virtual void					OnSuccess() override;
+    virtual void OnBegin() override;
+    virtual void OnSuccess() override;
 
-	virtual void					Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
 private:
-	void							UpdateHomeworldsArc( float delta );
-	void							AddHomeworldGoal( FactionId factionId );
+    void UpdateHomeworldsArc( float delta );
+    void AddHomeworldGoal( FactionId factionId );
 
-	float							m_UpdateInterval;
+    float m_UpdateInterval;
 };
 
-}
+} // namespace Hexterminate

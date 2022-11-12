@@ -17,15 +17,14 @@
 
 #pragma once
 
-#include <vector>
 #include "particles/particleemitter.h"
+#include <vector>
 
 namespace Hexterminate
 {
 
 class ParticleEmitter;
-typedef std::vector< ParticleEmitter > ParticleEmitterVector;
-
+typedef std::vector<ParticleEmitter> ParticleEmitterVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // ParticleManager
@@ -34,22 +33,22 @@ typedef std::vector< ParticleEmitter > ParticleEmitterVector;
 class ParticleManager
 {
 public:
-	ParticleManager();
-	~ParticleManager();
-	void Update( float delta );
+    ParticleManager();
+    ~ParticleManager();
+    void Update( float delta );
 
-	ParticleEmitter* GetAvailableEmitter();
+    ParticleEmitter* GetAvailableEmitter();
 
-	const ParticleEmitterVector& GetEmitters() const;
+    const ParticleEmitterVector& GetEmitters() const;
 
 private:
-	ParticleEmitterVector m_Emitters;
-	int m_Idx;
+    ParticleEmitterVector m_Emitters;
+    int m_Idx;
 };
 
 inline const ParticleEmitterVector& ParticleManager::GetEmitters() const
 {
-	return m_Emitters;
+    return m_Emitters;
 }
 
-}
+} // namespace Hexterminate

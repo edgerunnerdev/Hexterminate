@@ -17,26 +17,26 @@
 
 #pragma once
 
-#include <vector>
 #include <gui/gui.h>
+#include <vector>
 
 namespace Hexterminate
 {
 
 typedef std::vector<Genesis::Gui::Panel*> PanelVector;
-	
+
 class Meter : public Genesis::Gui::Panel
 {
 public:
-                    Meter();
-	void			Init( int initialValue, int maxValue );
-	void			SetValue( int value );
-    void            SetPipColour( const Genesis::Color& colour );
-    void            SetPipColour( float r, float g, float b, float a );
+    Meter();
+    void Init( int initialValue, int maxValue );
+    void SetValue( int value );
+    void SetPipColour( const Genesis::Color& colour );
+    void SetPipColour( float r, float g, float b, float a );
 
 protected:
-	PanelVector		m_Panels;
+    PanelVector m_Panels;
     Genesis::Color m_PipColour;
 };
 
-}
+} // namespace Hexterminate

@@ -33,7 +33,6 @@ class ButtonUndock;
 class TableRowInventory;
 class ModuleInfo;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // PanelShipyard
 // Window that contains all the UI related with customising a ship in a
@@ -43,34 +42,32 @@ class ModuleInfo;
 class PanelShipyard
 {
 public:
-							PanelShipyard();
-							~PanelShipyard();
-	void					Update( float delta );
-	void					SetSelectedGroup( ModuleType module );
-	void					UpdateModule( ModuleInfo* pModuleInfo );
+    PanelShipyard();
+    ~PanelShipyard();
+    void Update( float delta );
+    void SetSelectedGroup( ModuleType module );
+    void UpdateModule( ModuleInfo* pModuleInfo );
 
 private:
+    void CreateTableWindow();
+    void CreateButtonUndock();
 
-	void					CreateTableWindow();
-	void					CreateButtonUndock();
+    TableRow* CreateCommonRow() const;
+    void CreateTable( ModuleType type, int columns, ... );
+    void SetTitleFromGroup( ModuleType type );
 
-	TableRow*				CreateCommonRow() const;
-	void					CreateTable( ModuleType type, int columns, ... );
-	void					SetTitleFromGroup( ModuleType type );
+    void FillTables();
 
-	void					FillTables();
+    EvaWindow* m_pTableWindow;
+    Genesis::Gui::Text* m_pTableTitle;
+    ButtonModule* m_pIcons[ static_cast<unsigned int>( ModuleType::Count ) ];
+    Table* m_pTable[ static_cast<unsigned int>( ModuleType::Count ) ];
 
-	EvaWindow*				m_pTableWindow;
-	Genesis::Gui::Text*		m_pTableTitle;
-	ButtonModule*			m_pIcons[ static_cast<unsigned int>( ModuleType::Count ) ];
-	Table*					m_pTable[ static_cast<unsigned int>( ModuleType::Count ) ];
+    ModuleType m_SelectedGroup;
 
-	ModuleType				m_SelectedGroup;
-
-	ButtonUndock*			m_pButtonUndock;
-	Genesis::Gui::ScrollingElement*	m_pScrollingElement;
+    ButtonUndock* m_pButtonUndock;
+    Genesis::Gui::ScrollingElement* m_pScrollingElement;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonModule
@@ -82,15 +79,14 @@ private:
 class ButtonModule : public Genesis::Gui::ButtonImage
 {
 public:
-	ButtonModule( PanelShipyard* pOwner, ModuleType moduleType );
-	virtual ~ButtonModule() override {};
-	virtual void OnPress() override;
+    ButtonModule( PanelShipyard* pOwner, ModuleType moduleType );
+    virtual ~ButtonModule() override{};
+    virtual void OnPress() override;
 
 private:
-	PanelShipyard*			m_pOwner;
-	ModuleType				m_ModuleType;
+    PanelShipyard* m_pOwner;
+    ModuleType m_ModuleType;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonUndock
@@ -100,26 +96,25 @@ private:
 class ButtonUndock : public Genesis::Gui::Button
 {
 public:
-	ButtonUndock();
-	virtual ~ButtonUndock() override {};
-	virtual void OnPress() override;
+    ButtonUndock();
+    virtual ~ButtonUndock() override{};
+    virtual void OnPress() override;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // TableRowInventory
 ///////////////////////////////////////////////////////////////////////////////
 
-class TableRowInventory: public TableRow
+class TableRowInventory : public TableRow
 {
 public:
-							TableRowInventory( PanelShipyard* pOwner, ModuleInfo* pModuleInfo );
-	virtual					~TableRowInventory() override {};
-	virtual void			OnPress() override;
-	virtual void			OnHover() override;
+    TableRowInventory( PanelShipyard* pOwner, ModuleInfo* pModuleInfo );
+    virtual ~TableRowInventory() override{};
+    virtual void OnPress() override;
+    virtual void OnHover() override;
 
 private:
-	ModuleInfo*				m_pModuleInfo;
+    ModuleInfo* m_pModuleInfo;
 };
 
-}
+} // namespace Hexterminate

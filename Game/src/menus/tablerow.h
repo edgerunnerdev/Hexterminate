@@ -24,11 +24,11 @@
 
 #include "menus/eva.h"
 
-typedef std::vector< std::string > TableRowContents;
+typedef std::vector<std::string> TableRowContents;
 
 namespace Genesis
 {
-	class ResourceFont;
+class ResourceFont;
 }
 
 namespace Hexterminate
@@ -43,79 +43,82 @@ namespace Hexterminate
 class TableRow
 {
 public:
-							TableRow(): m_pUserData( nullptr ), m_Colour( EVA_TEXT_COLOUR ), m_pFont( EVA_FONT ) {};
-	virtual					~TableRow() {};
+    TableRow()
+        : m_pUserData( nullptr )
+        , m_Colour( EVA_TEXT_COLOUR )
+        , m_pFont( EVA_FONT ){};
+    virtual ~TableRow(){};
 
-	void					Add( const std::string& text );
-	void					Set( unsigned int pos, const std::string& text );
-	const std::string&		Get( unsigned int pos ) const;
-	void					SetUserData( void* pUserData );
-	void*					GetUserData() const;
-	void					SetColour( const Genesis::Color& colour );
-	const Genesis::Color&  GetColour() const;
-	void					SetFont( Genesis::ResourceFont* pFont );
-	Genesis::ResourceFont*	GetFont() const;
+    void Add( const std::string& text );
+    void Set( unsigned int pos, const std::string& text );
+    const std::string& Get( unsigned int pos ) const;
+    void SetUserData( void* pUserData );
+    void* GetUserData() const;
+    void SetColour( const Genesis::Color& colour );
+    const Genesis::Color& GetColour() const;
+    void SetFont( Genesis::ResourceFont* pFont );
+    Genesis::ResourceFont* GetFont() const;
 
-	const TableRowContents& GetContents() const;
+    const TableRowContents& GetContents() const;
 
-	virtual void			OnPress() {};
-	virtual void			OnHover() {};
+    virtual void OnPress(){};
+    virtual void OnHover(){};
 
 private:
-	TableRowContents		m_Contents;
-	void*					m_pUserData;
-	Genesis::Color			m_Colour;
-	Genesis::ResourceFont*	m_pFont;
+    TableRowContents m_Contents;
+    void* m_pUserData;
+    Genesis::Color m_Colour;
+    Genesis::ResourceFont* m_pFont;
 };
 
 inline void TableRow::Add( const std::string& text )
 {
-	m_Contents.push_back( text );
+    m_Contents.push_back( text );
 }
 
 inline void TableRow::Set( unsigned int pos, const std::string& text )
 {
-	m_Contents.at( pos ) = text;
+    m_Contents.at( pos ) = text;
 }
 
 inline const std::string& TableRow::Get( unsigned int pos ) const
 {
-	return m_Contents.at( pos );
+    return m_Contents.at( pos );
 }
 
 inline void TableRow::SetUserData( void* pUserData )
 {
-	m_pUserData = pUserData;
+    m_pUserData = pUserData;
 }
 
 inline void* TableRow::GetUserData() const
 {
-	return m_pUserData;
+    return m_pUserData;
 }
 
 inline const TableRowContents& TableRow::GetContents() const
 {
-	return m_Contents;
+    return m_Contents;
 }
 
 inline void TableRow::SetColour( const Genesis::Color& colour )
 {
-	m_Colour = colour;
+    m_Colour = colour;
 }
 
 inline const Genesis::Color& TableRow::GetColour() const
 {
-	return m_Colour;
+    return m_Colour;
 }
 
 inline void TableRow::SetFont( Genesis::ResourceFont* pFont )
 {
-	m_pFont = pFont;
+    m_pFont = pFont;
 }
 
 inline Genesis::ResourceFont* TableRow::GetFont() const
 {
-	return m_pFont;
+    return m_pFont;
 }
 
-}
+} // namespace Hexterminate

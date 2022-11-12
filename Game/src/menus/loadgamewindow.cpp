@@ -22,19 +22,19 @@
 #include "menus/table.h"
 #include "menus/tablerow.h"
 
+#include "savegameheader.h"
+#include "savegamestorage.h"
+#include "stringaux.h"
 #include "ui/button.h"
 #include "ui/checkbox.h"
+#include "ui/fonts.h"
 #include "ui/image.h"
 #include "ui/inputarea.h"
-#include "ui/fonts.h"
 #include "ui/meter.h"
 #include "ui/panel.h"
 #include "ui/radiobutton.h"
 #include "ui/scrollingelement.h"
 #include "ui/text.h"
-#include "savegameheader.h"
-#include "savegamestorage.h"
-#include "stringaux.h"
 
 namespace Hexterminate
 {
@@ -43,100 +43,99 @@ namespace Hexterminate
 // TableRowLoadGame
 ///////////////////////////////////////////////////////////////////////////////
 
-class TableRowLoadGame: public TableRow
+class TableRowLoadGame : public TableRow
 {
 public:
-	TableRowLoadGame( SaveGameHeaderWeakPtr pSaveGameHeader );
-	virtual void OnPress() override;
+    TableRowLoadGame( SaveGameHeaderWeakPtr pSaveGameHeader );
+    virtual void OnPress() override;
 
 private:
-	SaveGameHeaderWeakPtr m_pSaveGameHeader;
+    SaveGameHeaderWeakPtr m_pSaveGameHeader;
 };
 
-TableRowLoadGame::TableRowLoadGame( SaveGameHeaderWeakPtr pSaveGameHeader ) :
-m_pSaveGameHeader( pSaveGameHeader )
+TableRowLoadGame::TableRowLoadGame( SaveGameHeaderWeakPtr pSaveGameHeader )
+    : m_pSaveGameHeader( pSaveGameHeader )
 {
-
 }
 
 void TableRowLoadGame::OnPress()
 {
-	TableRow::OnPress();
-	g_pGame->LoadGame( m_pSaveGameHeader );
+    TableRow::OnPress();
+    g_pGame->LoadGame( m_pSaveGameHeader );
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // LoadGameWindow
 ///////////////////////////////////////////////////////////////////////////////
 
-LoadGameWindow::LoadGameWindow() : UI::Window( "Load game window" ),
-m_pTable( nullptr )
+LoadGameWindow::LoadGameWindow()
+    : UI::Window( "Load game window" )
+    , m_pTable( nullptr )
 {
-	m_pScrollingElement = std::make_shared<UI::ScrollingElement>( "Scrolling element" );
-	GetContentPanel()->Add( m_pScrollingElement );
+    m_pScrollingElement = std::make_shared<UI::ScrollingElement>( "Scrolling element" );
+    GetContentPanel()->Add( m_pScrollingElement );
 
-	CreateTable();
+    CreateTable();
 }
 
 void LoadGameWindow::Reset()
 {
-	CreateTable();
+    CreateTable();
 }
 
 void LoadGameWindow::CreateTable()
 {
-	if ( m_pTable != nullptr )
-	{
-		m_pScrollingElement->GetScrollingArea()->GetPanel()->RemoveElement( m_pTable );
-		m_pTable = nullptr;
-	}
+    if ( m_pTable != nullptr )
+    {
+        m_pScrollingElement->GetScrollingArea()->GetPanel()->RemoveElement( m_pTable );
+        m_pTable = nullptr;
+    }
 
-	const float width = 800.0f - 16.0f;
+    const float width = 800.0f - 16.0f;
 
-	m_pTable = new Table();
-	m_pTable->Show( true );
-	m_pScrollingElement->GetScrollingArea()->GetPanel()->AddElement( m_pTable );
+    m_pTable = new Table();
+    m_pTable->Show( true );
+    m_pScrollingElement->GetScrollingArea()->GetPanel()->AddElement( m_pTable );
 
-	TableRow* pTitleRow = new TableRow();
-	pTitleRow->SetFont( UI::Fonts::Get( "kimberley18.fnt" ) );
-	pTitleRow->Add( "Ship" );
-	pTitleRow->Add( "Commander" );
-	pTitleRow->Add( "Difficulty" );
-	pTitleRow->Add( "Game mode" );
-	pTitleRow->Add( "Time played" );
-	m_pTable->AddRow( pTitleRow );
+    TableRow* pTitleRow = new TableRow();
+    pTitleRow->SetFont( UI::Fonts::Get( "kimberley18.fnt" ) );
+    pTitleRow->Add( "Ship" );
+    pTitleRow->Add( "Commander" );
+    pTitleRow->Add( "Difficulty" );
+    pTitleRow->Add( "Game mode" );
+    pTitleRow->Add( "Time played" );
+    m_pTable->AddRow( pTitleRow );
 
-	SaveGameHeaderVector saveGameHeaders;
-	g_pGame->GetSaveGameStorage()->GetSaveGameHeaders( saveGameHeaders );
-	Genesis::ResourceFont* pFont = UI::Fonts::Get( "kimberley18light.fnt" );
-	for ( auto& pSaveGameHeader : saveGameHeaders )
-	{
-		TableRowLoadGame* pRow = new TableRowLoadGame( pSaveGameHeader );
-		pRow->SetFont( pFont );
-		pRow->Add( pSaveGameHeader->GetShipName() );
-		pRow->Add( pSaveGameHeader->GetCaptainName() );
-		pRow->Add( ToString( pSaveGameHeader->GetDifficulty() ) );
-		pRow->Add( ToString( pSaveGameHeader->GetGameMode() ) );
-		pRow->Add( ToStringTime( pSaveGameHeader->GetPlayedTime() ) );
+    SaveGameHeaderVector saveGameHeaders;
+    g_pGame->GetSaveGameStorage()->GetSaveGameHeaders( saveGameHeaders );
+    Genesis::ResourceFont* pFont = UI::Fonts::Get( "kimberley18light.fnt" );
+    for ( auto& pSaveGameHeader : saveGameHeaders )
+    {
+        TableRowLoadGame* pRow = new TableRowLoadGame( pSaveGameHeader );
+        pRow->SetFont( pFont );
+        pRow->Add( pSaveGameHeader->GetShipName() );
+        pRow->Add( pSaveGameHeader->GetCaptainName() );
+        pRow->Add( ToString( pSaveGameHeader->GetDifficulty() ) );
+        pRow->Add( ToString( pSaveGameHeader->GetGameMode() ) );
+        pRow->Add( ToStringTime( pSaveGameHeader->GetPlayedTime() ) );
 
-		if ( pSaveGameHeader->GetDifficulty() == Difficulty::Hardcore )
-		{
-			if ( pSaveGameHeader->IsAlive() )
-			{
-				pRow->SetColour( Genesis::Color( 0.8f, 0.0f, 0.0f, 1.0f ) );
-			}
-			else
-			{
-				pRow->SetColour( Genesis::Color( 0.6f, 0.0f, 0.0f, 0.6f ) );
-			}
-		}
+        if ( pSaveGameHeader->GetDifficulty() == Difficulty::Hardcore )
+        {
+            if ( pSaveGameHeader->IsAlive() )
+            {
+                pRow->SetColour( Genesis::Color( 0.8f, 0.0f, 0.0f, 1.0f ) );
+            }
+            else
+            {
+                pRow->SetColour( Genesis::Color( 0.6f, 0.0f, 0.0f, 0.6f ) );
+            }
+        }
 
-		m_pTable->AddRow( pRow );
-	}
+        m_pTable->AddRow( pRow );
+    }
 
-	m_pTable->SetSize( width, m_pTable->GetRowHeight() * m_pTable->GetRowCount() );
-	m_TableDirty = false;
+    m_pTable->SetSize( width, m_pTable->GetRowHeight() * m_pTable->GetRowCount() );
+    m_TableDirty = false;
 }
 
 } // namespace Hexterminate

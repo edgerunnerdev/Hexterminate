@@ -29,27 +29,27 @@ static const int sArbiterRequestReward = 1500;
 class ArbiterRequest : public ImperialRequest
 {
 public:
-									ArbiterRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo );
+    ArbiterRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo );
 
-	virtual ImperialRequestType		GetType() const override				{ return ImperialRequestType::Arbiter; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Arbiter; }
 
-	virtual void					Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
-	virtual void					OnBegin() override;
-	virtual void					OnSuccess() override;
-	virtual void					OnFailure() override;
-	virtual void					OnPlayerEnterSector() override;
+    virtual void OnBegin() override;
+    virtual void OnSuccess() override;
+    virtual void OnFailure() override;
+    virtual void OnPlayerEnterSector() override;
 
-	virtual int						GetConquestReward( const SectorInfo* pSectorInfo ) const override;
+    virtual int GetConquestReward( const SectorInfo* pSectorInfo ) const override;
 
-	inline SectorInfo*				GetSectorInfo() const					{ return m_pSectorInfo; }
+    inline SectorInfo* GetSectorInfo() const { return m_pSectorInfo; }
 
 private:
-	RequestGoalSharedPtr			m_pGoal;
-	SectorInfo*						m_pSectorInfo;
-	int								m_Reward;
-	Ship*							m_pArbiter;
-	FleetSharedPtr					m_pTemporaryFleet;
+    RequestGoalSharedPtr m_pGoal;
+    SectorInfo* m_pSectorInfo;
+    int m_Reward;
+    Ship* m_pArbiter;
+    FleetSharedPtr m_pTemporaryFleet;
 };
 
-}
+} // namespace Hexterminate

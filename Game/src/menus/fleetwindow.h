@@ -36,65 +36,65 @@ class ShipInfo;
 class FleetWindow : public UI::Window
 {
 public:
-	FleetWindow();
-	virtual ~FleetWindow();
-	virtual void Show(bool state) override;
+    FleetWindow();
+    virtual ~FleetWindow();
+    virtual void Show( bool state ) override;
 
 private:
-	void PopulateFleetShips();
-	void PopulateRequisitionShips();
-	void RefreshFleetShips();
-	void RefreshRequisitionShips();
-	bool CanRequisitionShip( const ShipInfo* pShipInfo ) const;
-	bool HasSufficientInfluence( const ShipInfo* pShipInfo ) const;
-	bool HasNecessaryPerk( const ShipInfo* pShipInfo ) const;
-	void RequisitionShip( const ShipInfo* pShipInfo );
+    void PopulateFleetShips();
+    void PopulateRequisitionShips();
+    void RefreshFleetShips();
+    void RefreshRequisitionShips();
+    bool CanRequisitionShip( const ShipInfo* pShipInfo ) const;
+    bool HasSufficientInfluence( const ShipInfo* pShipInfo ) const;
+    bool HasNecessaryPerk( const ShipInfo* pShipInfo ) const;
+    void RequisitionShip( const ShipInfo* pShipInfo );
 
-	UI::PanelSharedPtr m_pFleetPanel;
-	UI::TextSharedPtr m_pFleetSubtitle;
-	UI::PanelSharedPtr m_pRequisitionShipsPanel;
-	UI::TextSharedPtr m_pRequisitionShipsSubtitle;
-	UI::ScrollingElementSharedPtr m_pRequisitionShipsArea;
-	
-	struct FleetShipInfo
-	{
-		FleetShipInfo()
-		{
-			isPlayerShip = false;
-			pShipInfo = nullptr;
-		}
+    UI::PanelSharedPtr m_pFleetPanel;
+    UI::TextSharedPtr m_pFleetSubtitle;
+    UI::PanelSharedPtr m_pRequisitionShipsPanel;
+    UI::TextSharedPtr m_pRequisitionShipsSubtitle;
+    UI::ScrollingElementSharedPtr m_pRequisitionShipsArea;
 
-		bool isPlayerShip;
-		const ShipInfo* pShipInfo;
-		UI::ImageSharedPtr pBackground;
-		UI::TextSharedPtr pNameText;
-		UI::TextSharedPtr pCategoryText;
-		UI::ButtonSharedPtr pReturnButton;
-		UI::ImageSharedPtr pUnavailableIcon;
-		UI::TextSharedPtr pUnavailableText;
-	};
-	std::vector<FleetShipInfo> m_FleetShipInfos;
+    struct FleetShipInfo
+    {
+        FleetShipInfo()
+        {
+            isPlayerShip = false;
+            pShipInfo = nullptr;
+        }
 
-	struct RequisitionShipInfo
-	{
-		const ShipInfo* pShipInfo;
-		UI::PanelSharedPtr pPanel;
-		UI::ImageSharedPtr pBackground;
-		UI::TextSharedPtr pTitle;
+        bool isPlayerShip;
+        const ShipInfo* pShipInfo;
+        UI::ImageSharedPtr pBackground;
+        UI::TextSharedPtr pNameText;
+        UI::TextSharedPtr pCategoryText;
+        UI::ButtonSharedPtr pReturnButton;
+        UI::ImageSharedPtr pUnavailableIcon;
+        UI::TextSharedPtr pUnavailableText;
+    };
+    std::vector<FleetShipInfo> m_FleetShipInfos;
 
-		UI::ImageSharedPtr pWeaponsIcon;
-		UI::TextSharedPtr pWeaponsText;
-		UI::ImageSharedPtr pDefenseIcon;
-		UI::TextSharedPtr pDefenseText;
-		UI::ImageSharedPtr pInfluenceIcon;
-		UI::TextSharedPtr pInfluenceText;
-		UI::ImageSharedPtr pPerkIcon;
-		UI::TextSharedPtr pPerkText;
+    struct RequisitionShipInfo
+    {
+        const ShipInfo* pShipInfo;
+        UI::PanelSharedPtr pPanel;
+        UI::ImageSharedPtr pBackground;
+        UI::TextSharedPtr pTitle;
 
-		UI::ButtonSharedPtr pRequisitionButton;
-	};
-	std::vector<RequisitionShipInfo> m_RequisitionShipInfos;
-	bool m_RequisitionTextInitialized;
+        UI::ImageSharedPtr pWeaponsIcon;
+        UI::TextSharedPtr pWeaponsText;
+        UI::ImageSharedPtr pDefenseIcon;
+        UI::TextSharedPtr pDefenseText;
+        UI::ImageSharedPtr pInfluenceIcon;
+        UI::TextSharedPtr pInfluenceText;
+        UI::ImageSharedPtr pPerkIcon;
+        UI::TextSharedPtr pPerkText;
+
+        UI::ButtonSharedPtr pRequisitionButton;
+    };
+    std::vector<RequisitionShipInfo> m_RequisitionShipInfos;
+    bool m_RequisitionTextInitialized;
 };
 
-}
+} // namespace Hexterminate

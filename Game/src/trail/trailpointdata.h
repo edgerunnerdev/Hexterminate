@@ -27,38 +27,42 @@ namespace Hexterminate
 class TrailPointData
 {
 public:
-	TrailPointData( const glm::vec3& position, float width ) : m_Position( position ), m_Width( width ) {}
-	const glm::vec3& GetPosition() const;
-	float GetWidth() const;
-	void SetWidth( float w );
+    TrailPointData( const glm::vec3& position, float width )
+        : m_Position( position )
+        , m_Width( width )
+    {
+    }
+    const glm::vec3& GetPosition() const;
+    float GetWidth() const;
+    void SetWidth( float w );
 
-	float DistanceTo( const TrailPointData& point ) const;
+    float DistanceTo( const TrailPointData& point ) const;
 
 private:
-	glm::vec3 m_Position;
-	float m_Width;
+    glm::vec3 m_Position;
+    float m_Width;
 };
 
 inline const glm::vec3& TrailPointData::GetPosition() const
 {
-	return m_Position;
+    return m_Position;
 }
 
 inline float TrailPointData::GetWidth() const
 {
-	return m_Width;
+    return m_Width;
 }
 
 inline void TrailPointData::SetWidth( float width )
 {
-	m_Width = width;
+    m_Width = width;
 }
 
 inline float TrailPointData::DistanceTo( const TrailPointData& point ) const
 {
-	return glm::distance( m_Position, point.GetPosition() );
+    return glm::distance( m_Position, point.GetPosition() );
 }
 
-typedef std::list< TrailPointData > TrailPointDataList;
+typedef std::list<TrailPointData> TrailPointDataList;
 
-}
+} // namespace Hexterminate

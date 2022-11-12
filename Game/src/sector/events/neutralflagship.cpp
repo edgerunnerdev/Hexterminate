@@ -15,10 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <math/misc.h>
+#include "hexterminate.h"
 #include "sector/sector.h"
 #include "ship/shipinfo.h"
-#include "hexterminate.h"
+#include <math/misc.h>
 
 #include "sector/events/neutralflagship.h"
 
@@ -27,43 +27,42 @@ namespace Hexterminate
 
 SectorEventNeutralFlagship::SectorEventNeutralFlagship()
 {
-	SetName( "NeutralFlagship" );
+    SetName( "NeutralFlagship" );
 
-	AllowForFaction( FactionId::Neutral );
+    AllowForFaction( FactionId::Neutral );
 }
 
 void SectorEventNeutralFlagship::OnPlayerEnterSector()
 {
-	Sector* pCurrentSector = g_pGame->GetCurrentSector();
-	
-	g_pGame->AddFleetCommandIntel( "Captain, there is an enemy battleship present in this sector." );
+    Sector* pCurrentSector = g_pGame->GetCurrentSector();
 
-	std::string flagships[4] = 
-	{
-		"special_flagship",
-		"special_flagship_2",
-		"special_flagship_3",
-		"special_flagship_4"
-	};
-	int idx = rand() % 4;
+    g_pGame->AddFleetCommandIntel( "Captain, there is an enemy battleship present in this sector." );
 
-	const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Neutral ), flagships[idx] );
-	SDL_assert( pShipInfo != nullptr );
+    std::string flagships[ 4 ] = {
+        "special_flagship",
+        "special_flagship_2",
+        "special_flagship_3",
+        "special_flagship_4"
+    };
+    int idx = rand() % 4;
 
-	ShipSpawnData spawnData;
-	spawnData.m_PositionX = gRand( -1000.0f, 1000.0f );
-	spawnData.m_PositionY = gRand( -1000.0f, 1000.0f );
+    const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Neutral ), flagships[ idx ] );
+    SDL_assert( pShipInfo != nullptr );
 
-	Ship* pShip = new Ship();
-	pShip->SetInitialisationParameters(
-		pCurrentSector->GetSectorInfo()->GetFaction(),
-		pCurrentSector->GetRegionalFleet(),
-		ShipCustomisationData( pShipInfo->GetModuleInfoHexGrid() ),
-		spawnData,
-		pShipInfo );
+    ShipSpawnData spawnData;
+    spawnData.m_PositionX = gRand( -1000.0f, 1000.0f );
+    spawnData.m_PositionY = gRand( -1000.0f, 1000.0f );
 
-	pShip->Initialise();
-	pCurrentSector->AddShip( pShip );
+    Ship* pShip = new Ship();
+    pShip->SetInitialisationParameters(
+        pCurrentSector->GetSectorInfo()->GetFaction(),
+        pCurrentSector->GetRegionalFleet(),
+        ShipCustomisationData( pShipInfo->GetModuleInfoHexGrid() ),
+        spawnData,
+        pShipInfo );
+
+    pShip->Initialise();
+    pCurrentSector->AddShip( pShip );
 }
 
-}
+} // namespace Hexterminate

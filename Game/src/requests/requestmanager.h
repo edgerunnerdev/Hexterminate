@@ -28,30 +28,30 @@ namespace Hexterminate
 class RequestManager
 {
 public:
-								RequestManager();
-								~RequestManager();
+    RequestManager();
+    ~RequestManager();
 
-	void						Update( float delta );
-	void						Remove( ImperialRequestWeakPtr pRequest );
-	int							GetActiveCount( ImperialRequestType type ) const;
-	float						GetPreviousStartTime( ImperialRequestType type ) const;
-	const ImperialRequestList&	GetRequests() const;
+    void Update( float delta );
+    void Remove( ImperialRequestWeakPtr pRequest );
+    int GetActiveCount( ImperialRequestType type ) const;
+    float GetPreviousStartTime( ImperialRequestType type ) const;
+    const ImperialRequestList& GetRequests() const;
 
 private:
-	void						ClearRemovedRequests();
-	
-	ImperialRequestList									m_Requests;
-	ImperialRequestList									m_RequestsToRemove;
-	ImperialRequestInfoList								m_Infos;
+    void ClearRemovedRequests();
 
-	std::array<int, (int)ImperialRequestType::Count>	m_Active;
-	std::array<float, (int)ImperialRequestType::Count>	m_StartTime;
-	float												m_InstancingTimer;
+    ImperialRequestList m_Requests;
+    ImperialRequestList m_RequestsToRemove;
+    ImperialRequestInfoList m_Infos;
+
+    std::array<int, (int)ImperialRequestType::Count> m_Active;
+    std::array<float, (int)ImperialRequestType::Count> m_StartTime;
+    float m_InstancingTimer;
 };
 
 inline const ImperialRequestList& RequestManager::GetRequests() const
 {
-	return m_Requests;
+    return m_Requests;
 }
 
-}
+} // namespace Hexterminate

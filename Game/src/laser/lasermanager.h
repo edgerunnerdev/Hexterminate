@@ -17,25 +17,23 @@
 
 #pragma once
 
-#include <vector>
+#include "laser/laser.h"
 #include <genesis.h>
 #include <rendersystem.h>
 #include <resourcemanager.h>
 #include <scene/sceneobject.h>
-#include "laser/laser.h"
+#include <vector>
 
 namespace Genesis
 {
 class ResourceImage;
 class VertexBuffer;
-}
-
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
-typedef std::vector< Laser > LaserVector;
-
+typedef std::vector<Laser> LaserVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // LaserManager
@@ -44,23 +42,23 @@ typedef std::vector< Laser > LaserVector;
 
 static const unsigned int sLaserManagerCapacity = 512;
 
-class LaserManager: public Genesis::SceneObject
+class LaserManager : public Genesis::SceneObject
 {
 public:
-									LaserManager();
-	virtual							~LaserManager() override;
+    LaserManager();
+    virtual ~LaserManager() override;
 
-	virtual void					Update( float delta ) override;
-	virtual void					Render() override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-	void							AddLaser( const Laser& laser );
+    void AddLaser( const Laser& laser );
 
 private:
-	LaserVector						m_Lasers;
+    LaserVector m_Lasers;
 
-	Genesis::ResourceImage*			m_pTexture;
-	Genesis::Shader*				m_pShader;
-	Genesis::VertexBuffer*			m_pVertexBuffer;
+    Genesis::ResourceImage* m_pTexture;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
 };
 
-}
+} // namespace Hexterminate

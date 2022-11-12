@@ -26,60 +26,60 @@ namespace Hexterminate
 {
 
 class Ship;
-typedef std::vector< Ship* > ShipVector;
-typedef std::vector< glm::vec2 > RelationshipVector;
+typedef std::vector<Ship*> ShipVector;
+typedef std::vector<glm::vec2> RelationshipVector;
 
 enum class FleetCommandOrder
 {
-	StickToFormation,
-	Engage,
-	Patrol
+    StickToFormation,
+    Engage,
+    Patrol
 };
 
 enum class ScanForEnemiesResult
 {
-	EnemiesInRange,
-	EnemiesOutOfRange,
-	NoEnemies
+    EnemiesInRange,
+    EnemiesOutOfRange,
+    NoEnemies
 };
 
 class FleetCommand
 {
 public:
-	FleetCommand();
+    FleetCommand();
 
-	void AssignShip( Ship* pShip );
-	void AssignLeader( Ship* pShip );
-	Ship* GetLeader() const;
-	bool HasLeader() const;
-	const ShipVector& GetShips() const;
-	void SetupRelationships();
+    void AssignShip( Ship* pShip );
+    void AssignLeader( Ship* pShip );
+    Ship* GetLeader() const;
+    bool HasLeader() const;
+    const ShipVector& GetShips() const;
+    void SetupRelationships();
 
-	void Update();
+    void Update();
 
 private:
-	ScanForEnemiesResult ScanForEnemies() const;
+    ScanForEnemiesResult ScanForEnemies() const;
 
-	ShipVector m_Ships;
-	RelationshipVector m_Relationships;
-	Ship* m_pLeader;
+    ShipVector m_Ships;
+    RelationshipVector m_Relationships;
+    Ship* m_pLeader;
 };
 
 inline Ship* FleetCommand::GetLeader() const
 {
-	return m_pLeader;
+    return m_pLeader;
 }
 
 inline bool FleetCommand::HasLeader() const
 {
-	return ( m_pLeader != nullptr );
+    return ( m_pLeader != nullptr );
 }
 
 inline const ShipVector& FleetCommand::GetShips() const
 {
-	return m_Ships;
+    return m_Ships;
 }
 
-typedef std::unique_ptr< FleetCommand > FleetCommandUniquePtr;
+typedef std::unique_ptr<FleetCommand> FleetCommandUniquePtr;
 
-}
+} // namespace Hexterminate

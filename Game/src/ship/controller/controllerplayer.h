@@ -33,8 +33,8 @@ class ControllerPlayer : public Controller
 {
 public:
     ControllerPlayer( Ship* pShip );
-    virtual			~ControllerPlayer() override;
-    virtual void	Update( float delta ) override;
+    virtual ~ControllerPlayer() override;
+    virtual void Update( float delta ) override;
 
 private:
     void OnForwardAction();
@@ -69,4 +69,4 @@ private:
     float m_DodgeRightTimer;
 };
 
-}
+} // namespace Hexterminate

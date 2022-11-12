@@ -21,8 +21,8 @@
 #include <memory>
 #include <string>
 
-#include "ui/types.fwd.h"
 #include "json.hpp"
+#include "ui/types.fwd.h"
 
 using json = nlohmann::json;
 
@@ -36,7 +36,7 @@ public:
 
     void Save();
     void Load();
-    
+
     json& Get( const std::string& path );
 
 private:

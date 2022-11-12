@@ -24,7 +24,7 @@
 #include "ui/fonts.h"
 #include "ui/togglegroup.h"
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
 static const char* sPropertyDefaultImage = "default_image";
@@ -32,18 +32,18 @@ static const char* sPropertyHoveredImage = "hovered_image";
 static const char* sPropertyPressedImage = "pressed_image";
 static const char* sPropertyLabel = "label";
 
-Button::Button( const std::string& name, ButtonPressedCallback onPressed, std::any userData /* = {} */, ToggleGroupWeakPtr pToggleGroup /* = {} */ ) : 
-Element( name ),
-m_pImage( nullptr ),
-m_pDefault( nullptr ),
-m_pHovered( nullptr ),
-m_pPressed( nullptr ),
-m_pText( nullptr ),
-m_Label( "???" ),
-m_OnPressed( onPressed ),
-m_UserData( userData ),
-m_pToggleGroup( pToggleGroup ),
-m_State( State::Unselected )
+Button::Button( const std::string& name, ButtonPressedCallback onPressed, std::any userData /* = {} */, ToggleGroupWeakPtr pToggleGroup /* = {} */ )
+    : Element( name )
+    , m_pImage( nullptr )
+    , m_pDefault( nullptr )
+    , m_pHovered( nullptr )
+    , m_pPressed( nullptr )
+    , m_pText( nullptr )
+    , m_Label( "???" )
+    , m_OnPressed( onPressed )
+    , m_UserData( userData )
+    , m_pToggleGroup( pToggleGroup )
+    , m_State( State::Unselected )
 {
     using namespace Genesis;
 
@@ -53,13 +53,13 @@ m_State( State::Unselected )
     GetPanel()->AddElement( m_pImage );
 
     m_pText = new Genesis::Gui::Text();
-	m_pText->SetSize( 256.0f, 16.0f );
-	m_pText->SetPosition( 8.0f, 2.0f );
-	m_pText->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
+    m_pText->SetSize( 256.0f, 16.0f );
+    m_pText->SetPosition( 8.0f, 2.0f );
+    m_pText->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
     m_pText->SetMultiLine( false );
-	m_pText->SetFont( reinterpret_cast<ResourceFont*>( FrameWork::GetResourceManager()->GetResource( "data/fonts/kimberley18.fnt" ) ) );
-	m_pText->SetText( m_Label );
-	m_pImage->AddElement( m_pText );
+    m_pText->SetFont( reinterpret_cast<ResourceFont*>( FrameWork::GetResourceManager()->GetResource( "data/fonts/kimberley18.fnt" ) ) );
+    m_pText->SetText( m_Label );
+    m_pImage->AddElement( m_pText );
     CenterText();
 
     m_LeftClickPressedToken = FrameWork::GetInputManager()->AddMouseCallback( std::bind( &Button::OnLeftClickPressed, this ), MouseButton::Left, ButtonState::Pressed );
@@ -81,8 +81,8 @@ void Button::Update()
     {
         if ( m_State == State::Hovered )
         {
-			m_State = State::Unselected;
-			m_pImage->SetTexture( m_pDefault );
+            m_State = State::Unselected;
+            m_pImage->SetTexture( m_pDefault );
         }
     }
     else if ( m_State == State::Disabled )
@@ -252,7 +252,7 @@ void Button::CenterText( bool horizontally /* = true */, bool vertically /* = tr
     const float w = pFont->GetTextLength( m_Label );
     const float h = pFont->GetLineHeight();
     m_pText->SetSize( w, h );
-    
+
     const float x = horizontally ? ( static_cast<float>( m_pDefault->GetWidth() ) - w ) / 2.0f : 8.0f;
     const float y = vertically ? ( static_cast<float>( m_pDefault->GetHeight() ) - h ) / 2.0f : 4.0f;
     m_pText->SetPosition( x, y );
@@ -266,10 +266,10 @@ void Button::OnLeftClickPressed()
         ToggleGroupSharedPtr pToggleGroup = m_pToggleGroup.lock();
         if ( pToggleGroup == nullptr )
         {
-			if ( m_OnPressed != nullptr )
-			{
-				m_OnPressed( m_UserData );
-			}
+            if ( m_OnPressed != nullptr )
+            {
+                m_OnPressed( m_UserData );
+            }
         }
         else
         {

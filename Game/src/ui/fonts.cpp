@@ -19,8 +19,8 @@
 
 #include <gui/gui.h>
 
-#include "ui/fonts.h"
 #include "stringaux.h"
+#include "ui/fonts.h"
 
 namespace Hexterminate::UI
 {
@@ -37,10 +37,10 @@ void Fonts::Load()
         return;
     }
 
-	for ( const auto& entry : std::filesystem::directory_iterator( "data/fonts" ) )
-	{
-		if ( entry.path().extension() == ".fnt" )
-		{
+    for ( const auto& entry : std::filesystem::directory_iterator( "data/fonts" ) )
+    {
+        if ( entry.path().extension() == ".fnt" )
+        {
 #ifdef _WIN32
             std::wstring wpath( entry.path().c_str() );
             ResourceFont* pFont = FrameWork::GetResourceManager()->GetResource<ResourceFont*>( ToString( wpath ) );
@@ -49,8 +49,8 @@ void Fonts::Load()
 #endif
             SDL_assert( pFont != nullptr );
             sFonts.push_back( pFont );
-		}
-	}
+        }
+    }
 
     sFontsLoaded = true;
 }

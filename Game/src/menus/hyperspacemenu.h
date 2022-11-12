@@ -17,15 +17,14 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "menus/eva.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
 
 class ButtonHyperspaceJump;
 class ButtonHyperspaceCancel;
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // HyperspaceMenu
@@ -34,24 +33,23 @@ class ButtonHyperspaceCancel;
 class HyperspaceMenu
 {
 public:
-							HyperspaceMenu();
-							~HyperspaceMenu();
+    HyperspaceMenu();
+    ~HyperspaceMenu();
 
-	void					Update( float delta );
-	void					Show( bool state );
-	void					ShowProgress();
+    void Update( float delta );
+    void Show( bool state );
+    void ShowProgress();
 
 private:
-	void					AlignToCentre( Genesis::Gui::Text* pText );
+    void AlignToCentre( Genesis::Gui::Text* pText );
 
-	EvaWindow*				m_pWindow;
-	Genesis::Gui::Text*		m_pText;
-	Genesis::Gui::Text*		m_pText2;
-	ButtonHyperspaceJump*	m_pButtonJump;
-	ButtonHyperspaceCancel*	m_pButtonCancel;
-	bool					m_ShowProgress;
+    EvaWindow* m_pWindow;
+    Genesis::Gui::Text* m_pText;
+    Genesis::Gui::Text* m_pText2;
+    ButtonHyperspaceJump* m_pButtonJump;
+    ButtonHyperspaceCancel* m_pButtonCancel;
+    bool m_ShowProgress;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonHyperspaceJump
@@ -60,14 +58,13 @@ private:
 class ButtonHyperspaceJump : public Genesis::Gui::Button
 {
 public:
-							ButtonHyperspaceJump( HyperspaceMenu* pOwner );
-	virtual					~ButtonHyperspaceJump() override {};
-	virtual void			OnPress() override;
+    ButtonHyperspaceJump( HyperspaceMenu* pOwner );
+    virtual ~ButtonHyperspaceJump() override{};
+    virtual void OnPress() override;
 
 private:
-	HyperspaceMenu*			m_pOwner;
+    HyperspaceMenu* m_pOwner;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonHyperspaceCancel
@@ -76,12 +73,12 @@ private:
 class ButtonHyperspaceCancel : public Genesis::Gui::Button
 {
 public:
-							ButtonHyperspaceCancel( HyperspaceMenu* pOwner );
-	virtual					 ~ButtonHyperspaceCancel() override {};
-	virtual void			OnPress() override;
+    ButtonHyperspaceCancel( HyperspaceMenu* pOwner );
+    virtual ~ButtonHyperspaceCancel() override{};
+    virtual void OnPress() override;
 
 private:
-	HyperspaceMenu*			m_pOwner;
+    HyperspaceMenu* m_pOwner;
 };
 
-}
+} // namespace Hexterminate

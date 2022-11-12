@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <color.h>
 #include "trail/trailpointdata.h"
+#include <color.h>
 
 namespace Hexterminate
 {
@@ -26,61 +26,61 @@ namespace Hexterminate
 class Trail
 {
 public:
-								Trail( float initialWidth, float decay, const Genesis::Color& colour );
-								~Trail() {};
+    Trail( float initialWidth, float decay, const Genesis::Color& colour );
+    ~Trail(){};
 
-	void						AddPoint( const glm::vec3& position );
-	const TrailPointDataList&	GetData() const;
-	float						GetInitialWidth() const;
-	void						SetInitialWidth( float value );
-	const Genesis::Color&		GetColour() const;
-	void						Update( float delta );	
-	void						SetOrphan();
-	bool						IsOrphan() const;
-	int							GetActivePoints() const;
+    void AddPoint( const glm::vec3& position );
+    const TrailPointDataList& GetData() const;
+    float GetInitialWidth() const;
+    void SetInitialWidth( float value );
+    const Genesis::Color& GetColour() const;
+    void Update( float delta );
+    void SetOrphan();
+    bool IsOrphan() const;
+    int GetActivePoints() const;
 
 private:
-	TrailPointDataList			m_Data;
-	float						m_InitialWidth;
-	float						m_Decay;
-	Genesis::Color				m_Colour;
-	bool						m_IsOrphan;
-	int							m_ActivePoints;
+    TrailPointDataList m_Data;
+    float m_InitialWidth;
+    float m_Decay;
+    Genesis::Color m_Colour;
+    bool m_IsOrphan;
+    int m_ActivePoints;
 };
 
 inline const TrailPointDataList& Trail::GetData() const
 {
-	return m_Data;
+    return m_Data;
 }
 
 inline float Trail::GetInitialWidth() const
 {
-	return m_InitialWidth;
+    return m_InitialWidth;
 }
 
 inline void Trail::SetInitialWidth( float value )
 {
-	m_InitialWidth = value;
+    m_InitialWidth = value;
 }
 
 inline const Genesis::Color& Trail::GetColour() const
 {
-	return m_Colour;
+    return m_Colour;
 }
 
 inline void Trail::SetOrphan()
 {
-	m_IsOrphan = true;
+    m_IsOrphan = true;
 }
 
 inline bool Trail::IsOrphan() const
 {
-	return m_IsOrphan;
+    return m_IsOrphan;
 }
 
 inline int Trail::GetActivePoints() const
 {
-	return m_ActivePoints;
+    return m_ActivePoints;
 }
 
-}
+} // namespace Hexterminate

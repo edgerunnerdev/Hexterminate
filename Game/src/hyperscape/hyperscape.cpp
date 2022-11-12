@@ -18,9 +18,9 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl.h>
 
+#include "hyperscape/hyperscape.h"
 #include "hyperscape/hyperscapelocation.h"
 #include "hyperscape/hyperscaperep.h"
-#include "hyperscape/hyperscape.h"
 #include "hyperscape/silverthread.h"
 #include "hyperscape/starfield.h"
 #include "sector/starinfo.h"
@@ -32,169 +32,176 @@ namespace Hexterminate
 // Hyperscape
 //-----------------------------------------------------------------------------
 
-Hyperscape::Hyperscape() :
-m_DebugWindowOpen( false )
+Hyperscape::Hyperscape()
+    : m_DebugWindowOpen( false )
 {
-	m_pRep = std::make_unique<HyperscapeRep>( this );
-	m_pRep->Initialise();
+    m_pRep = std::make_unique<HyperscapeRep>( this );
+    m_pRep->Initialise();
 
-	m_pSilverThread = std::make_unique<SilverThread>();
-	m_pSilverThread->Scan( 1 );
-	m_pSilverThread->JumpToScannedLocation( 0 );
-	m_pSilverThread->CallStation();
-	m_pSilverThread->Scan( 1 );
-	m_pSilverThread->JumpToScannedLocation( 0 );
-	m_pSilverThread->Scan( 2 );
+    m_pSilverThread = std::make_unique<SilverThread>();
+    m_pSilverThread->Scan( 1 );
+    m_pSilverThread->JumpToScannedLocation( 0 );
+    m_pSilverThread->CallStation();
+    m_pSilverThread->Scan( 1 );
+    m_pSilverThread->JumpToScannedLocation( 0 );
+    m_pSilverThread->Scan( 2 );
 
-	m_pStarfield = std::make_unique<Starfield>();
+    m_pStarfield = std::make_unique<Starfield>();
 
-	Genesis::ImGuiImpl::RegisterMenu( "Game", "Hyperscape", &m_DebugWindowOpen );
+    Genesis::ImGuiImpl::RegisterMenu( "Game", "Hyperscape", &m_DebugWindowOpen );
 }
 
 Hyperscape::~Hyperscape()
 {
-	m_pRep->RemoveFromScene();
-	Genesis::ImGuiImpl::UnregisterMenu( "Game", "Hyperscape" );
+    m_pRep->RemoveFromScene();
+    Genesis::ImGuiImpl::UnregisterMenu( "Game", "Hyperscape" );
 }
 
 void Hyperscape::Update( float delta )
 {
-	m_pStarfield->Update( delta );
-	UpdateDebugUI();
+    m_pStarfield->Update( delta );
+    UpdateDebugUI();
 }
 
 void Hyperscape::Show( bool state )
 {
-	m_pRep->Show( state );
+    m_pRep->Show( state );
 }
 
-bool Hyperscape::IsVisible() const 
+bool Hyperscape::IsVisible() const
 {
-	return m_pRep->IsVisible();
+    return m_pRep->IsVisible();
 }
 
 bool Hyperscape::Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement )
 {
-	bool state = true;
+    bool state = true;
 
-	tinyxml2::XMLElement* pHyperscapeElement = xmlDoc.NewElement( "Hyperscape" );
-	pRootElement->LinkEndChild( pHyperscapeElement );
+    tinyxml2::XMLElement* pHyperscapeElement = xmlDoc.NewElement( "Hyperscape" );
+    pRootElement->LinkEndChild( pHyperscapeElement );
 
-	return state;
+    return state;
 }
 
 bool Hyperscape::Read( tinyxml2::XMLElement* pRootElement )
 {
-	int version = 1;
+    int version = 1;
 
-	if ( version != GetVersion() )
-	{
-		UpgradeFromVersion( version );
-	}
+    if ( version != GetVersion() )
+    {
+        UpgradeFromVersion( version );
+    }
 
-	return true;
+    return true;
 }
 
 int Hyperscape::GetVersion() const
 {
-	return 1;
+    return 1;
 }
 
 void Hyperscape::UpdateDebugUI()
 {
 #ifdef _DEBUG
-	{
-		ImGui::SetNextWindowSize( ImVec2( 600.0f, 800.0f ) );
-		ImGui::Begin( "Hyperscape", &m_DebugWindowOpen );
+    {
+        ImGui::SetNextWindowSize( ImVec2( 600.0f, 800.0f ) );
+        ImGui::Begin( "Hyperscape", &m_DebugWindowOpen );
 
-		static bool sSilverThreadOpen = true;
-		size_t id = 0;
-		if ( ImGui::CollapsingHeader( "Silver thread", &sSilverThreadOpen, ImGuiTreeNodeFlags_DefaultOpen ) )
-		{
-			const ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
-			if ( ImGui::BeginTable( "svtable", 4, flags ) )
-			{
-				ImGui::TableSetupColumn( "Action" );
-				ImGui::TableSetupColumn( "Depth" );
-				ImGui::TableSetupColumn( "Status" );
-				ImGui::TableSetupColumn( "Seed" );
-				ImGui::TableHeadersRow();
+        static bool sSilverThreadOpen = true;
+        size_t id = 0;
+        if ( ImGui::CollapsingHeader( "Silver thread", &sSilverThreadOpen, ImGuiTreeNodeFlags_DefaultOpen ) )
+        {
+            const ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
+            if ( ImGui::BeginTable( "svtable", 4, flags ) )
+            {
+                ImGui::TableSetupColumn( "Action" );
+                ImGui::TableSetupColumn( "Depth" );
+                ImGui::TableSetupColumn( "Status" );
+                ImGui::TableSetupColumn( "Seed" );
+                ImGui::TableHeadersRow();
 
-				const HyperscapeLocationVector& locations = m_pSilverThread->GetLocations();
-				for ( auto it = locations.rbegin(); it != locations.rend(); ++it )
-				{
-					bool locationsChanged = false;
-					const HyperscapeLocation& location = *it;
-					const bool isCurrent = ( m_pSilverThread->GetCurrentLocation() == location );
-					if ( location.GetType() == HyperscapeLocation::Type::Visited )
-					{
-						ImGui::TableNextColumn();
-						if ( isCurrent )
-						{
-							ImGui::PushID( id++ );
-							if ( ImGui::Button( "Call station" ) )
-							{
-								m_pSilverThread->CallStation();							
-							}
-							ImGui::PopID();
-						}
+                const HyperscapeLocationVector& locations = m_pSilverThread->GetLocations();
+                for ( auto it = locations.rbegin(); it != locations.rend(); ++it )
+                {
+                    bool locationsChanged = false;
+                    const HyperscapeLocation& location = *it;
+                    const bool isCurrent = ( m_pSilverThread->GetCurrentLocation() == location );
+                    if ( location.GetType() == HyperscapeLocation::Type::Visited )
+                    {
+                        ImGui::TableNextColumn();
+                        if ( isCurrent )
+                        {
+                            ImGui::PushID( id++ );
+                            if ( ImGui::Button( "Call station" ) )
+                            {
+                                m_pSilverThread->CallStation();
+                            }
+                            ImGui::PopID();
+                        }
 
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetDepth() );
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetDepth() );
 
-						ImGui::TableNextColumn();
-						if ( isCurrent )
-						{
-							ImGui::TextColored( ImVec4( 1.0f, 1.0f, 0.0f, 1.0f ), "Current" );
-						}
-						else
-						{
-							ImGui::Text( "Visited" );
-						}
+                        ImGui::TableNextColumn();
+                        if ( isCurrent )
+                        {
+                            ImGui::TextColored( ImVec4( 1.0f, 1.0f, 0.0f, 1.0f ), "Current" );
+                        }
+                        else
+                        {
+                            ImGui::Text( "Visited" );
+                        }
 
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetSeed() );
-					}
-					else if ( location.GetType() == HyperscapeLocation::Type::Scanned )
-					{
-						ImGui::TableNextColumn();
-						ImGui::PushID( id++ );
-						if ( ImGui::Button( "Jump" ) )
-						{
-							m_pSilverThread->JumpToScannedLocation( location );
-							m_pSilverThread->Scan( 2 );
-							locationsChanged = true;
-						}
-						ImGui::PopID();
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetSeed() );
+                    }
+                    else if ( location.GetType() == HyperscapeLocation::Type::Scanned )
+                    {
+                        ImGui::TableNextColumn();
+                        ImGui::PushID( id++ );
+                        if ( ImGui::Button( "Jump" ) )
+                        {
+                            m_pSilverThread->JumpToScannedLocation( location );
+                            m_pSilverThread->Scan( 2 );
+                            locationsChanged = true;
+                        }
+                        ImGui::PopID();
 
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetDepth() );
-						ImGui::TableNextColumn(); ImGui::TextColored( ImVec4( 0.0f, 1.0f, 1.0f, 1.0f ), "Scanned" );
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetSeed() );
-					}
-					else if ( location.GetType() == HyperscapeLocation::Type::Station )
-					{
-						ImGui::TableNextColumn(); // Action
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetDepth() );
-						ImGui::TableNextColumn(); ImGui::TextColored( ImVec4( 0.0f, 1.0f, 0.0f, 1.0f ), isCurrent ? "Station / Current" : "Station" );
-						ImGui::TableNextColumn(); ImGui::Text( "%u", location.GetSeed() );
-					}
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetDepth() );
+                        ImGui::TableNextColumn();
+                        ImGui::TextColored( ImVec4( 0.0f, 1.0f, 1.0f, 1.0f ), "Scanned" );
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetSeed() );
+                    }
+                    else if ( location.GetType() == HyperscapeLocation::Type::Station )
+                    {
+                        ImGui::TableNextColumn(); // Action
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetDepth() );
+                        ImGui::TableNextColumn();
+                        ImGui::TextColored( ImVec4( 0.0f, 1.0f, 0.0f, 1.0f ), isCurrent ? "Station / Current" : "Station" );
+                        ImGui::TableNextColumn();
+                        ImGui::Text( "%u", location.GetSeed() );
+                    }
 
-					if ( locationsChanged )
-					{
-						break;
-					}
-				}
+                    if ( locationsChanged )
+                    {
+                        break;
+                    }
+                }
 
-				ImGui::EndTable();
-			}
-		}
+                ImGui::EndTable();
+            }
+        }
 
-		ImGui::End();
-	}
+        ImGui::End();
+    }
 #endif
 }
 
 void Hyperscape::UpgradeFromVersion( int version )
 {
-
 }
 
 } // namespace Hexterminate

@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <list>
-#include <gui/gui.h>
 #include "misc/mathaux.h"
+#include <gui/gui.h>
+#include <list>
 
 namespace Hexterminate
 {
@@ -28,7 +28,6 @@ class TutorialNextButton;
 class PointOfInterest;
 class PointOfInterestTarget;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // TutorialStep
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,48 +35,47 @@ class PointOfInterestTarget;
 class TutorialStep
 {
 public:
-							TutorialStep( const std::string& content );
+    TutorialStep( const std::string& content );
 
-	void					SetPointOfInterest( const glm::vec2& position );
-	void					SetPointOfInterest( PointOfInterestTarget* pPointOfInterest );
+    void SetPointOfInterest( const glm::vec2& position );
+    void SetPointOfInterest( PointOfInterestTarget* pPointOfInterest );
 
-	bool					HasPointOfInterest() const;
-	const glm::vec2&		GetPointOfInterest() const;
+    bool HasPointOfInterest() const;
+    const glm::vec2& GetPointOfInterest() const;
 
-	const std::string&		GetContent() const;
+    const std::string& GetContent() const;
 
 private:
-	std::string				m_Content;
-	bool					m_HasPointOfInterest;
-	glm::vec2				m_PointOfInterest;
-	PointOfInterestTarget*	m_pPointOfInterest;
+    std::string m_Content;
+    bool m_HasPointOfInterest;
+    glm::vec2 m_PointOfInterest;
+    PointOfInterestTarget* m_pPointOfInterest;
 };
 
 inline void TutorialStep::SetPointOfInterest( const glm::vec2& position )
 {
-	m_pPointOfInterest = nullptr;
-	m_PointOfInterest = position;
-	m_HasPointOfInterest = true;
+    m_pPointOfInterest = nullptr;
+    m_PointOfInterest = position;
+    m_HasPointOfInterest = true;
 }
 
 inline void TutorialStep::SetPointOfInterest( PointOfInterestTarget* pPointOfInterest )
 {
-	m_pPointOfInterest = pPointOfInterest;
-	m_HasPointOfInterest = ( pPointOfInterest != nullptr );
+    m_pPointOfInterest = pPointOfInterest;
+    m_HasPointOfInterest = ( pPointOfInterest != nullptr );
 }
 
 inline bool TutorialStep::HasPointOfInterest() const
 {
-	return m_HasPointOfInterest;
+    return m_HasPointOfInterest;
 }
 
 inline const std::string& TutorialStep::GetContent() const
 {
-	return m_Content;
+    return m_Content;
 }
 
-typedef std::list< TutorialStep > TutorialStepList;
-
+typedef std::list<TutorialStep> TutorialStepList;
 
 ///////////////////////////////////////////////////////////////////////////////
 // TutorialWindow
@@ -86,52 +84,51 @@ typedef std::list< TutorialStep > TutorialStepList;
 class TutorialWindow
 {
 public:
-							TutorialWindow();
-							~TutorialWindow();
-	void					Update( float delta );
+    TutorialWindow();
+    ~TutorialWindow();
+    void Update( float delta );
 
-	bool					IsActive() const;
-	void					AddStep( const TutorialStep& step );
-	void					NextStep();
-	void					Clear();
+    bool IsActive() const;
+    void AddStep( const TutorialStep& step );
+    void NextStep();
+    void Clear();
 
 private:
-	void					SetContent( const std::string& content );
+    void SetContent( const std::string& content );
 
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pContent;
-	Genesis::Gui::Text*		m_pTitle;
-	Genesis::Gui::Image*	m_pIcon;
-	TutorialNextButton*		m_pNextButton;
-	PointOfInterest*		m_pPointOfInterest;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pContent;
+    Genesis::Gui::Text* m_pTitle;
+    Genesis::Gui::Image* m_pIcon;
+    TutorialNextButton* m_pNextButton;
+    PointOfInterest* m_pPointOfInterest;
 
-	TutorialStepList		m_Steps;
+    TutorialStepList m_Steps;
 
-	int						m_LineLength;
-	bool					m_Dirty;
+    int m_LineLength;
+    bool m_Dirty;
 
     Genesis::ResourceSound* m_pSFX;
-	float					m_Delay;
+    float m_Delay;
 };
 
 inline bool TutorialWindow::IsActive() const
 {
-	return ( m_Steps.empty() == false );
+    return ( m_Steps.empty() == false );
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // TutorialNextButton
 ///////////////////////////////////////////////////////////////////////////////
 
-class TutorialNextButton: public Genesis::Gui::Button
+class TutorialNextButton : public Genesis::Gui::Button
 {
 public:
-						TutorialNextButton( TutorialWindow* pTutorialWindow );
-	virtual void		OnPress();
+    TutorialNextButton( TutorialWindow* pTutorialWindow );
+    virtual void OnPress();
 
 private:
-	TutorialWindow*		m_pTutorialWindow;
+    TutorialWindow* m_pTutorialWindow;
 };
 
-}
+} // namespace Hexterminate

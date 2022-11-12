@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <gui/gui.h>
 
@@ -34,13 +34,12 @@ class PerkTooltip;
 
 enum class PerkState
 {
-	Enabled,
-	Locked,
-	Disabled
+    Enabled,
+    Locked,
+    Disabled
 };
 
-typedef std::vector< PerkPanel* > PerkPanelArray;
-
+typedef std::vector<PerkPanel*> PerkPanelArray;
 
 /////////////////////////////////////////////////////////////////////
 // PerkPanel
@@ -50,35 +49,34 @@ typedef std::vector< PerkPanel* > PerkPanelArray;
 class PerkPanel : public Genesis::Gui::Panel
 {
 public:
-                                PerkPanel();
-    virtual                     ~PerkPanel();
-    virtual void		        Update( float delta ) override;
-	virtual void				Show( bool state ) override;
+    PerkPanel();
+    virtual ~PerkPanel();
+    virtual void Update( float delta ) override;
+    virtual void Show( bool state ) override;
 
-	void                        Init( Perk perk, const std::string& name, const std::string& description, const std::string& icon, int cost, PerkState state );
+    void Init( Perk perk, const std::string& name, const std::string& description, const std::string& icon, int cost, PerkState state );
 
-    Perk                        GetPerk() const;
-    void						SetState( PerkState state );
+    Perk GetPerk() const;
+    void SetState( PerkState state );
 
-	void						SetPendingPurchase();
+    void SetPendingPurchase();
 
 private:
-	void						AlignToCentre( Genesis::Gui::Text* pText );
+    void AlignToCentre( Genesis::Gui::Text* pText );
 
-	Genesis::Gui::Text*			m_pTitle; 
-	PerkButton*					m_pIcon;
-	Genesis::Gui::Text*			m_pCost;
-	int							m_Cost;
-	Perk						m_Perk;
-    PerkTooltip*                m_pTooltip;
-	bool						m_PendingPurchase;
+    Genesis::Gui::Text* m_pTitle;
+    PerkButton* m_pIcon;
+    Genesis::Gui::Text* m_pCost;
+    int m_Cost;
+    Perk m_Perk;
+    PerkTooltip* m_pTooltip;
+    bool m_PendingPurchase;
 };
 
 inline Perk PerkPanel::GetPerk() const
 {
     return m_Perk;
 }
-
 
 /////////////////////////////////////////////////////////////////////
 // PerkButton
@@ -88,14 +86,14 @@ inline Perk PerkPanel::GetPerk() const
 class PerkButton : public Genesis::Gui::ButtonImage
 {
 public:
-					            PerkButton( PerkPanel* pOwner, Perk perk, int cost );
-	virtual void	            OnPress() override;
-    void                        SetEnabled( bool state );
+    PerkButton( PerkPanel* pOwner, Perk perk, int cost );
+    virtual void OnPress() override;
+    void SetEnabled( bool state );
 
 private:
-	PerkPanel*					m_pOwner;
-	int				            m_Cost;
-    bool                        m_Enabled;
+    PerkPanel* m_pOwner;
+    int m_Cost;
+    bool m_Enabled;
 };
 
 inline void PerkButton::SetEnabled( bool state )
@@ -103,4 +101,4 @@ inline void PerkButton::SetEnabled( bool state )
     m_Enabled = state;
 }
 
-}
+} // namespace Hexterminate

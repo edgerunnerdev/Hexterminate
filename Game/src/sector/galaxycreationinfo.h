@@ -27,38 +27,38 @@ namespace Hexterminate
 class GalaxyCreationInfo
 {
 public:
-	enum class CreationMode
-	{
-		Empty,		// Used when loading a previously existing save game. The galaxy will then be overwritten with the save data.
-		Campaign,	// Campaign mode, FactionPresence is not used.
-		InfiniteWar	// Procedurally generated galaxy, uses FactionPresence to populate sectors.
-	};
+    enum class CreationMode
+    {
+        Empty, // Used when loading a previously existing save game. The galaxy will then be overwritten with the save data.
+        Campaign, // Campaign mode, FactionPresence is not used.
+        InfiniteWar // Procedurally generated galaxy, uses FactionPresence to populate sectors.
+    };
 
-	enum class GenerationType
-	{
-		Expansion,
-		Scattered
-	};
+    enum class GenerationType
+    {
+        Expansion,
+        Scattered
+    };
 
-	GalaxyCreationInfo( CreationMode creationMode );
-	CreationMode GetMode() const;
-	void SetFaction( FactionId factionId, FactionPresence presence, GenerationType generationType, bool hasHomeworld );
-	FactionPresence GetFactionPresence( FactionId factionId ) const;
-	void SetFactionPresence( FactionId factionId, FactionPresence presence );
-	GenerationType GetGenerationType( FactionId factionId ) const;
-	bool HasHomeworld( FactionId factionId ) const;
+    GalaxyCreationInfo( CreationMode creationMode );
+    CreationMode GetMode() const;
+    void SetFaction( FactionId factionId, FactionPresence presence, GenerationType generationType, bool hasHomeworld );
+    FactionPresence GetFactionPresence( FactionId factionId ) const;
+    void SetFactionPresence( FactionId factionId, FactionPresence presence );
+    GenerationType GetGenerationType( FactionId factionId ) const;
+    bool HasHomeworld( FactionId factionId ) const;
 
 private:
-	CreationMode m_CreationMode;
+    CreationMode m_CreationMode;
 
-	struct Data
-	{
-		FactionPresence presence;
-		GenerationType generationType;
-		bool hasHomeworld;
-	};
+    struct Data
+    {
+        FactionPresence presence;
+        GenerationType generationType;
+        bool hasHomeworld;
+    };
 
-	std::array< Data, static_cast<size_t>( FactionId::Count ) > m_Data;
+    std::array<Data, static_cast<size_t>( FactionId::Count )> m_Data;
 };
 
-}
+} // namespace Hexterminate

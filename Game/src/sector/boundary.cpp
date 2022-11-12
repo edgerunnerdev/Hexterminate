@@ -20,15 +20,15 @@
 #include <genesis.h>
 #include <scene/scene.h>
 
-#include <rendersystem.h>
+#include "hexterminate.h"
+#include "player.h"
+#include "ship/ship.h"
 #include <configuration.h>
-#include <vertexbuffer.h>
+#include <rendersystem.h>
 #include <shader.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
-#include "hexterminate.h"
-#include "ship/ship.h"
-#include "player.h"
+#include <vertexbuffer.h>
 
 #include "sector/boundary.h"
 
@@ -39,107 +39,108 @@ const float sPlayableArea = 10000.0f;
 const float sBoundarySize = 3000.0f;
 const float sTimeAllowedOutsideSector = 10.0f;
 
-Boundary::Boundary() :
-m_DestructionTimer( sTimeAllowedOutsideSector ),
-m_WarningTimer( 0.0f )
+Boundary::Boundary()
+    : m_DestructionTimer( sTimeAllowedOutsideSector )
+    , m_WarningTimer( 0.0f )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "boundary" );
-	m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV );
+    m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "boundary" );
+    m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV );
 }
 
 Boundary::~Boundary()
 {
-	delete m_pVertexBuffer;
+    delete m_pVertexBuffer;
 }
 
-void Boundary::Update( float delta ) 
+void Boundary::Update( float delta )
 {
-	Genesis::SceneObject::Update( delta );
+    Genesis::SceneObject::Update( delta );
 
-	Ship* pPlayerShip = g_pGame->GetPlayer()->GetShip();
-	if ( pPlayerShip != nullptr && pPlayerShip->IsDestroyed() == false )
-	{
-		glm::vec3 position( glm::column( pPlayerShip->GetTransform(), 3 ) );
-		const float halfPlayableArea = sPlayableArea / 2.0f;
-		if ( position.x < -halfPlayableArea || 
-			 position.x > halfPlayableArea ||
-			 position.y < -halfPlayableArea ||
-			 position.y > halfPlayableArea )
-		{
-			if ( m_WarningTimer <= 0.0f )
-			{
-				g_pGame->AddIntel( GameCharacter::FleetIntelligence, "WARNING: We must not go beyond the sector's designated area! The ship will self-destruct if we stay here for too long." );
-				m_WarningTimer = 10.0f;
-			}
+    Ship* pPlayerShip = g_pGame->GetPlayer()->GetShip();
+    if ( pPlayerShip != nullptr && pPlayerShip->IsDestroyed() == false )
+    {
+        glm::vec3 position( glm::column( pPlayerShip->GetTransform(), 3 ) );
+        const float halfPlayableArea = sPlayableArea / 2.0f;
+        if ( position.x < -halfPlayableArea || position.x > halfPlayableArea || position.y < -halfPlayableArea || position.y > halfPlayableArea )
+        {
+            if ( m_WarningTimer <= 0.0f )
+            {
+                g_pGame->AddIntel( GameCharacter::FleetIntelligence, "WARNING: We must not go beyond the sector's designated area! The ship will self-destruct if we stay here for too long." );
+                m_WarningTimer = 10.0f;
+            }
 
-			m_DestructionTimer -= delta;
-			if ( m_DestructionTimer <= 0.0f )
-			{
-				pPlayerShip->GetTowerModule()->Destroy();
-			}
-		}
-		else
-		{
-			m_DestructionTimer = sTimeAllowedOutsideSector;
-			m_WarningTimer = std::max( 0.0f, m_WarningTimer - delta );
-		}
-	}
+            m_DestructionTimer -= delta;
+            if ( m_DestructionTimer <= 0.0f )
+            {
+                pPlayerShip->GetTowerModule()->Destroy();
+            }
+        }
+        else
+        {
+            m_DestructionTimer = sTimeAllowedOutsideSector;
+            m_WarningTimer = std::max( 0.0f, m_WarningTimer - delta );
+        }
+    }
 }
 
 void Boundary::Render()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
-	
-	const unsigned int numVertices = 24u;
-	PositionData posData;
-	UVData uvData;
-	posData.reserve( numVertices );
-	uvData.reserve( numVertices );
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
 
-	struct Quad
-	{
-		Quad( float _x1, float _y1, float _x2, float _y2 ) :
-			x1( _x1 ), y1( _y1 ), x2( _x2 ), y2( _y2 ) {}
-		float x1, y1, x2, y2;
-	};
+    const unsigned int numVertices = 24u;
+    PositionData posData;
+    UVData uvData;
+    posData.reserve( numVertices );
+    uvData.reserve( numVertices );
 
-	const float halfPlayableArea = sPlayableArea / 2.0f;
+    struct Quad
+    {
+        Quad( float _x1, float _y1, float _x2, float _y2 )
+            : x1( _x1 )
+            , y1( _y1 )
+            , x2( _x2 )
+            , y2( _y2 )
+        {
+        }
+        float x1, y1, x2, y2;
+    };
 
-	std::array< Quad, 4 > quads =
-	{
-		Quad( -halfPlayableArea - sBoundarySize, -halfPlayableArea, halfPlayableArea + sBoundarySize, -halfPlayableArea - sBoundarySize ), // Top
-		Quad( -halfPlayableArea - sBoundarySize,  halfPlayableArea, halfPlayableArea + sBoundarySize,  halfPlayableArea + sBoundarySize ), // Bottom
-		Quad( -halfPlayableArea - sBoundarySize, halfPlayableArea, -halfPlayableArea, -halfPlayableArea ), // Left
-		Quad(  halfPlayableArea, halfPlayableArea, halfPlayableArea + sBoundarySize, -halfPlayableArea ) // Right
-	};
+    const float halfPlayableArea = sPlayableArea / 2.0f;
 
-	for ( auto& quad : quads )
-	{
-		posData.emplace_back( quad.x1, quad.y1, 0.0f ); // 0
-		posData.emplace_back( quad.x1, quad.y2, 0.0f ); // 1
-		posData.emplace_back( quad.x2, quad.y2, 0.0f ); // 2
-		posData.emplace_back( quad.x1, quad.y1, 0.0f ); // 0
-		posData.emplace_back( quad.x2, quad.y2, 0.0f ); // 2
-		posData.emplace_back( quad.x2, quad.y1, 0.0f ); // 3
+    std::array<Quad, 4> quads = {
+        Quad( -halfPlayableArea - sBoundarySize, -halfPlayableArea, halfPlayableArea + sBoundarySize, -halfPlayableArea - sBoundarySize ), // Top
+        Quad( -halfPlayableArea - sBoundarySize, halfPlayableArea, halfPlayableArea + sBoundarySize, halfPlayableArea + sBoundarySize ), // Bottom
+        Quad( -halfPlayableArea - sBoundarySize, halfPlayableArea, -halfPlayableArea, -halfPlayableArea ), // Left
+        Quad( halfPlayableArea, halfPlayableArea, halfPlayableArea + sBoundarySize, -halfPlayableArea ) // Right
+    };
 
-		uvData.emplace_back( 0.0f, 0.0f ); // 0
-		uvData.emplace_back( 0.0f, 1.0f ); // 1
-		uvData.emplace_back( 1.0f, 1.0f ); // 2
-		uvData.emplace_back( 0.0f, 0.0f ); // 0
-		uvData.emplace_back( 1.0f, 1.0f ); // 2
-		uvData.emplace_back( 1.0f, 0.0f ); // 3
-	}
+    for ( auto& quad : quads )
+    {
+        posData.emplace_back( quad.x1, quad.y1, 0.0f ); // 0
+        posData.emplace_back( quad.x1, quad.y2, 0.0f ); // 1
+        posData.emplace_back( quad.x2, quad.y2, 0.0f ); // 2
+        posData.emplace_back( quad.x1, quad.y1, 0.0f ); // 0
+        posData.emplace_back( quad.x2, quad.y2, 0.0f ); // 2
+        posData.emplace_back( quad.x2, quad.y1, 0.0f ); // 3
 
-	m_pVertexBuffer->CopyPositions( posData );
-	m_pVertexBuffer->CopyUVs( uvData );
-	m_pShader->Use();
-	m_pVertexBuffer->Draw();
+        uvData.emplace_back( 0.0f, 0.0f ); // 0
+        uvData.emplace_back( 0.0f, 1.0f ); // 1
+        uvData.emplace_back( 1.0f, 1.0f ); // 2
+        uvData.emplace_back( 0.0f, 0.0f ); // 0
+        uvData.emplace_back( 1.0f, 1.0f ); // 2
+        uvData.emplace_back( 1.0f, 0.0f ); // 3
+    }
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
+    m_pVertexBuffer->CopyPositions( posData );
+    m_pVertexBuffer->CopyUVs( uvData );
+    m_pShader->Use();
+    m_pVertexBuffer->Draw();
+
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
 }
 
-}
+} // namespace Hexterminate

@@ -19,10 +19,10 @@
 #include <string>
 #include <vector>
 
+#include <configuration.h>
+#include <genesis.h>
 #include <gui/gui.h>
 #include <imgui/imgui.h>
-#include <genesis.h>
-#include <configuration.h>
 
 #include "ui/design.h"
 #include "ui/rootelement.h"
@@ -30,12 +30,13 @@
 namespace Hexterminate::UI
 {
 
-RootElement::RootElement() : Element( "root" )
+RootElement::RootElement()
+    : Element( "root" )
 {
     GetPanel()->SetWidth( static_cast<float>( Genesis::Configuration::GetScreenWidth() ) );
     GetPanel()->SetHeight( static_cast<float>( Genesis::Configuration::GetScreenHeight() ) );
     Genesis::FrameWork::GetGuiManager()->AddElement( GetPanel() );
-    
+
     m_pDesign = std::make_unique<Design>();
     m_pDesign->Load();
 }

@@ -24,16 +24,16 @@
 
 namespace Genesis
 {
-	class Shader;
-	class VertexBuffer;
-    class ResourceImage;
+class Shader;
+class VertexBuffer;
+class ResourceImage;
 
-	namespace Gui
-	{
-		class Text;
-		class Panel; 
-	}
-}
+namespace Gui
+{
+    class Text;
+    class Panel;
+} // namespace Gui
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -42,9 +42,8 @@ class RequestGoalRep;
 class GalaxyRep;
 class PointOfInterest;
 
-typedef std::shared_ptr< RequestGoalRep > RequestGoalRepSharedPtr;
-typedef std::weak_ptr< RequestGoalRep > RequestGoalRepWeakPtr;
-
+typedef std::shared_ptr<RequestGoalRep> RequestGoalRepSharedPtr;
+typedef std::weak_ptr<RequestGoalRep> RequestGoalRepWeakPtr;
 
 /////////////////////////////////////////////////////////////////////
 // RequestGoalRep
@@ -54,25 +53,25 @@ typedef std::weak_ptr< RequestGoalRep > RequestGoalRepWeakPtr;
 class RequestGoalRep
 {
 public:
-							RequestGoalRep( RequestGoal* pOwner, const Color& colour );
-							~RequestGoalRep();
+    RequestGoalRep( RequestGoal* pOwner, const Color& colour );
+    ~RequestGoalRep();
 
-	void					Update( GalaxyRep* pGalaxyRep );
-	void					Render();
-	void					Show( bool state );
-	bool					IsVisible() const;
+    void Update( GalaxyRep* pGalaxyRep );
+    void Render();
+    void Show( bool state );
+    bool IsVisible() const;
 
 private:
-	RequestGoal*			m_pOwner;
-	glm::vec2				m_Position;
+    RequestGoal* m_pOwner;
+    glm::vec2 m_Position;
 
-	Genesis::Gui::Text*		m_pDescription;
-	Genesis::Gui::Panel*	m_pBackground;
-	PointOfInterest*		m_pPointOfInterest;
-	bool					m_Show;
-	Genesis::Shader*		m_pShader;
-	Genesis::VertexBuffer*	m_pVertexBuffer;
+    Genesis::Gui::Text* m_pDescription;
+    Genesis::Gui::Panel* m_pBackground;
+    PointOfInterest* m_pPointOfInterest;
+    bool m_Show;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
     Genesis::ResourceImage* m_pGoalTargetImage;
 };
 
-}
+} // namespace Hexterminate

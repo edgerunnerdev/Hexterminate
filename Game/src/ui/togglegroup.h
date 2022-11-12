@@ -31,7 +31,7 @@ using ToggleGroupWeakPtr = std::weak_ptr<ToggleGroup>;
 
 //-----------------------------------------------------------------------------
 // ToggleGroup
-// Keeps a collection of weak pointers to IToggleable elements. 
+// Keeps a collection of weak pointers to IToggleable elements.
 // When one is selected, all others are deselected.
 //-----------------------------------------------------------------------------
 class ToggleGroup

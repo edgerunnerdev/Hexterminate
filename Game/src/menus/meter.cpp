@@ -17,53 +17,52 @@
 
 #include "menus/meter.h"
 
-#include <cassert>
 #include "menus/eva.h"
+#include <cassert>
 
 namespace Hexterminate
 {
 
-Meter::Meter() :
-m_PipColour( 1.0f, 1.0f, 1.0f, 0.5f )
+Meter::Meter()
+    : m_PipColour( 1.0f, 1.0f, 1.0f, 0.5f )
 {
-
 }
 
 void Meter::Init( int initialValue, int maxValue )
 {
-	SDL_assert( initialValue >= 0 );
-	SDL_assert( maxValue >= 1 );
-	SDL_assert( initialValue <= maxValue );
+    SDL_assert( initialValue >= 0 );
+    SDL_assert( maxValue >= 1 );
+    SDL_assert( initialValue <= maxValue );
 
-	m_Panels.resize( maxValue );
-	
-	const int panelSize = 12;
-	const int panelSpacing = 2;
+    m_Panels.resize( maxValue );
 
-	SetColour( EVA_COLOUR_BACKGROUND );
-	SetBorderColour( EVA_COLOUR_BORDER );
-	SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
-	SetSize( ( panelSize + panelSpacing ) * maxValue + panelSpacing + 1, panelSize + panelSpacing * 2 ); 
+    const int panelSize = 12;
+    const int panelSpacing = 2;
 
-	for ( int i = 0; i < (int)maxValue; ++i )
-	{
-		m_Panels[ i ] = new Genesis::Gui::Panel();
-		m_Panels[ i ]->SetPosition( ( panelSize + panelSpacing ) * i + panelSpacing + 1, panelSpacing );
-		m_Panels[ i ]->SetSize(	panelSize, panelSize );
-		m_Panels[ i ]->SetColour( m_PipColour );
-		m_Panels[ i ]->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );
-		m_Panels[ i ]->Show( ( i + 1 ) <= initialValue );
+    SetColour( EVA_COLOUR_BACKGROUND );
+    SetBorderColour( EVA_COLOUR_BORDER );
+    SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
+    SetSize( ( panelSize + panelSpacing ) * maxValue + panelSpacing + 1, panelSize + panelSpacing * 2 );
 
-		AddElement( m_Panels[ i ] );
-	}
+    for ( int i = 0; i < (int)maxValue; ++i )
+    {
+        m_Panels[ i ] = new Genesis::Gui::Panel();
+        m_Panels[ i ]->SetPosition( ( panelSize + panelSpacing ) * i + panelSpacing + 1, panelSpacing );
+        m_Panels[ i ]->SetSize( panelSize, panelSize );
+        m_Panels[ i ]->SetColour( m_PipColour );
+        m_Panels[ i ]->SetBorderMode( Genesis::Gui::PANEL_BORDER_NONE );
+        m_Panels[ i ]->Show( ( i + 1 ) <= initialValue );
+
+        AddElement( m_Panels[ i ] );
+    }
 }
 
 void Meter::SetValue( int value )
 {
-	for ( int i = 0, c = m_Panels.size(); i < c; ++i )
-	{
-		m_Panels[ i ]->Show( ( i + 1 ) <= value );
-	}
+    for ( int i = 0, c = m_Panels.size(); i < c; ++i )
+    {
+        m_Panels[ i ]->Show( ( i + 1 ) <= value );
+    }
 }
 
 void Meter::SetPipColour( const Genesis::Color& colour )
@@ -81,4 +80,4 @@ void Meter::SetPipColour( float r, float g, float b, float a )
     SetPipColour( Genesis::Color( r, g, b, a ) );
 }
 
-}
+} // namespace Hexterminate

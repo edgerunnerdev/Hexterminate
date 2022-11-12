@@ -26,16 +26,16 @@ namespace Hexterminate
 class RandomShuffle
 {
 public:
-	static void Initialise();
+    static void Initialise();
 
-	template< class RandomIt >
-	static void Shuffle( RandomIt first, RandomIt last )
-	{
-		std::shuffle( first, last, m_Engine );
-	}
+    template <class RandomIt>
+    static void Shuffle( RandomIt first, RandomIt last )
+    {
+        std::shuffle( first, last, m_Engine );
+    }
 
 private:
-	static std::default_random_engine m_Engine;
+    static std::default_random_engine m_Engine;
 };
 
-}
+} // namespace Hexterminate

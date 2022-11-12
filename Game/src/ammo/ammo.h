@@ -17,14 +17,14 @@
 
 #pragma once
 
+#include "ship/ship.h"
+#include "ship/weapon.h"
 #include <genesis.h>
 #include <resourcemanager.h>
-#include "ship/weapon.h"
-#include "ship/ship.h"
 
 namespace Genesis
 {
-	class ResourceModel;
+class ResourceModel;
 }
 
 namespace Hexterminate
@@ -39,101 +39,101 @@ class Weapon;
 class Ammo
 {
 public:
-							Ammo();
-	virtual					~Ammo() {};
+    Ammo();
+    virtual ~Ammo(){};
 
-	virtual void			Create( Weapon* pWeapon, float additionalRotation = 0.0f );
-	virtual void			Update( float delta ) = 0;
-	virtual void			Render() = 0;
-	bool					IsAlive() const;
-	virtual void			Kill();
-	virtual bool			CanBeIntercepted() const;
-	virtual bool			CanBypassShields() const;
-	void					Intercept();
-	bool					WasIntercepted() const;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f );
+    virtual void Update( float delta ) = 0;
+    virtual void Render() = 0;
+    bool IsAlive() const;
+    virtual void Kill();
+    virtual bool CanBeIntercepted() const;
+    virtual bool CanBypassShields() const;
+    void Intercept();
+    bool WasIntercepted() const;
 
-	const glm::vec3&		GetSource() const;
-	const glm::vec3&		GetDestination() const;
+    const glm::vec3& GetSource() const;
+    const glm::vec3& GetDestination() const;
 
-	uint32_t				GetCollisionFilter() const;
-	Weapon*					GetOwner() const;
+    uint32_t GetCollisionFilter() const;
+    Weapon* GetOwner() const;
 
-	bool					IsGlowSource() const;
-	bool					GetDiesOnHit() const;
+    bool IsGlowSource() const;
+    bool GetDiesOnHit() const;
 
-	void					SetHitFraction( float value );
-	float					GetHitFraction() const;
+    void SetHitFraction( float value );
+    float GetHitFraction() const;
 
 protected:
-	Weapon*					m_pOwner;
-	bool					m_IsAlive;
-	bool					m_IsGlowSource;
-	bool					m_DiesOnHit;
-	bool					m_Intercepted;
-	float					m_Angle;
-	float					m_AdditionalRotation;
+    Weapon* m_pOwner;
+    bool m_IsAlive;
+    bool m_IsGlowSource;
+    bool m_DiesOnHit;
+    bool m_Intercepted;
+    float m_Angle;
+    float m_AdditionalRotation;
 
-	glm::vec3				m_Src;
-	glm::vec3				m_Dst;
-	glm::vec3				m_Dir;
-	float					m_Speed;
-	float					m_RayLength;
-	float					m_Range;
-	float					m_HitFraction;
+    glm::vec3 m_Src;
+    glm::vec3 m_Dst;
+    glm::vec3 m_Dir;
+    float m_Speed;
+    float m_RayLength;
+    float m_Range;
+    float m_HitFraction;
 
-	uint32_t				m_CollisionFilter;
+    uint32_t m_CollisionFilter;
 
-	glm::vec3				m_MuzzleOffset;
+    glm::vec3 m_MuzzleOffset;
 };
 
-inline const glm::vec3& Ammo::GetSource() const 
-{ 
-	return m_Src; 
+inline const glm::vec3& Ammo::GetSource() const
+{
+    return m_Src;
 }
 
-inline const glm::vec3& Ammo::GetDestination() const 
-{ 
-	return m_Dst; 
+inline const glm::vec3& Ammo::GetDestination() const
+{
+    return m_Dst;
 }
 
-inline uint32_t Ammo::GetCollisionFilter() const 
-{ 
-	return m_CollisionFilter; 
+inline uint32_t Ammo::GetCollisionFilter() const
+{
+    return m_CollisionFilter;
 }
 
-inline Weapon* Ammo::GetOwner() const 
-{ 
-	return m_pOwner; 
+inline Weapon* Ammo::GetOwner() const
+{
+    return m_pOwner;
 }
 
 inline bool Ammo::IsAlive() const
 {
-	return m_IsAlive;
+    return m_IsAlive;
 }
 
 inline bool Ammo::IsGlowSource() const
 {
-	return m_IsGlowSource;
+    return m_IsGlowSource;
 }
 
 inline void Ammo::SetHitFraction( float value )
 {
-	m_HitFraction = value;
+    m_HitFraction = value;
 }
 
 inline float Ammo::GetHitFraction() const
 {
-	return m_HitFraction;
+    return m_HitFraction;
 }
 
 inline bool Ammo::GetDiesOnHit() const
 {
-	return m_DiesOnHit;
+    return m_DiesOnHit;
 }
 
 inline bool Ammo::CanBypassShields() const
 {
-	return false;
+    return false;
 }
 
-}
+} // namespace Hexterminate

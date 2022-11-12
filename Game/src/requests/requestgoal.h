@@ -28,16 +28,14 @@
 
 using Genesis::Color;
 
-
 namespace Hexterminate
 {
 
 class SectorInfo;
 class RequestGoal;
-typedef std::shared_ptr< RequestGoal > RequestGoalSharedPtr;
-typedef std::weak_ptr< RequestGoal > RequestGoalWeakPtr;
-typedef std::list< RequestGoalSharedPtr > RequestGoalSharedPtrList;
-
+typedef std::shared_ptr<RequestGoal> RequestGoalSharedPtr;
+typedef std::weak_ptr<RequestGoal> RequestGoalWeakPtr;
+typedef std::list<RequestGoalSharedPtr> RequestGoalSharedPtrList;
 
 /////////////////////////////////////////////////////////////////////
 // RequestGoal
@@ -49,40 +47,39 @@ typedef std::list< RequestGoalSharedPtr > RequestGoalSharedPtrList;
 class RequestGoal
 {
 public:
-							RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
-							RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
+    RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
+    RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Color& colour = Color( 0.0f, 0.6f, 0.6f, 0.6f ) );
 
-	FleetWeakPtr			GetFleet() const;
-	SectorInfo*				GetSectorInfo() const;
-	const std::string&		GetDescription() const;
-	RequestGoalRepSharedPtr	GetRepresentation() const;
+    FleetWeakPtr GetFleet() const;
+    SectorInfo* GetSectorInfo() const;
+    const std::string& GetDescription() const;
+    RequestGoalRepSharedPtr GetRepresentation() const;
 
 private:
-	FleetWeakPtr			m_pFleet;
-	SectorInfo*				m_pSectorInfo;
-	std::string				m_Description;
-	RequestGoalRepSharedPtr	m_pRepresentation;
+    FleetWeakPtr m_pFleet;
+    SectorInfo* m_pSectorInfo;
+    std::string m_Description;
+    RequestGoalRepSharedPtr m_pRepresentation;
 };
-
 
 inline FleetWeakPtr RequestGoal::GetFleet() const
 {
-	return m_pFleet;
+    return m_pFleet;
 }
 
 inline SectorInfo* RequestGoal::GetSectorInfo() const
 {
-	return m_pSectorInfo;
+    return m_pSectorInfo;
 }
 
 inline const std::string& RequestGoal::GetDescription() const
 {
-	return m_Description;
+    return m_Description;
 }
 
 inline RequestGoalRepSharedPtr RequestGoal::GetRepresentation() const
 {
-	return m_pRepresentation;
+    return m_pRepresentation;
 }
 
-}
+} // namespace Hexterminate

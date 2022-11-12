@@ -17,34 +17,33 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
 #include <scene/sceneobject.h>
 #include <shader.h>
+#include <string>
+#include <vector>
 
 namespace Genesis
 {
-	class ResourceImage;
-	class VertexBuffer;
-}
+class ResourceImage;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
-class Boundary: public Genesis::SceneObject
+class Boundary : public Genesis::SceneObject
 {
 public:
-								Boundary();
-	virtual						~Boundary();
-	virtual void				Update( float delta ) override;
-	virtual void				Render() override;
-
+    Boundary();
+    virtual ~Boundary();
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
 private:
-	Genesis::Shader*			m_pShader;
-	Genesis::VertexBuffer*		m_pVertexBuffer;
-	float						m_DestructionTimer;
-	float						m_WarningTimer;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    float m_DestructionTimer;
+    float m_WarningTimer;
 };
 
-}
+} // namespace Hexterminate

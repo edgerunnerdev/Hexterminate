@@ -19,52 +19,51 @@
 
 #include "requests/defendrequestinfo.h"
 
-#include "fleet/fleetbehaviour.h"
+#include "faction/faction.h"
 #include "fleet/fleet.h"
+#include "fleet/fleetbehaviour.h"
+#include "hexterminate.h"
 #include "requests/defendrequest.h"
 #include "requests/requestmanager.h"
-#include "faction/faction.h"
-#include "hexterminate.h"
-
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr DefendRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) == false )
-		return ImperialRequestSharedPtr();
+    if ( CommonInstantiationChecks( pRequestManager ) == false )
+        return ImperialRequestSharedPtr();
 
-	SectorInfo* pSectorInfo = FindSector();
-	if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
-	{
-		return std::make_shared<DefendRequest>( pRequestManager, pSectorInfo );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    SectorInfo* pSectorInfo = FindSector();
+    if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
+    {
+        return std::make_shared<DefendRequest>( pRequestManager, pSectorInfo );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
 SectorInfo* DefendRequestInfo::FindSector() const
 {
-	Faction* pEmpireFaction = g_pGame->GetFaction( FactionId::Empire );
-	const SectorInfoVector& controlledSectors = pEmpireFaction->GetControlledSectors();
-	SectorInfoVector hostileBorderingSectors;
-	for ( auto& pSectorInfo : controlledSectors )
-	{
-		auto contestedFleets = pSectorInfo->GetContestedFleets();
-		for ( auto& contestedFleet : contestedFleets )
-		{
-			FleetSharedPtr pFleet = contestedFleet.lock();
-			if ( pFleet != nullptr && pFleet->IsEngaged() && Faction::sIsEnemyOf( pFleet->GetFaction(), pEmpireFaction ) )
-			{
-				return pSectorInfo;
-			}
-		}
-	}
+    Faction* pEmpireFaction = g_pGame->GetFaction( FactionId::Empire );
+    const SectorInfoVector& controlledSectors = pEmpireFaction->GetControlledSectors();
+    SectorInfoVector hostileBorderingSectors;
+    for ( auto& pSectorInfo : controlledSectors )
+    {
+        auto contestedFleets = pSectorInfo->GetContestedFleets();
+        for ( auto& contestedFleet : contestedFleets )
+        {
+            FleetSharedPtr pFleet = contestedFleet.lock();
+            if ( pFleet != nullptr && pFleet->IsEngaged() && Faction::sIsEnemyOf( pFleet->GetFaction(), pEmpireFaction ) )
+            {
+                return pSectorInfo;
+            }
+        }
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
-}
+} // namespace Hexterminate

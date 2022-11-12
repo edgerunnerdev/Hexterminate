@@ -24,25 +24,24 @@ namespace Hexterminate
 // HyperscapeLocation
 //-----------------------------------------------------------------------------
 
-HyperscapeLocation::HyperscapeLocation( const HyperscapeLocation& location ) :
-m_Seed( location.m_Seed ),
-m_Depth( location.m_Depth ),
-m_Type( location.m_Type )
+HyperscapeLocation::HyperscapeLocation( const HyperscapeLocation& location )
+    : m_Seed( location.m_Seed )
+    , m_Depth( location.m_Depth )
+    , m_Type( location.m_Type )
 {
-	m_pStarInfo = std::make_unique<StarInfo>( location.m_Seed );
+    m_pStarInfo = std::make_unique<StarInfo>( location.m_Seed );
 }
 
-HyperscapeLocation::HyperscapeLocation( Type type, uint32_t seed, uint32_t depth ) :
-m_Seed( seed ),
-m_Depth( depth ),
-m_Type( type )
+HyperscapeLocation::HyperscapeLocation( Type type, uint32_t seed, uint32_t depth )
+    : m_Seed( seed )
+    , m_Depth( depth )
+    , m_Type( type )
 {
     m_pStarInfo = std::make_unique<StarInfo>( seed );
 }
 
 HyperscapeLocation::~HyperscapeLocation()
 {
-
 }
 
 } // namespace Hexterminate

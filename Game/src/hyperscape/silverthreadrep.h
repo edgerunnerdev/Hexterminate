@@ -17,16 +17,16 @@
 
 #pragma once
 
+#include <inputmanager.h>
 #include <scene/layer.h>
 #include <scene/sceneobject.h>
-#include <inputmanager.h>
 #include <vertexbuffer.h>
 
 namespace Genesis
 {
-	class Shader;
-	class ShaderUniform;
-}
+class Shader;
+class ShaderUniform;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -37,62 +37,62 @@ class SilverThread;
 // SilverThreadRep
 //-----------------------------------------------------------------------------
 
-class SilverThreadRep: public Genesis::SceneObject
+class SilverThreadRep : public Genesis::SceneObject
 {
 public:
-	SilverThreadRep( SilverThread* pSilverThread );
-	virtual ~SilverThreadRep();
+    SilverThreadRep( SilverThread* pSilverThread );
+    virtual ~SilverThreadRep();
 
-	void Initialise();
-	void RemoveFromScene();
+    void Initialise();
+    void RemoveFromScene();
 
-	virtual void Update( float delta );
-	virtual void Render();
+    virtual void Update( float delta );
+    virtual void Render();
 
-	void Show( bool state );
-	bool IsVisible() const;
+    void Show( bool state );
+    bool IsVisible() const;
 
 private:
-	void UpdateInput();
+    void UpdateInput();
 
-	void RebuildLocationVB();
-	void RebuildLinkVB();
-	void DrawBackground();
+    void RebuildLocationVB();
+    void RebuildLinkVB();
+    void DrawBackground();
 
-	void OnLeftMouseButtonDown();
+    void OnLeftMouseButtonDown();
 
-	SilverThread* m_pSilverThread;
-	bool m_Show;
-	glm::vec2 m_Parallax;
-	Genesis::Shader* m_pStarShader;
-	Genesis::ShaderUniform* m_pStarParallax;
-	Genesis::VertexBuffer* m_pLocationVB;
-	Genesis::PositionData m_LocationPosData;
-	Genesis::UVData m_LocationUVData;
-	Genesis::ColourData m_LocationColorData;
-	
-	struct LocationScreenData
-	{
-		glm::vec2 position;
-		float size;
-	};
-	std::vector<LocationScreenData> m_LocationScreenData;
+    SilverThread* m_pSilverThread;
+    bool m_Show;
+    glm::vec2 m_Parallax;
+    Genesis::Shader* m_pStarShader;
+    Genesis::ShaderUniform* m_pStarParallax;
+    Genesis::VertexBuffer* m_pLocationVB;
+    Genesis::PositionData m_LocationPosData;
+    Genesis::UVData m_LocationUVData;
+    Genesis::ColourData m_LocationColorData;
 
-	Genesis::Shader* m_pLinkShader;
-	Genesis::ShaderUniform* m_pLinkParallax;
-	Genesis::VertexBuffer* m_pLinkVB;
-	Genesis::PositionData m_LinkPosData;
-	Genesis::UVData m_LinkUVData;
-	Genesis::ColourData m_LinkColorData;
+    struct LocationScreenData
+    {
+        glm::vec2 position;
+        float size;
+    };
+    std::vector<LocationScreenData> m_LocationScreenData;
 
-	Genesis::LayerSharedPtr m_pLayer;
+    Genesis::Shader* m_pLinkShader;
+    Genesis::ShaderUniform* m_pLinkParallax;
+    Genesis::VertexBuffer* m_pLinkVB;
+    Genesis::PositionData m_LinkPosData;
+    Genesis::UVData m_LinkUVData;
+    Genesis::ColourData m_LinkColorData;
 
-	Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
+    Genesis::LayerSharedPtr m_pLayer;
+
+    Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
 };
 
-inline bool SilverThreadRep::IsVisible() const 
-{ 
-	return m_Show; 
+inline bool SilverThreadRep::IsVisible() const
+{
+    return m_Show;
 }
 
 } // namespace Hexterminate

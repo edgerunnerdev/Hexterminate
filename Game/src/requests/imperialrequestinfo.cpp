@@ -17,12 +17,11 @@
 
 #include "requests/imperialrequestinfo.h"
 
+#include "hexterminate.h"
 #include "requests/imperialrequest.h"
 #include "requests/requestmanager.h"
-#include "hexterminate.h"
 
 #include <genesis.h>
-
 
 namespace Hexterminate
 {
@@ -33,33 +32,33 @@ bool ImperialRequestInfo::CommonInstantiationChecks( RequestManager* pRequestMan
     {
         return false;
     }
-	else if ( pRequestManager->GetActiveCount( GetType() ) >= GetMaximumRequests() )
-	{
-		return false;
-	}
-	else if ( g_pGame->GetPlayedTime() <= pRequestManager->GetPreviousStartTime( GetType() ) + GetMinimumTimeBetweenRequests() )
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+    else if ( pRequestManager->GetActiveCount( GetType() ) >= GetMaximumRequests() )
+    {
+        return false;
+    }
+    else if ( g_pGame->GetPlayedTime() <= pRequestManager->GetPreviousStartTime( GetType() ) + GetMinimumTimeBetweenRequests() )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 bool ImperialRequestInfo::IsDuplicateSector( RequestManager* pRequestManager, SectorInfo* pSectorInfo ) const
 {
-	const ImperialRequestList& requests = pRequestManager->GetRequests();
-	for ( auto& pRequest : requests )
-	{
-		ImperialRequest* pOtherRequest = pRequest.get();
-		if ( pOtherRequest->GoalExists( pSectorInfo ) )
-		{
-			return true;
-		}
-	}
+    const ImperialRequestList& requests = pRequestManager->GetRequests();
+    for ( auto& pRequest : requests )
+    {
+        ImperialRequest* pOtherRequest = pRequest.get();
+        if ( pOtherRequest->GoalExists( pSectorInfo ) )
+        {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
-}
+} // namespace Hexterminate

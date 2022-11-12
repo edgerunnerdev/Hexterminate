@@ -20,10 +20,10 @@
 #include <any>
 #include <vector>
 
-#include "ui/types.fwd.h"
-#include "ui/window.h"
 #include "sector/galaxycreationinfo.h"
 #include "ship/ship.h"
+#include "ui/types.fwd.h"
+#include "ui/window.h"
 
 namespace Hexterminate
 {
@@ -77,7 +77,7 @@ private:
     UI::ButtonSharedPtr m_pButtonNext;
     UI::ButtonSharedPtr m_pButtonPrevious;
 
-    ShipCustomisationData m_ShipCustomisationData; 
+    ShipCustomisationData m_ShipCustomisationData;
     std::string m_CompanionShipTemplate;
     GalaxyCreationInfo m_GalaxyCreationInfo;
 

@@ -19,64 +19,63 @@
 
 #include "requests/arbiterrequestinfo.h"
 
-#include "fleet/fleetbehaviour.h"
+#include "faction/faction.h"
 #include "fleet/fleet.h"
+#include "fleet/fleetbehaviour.h"
+#include "hexterminate.h"
 #include "requests/arbiterrequest.h"
 #include "requests/campaigntags.h"
 #include "requests/requestmanager.h"
-#include "faction/faction.h"
-#include "hexterminate.h"
-
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr ArbiterRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) == false )
-	{
-		return ImperialRequestSharedPtr();
-	}
-	else if ( g_pGame->GetBlackboard()->Get( sArbitersDestroyed ) >= 4 )
-	{
-		return ImperialRequestSharedPtr();
-	}
+    if ( CommonInstantiationChecks( pRequestManager ) == false )
+    {
+        return ImperialRequestSharedPtr();
+    }
+    else if ( g_pGame->GetBlackboard()->Get( sArbitersDestroyed ) >= 4 )
+    {
+        return ImperialRequestSharedPtr();
+    }
 
-	// Do not spawn this request unless the player has begun the Iriani arc,
-	// as the player can't enter Iriani space anyway due to the hyperspace inhibitors.
-	BlackboardSharedPtr pBlackboard = g_pGame->GetBlackboard();
-	if ( pBlackboard->Exists( sConquerIrianiPrime ) == false )
-	{
-		return ImperialRequestSharedPtr();
-	}
+    // Do not spawn this request unless the player has begun the Iriani arc,
+    // as the player can't enter Iriani space anyway due to the hyperspace inhibitors.
+    BlackboardSharedPtr pBlackboard = g_pGame->GetBlackboard();
+    if ( pBlackboard->Exists( sConquerIrianiPrime ) == false )
+    {
+        return ImperialRequestSharedPtr();
+    }
 
-	SectorInfo* pSectorInfo = FindSector();
-	if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
-	{
-		return std::make_shared< ArbiterRequest >( pRequestManager, pSectorInfo );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    SectorInfo* pSectorInfo = FindSector();
+    if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
+    {
+        return std::make_shared<ArbiterRequest>( pRequestManager, pSectorInfo );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
 SectorInfo* ArbiterRequestInfo::FindSector() const
 {
-	Faction* pIrianiFaction = g_pGame->GetFaction( FactionId::Iriani );
-	const SectorInfoVector& controlledSectors = pIrianiFaction->GetControlledSectors();
-	SectorInfoVector possibleSectors( controlledSectors.size() );
+    Faction* pIrianiFaction = g_pGame->GetFaction( FactionId::Iriani );
+    const SectorInfoVector& controlledSectors = pIrianiFaction->GetControlledSectors();
+    SectorInfoVector possibleSectors( controlledSectors.size() );
 
-	std::copy_if( controlledSectors.begin(), controlledSectors.end(), possibleSectors.begin(), []( SectorInfo* pSectorInfo ) { return !pSectorInfo->IsPersonal(); } );
-	const size_t numPossibleSectors = possibleSectors.size();
-	if ( numPossibleSectors > 0 )
-	{
-		return ( possibleSectors[ rand() % numPossibleSectors ] );
-	}
-	else
-	{
-		return nullptr;
-	}
+    std::copy_if( controlledSectors.begin(), controlledSectors.end(), possibleSectors.begin(), []( SectorInfo* pSectorInfo ) { return !pSectorInfo->IsPersonal(); } );
+    const size_t numPossibleSectors = possibleSectors.size();
+    if ( numPossibleSectors > 0 )
+    {
+        return ( possibleSectors[ rand() % numPossibleSectors ] );
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
-}
+} // namespace Hexterminate

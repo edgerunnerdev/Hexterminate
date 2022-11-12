@@ -20,7 +20,7 @@
 #include <memory>
 #include <vector>
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
 class Button;

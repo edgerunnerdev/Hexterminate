@@ -17,48 +17,46 @@
 
 #pragma once
 
-#include <vector>
+#include "sprite/sprite.h"
 #include <genesis.h>
 #include <rendersystem.h>
 #include <resourcemanager.h>
 #include <scene/sceneobject.h>
-#include "sprite/sprite.h"
+#include <vector>
 
 namespace Genesis
 {
 class ResourceImage;
 class VertexBuffer;
-}
-
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
-typedef std::vector< Sprite > SpriteVector;
-
+typedef std::vector<Sprite> SpriteVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // SpriteManager
 // Draws all the sprites as a single draw call
 ///////////////////////////////////////////////////////////////////////////////
 
-class SpriteManager: public Genesis::SceneObject
+class SpriteManager : public Genesis::SceneObject
 {
 public:
-									SpriteManager();
-	virtual							~SpriteManager() override;
+    SpriteManager();
+    virtual ~SpriteManager() override;
 
-	virtual void					Update( float delta ) override;
-	virtual void					Render() override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-	void							AddSprite( const Sprite& Sprite );
+    void AddSprite( const Sprite& Sprite );
 
 private:
-	SpriteVector					m_Sprites;
+    SpriteVector m_Sprites;
 
-	Genesis::ResourceImage*			m_pTexture;
-	Genesis::Shader*				m_pShader;
-	Genesis::VertexBuffer*			m_pVertexBuffer;
+    Genesis::ResourceImage* m_pTexture;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
 };
 
-}
+} // namespace Hexterminate

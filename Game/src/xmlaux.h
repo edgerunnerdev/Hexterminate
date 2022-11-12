@@ -19,13 +19,15 @@
 
 #include <string>
 
+// clang-format off
 #include <beginexternalheaders.h>
 #include <tinyxml2.h>
 #include <endexternalheaders.h>
+// clang-format on
 
-#include "ship/moduleinfo.h"
 #include "fleet/fleet.h"
 #include "hexterminate.h"
+#include "ship/moduleinfo.h"
 
 namespace Xml
 {
@@ -43,4 +45,4 @@ void Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement, c
 void Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement, const std::string& elementName, bool content );
 void Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement, const std::string& elementName, Hexterminate::FleetState content );
 
-}
+} // namespace Xml

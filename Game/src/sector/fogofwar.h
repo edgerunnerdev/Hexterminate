@@ -29,14 +29,14 @@ class SectorInfo;
 class FogOfWar
 {
 public:
-	FogOfWar();
-	void Update( float delta );
-	void MarkAsVisible( const SectorInfo* pSectorInfo, int radius = 0 );
-	bool IsVisible( const SectorInfo* pSectorInfo ) const;
+    FogOfWar();
+    void Update( float delta );
+    void MarkAsVisible( const SectorInfo* pSectorInfo, int radius = 0 );
+    bool IsVisible( const SectorInfo* pSectorInfo ) const;
 
 private:
-	void MarkAsVisibleSingle( int x, int y );
-	std::array< std::array< float, NumSectorsY >, NumSectorsX > m_Tiles;
+    void MarkAsVisibleSingle( int x, int y );
+    std::array<std::array<float, NumSectorsY>, NumSectorsX> m_Tiles;
 };
 
-}
+} // namespace Hexterminate

@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "menus/eva.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -27,7 +27,6 @@ class ButtonDeathExit;
 class ButtonDeathRespawn;
 class SectorInfo;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // DeathMenu
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,30 +34,29 @@ class SectorInfo;
 class DeathMenu
 {
 public:
-							DeathMenu();
-							~DeathMenu();
+    DeathMenu();
+    ~DeathMenu();
 
-	void					Update( float delta );
-	void					Show( bool state );
-	SectorInfo*				GetRespawnSector() const;
+    void Update( float delta );
+    void Show( bool state );
+    SectorInfo* GetRespawnSector() const;
 
 private:
-	void					UpdateButtons();
-	void					AlignToCentre( Genesis::Gui::Text* pText );
+    void UpdateButtons();
+    void AlignToCentre( Genesis::Gui::Text* pText );
 
-	EvaWindow*				m_pWindow;
-	Genesis::Gui::Text*		m_pText;
-	ButtonDeathExit*		m_pButtonExit;
-	ButtonDeathRespawn*		m_pButtonRespawn;
-	float					m_DisplayTimer;
-	SectorInfo*				m_pRespawnSector;
+    EvaWindow* m_pWindow;
+    Genesis::Gui::Text* m_pText;
+    ButtonDeathExit* m_pButtonExit;
+    ButtonDeathRespawn* m_pButtonRespawn;
+    float m_DisplayTimer;
+    SectorInfo* m_pRespawnSector;
 };
 
 inline SectorInfo* DeathMenu::GetRespawnSector() const
 {
-	return m_pRespawnSector;
+    return m_pRespawnSector;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonDeathExit
@@ -67,11 +65,10 @@ inline SectorInfo* DeathMenu::GetRespawnSector() const
 class ButtonDeathExit : public Genesis::Gui::Button
 {
 public:
-							ButtonDeathExit();
-	virtual					~ButtonDeathExit() override {};
-	virtual void			OnPress() override;
+    ButtonDeathExit();
+    virtual ~ButtonDeathExit() override{};
+    virtual void OnPress() override;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonDeathRespawn
@@ -80,12 +77,12 @@ public:
 class ButtonDeathRespawn : public Genesis::Gui::Button
 {
 public:
-							ButtonDeathRespawn( DeathMenu* pOwner );
-	virtual					 ~ButtonDeathRespawn() override {};
-	virtual void			OnPress() override;
+    ButtonDeathRespawn( DeathMenu* pOwner );
+    virtual ~ButtonDeathRespawn() override{};
+    virtual void OnPress() override;
 
 private:
-	DeathMenu*				m_pOwner;
+    DeathMenu* m_pOwner;
 };
 
-}
+} // namespace Hexterminate

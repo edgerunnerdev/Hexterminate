@@ -35,31 +35,31 @@ using StarfieldEntryArray = std::array<StarfieldEntry, 128>;
 class Starfield
 {
 public:
-	Starfield();
-	~Starfield();
+    Starfield();
+    ~Starfield();
 
-	void Update( float delta );
-	void Show( bool state );
-	StarfieldRep* GetRepresentation() const;
-	bool IsVisible() const;
+    void Update( float delta );
+    void Show( bool state );
+    StarfieldRep* GetRepresentation() const;
+    bool IsVisible() const;
 
-	const StarfieldEntryArray& GetEntries() const;
+    const StarfieldEntryArray& GetEntries() const;
 
 private:
-	StarfieldEntry CreateEntry( bool randomStart );
+    StarfieldEntry CreateEntry( bool randomStart );
 
-	std::unique_ptr<StarfieldRep> m_pRep;
-	StarfieldEntryArray m_Entries;
+    std::unique_ptr<StarfieldRep> m_pRep;
+    StarfieldEntryArray m_Entries;
 };
 
 inline StarfieldRep* Starfield::GetRepresentation() const
 {
-	return m_pRep.get();
+    return m_pRep.get();
 }
 
 inline const StarfieldEntryArray& Starfield::GetEntries() const
 {
-	return m_Entries;
+    return m_Entries;
 }
 
 } // namespace Hexterminate

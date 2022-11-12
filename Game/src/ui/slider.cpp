@@ -29,76 +29,76 @@ namespace Hexterminate::UI
 static const int sSliderHandleWidth = 8;
 static const int sSliderBarHeight = 4;
 
-Slider::Slider( const std::string& name, OnValueChanged onValueChanged /* = nullptr */ ) : 
-Element( name ),
-m_Grabbed( false ),
-m_OnValueChanged( onValueChanged )
+Slider::Slider( const std::string& name, OnValueChanged onValueChanged /* = nullptr */ )
+    : Element( name )
+    , m_Grabbed( false )
+    , m_OnValueChanged( onValueChanged )
 {
     using namespace Genesis;
 
-	m_pBar = std::make_shared<Panel>( "Bar" );
-	m_pBar->SetEditable( false );
-	m_pBar->SetColour( 0.5f, 0.5f, 0.5f, 1.0f );
-	Add( m_pBar );
+    m_pBar = std::make_shared<Panel>( "Bar" );
+    m_pBar->SetEditable( false );
+    m_pBar->SetColour( 0.5f, 0.5f, 0.5f, 1.0f );
+    Add( m_pBar );
 
-	m_pHandle = std::make_shared<Panel>( "Handle" );
-	m_pHandle->SetEditable( false );
-	m_pHandle->SetColour( 0.309f, 0.639f, 0.690f, 1.0f );
-	Add( m_pHandle );
-	
-	SetSize( 256, 16 );
+    m_pHandle = std::make_shared<Panel>( "Handle" );
+    m_pHandle->SetEditable( false );
+    m_pHandle->SetColour( 0.309f, 0.639f, 0.690f, 1.0f );
+    Add( m_pHandle );
 
-	m_LeftClickPressedToken = FrameWork::GetInputManager()->AddMouseCallback( [this](){ OnLeftClickPressed(); }, MouseButton::Left, ButtonState::Pressed );
-	m_LeftClickReleasedToken = FrameWork::GetInputManager()->AddMouseCallback( [this](){ OnLeftClickReleased(); }, MouseButton::Left, ButtonState::Released );
+    SetSize( 256, 16 );
+
+    m_LeftClickPressedToken = FrameWork::GetInputManager()->AddMouseCallback( [ this ]() { OnLeftClickPressed(); }, MouseButton::Left, ButtonState::Pressed );
+    m_LeftClickReleasedToken = FrameWork::GetInputManager()->AddMouseCallback( [ this ]() { OnLeftClickReleased(); }, MouseButton::Left, ButtonState::Released );
 }
 
 Slider::~Slider()
 {
-	Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
-	pInputManager->RemoveMouseCallback( m_LeftClickPressedToken );
-	pInputManager->RemoveMouseCallback( m_LeftClickReleasedToken );
+    Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
+    pInputManager->RemoveMouseCallback( m_LeftClickPressedToken );
+    pInputManager->RemoveMouseCallback( m_LeftClickReleasedToken );
 }
 
 void Slider::Update()
 {
-	Element::Update();
+    Element::Update();
 
-	if ( m_pHandle->IsHovered() || m_Grabbed )
-	{
-		m_pHandle->SetColour( 0.0f, 1.0f, 1.0f, 1.0f );
-	}
-	else
-	{
-		m_pHandle->SetColour( 0.309f, 0.639f, 0.690f, 1.0f );
-	}
+    if ( m_pHandle->IsHovered() || m_Grabbed )
+    {
+        m_pHandle->SetColour( 0.0f, 1.0f, 1.0f, 1.0f );
+    }
+    else
+    {
+        m_pHandle->SetColour( 0.309f, 0.639f, 0.690f, 1.0f );
+    }
 
-	if ( m_Grabbed )
-	{
-		UpdateHandlePosition();
-	}
+    if ( m_Grabbed )
+    {
+        UpdateHandlePosition();
+    }
 }
 
 void Slider::SetSize( int width, int height )
 {
-	Element::SetSize( width, height );
+    Element::SetSize( width, height );
 
-	m_pBar->SetSize( width, sSliderBarHeight );
-	m_pBar->SetPosition( 0, height / 2 - sSliderBarHeight / 2 );
-	
-	m_pHandle->SetSize( sSliderHandleWidth, height );
-	m_pHandle->SetPosition( sSliderHandleWidth / 2, 0 );
+    m_pBar->SetSize( width, sSliderBarHeight );
+    m_pBar->SetPosition( 0, height / 2 - sSliderBarHeight / 2 );
+
+    m_pHandle->SetSize( sSliderHandleWidth, height );
+    m_pHandle->SetPosition( sSliderHandleWidth / 2, 0 );
 }
 
 // Expects a value between 0 and 1.
 void Slider::SetValue( float value )
 {
-	value = gClamp( value, 0.0f, 1.0f );
+    value = gClamp( value, 0.0f, 1.0f );
 
-	int xBar, yBar;
-	m_pBar->GetPosition( xBar, yBar );
+    int xBar, yBar;
+    m_pBar->GetPosition( xBar, yBar );
 
-	int xHandle = static_cast<int>( xBar + 4 + value * ( m_pBar->GetWidth() - 8 - sSliderHandleWidth ) );
-	m_pHandle->SetPosition( xHandle, 0 );
+    int xHandle = static_cast<int>( xBar + 4 + value * ( m_pBar->GetWidth() - 8 - sSliderHandleWidth ) );
+    m_pHandle->SetPosition( xHandle, 0 );
 
     if ( m_OnValueChanged != nullptr )
     {
@@ -108,24 +108,24 @@ void Slider::SetValue( float value )
 
 void Slider::UpdateHandlePosition()
 {
-	const float xMin = m_pBar->GetPanel()->GetPositionAbsolute().x + 4;
-	const float xMax = xMin + m_pBar->GetWidth() - 8 - sSliderHandleWidth;
-	const float xMouse = Genesis::FrameWork::GetInputManager()->GetMousePosition().x;
-	const float value = gClamp( ( xMouse - xMin ) / ( xMax - xMin ), 0.0f, 1.0f );
-	SetValue( value );
+    const float xMin = m_pBar->GetPanel()->GetPositionAbsolute().x + 4;
+    const float xMax = xMin + m_pBar->GetWidth() - 8 - sSliderHandleWidth;
+    const float xMouse = Genesis::FrameWork::GetInputManager()->GetMousePosition().x;
+    const float value = gClamp( ( xMouse - xMin ) / ( xMax - xMin ), 0.0f, 1.0f );
+    SetValue( value );
 }
 
 void Slider::OnLeftClickPressed()
 {
-	if ( m_pHandle->IsHovered() && IsAcceptingInput() )
-	{
-		m_Grabbed = true;
-	}
+    if ( m_pHandle->IsHovered() && IsAcceptingInput() )
+    {
+        m_Grabbed = true;
+    }
 }
 
 void Slider::OnLeftClickReleased()
 {
-	m_Grabbed = false;
+    m_Grabbed = false;
 }
 
 } // namespace Hexterminate::UI

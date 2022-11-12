@@ -38,16 +38,16 @@ using LoadGameSelectionVector = std::vector<ButtonLoadGameSelection*>;
 class LoadGameWindow : public UI::Window
 {
 public:
-	LoadGameWindow();
-	virtual void Reset() override;
+    LoadGameWindow();
+    virtual void Reset() override;
 
 private:
-	void CreateTable();
+    void CreateTable();
 
-	UI::ScrollingElementSharedPtr m_pScrollingElement;
-	Table* m_pTable;
-	LoadGameSelectionVector	m_Selections;
-	bool m_TableDirty;
+    UI::ScrollingElementSharedPtr m_pScrollingElement;
+    Table* m_pTable;
+    LoadGameSelectionVector m_Selections;
+    bool m_TableDirty;
 };
 
 } // namespace Hexterminate

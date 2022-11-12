@@ -22,19 +22,18 @@
 #include <string>
 #include <vector>
 
+#include "faction/faction.h"
+#include "perks.h"
 #include "ship/moduleinfo.h"
 #include "ship/ship.fwd.h"
 #include "ship/weapon.h"
-#include "faction/faction.h"
-#include "perks.h"
 
 namespace Hexterminate
 {
 
 class Fleet;
 class ShipInfo;
-typedef std::vector< const ShipInfo* > ShipInfoVector;
-
+typedef std::vector<const ShipInfo*> ShipInfoVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // ShipInfoManager
@@ -44,29 +43,28 @@ typedef std::vector< const ShipInfo* > ShipInfoVector;
 class ShipInfoManager
 {
 public:
-	ShipInfoManager();
-	~ShipInfoManager();
-	void Initialise();
+    ShipInfoManager();
+    ~ShipInfoManager();
+    void Initialise();
 
-	const ShipInfo* Get( const Faction* pFaction, const std::string& name ) const;
-	const ShipInfoVector& Get( const Faction* pFaction ) const;
+    const ShipInfo* Get( const Faction* pFaction, const std::string& name ) const;
+    const ShipInfoVector& Get( const Faction* pFaction ) const;
 
 private:
-	void SerialiseHexGrid( const Faction* pFaction, const std::filesystem::path& filename );
-	void SerialiseXml( const Faction* pFaction, const std::filesystem::path& filename );
-	ShipInfoVector m_Data[ static_cast<unsigned int>( FactionId::Count ) ];
-	bool m_Initialised;
+    void SerialiseHexGrid( const Faction* pFaction, const std::filesystem::path& filename );
+    void SerialiseXml( const Faction* pFaction, const std::filesystem::path& filename );
+    ShipInfoVector m_Data[ static_cast<unsigned int>( FactionId::Count ) ];
+    bool m_Initialised;
 };
 
 inline const ShipInfoVector& ShipInfoManager::Get( const Faction* pFaction ) const
 {
-	return m_Data[ static_cast<int>( pFaction->GetFactionId() ) ];
+    return m_Data[ static_cast<int>( pFaction->GetFactionId() ) ];
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ShipInfo
-// Contains the basic information that is necessary to spawn a ship. 
+// Contains the basic information that is necessary to spawn a ship.
 // Every ship that is spawned contains a pointer to its ShipInfo.
 // The ShipInfo is held by its Fleet.
 // A ship is flagged as being "special" if its name is prefixed with "special_"
@@ -77,54 +75,54 @@ inline const ShipInfoVector& ShipInfoManager::Get( const Faction* pFaction ) con
 class ShipInfo
 {
 public:
-						ShipInfo( const std::string& name, ModuleInfoHexGrid* pModuleInfoHexGrid );
-						~ShipInfo();
+    ShipInfo( const std::string& name, ModuleInfoHexGrid* pModuleInfoHexGrid );
+    ~ShipInfo();
 
-	ModuleInfoHexGrid*	GetModuleInfoHexGrid() const							{ return m_pModuleInfoHexGrid; }
-	const std::string&	GetName() const											{ return m_Name; }
-	int					GetPoints() const										{ return m_Points; }
-	int					GetThreatValue() const									{ return m_ThreatValue; }
-	ShipType			GetShipType() const										{ return m_ShipType; }
-	bool				IsSpecial() const										{ return m_IsSpecial; }
-	bool				IsFlagship() const										{ return m_IsFlagship; }
+    ModuleInfoHexGrid* GetModuleInfoHexGrid() const { return m_pModuleInfoHexGrid; }
+    const std::string& GetName() const { return m_Name; }
+    int GetPoints() const { return m_Points; }
+    int GetThreatValue() const { return m_ThreatValue; }
+    ShipType GetShipType() const { return m_ShipType; }
+    bool IsSpecial() const { return m_IsSpecial; }
+    bool IsFlagship() const { return m_IsFlagship; }
 
-	const std::string&	GetDisplayName() const									{ return m_DisplayName; }
-	const std::string&	GetLongDisplayName() const								{ return m_LongDisplayName; }
-	const std::string&	GetDisplayImage() const									{ return m_DisplayImage; }
-	const std::string&	GetWeaponsText() const									{ return m_Weapons; }
-	const std::string&	GetDefenseText() const									{ return m_Defense; }
-	int					GetCost() const											{ return m_Cost; }
-	std::optional<Perk>	GetRequiredPerk() const;
+    const std::string& GetDisplayName() const { return m_DisplayName; }
+    const std::string& GetLongDisplayName() const { return m_LongDisplayName; }
+    const std::string& GetDisplayImage() const { return m_DisplayImage; }
+    const std::string& GetWeaponsText() const { return m_Weapons; }
+    const std::string& GetDefenseText() const { return m_Defense; }
+    int GetCost() const { return m_Cost; }
+    std::optional<Perk> GetRequiredPerk() const;
 
-	void				SetDisplayName( const std::string& name )				{ m_DisplayName = name; }
-	void				SetLongDisplayName( const std::string& name )			{ m_LongDisplayName = name ; }
-	void				SetDisplayImage( const std::string& file )				{ m_DisplayImage = file; }
-	void				SetWeaponsText( const std::string& text )				{ m_Weapons = text; }
-	void				SetDefenseText( const std::string& text )				{ m_Defense = text; }
-	void				SetCost( int cost )										{ m_Cost = cost; }
-	void				SetTier( int tier )										{ m_Tier = tier; }
+    void SetDisplayName( const std::string& name ) { m_DisplayName = name; }
+    void SetLongDisplayName( const std::string& name ) { m_LongDisplayName = name; }
+    void SetDisplayImage( const std::string& file ) { m_DisplayImage = file; }
+    void SetWeaponsText( const std::string& text ) { m_Weapons = text; }
+    void SetDefenseText( const std::string& text ) { m_Defense = text; }
+    void SetCost( int cost ) { m_Cost = cost; }
+    void SetTier( int tier ) { m_Tier = tier; }
 
-	static int			sCalculatePoints( int numSlots );
-	static int			sCalculateThreatValue( ModuleInfoHexGrid* pHexGrid );
-	static ShipType		sCalculateShipType( int numSlots );
+    static int sCalculatePoints( int numSlots );
+    static int sCalculateThreatValue( ModuleInfoHexGrid* pHexGrid );
+    static ShipType sCalculateShipType( int numSlots );
 
 private:
-	std::string			m_Name;
-	ModuleInfoHexGrid*	m_pModuleInfoHexGrid;
-	int					m_Points;
-	int					m_ThreatValue; 
-	ShipType			m_ShipType;
-	bool				m_IsSpecial; 
-	bool				m_IsFlagship;
+    std::string m_Name;
+    ModuleInfoHexGrid* m_pModuleInfoHexGrid;
+    int m_Points;
+    int m_ThreatValue;
+    ShipType m_ShipType;
+    bool m_IsSpecial;
+    bool m_IsFlagship;
 
-	// Extended information only available through a matching XML
-	std::string			m_DisplayName;
-	std::string			m_LongDisplayName;
-	std::string			m_DisplayImage;
-	std::string			m_Weapons;
-	std::string			m_Defense;
-	int					m_Cost;
-	int					m_Tier;
+    // Extended information only available through a matching XML
+    std::string m_DisplayName;
+    std::string m_LongDisplayName;
+    std::string m_DisplayImage;
+    std::string m_Weapons;
+    std::string m_Defense;
+    int m_Cost;
+    int m_Tier;
 };
 
-}
+} // namespace Hexterminate

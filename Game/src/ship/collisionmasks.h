@@ -21,27 +21,26 @@ namespace Tannhauser
 {
 
 // Naiive way of doing this
-static const int CM_FACTION_1_SHIP	= 1 << 0;
-static const int CM_FACTION_1_AMMO	= 1 << 1;
-static const int CM_FACTION_2_SHIP	= 1 << 2;
-static const int CM_FACTION_2_AMMO	= 1 << 3;
-static const int CM_FACTION_3_SHIP	= 1 << 4;
-static const int CM_FACTION_3_AMMO	= 1 << 5;
-static const int CM_FACTION_4_SHIP  = 1 << 6;
-static const int CM_FACTION_5_AMMO  = 1 << 7;
-
+static const int CM_FACTION_1_SHIP = 1 << 0;
+static const int CM_FACTION_1_AMMO = 1 << 1;
+static const int CM_FACTION_2_SHIP = 1 << 2;
+static const int CM_FACTION_2_AMMO = 1 << 3;
+static const int CM_FACTION_3_SHIP = 1 << 4;
+static const int CM_FACTION_3_AMMO = 1 << 5;
+static const int CM_FACTION_4_SHIP = 1 << 6;
+static const int CM_FACTION_5_AMMO = 1 << 7;
 
 enum CollisionDataType
 {
-	DATA_TYPE_nullptr = 0,
-	DATA_TYPE_SHIP,
-	DATA_TYPE_AMMO
+    DATA_TYPE_nullptr = 0,
+    DATA_TYPE_SHIP,
+    DATA_TYPE_AMMO
 };
 
 struct CollisionData
 {
-	CollisionDataType type;
-	void* pOwner;
+    CollisionDataType type;
+    void* pOwner;
 };
 
-}
+} // namespace Tannhauser

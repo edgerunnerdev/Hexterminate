@@ -27,22 +27,22 @@ namespace Hexterminate
 class PerkTooltip
 {
 public:
-							PerkTooltip();
-							~PerkTooltip();
+    PerkTooltip();
+    ~PerkTooltip();
 
-	void					Init( const std::string& name, const std::string& description, unsigned int cost );
-	void					Show( bool state );
-	void					SetState( PerkState state );
+    void Init( const std::string& name, const std::string& description, unsigned int cost );
+    void Show( bool state );
+    void SetState( PerkState state );
 
 private:
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pTitle;
-	Genesis::Gui::Text*		m_pState;
-	Genesis::Gui::Text*		m_pDescription;
-	Genesis::Gui::Text*		m_pCost;
-	Genesis::Gui::Image*	m_pCostIcon;
-	int						m_Cost;
-	PerkState				m_PerkState;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pTitle;
+    Genesis::Gui::Text* m_pState;
+    Genesis::Gui::Text* m_pDescription;
+    Genesis::Gui::Text* m_pCost;
+    Genesis::Gui::Image* m_pCostIcon;
+    int m_Cost;
+    PerkState m_PerkState;
 };
 
-}
+} // namespace Hexterminate

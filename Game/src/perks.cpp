@@ -25,39 +25,39 @@ namespace Hexterminate
 
 Perks::Perks()
 {
-	Reset();
+    Reset();
 }
 
 bool Perks::Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement )
 {
-	using namespace tinyxml2;
-	XMLElement* pPerksElement = xmlDoc.NewElement( "Perks" );
-	pRootElement->LinkEndChild( pPerksElement );
+    using namespace tinyxml2;
+    XMLElement* pPerksElement = xmlDoc.NewElement( "Perks" );
+    pRootElement->LinkEndChild( pPerksElement );
 
-	Xml::Write( xmlDoc, pPerksElement, "Version", GetVersion() );
-	Xml::Write( xmlDoc, pPerksElement, "Bitset", m_Bitset.to_string() );
+    Xml::Write( xmlDoc, pPerksElement, "Version", GetVersion() );
+    Xml::Write( xmlDoc, pPerksElement, "Bitset", m_Bitset.to_string() );
 
-	return true;
+    return true;
 }
 
 bool Perks::Read( tinyxml2::XMLElement* pRootElement )
 {
-	int version = 0;
-	std::string bitset;
+    int version = 0;
+    std::string bitset;
 
-	for ( tinyxml2::XMLElement* pChildElement = pRootElement->FirstChildElement(); pChildElement != nullptr; pChildElement = pChildElement->NextSiblingElement() ) 
-	{
-		Xml::Serialise( pChildElement, "Version", version );
-		Xml::Serialise( pChildElement, "Bitset", bitset );
-	}
+    for ( tinyxml2::XMLElement* pChildElement = pRootElement->FirstChildElement(); pChildElement != nullptr; pChildElement = pChildElement->NextSiblingElement() )
+    {
+        Xml::Serialise( pChildElement, "Version", version );
+        Xml::Serialise( pChildElement, "Bitset", bitset );
+    }
 
-	SDL_assert_release(version == GetVersion());
-	SDL_assert_release(bitset.length() == sMaxPerks);
-	SDL_assert_release((unsigned int)Perk::Count <= sMaxPerks);
-	
-	m_Bitset = std::bitset<sMaxPerks>(bitset);
+    SDL_assert_release( version == GetVersion() );
+    SDL_assert_release( bitset.length() == sMaxPerks );
+    SDL_assert_release( (unsigned int)Perk::Count <= sMaxPerks );
 
-	return true;
+    m_Bitset = std::bitset<sMaxPerks>( bitset );
+
+    return true;
 }
 
-}
+} // namespace Hexterminate

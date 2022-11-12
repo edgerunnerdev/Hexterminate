@@ -17,23 +17,22 @@
 
 #include "requests/campaignrequestinfo.h"
 
-#include "requests/campaignrequest.h"
 #include "hexterminate.h"
-
+#include "requests/campaignrequest.h"
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr CampaignRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) )
-	{
-		return std::make_shared<CampaignRequest>( pRequestManager );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    if ( CommonInstantiationChecks( pRequestManager ) )
+    {
+        return std::make_shared<CampaignRequest>( pRequestManager );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
-}
+} // namespace Hexterminate

@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "ship/moduleinfo.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -26,44 +26,44 @@ namespace Hexterminate
 class Table;
 class TableRow;
 
-// Displays the stats for the player ship. 
+// Displays the stats for the player ship.
 class PanelShipStats
 {
 public:
-							PanelShipStats();
-	virtual					~PanelShipStats();
-	void					Show( bool state );
-	void					OnShipConfigurationChanged();
+    PanelShipStats();
+    virtual ~PanelShipStats();
+    void Show( bool state );
+    void OnShipConfigurationChanged();
 
 private:
-	void					AddEmptyRow();
-	void					AddTitleRow( const std::string& title );
+    void AddEmptyRow();
+    void AddTitleRow( const std::string& title );
 
-	void					AddWeaponryRows();
-	void					AddShieldRows();
-	void					AddEnergyRows();
+    void AddWeaponryRows();
+    void AddShieldRows();
+    void AddEnergyRows();
 
-	void					UpdateWeaponryStats();
-	void					UpdateShieldStats();
-	void					UpdateEnergyStats();
+    void UpdateWeaponryStats();
+    void UpdateShieldStats();
+    void UpdateEnergyStats();
 
-	float					CalculateBonusMultiplier( TowerBonus towerBonus ) const;
+    float CalculateBonusMultiplier( TowerBonus towerBonus ) const;
 
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pTitle;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pTitle;
 
-	Table*					m_pTable;
+    Table* m_pTable;
 
-	TableRow*				m_pWeaponryTurretRow;
-	TableRow*				m_pWeaponryFixedRow;
-	TableRow*				m_pShieldCapacityRow;
-	TableRow*				m_pShieldRechargeRow;
-	TableRow*				m_pShieldEfficiencyRow;
-	TableRow*				m_pEnergyCapacityRow;
-	TableRow*				m_pEnergyRechargeRow;
-	TableRow*				m_pEnergyUsageRow;
+    TableRow* m_pWeaponryTurretRow;
+    TableRow* m_pWeaponryFixedRow;
+    TableRow* m_pShieldCapacityRow;
+    TableRow* m_pShieldRechargeRow;
+    TableRow* m_pShieldEfficiencyRow;
+    TableRow* m_pEnergyCapacityRow;
+    TableRow* m_pEnergyRechargeRow;
+    TableRow* m_pEnergyUsageRow;
 
-	float					m_EnergyUsage;
+    float m_EnergyUsage;
 };
 
-}
+} // namespace Hexterminate

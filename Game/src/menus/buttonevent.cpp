@@ -22,16 +22,16 @@
 namespace Hexterminate
 {
 
-ButtonEvent::ButtonEvent( Genesis::Gui::GuiEventHandler* pHandler, Genesis::Gui::GuiEvent event ) :
-m_pHandler( pHandler ),
-m_Event( event )
+ButtonEvent::ButtonEvent( Genesis::Gui::GuiEventHandler* pHandler, Genesis::Gui::GuiEvent event )
+    : m_pHandler( pHandler )
+    , m_Event( event )
 {
-	SDL_assert( m_pHandler != nullptr );	
+    SDL_assert( m_pHandler != nullptr );
 }
 
 void ButtonEvent::OnPress()
 {
-	m_pHandler->HandleEvent( m_Event );
+    m_pHandler->HandleEvent( m_Event );
 }
 
-}
+} // namespace Hexterminate

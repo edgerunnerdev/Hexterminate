@@ -20,8 +20,8 @@
 #include <array>
 #include <memory>
 
-#include <gui/gui.h>
 #include "../ship/ship.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -33,44 +33,43 @@ class EvaWindow;
 class Hotbar
 {
 public:
-	Hotbar();
-	~Hotbar();
-	void Update( float delta );
+    Hotbar();
+    ~Hotbar();
+    void Update( float delta );
 
 private:
-	void UpdatePhaseBar( Ship* pPlayerShip );
-	void UpdateShieldBar( Ship* pPlayerShip );
-	void UpdateAbilities( Ship* pPlayerShip );
-	void ResizeBar( Genesis::Gui::Panel* pBar, float ratio, float originalY );
+    void UpdatePhaseBar( Ship* pPlayerShip );
+    void UpdateShieldBar( Ship* pPlayerShip );
+    void UpdateAbilities( Ship* pPlayerShip );
+    void ResizeBar( Genesis::Gui::Panel* pBar, float ratio, float originalY );
 
-	Genesis::Gui::GuiElement* m_pRoot;
-	Genesis::Gui::Image* m_pBackground;
-	Genesis::Gui::Image* m_pBackground2;
-	Genesis::Gui::Image* m_pPower;
-	Genesis::Gui::Image* m_pAddonGui[ sMaxAbilityCount ]; 
-	Genesis::Gui::Text*  m_pTextGui[ sMaxAbilityCount ];
-	Genesis::Gui::Panel* m_pCooldownGui[ sMaxAbilityCount ];
-	Genesis::Gui::Panel* m_pPhaseBarPanel;
-	Genesis::Gui::Panel* m_pShieldBarPanel;
-	Genesis::Gui::Image* m_pPhaseBar;
-	Genesis::Gui::Image* m_pShieldBar;
+    Genesis::Gui::GuiElement* m_pRoot;
+    Genesis::Gui::Image* m_pBackground;
+    Genesis::Gui::Image* m_pBackground2;
+    Genesis::Gui::Image* m_pPower;
+    Genesis::Gui::Image* m_pAddonGui[ sMaxAbilityCount ];
+    Genesis::Gui::Text* m_pTextGui[ sMaxAbilityCount ];
+    Genesis::Gui::Panel* m_pCooldownGui[ sMaxAbilityCount ];
+    Genesis::Gui::Panel* m_pPhaseBarPanel;
+    Genesis::Gui::Panel* m_pShieldBarPanel;
+    Genesis::Gui::Image* m_pPhaseBar;
+    Genesis::Gui::Image* m_pShieldBar;
 
-	struct AbilityData
-	{
-		std::string key;
-		std::string name;
-		bool inCooldown;
-		bool isActive;
-		bool isUsable;
-		float cooldownRatio;
-		Genesis::ResourceImage* pIcon;
-	};
+    struct AbilityData
+    {
+        std::string key;
+        std::string name;
+        bool inCooldown;
+        bool isActive;
+        bool isUsable;
+        float cooldownRatio;
+        Genesis::ResourceImage* pIcon;
+    };
 
-	typedef std::array<AbilityData, sMaxAbilityCount> AbilityDataArray;
-	AbilityDataArray m_Abilities;
-
+    typedef std::array<AbilityData, sMaxAbilityCount> AbilityDataArray;
+    AbilityDataArray m_Abilities;
 };
 
-typedef std::unique_ptr< Hotbar > HotbarUniquePtr;
+typedef std::unique_ptr<Hotbar> HotbarUniquePtr;
 
-}
+} // namespace Hexterminate

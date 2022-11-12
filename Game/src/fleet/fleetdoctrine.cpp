@@ -32,24 +32,24 @@ namespace Hexterminate
 
 FleetDoctrine::FleetDoctrine()
 {
-	m_BehaviourType = FleetBehaviourType::None;
-	m_Ratio = { 0.0f };
+    m_BehaviourType = FleetBehaviourType::None;
+    m_Ratio = { 0.0f };
 
-	m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = 1.0f;
-	m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = 0.0f;
-	m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = 0.0f;
+    m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = 1.0f;
+    m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = 0.0f;
+    m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = 0.0f;
 }
 
 FleetDoctrine::FleetDoctrine( FleetBehaviourType behaviourType, float gunships, float battlecruisers, float capitals )
 {
-	m_BehaviourType = behaviourType;
-	m_Ratio = { 0.0f };
+    m_BehaviourType = behaviourType;
+    m_Ratio = { 0.0f };
 
-	const float l = ( gunships + battlecruisers + capitals );
-	SDL_assert( l > 0.0f );
-	m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = gunships / l;
-	m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = battlecruisers / l;
-	m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = capitals / l;
+    const float l = ( gunships + battlecruisers + capitals );
+    SDL_assert( l > 0.0f );
+    m_Ratio[ static_cast<size_t>( ShipType::Gunship ) ] = gunships / l;
+    m_Ratio[ static_cast<size_t>( ShipType::Battlecruiser ) ] = battlecruisers / l;
+    m_Ratio[ static_cast<size_t>( ShipType::Capital ) ] = capitals / l;
 }
 
 } // namespace Hexterminate

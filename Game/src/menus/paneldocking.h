@@ -23,27 +23,27 @@ namespace Genesis
 {
 namespace Gui
 {
-	class Image;
-	class Text;
-}
-}
-	
+    class Image;
+    class Text;
+} // namespace Gui
+} // namespace Genesis
+
 namespace Hexterminate
 {
 
 class PanelDocking
 {
 public:
-	PanelDocking();
-	~PanelDocking();
+    PanelDocking();
+    ~PanelDocking();
 
-	void Show( bool state );
+    void Show( bool state );
 
 private:
-	Genesis::Gui::Image* m_pBackground;
-	Genesis::Gui::Text*	m_pDockingText;
+    Genesis::Gui::Image* m_pBackground;
+    Genesis::Gui::Text* m_pDockingText;
 };
 
 typedef std::unique_ptr<PanelDocking> PanelDockingUniquePtr;
 
-};
+}; // namespace Hexterminate

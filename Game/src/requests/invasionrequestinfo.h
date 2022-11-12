@@ -31,18 +31,18 @@ class SectorInfo;
 class InvasionRequestInfo : public ImperialRequestInfo
 {
 public:
-	virtual ImperialRequestType			GetType() const override { return ImperialRequestType::Invasion; }
-	virtual int							GetMaximumRequests() const override { return 15; }
-	virtual float						GetMinimumTimeBetweenRequests() const override { return 15.0f; }		
-    virtual float                       GetMinimumTimeBeforeRequest() const override { return 0.0f; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Invasion; }
+    virtual int GetMaximumRequests() const override { return 15; }
+    virtual float GetMinimumTimeBetweenRequests() const override { return 15.0f; }
+    virtual float GetMinimumTimeBeforeRequest() const override { return 0.0f; }
 
-	virtual ImperialRequestSharedPtr	TryInstantiate( RequestManager* pRequestManager ) const override;
+    virtual ImperialRequestSharedPtr TryInstantiate( RequestManager* pRequestManager ) const override;
 
-    static std::string                  GetBlackboardTag( FactionId faction );
+    static std::string GetBlackboardTag( FactionId faction );
 
 private:
-	SectorInfo*							FindSector() const;
-    int                                 GetActiveInvasions( RequestManager* pRequestManager, FactionId faction ) const;
+    SectorInfo* FindSector() const;
+    int GetActiveInvasions( RequestManager* pRequestManager, FactionId faction ) const;
 };
 
-}
+} // namespace Hexterminate

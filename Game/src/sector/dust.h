@@ -17,40 +17,40 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
 #include <scene/sceneobject.h>
 #include <shader.h>
+#include <string>
+#include <vector>
 
 namespace Genesis
 {
-	class ResourceImage;
-	class VertexBuffer;
-}
+class ResourceImage;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 struct DustParticle
 {
-	float x, y, z;
+    float x, y, z;
 };
 
-typedef std::vector< DustParticle > DustVector;
+typedef std::vector<DustParticle> DustVector;
 
-class Dust: public Genesis::SceneObject
+class Dust : public Genesis::SceneObject
 {
 public:
-	Dust();
-	virtual ~Dust();
-	virtual void Update(float fDelta);
-	virtual void Render();
+    Dust();
+    virtual ~Dust();
+    virtual void Update( float fDelta );
+    virtual void Render();
 
 private:
-	Genesis::ResourceImage*		m_pDust;
-	Genesis::Shader*			m_pShader;
-	Genesis::VertexBuffer*		m_pVertexBuffer;
-	DustVector					m_dustParticles;
+    Genesis::ResourceImage* m_pDust;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    DustVector m_dustParticles;
 };
 
-}
+} // namespace Hexterminate

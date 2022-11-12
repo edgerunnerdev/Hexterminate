@@ -30,16 +30,16 @@ namespace Hexterminate
 class Random
 {
 public:
-	static void Initialise();
+    static void Initialise();
 
-	static uint32_t Next(); // Returns a value between 0 and 2^32-1.
-	static uint32_t Next( uint32_t max ); // Returns a value between 0 and max - 1.
-	static uint32_t Next( uint32_t min, uint32_t max ); // Returns a value between min and max - 1.
-	static float Next( float max ); // Returns a value between 0.0f and max.
-	static float Next( float min, float max ); // returns a value between min and max.
+    static uint32_t Next(); // Returns a value between 0 and 2^32-1.
+    static uint32_t Next( uint32_t max ); // Returns a value between 0 and max - 1.
+    static uint32_t Next( uint32_t min, uint32_t max ); // Returns a value between min and max - 1.
+    static float Next( float max ); // Returns a value between 0.0f and max.
+    static float Next( float min, float max ); // returns a value between min and max.
 
 private:
-	static std::default_random_engine m_Engine;
+    static std::default_random_engine m_Engine;
 };
 
 } // namespace Hexterminate

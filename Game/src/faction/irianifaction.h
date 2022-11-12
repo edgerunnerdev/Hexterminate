@@ -28,12 +28,12 @@ namespace Hexterminate
 // inhibitor.
 ///////////////////////////////////////////////////////////////////////////////
 
-class IrianiFaction: public Faction
+class IrianiFaction : public Faction
 {
 public:
-	IrianiFaction( const FactionInfo& info );
-	virtual ~IrianiFaction() {}
-	virtual void AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer ) override;
+    IrianiFaction( const FactionInfo& info );
+    virtual ~IrianiFaction() {}
+    virtual void AddControlledSector( SectorInfo* pSector, bool immediate, bool takenByPlayer ) override;
 };
 
-}
+} // namespace Hexterminate

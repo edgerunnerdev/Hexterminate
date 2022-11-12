@@ -15,16 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
+#include <configuration.h>
 #include <scene/layer.h>
 #include <scene/scene.h>
-#include <configuration.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
 
+#include "hexterminate.h"
 #include "hyperscape/hyperscaperep.h"
 #include "menus/popup.h"
 #include "sector/sector.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
@@ -33,158 +33,157 @@ namespace Hexterminate
 // HyperscapeRep
 //-----------------------------------------------------------------------------
 
-HyperscapeRep::HyperscapeRep( Hyperscape* pHyperscape ):
-m_pHyperscape( pHyperscape ),
-m_Show( false ),
-m_pBackgroundShader( nullptr ),
-m_pBackgroundVB( nullptr ),
-m_pGridShader( nullptr ),
-m_pGridDiffuseSampler( nullptr ),
-m_pGridParallax( nullptr ),
-m_pGridVB( nullptr ),
-m_pLayer( nullptr ),
-m_Parallax( 0.0f, 0.0f ),
-m_WasBleachBypassEnabled( true ),
-m_WasVignetteEnabled( true )
+HyperscapeRep::HyperscapeRep( Hyperscape* pHyperscape )
+    : m_pHyperscape( pHyperscape )
+    , m_Show( false )
+    , m_pBackgroundShader( nullptr )
+    , m_pBackgroundVB( nullptr )
+    , m_pGridShader( nullptr )
+    , m_pGridDiffuseSampler( nullptr )
+    , m_pGridParallax( nullptr )
+    , m_pGridVB( nullptr )
+    , m_pLayer( nullptr )
+    , m_Parallax( 0.0f, 0.0f )
+    , m_WasBleachBypassEnabled( true )
+    , m_WasVignetteEnabled( true )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	BuildBackground();
+    BuildBackground();
 
-	m_LeftMouseButtonDownToken = FrameWork::GetInputManager()->AddMouseCallback( std::bind( &HyperscapeRep::OnLeftMouseButtonDown, this ), MouseButton::Left, ButtonState::Pressed );
+    m_LeftMouseButtonDownToken = FrameWork::GetInputManager()->AddMouseCallback( std::bind( &HyperscapeRep::OnLeftMouseButtonDown, this ), MouseButton::Left, ButtonState::Pressed );
 
-	m_WasBleachBypassEnabled = Configuration::IsPostProcessingEffectEnabled( RenderSystem::PostProcessEffect::BleachBypass );
-	if ( m_WasBleachBypassEnabled )
-	{
-		FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::BleachBypass, false );
-	}
+    m_WasBleachBypassEnabled = Configuration::IsPostProcessingEffectEnabled( RenderSystem::PostProcessEffect::BleachBypass );
+    if ( m_WasBleachBypassEnabled )
+    {
+        FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::BleachBypass, false );
+    }
 
-	m_WasVignetteEnabled = Configuration::IsPostProcessingEffectEnabled( RenderSystem::PostProcessEffect::Vignette );
-	if ( m_WasVignetteEnabled )
-	{
-		FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::Vignette, false );
-	}
+    m_WasVignetteEnabled = Configuration::IsPostProcessingEffectEnabled( RenderSystem::PostProcessEffect::Vignette );
+    if ( m_WasVignetteEnabled )
+    {
+        FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::Vignette, false );
+    }
 }
 
 HyperscapeRep::~HyperscapeRep()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	FrameWork::GetInputManager()->RemoveMouseCallback( m_LeftMouseButtonDownToken );
+    FrameWork::GetInputManager()->RemoveMouseCallback( m_LeftMouseButtonDownToken );
 
-	delete m_pBackgroundVB;
-	delete m_pGridVB;
+    delete m_pBackgroundVB;
+    delete m_pGridVB;
 
-	if ( m_WasBleachBypassEnabled )
-	{
-		FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::BleachBypass, true );
-	}
+    if ( m_WasBleachBypassEnabled )
+    {
+        FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::BleachBypass, true );
+    }
 
-	if ( m_WasVignetteEnabled )
-	{
-		FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::Vignette, true );
-	}
+    if ( m_WasVignetteEnabled )
+    {
+        FrameWork::GetRenderSystem()->EnablePostProcessEffect( RenderSystem::PostProcessEffect::Vignette, true );
+    }
 }
 
 void HyperscapeRep::Initialise()
 {
-	Genesis::Scene* pScene = Genesis::FrameWork::GetScene();
-	m_pLayer = pScene->AddLayer( LAYER_GALAXY, true );
-	m_pLayer->AddSceneObject( this, false );
-	Show( true );
+    Genesis::Scene* pScene = Genesis::FrameWork::GetScene();
+    m_pLayer = pScene->AddLayer( LAYER_GALAXY, true );
+    m_pLayer->AddSceneObject( this, false );
+    Show( true );
 }
 
 void HyperscapeRep::RemoveFromScene()
 {
-	m_pLayer->RemoveSceneObject( this );
+    m_pLayer->RemoveSceneObject( this );
 }
 
 void HyperscapeRep::Update( float delta )
 {
-	if ( m_Show == false )
-	{
-		return;
-	}
+    if ( m_Show == false )
+    {
+        return;
+    }
 
-	UpdateInput();
+    UpdateInput();
 
-	//if ( m_ExitMenu )
-	//{
-	//	PopupState state = g_pGame->GetPopup()->GetState();
-	//	if ( state == PopupState::Yes )
-	//	{
-	//		m_ExitMenu = false;
-	//		g_pGame->EndGame();
-	//	}
-	//	else if ( state == PopupState::No )
-	//	{
-	//		m_pGalaxyWindow->Show( true );
-	//		m_ExitMenu = false;
-	//	}
-	//}
+    // if ( m_ExitMenu )
+    //{
+    //	PopupState state = g_pGame->GetPopup()->GetState();
+    //	if ( state == PopupState::Yes )
+    //	{
+    //		m_ExitMenu = false;
+    //		g_pGame->EndGame();
+    //	}
+    //	else if ( state == PopupState::No )
+    //	{
+    //		m_pGalaxyWindow->Show( true );
+    //		m_ExitMenu = false;
+    //	}
+    // }
 }
 
 void HyperscapeRep::UpdateInput()
 {
-	using namespace Genesis;
-	Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
+    using namespace Genesis;
+    Genesis::InputManager* pInputManager = Genesis::FrameWork::GetInputManager();
 
-	if ( pInputManager->IsButtonPressed( SDL_SCANCODE_ESCAPE ) )
-	{
-		g_pGame->GetPopup()->Show( PopupMode::YesNo, "Exit to main menu?" );
-	}
+    if ( pInputManager->IsButtonPressed( SDL_SCANCODE_ESCAPE ) )
+    {
+        g_pGame->GetPopup()->Show( PopupMode::YesNo, "Exit to main menu?" );
+    }
 
-	glm::vec2 mousePosition = pInputManager->GetMousePosition();
-	m_Parallax.x = mousePosition.x / static_cast<float>( Configuration::GetScreenWidth() );
-	m_Parallax.y = mousePosition.y / static_cast<float>( Configuration::GetScreenHeight() );
+    glm::vec2 mousePosition = pInputManager->GetMousePosition();
+    m_Parallax.x = mousePosition.x / static_cast<float>( Configuration::GetScreenWidth() );
+    m_Parallax.y = mousePosition.y / static_cast<float>( Configuration::GetScreenHeight() );
 }
 
 void HyperscapeRep::Render()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	if ( m_Show )
-	{
-		DrawBackground();
-	}
+    if ( m_Show )
+    {
+        DrawBackground();
+    }
 }
 
 void HyperscapeRep::BuildBackground()
 {
-	using namespace Genesis;
-	m_pBackgroundShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "hyperscape_background" );
+    using namespace Genesis;
+    m_pBackgroundShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "hyperscape_background" );
 
-	ShaderUniform* pBackgroundUniform = m_pBackgroundShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
-	pBackgroundUniform->Set( FrameWork::GetResourceManager()->GetResource<ResourceImage*>( "data/backgrounds/hyperscape.jpg" ), GL_TEXTURE0 );
+    ShaderUniform* pBackgroundUniform = m_pBackgroundShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
+    pBackgroundUniform->Set( FrameWork::GetResourceManager()->GetResource<ResourceImage*>( "data/backgrounds/hyperscape.jpg" ), GL_TEXTURE0 );
 
-	ShaderUniform* pNoiseUniform = m_pBackgroundShader->RegisterUniform( "k_sampler1", ShaderUniformType::Texture );
-	pNoiseUniform->Set( FrameWork::GetResourceManager()->GetResource<ResourceImage*>( "data/images/noise1.png" ), GL_TEXTURE1 );
+    ShaderUniform* pNoiseUniform = m_pBackgroundShader->RegisterUniform( "k_sampler1", ShaderUniformType::Texture );
+    pNoiseUniform->Set( FrameWork::GetResourceManager()->GetResource<ResourceImage*>( "data/images/noise1.png" ), GL_TEXTURE1 );
 
-	m_pBackgroundVB = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV );
-	m_pBackgroundVB->CreateTexturedQuad( 0.0f, 0.0f, static_cast<float>( Configuration::GetScreenWidth() ), static_cast<float>( Configuration::GetScreenHeight() ) );
+    m_pBackgroundVB = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV );
+    m_pBackgroundVB->CreateTexturedQuad( 0.0f, 0.0f, static_cast<float>( Configuration::GetScreenWidth() ), static_cast<float>( Configuration::GetScreenHeight() ) );
 }
 
 void HyperscapeRep::DrawBackground()
 {
-	m_pBackgroundShader->Use();
-	m_pBackgroundVB->Draw();
+    m_pBackgroundShader->Use();
+    m_pBackgroundVB->Draw();
 }
 
 void HyperscapeRep::Show( bool state )
 {
-	if ( state != IsVisible() )
-	{
-		m_Show = state;
+    if ( state != IsVisible() )
+    {
+        m_Show = state;
 
-		// Enabling the galaxy view disables the rendering of all other scene layers
-		Genesis::Scene* pScene = Genesis::FrameWork::GetScene();
-		pScene->SetLayerMask( state ? LAYER_GALAXY : ( ~LAYER_GALAXY ) );
-	}
+        // Enabling the galaxy view disables the rendering of all other scene layers
+        Genesis::Scene* pScene = Genesis::FrameWork::GetScene();
+        pScene->SetLayerMask( state ? LAYER_GALAXY : ( ~LAYER_GALAXY ) );
+    }
 }
 
 void HyperscapeRep::OnLeftMouseButtonDown()
 {
-
 }
 
 } // namespace Hexterminate

@@ -28,16 +28,16 @@ class Ship;
 // This also triggers a number of campaign-specific dialogue lines.
 /////////////////////////////////////////////////////////////////////
 
-class CradleComponent : public Genesis::Component 
+class CradleComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( CradleComponent )
+    DECLARE_COMPONENT( CradleComponent )
 public:
-	CradleComponent();
-	virtual bool Initialise() override;
-	virtual void Update( float delta ) override;
+    CradleComponent();
+    virtual bool Initialise() override;
+    virtual void Update( float delta ) override;
 
 private:
-	Ship* m_pCradle;
+    Ship* m_pCradle;
 };
 
-}
+} // namespace Hexterminate

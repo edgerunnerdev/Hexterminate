@@ -15,38 +15,38 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <math/misc.h>
 #include "particles/particle.h"
+#include <math/misc.h>
 
 namespace Hexterminate
 {
 
 Particle::Particle()
 {
-	Reset();
+    Reset();
 }
 
 void Particle::Reset()
 {
-	m_InitialLifetime = 0.0f;
-	m_Lifetime = 0.0f;
-	m_Position = glm::vec3( 0.0f );
-	m_Scale = 1.0f;
-	m_Velocity = glm::vec3( 0.0f );
-	m_Alpha = 1.0f;
+    m_InitialLifetime = 0.0f;
+    m_Lifetime = 0.0f;
+    m_Position = glm::vec3( 0.0f );
+    m_Scale = 1.0f;
+    m_Velocity = glm::vec3( 0.0f );
+    m_Alpha = 1.0f;
 }
 
 void Particle::Update( float delta )
 {
-	m_Lifetime = gMax(0.0f, m_Lifetime - delta);
+    m_Lifetime = gMax( 0.0f, m_Lifetime - delta );
 
-	m_Position += m_Velocity * delta;
+    m_Position += m_Velocity * delta;
 
-	float r = gClamp<float>( m_Lifetime / m_InitialLifetime, 0.0f, 1.0f );
-	if ( r > 0.25f )
-		m_Alpha = 1.0f;
-	else
-		m_Alpha = r * 4.0f;
+    float r = gClamp<float>( m_Lifetime / m_InitialLifetime, 0.0f, 1.0f );
+    if ( r > 0.25f )
+        m_Alpha = 1.0f;
+    else
+        m_Alpha = r * 4.0f;
 }
 
-}
+} // namespace Hexterminate

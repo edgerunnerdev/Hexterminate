@@ -25,11 +25,11 @@ namespace Hexterminate
 class PanelMainMenu
 {
 public:
-    PanelMainMenu() {};
-    virtual ~PanelMainMenu() {};
+    PanelMainMenu(){};
+    virtual ~PanelMainMenu(){};
     virtual void Update( float delta ) = 0;
     virtual MainMenuOption GetId() const = 0;
     virtual void Show( bool state ) = 0;
 };
 
-}
+} // namespace Hexterminate

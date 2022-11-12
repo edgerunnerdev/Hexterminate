@@ -26,12 +26,12 @@ namespace Hexterminate
 class ButtonEvent : public Genesis::Gui::Button
 {
 public:
-									ButtonEvent( Genesis::Gui::GuiEventHandler* pHandler, Genesis::Gui::GuiEvent event );
-	virtual void					OnPress() override;
+    ButtonEvent( Genesis::Gui::GuiEventHandler* pHandler, Genesis::Gui::GuiEvent event );
+    virtual void OnPress() override;
 
 private:
-	Genesis::Gui::GuiEventHandler*	m_pHandler;
-	Genesis::Gui::GuiEvent			m_Event;
+    Genesis::Gui::GuiEventHandler* m_pHandler;
+    Genesis::Gui::GuiEvent m_Event;
 };
 
-}
+} // namespace Hexterminate

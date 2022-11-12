@@ -35,42 +35,42 @@ class SilverThreadRep;
 class SilverThread
 {
 public:
-	SilverThread();
-	~SilverThread();
+    SilverThread();
+    ~SilverThread();
 
-	const HyperscapeLocation& GetCurrentLocation() const;
-	const HyperscapeLocationVector& GetLocations() const;
+    const HyperscapeLocation& GetCurrentLocation() const;
+    const HyperscapeLocationVector& GetLocations() const;
 
-	void Add( const HyperscapeLocation& location );
-	void Scan( size_t count );
-	size_t GetScannedLocationCount() const;
-	void JumpToScannedLocation( size_t index );
-	void JumpToScannedLocation( const HyperscapeLocation& location );
-	void CallStation();
+    void Add( const HyperscapeLocation& location );
+    void Scan( size_t count );
+    size_t GetScannedLocationCount() const;
+    void JumpToScannedLocation( size_t index );
+    void JumpToScannedLocation( const HyperscapeLocation& location );
+    void CallStation();
 
 private:
-	void RebuildLocation( size_t index, HyperscapeLocation::Type newType );
+    void RebuildLocation( size_t index, HyperscapeLocation::Type newType );
 
-	HyperscapeLocationVector m_Locations;
-	size_t m_CurrentLocationIndex;
-	size_t m_Scanned;
-	std::unique_ptr<SilverThreadRep> m_pRep;
+    HyperscapeLocationVector m_Locations;
+    size_t m_CurrentLocationIndex;
+    size_t m_Scanned;
+    std::unique_ptr<SilverThreadRep> m_pRep;
 };
 
 inline const HyperscapeLocation& SilverThread::GetCurrentLocation() const
 {
-	SDL_assert( m_Locations.empty() == false );
-	return m_Locations[ m_CurrentLocationIndex ];
+    SDL_assert( m_Locations.empty() == false );
+    return m_Locations[ m_CurrentLocationIndex ];
 }
 
 inline const HyperscapeLocationVector& SilverThread::GetLocations() const
 {
-	return m_Locations;
+    return m_Locations;
 }
 
 inline size_t SilverThread::GetScannedLocationCount() const
 {
-	return m_Scanned;
+    return m_Scanned;
 }
 
 } // namespace Hexterminate

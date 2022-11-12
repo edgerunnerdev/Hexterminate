@@ -28,45 +28,45 @@ class Layer;
 class ResourceImage;
 class Shader;
 class ShaderUniform;
-}
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 class Fleet;
 
-class FleetRep: public Genesis::SceneObject, public PointOfInterestTarget
+class FleetRep : public Genesis::SceneObject, public PointOfInterestTarget
 {
 public:
-								FleetRep( Fleet* pFleet );
-	virtual						~FleetRep();
+    FleetRep( Fleet* pFleet );
+    virtual ~FleetRep();
 
-	void						Initialise();
+    void Initialise();
 
-	virtual void				Update( float delta );
-	virtual void				Render();
+    virtual void Update( float delta );
+    virtual void Render();
 
-	void						Show( bool state );
-	void						RemoveFromScene();
+    void Show( bool state );
+    void RemoveFromScene();
 
 private:
-	void						DrawChevron();
+    void DrawChevron();
 
-	Fleet*						m_pFleet;
-	bool						m_Show;
+    Fleet* m_pFleet;
+    bool m_Show;
 
-	Genesis::ResourceImage*		m_pImage;
-	Genesis::ResourceImage*		m_pImageFlagship;
-	Genesis::Shader*			m_pShader;
-	Genesis::ShaderUniform*		m_pDiffuseSampler;
-	Genesis::VertexBuffer*		m_pVertexBuffer;
+    Genesis::ResourceImage* m_pImage;
+    Genesis::ResourceImage* m_pImageFlagship;
+    Genesis::Shader* m_pShader;
+    Genesis::ShaderUniform* m_pDiffuseSampler;
+    Genesis::VertexBuffer* m_pVertexBuffer;
 
-	Genesis::LayerSharedPtr		m_pLayer;
+    Genesis::LayerSharedPtr m_pLayer;
 
-	float						m_Angle;
+    float m_Angle;
 
-	float						m_BlinkTimer;
-	bool						m_DisplayFlagship;
+    float m_BlinkTimer;
+    bool m_DisplayFlagship;
 };
 
-}
+} // namespace Hexterminate

@@ -28,22 +28,22 @@ namespace Hexterminate
 class SettingsWindow : public UI::Window
 {
 public:
-	SettingsWindow();
-	virtual void Reset() override;
+    SettingsWindow();
+    virtual void Reset() override;
 
 private:
-	UI::ElementSharedPtr CreateAudioPanel();
-	UI::ElementSharedPtr CreateVideoPanel();
-	UI::ElementSharedPtr CreateGameplayPanel();
+    UI::ElementSharedPtr CreateAudioPanel();
+    UI::ElementSharedPtr CreateVideoPanel();
+    UI::ElementSharedPtr CreateGameplayPanel();
 
-	UI::SliderSharedPtr m_pMasterVolumeSlider;
-	UI::SliderSharedPtr m_pMusicVolumeSlider;
-	UI::SliderSharedPtr m_pSFXVolumeSlider;
-	UI::CheckboxSharedPtr m_pPostProcessBleachBypassCheckbox;
-	UI::CheckboxSharedPtr m_pPostProcessGlowCheckbox;
-	UI::CheckboxSharedPtr m_pPostProcessVignetteCheckbox;
-	UI::CheckboxSharedPtr m_pOutlinesCheckbox;
-	UI::CheckboxSharedPtr m_pFireToggleCheckbox;
+    UI::SliderSharedPtr m_pMasterVolumeSlider;
+    UI::SliderSharedPtr m_pMusicVolumeSlider;
+    UI::SliderSharedPtr m_pSFXVolumeSlider;
+    UI::CheckboxSharedPtr m_pPostProcessBleachBypassCheckbox;
+    UI::CheckboxSharedPtr m_pPostProcessGlowCheckbox;
+    UI::CheckboxSharedPtr m_pPostProcessVignetteCheckbox;
+    UI::CheckboxSharedPtr m_pOutlinesCheckbox;
+    UI::CheckboxSharedPtr m_pFireToggleCheckbox;
 
     void SetMasterVolume( float value );
     void SetMusicVolume( float value );

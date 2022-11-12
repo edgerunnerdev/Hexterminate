@@ -30,25 +30,25 @@
 
 namespace Genesis
 {
-    class ResourceImage;
-    class ResourceSound;
+class ResourceImage;
+class ResourceSound;
 
-    namespace Gui
-    {
-        class Image;
-        class Text;
-    } // namespace Gui
+namespace Gui
+{
+    class Image;
+    class Text;
+} // namespace Gui
 } // namespace Genesis.
 
 namespace Hexterminate::UI
 {
 
-using ButtonPressedCallback = std::function<void(const std::any& userData)>;
+using ButtonPressedCallback = std::function<void( const std::any& userData )>;
 
 class Button : public Element, public IToggleable
 {
 public:
-    Button(const std::string& name, ButtonPressedCallback onPressed, std::any userData = {}, ToggleGroupWeakPtr pToggleGroup = {} );
+    Button( const std::string& name, ButtonPressedCallback onPressed, std::any userData = {}, ToggleGroupWeakPtr pToggleGroup = {} );
     virtual ~Button() override;
 
     virtual void Update() override;
@@ -93,7 +93,7 @@ protected:
     std::string m_Label;
 
     ButtonPressedCallback m_OnPressed;
-    Genesis::InputCallbackToken	m_LeftClickPressedToken;
+    Genesis::InputCallbackToken m_LeftClickPressedToken;
     std::any m_UserData;
     ToggleGroupWeakPtr m_pToggleGroup;
     State m_State;

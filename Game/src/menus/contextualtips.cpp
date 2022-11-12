@@ -17,10 +17,9 @@
 
 #include <string>
 
-#include "menus/contextualtips.h"
 #include "blackboard.h"
 #include "hexterminate.h"
-
+#include "menus/contextualtips.h"
 
 namespace Hexterminate
 {
@@ -29,20 +28,19 @@ namespace Hexterminate
 // ContextualTipTag
 ////////////////////////////////////////////////////////////////////////////
 
-std::string ContextualTipTag[ static_cast<std::size_t>( ContextualTipType::Count ) ] =
-{
+std::string ContextualTipTag[ static_cast<std::size_t>( ContextualTipType::Count ) ] = {
     "#tip_enter_sector_1",
     "#tip_enter_sector_2",
     "#tip_armour_repairer",
-	"#tip_enter_sector_particle_accelerator",
+    "#tip_enter_sector_particle_accelerator",
     "#tip_armour_repairer",
     "#tip_autocannon",
     "#tip_artillery",
-	"#tip_missiles",
-	"#tip_torpedoes",
-	"#tip_rockets",
-	"#tip_ion_cannon",
-	"#tip_lance",
+    "#tip_missiles",
+    "#tip_torpedoes",
+    "#tip_rockets",
+    "#tip_ion_cannon",
+    "#tip_lance",
     "#tip_engines",
     "#tip_missile_interceptor",
     "#tip_reactor",
@@ -54,26 +52,24 @@ std::string ContextualTipTag[ static_cast<std::size_t>( ContextualTipType::Count
     "#tip_powered_armour",
     "#tip_regenerative_armour",
     "#tip_omni_armour",
-	"#tip_shipyard",
-	"#tip_deflector_shield",
-	"#tip_null_point_generator",
-	"#tip_shield_battery",
-	"#tip_covariant_shield_array",
-	"#tip_no_enemies",
-	"#tip_engine_disruptor",
-	"#tip_particle_accelerator",
-	"#tip_antiproton",
-	"#tip_quantum_alternator",
-	"#tip_ramming_prow"
+    "#tip_shipyard",
+    "#tip_deflector_shield",
+    "#tip_null_point_generator",
+    "#tip_shield_battery",
+    "#tip_covariant_shield_array",
+    "#tip_no_enemies",
+    "#tip_engine_disruptor",
+    "#tip_particle_accelerator",
+    "#tip_antiproton",
+    "#tip_quantum_alternator",
+    "#tip_ramming_prow"
 };
-
 
 ////////////////////////////////////////////////////////////////////////////
 // ContextualTipText
 ////////////////////////////////////////////////////////////////////////////
 
-std::string ContextualTipText[ static_cast<std::size_t>( ContextualTipType::Count ) ] =
-{
+std::string ContextualTipText[ static_cast<std::size_t>( ContextualTipType::Count ) ] = {
     // EnterSector1
     "Welcome to the battlefield, Captain. Your ship can be controlled through the keys W, A, S and D, as well as Q and E for strafing. Your turrets will aim at your crosshair and the left mouse button will open fire.",
 
@@ -83,8 +79,8 @@ std::string ContextualTipText[ static_cast<std::size_t>( ContextualTipType::Coun
     // EnterSectorWithArmourRepairer
     "Your ship is also fitted with a phased assembler module. It can repair any modules which haven't been fully destroyed, but it is twice as effective at fixing armour modules.",
 
-	// EnterSectorWithParticleAccelerator
-	"Captain, one of the ships we're facing has a Particle Accelerator. This is a very slow firing beam weapon but it must be blocked by our Phase Barrier or it will likely slice our ship in half.",
+    // EnterSectorWithParticleAccelerator
+    "Captain, one of the ships we're facing has a Particle Accelerator. This is a very slow firing beam weapon but it must be blocked by our Phase Barrier or it will likely slice our ship in half.",
 
     // ArmourRepairer
     "This is a phased assembler module, which can repair any modules which haven't been fully destroyed. However, it is twice as effective at repairing armour modules.",
@@ -95,20 +91,20 @@ std::string ContextualTipText[ static_cast<std::size_t>( ContextualTipType::Coun
     // Artillery
     "Artillery cannons have a very long range, making them ideal for skirmish tactics and to target individual modules - landing a few well placed shots on an engine module can be extremely effective. They require more energy to operate than autocannons.",
 
-	// Missiles
-	"Missile weapons deal kinetic damage at long range. They will home in on the enemy's bridge but be aware that they can be intercepted.",
+    // Missiles
+    "Missile weapons deal kinetic damage at long range. They will home in on the enemy's bridge but be aware that they can be intercepted.",
 
-	// Torpedoes
-	"Unguided and slow but dealing massive kinetic damage at extreme ranges, few ships can deal with a sustained barrage of torpedoes. However, their low speed makes them very prone to interception. Being a fixed, forward mounted weapon, you can fire them by pressing the right mouse button.",
+    // Torpedoes
+    "Unguided and slow but dealing massive kinetic damage at extreme ranges, few ships can deal with a sustained barrage of torpedoes. However, their low speed makes them very prone to interception. Being a fixed, forward mounted weapon, you can fire them by pressing the right mouse button.",
 
-	// Rockets
-	"Rockets are very short range but keep the same homing capabilities as the larger hunter missiles. However, being considerably faster and fired at a shorter range, missile interceptors aren't nearly as effective against them, making rockets deadly when massed.",
+    // Rockets
+    "Rockets are very short range but keep the same homing capabilities as the larger hunter missiles. However, being considerably faster and fired at a shorter range, missile interceptors aren't nearly as effective against them, making rockets deadly when massed.",
 
-	// Ion cannon
-	"Ion cannons are fixed, forward facing energy weapons which are very effective against unpowered armour. Particularly with the energy perk \"Overload\", ion cannons can make short work of shields. Being a fixed weapon, you can fire them by pressing the right mouse button.",
+    // Ion cannon
+    "Ion cannons are fixed, forward facing energy weapons which are very effective against unpowered armour. Particularly with the energy perk \"Overload\", ion cannons can make short work of shields. Being a fixed weapon, you can fire them by pressing the right mouse button.",
 
-	// Lance
-	"A lance's instantaneous, long range damage comes at a high energy cost. Its pinpoint damage application can be used to take out specific modules with ease and being an energy weapon, it fares quite well against the traditional reactive armours used by most ships in the galaxy.",
+    // Lance
+    "A lance's instantaneous, long range damage comes at a high energy cost. Its pinpoint damage application can be used to take out specific modules with ease and being an energy weapon, it fares quite well against the traditional reactive armours used by most ships in the galaxy.",
 
     // Engine
     "Engine modules are essential to keep your ship mobile in the battlefield. As your ship becomes larger, you should have more engine modules to compensate for the additional weight.",
@@ -143,40 +139,39 @@ std::string ContextualTipText[ static_cast<std::size_t>( ContextualTipType::Coun
     // Omni armour
     "An omni armour module... these are extremely rare, a technology of the old Empire which can no longer be produced. It combines the properties of reactive, powered and regenerative armours, making it extremely effective against any kind of damage.",
 
-	// Shipyard
-	"This sector has a shipyard, at which you will be able to dock at if there are no enemies present. At the shipyard you'll be able to customise our ship with the modules you find throughout the galaxy.",
+    // Shipyard
+    "This sector has a shipyard, at which you will be able to dock at if there are no enemies present. At the shipyard you'll be able to customise our ship with the modules you find throughout the galaxy.",
 
-	// Deflector shields
-	"Unlike shield batteries, deflector shields can regenerate on their own, allowing us to stay in a fight for longer. However, they do need energy to run.",
+    // Deflector shields
+    "Unlike shield batteries, deflector shields can regenerate on their own, allowing us to stay in a fight for longer. However, they do need energy to run.",
 
-	// Null point generators
-	"Null point generators are shields with low capacity but high regeneration rate. Mixed with a shield battery or deflector, the resulting shield can be quite difficult to break.",
+    // Null point generators
+    "Null point generators are shields with low capacity but high regeneration rate. Mixed with a shield battery or deflector, the resulting shield can be quite difficult to break.",
 
-	// Shield batteries
-	"Shield batteries essentially work as a damage buffer, having considerable capacity but being unable to regenerate on their own. As such they work best when coupled with another kind of shield generator.",
+    // Shield batteries
+    "Shield batteries essentially work as a damage buffer, having considerable capacity but being unable to regenerate on their own. As such they work best when coupled with another kind of shield generator.",
 
-	// Covariant shield arrays
-	"Covariant shield arrays are a new technology which is still somewhat unstable. They have tremendous regeneration rates but if the shield is taken down, the resulting energy feedback usually destroys the module.",
+    // Covariant shield arrays
+    "Covariant shield arrays are a new technology which is still somewhat unstable. They have tremendous regeneration rates but if the shield is taken down, the resulting energy feedback usually destroys the module.",
 
-	// No enemies present
-	"With no hostiles in the sector, we can jump out immediately. Press the 'escape' key when you're ready for us to enter hyperspace.",
+    // No enemies present
+    "With no hostiles in the sector, we can jump out immediately. Press the 'escape' key when you're ready for us to enter hyperspace.",
 
-	// Engine disruptor
-	"An engine disruptor module triggers a shock wave which greatly slows down any ships caught in the blast. It has a long range but also a considerable cooldown, so it needs to be used tactically for the best results.",
+    // Engine disruptor
+    "An engine disruptor module triggers a shock wave which greatly slows down any ships caught in the blast. It has a long range but also a considerable cooldown, so it needs to be used tactically for the best results.",
 
-	// Particle accelerator
-	"Particle accelerators take a few seconds to power up to fire and then twenty seconds to reload. It can cut through any known armour, being able to destroy even a dreadnought in a single shot if you disable the shields first.",
+    // Particle accelerator
+    "Particle accelerators take a few seconds to power up to fire and then twenty seconds to reload. It can cut through any known armour, being able to destroy even a dreadnought in a single shot if you disable the shields first.",
 
-	// Antiproton cannon
-	"Antiproton technology is extensively used by the Hegemon and highly devastating. A shield can block the slow firing projectile, but only if you have a Quantum State Alternator in your ship.",
+    // Antiproton cannon
+    "Antiproton technology is extensively used by the Hegemon and highly devastating. A shield can block the slow firing projectile, but only if you have a Quantum State Alternator in your ship.",
 
-	// Quantum alternator
-	"The Quantum State Alternator allows you block antiproton projectiles, as long as they're both in the same state. For example, you can block a black projectile if your shield's state is also black. You can swap between these states by using space bar.",
+    // Quantum alternator
+    "The Quantum State Alternator allows you block antiproton projectiles, as long as they're both in the same state. For example, you can block a black projectile if your shield's state is also black. You can swap between these states by using space bar.",
 
-	// Ramming prow
-	"Ramming prows are armour modules specifically designed for ramming other ships. If this module hits another ship with Ramming Speed, it both deals increased damage to larger ships and takes very little damage from the ramming action."
+    // Ramming prow
+    "Ramming prows are armour modules specifically designed for ramming other ships. If this module hits another ship with Ramming Speed, it both deals increased damage to larger ships and takes very little damage from the ramming action."
 };
-
 
 ////////////////////////////////////////////////////////////////////////////
 // ContextualTips
@@ -214,7 +209,7 @@ bool ContextualTips::Present( const std::string& tipTag, bool overridePreference
     {
         for ( std::size_t type = 0; type < static_cast<std::size_t>( ContextualTipType::Count ); ++type )
         {
-            m_LookupTable[ ContextualTipTag[ type ] ] = static_cast< ContextualTipType >( type );
+            m_LookupTable[ ContextualTipTag[ type ] ] = static_cast<ContextualTipType>( type );
         }
         m_LookupTableInitialised = true;
     }
@@ -238,4 +233,4 @@ bool ContextualTips::HasBeenPresented( ContextualTipType tip )
     return ( pBlackboard != nullptr && pBlackboard->Exists( tag ) );
 }
 
-}
+} // namespace Hexterminate

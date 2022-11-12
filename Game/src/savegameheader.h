@@ -31,44 +31,44 @@ namespace Hexterminate
 
 enum class SaveGameHeaderError
 {
-	Uninitialised,
-	NoError,
-	ContentError,		// malformed XML file or failed to load all the needed content
-	InvalidExtension,
-	FileDoesntExist,
-	NoReadPermission,
-	Unknown				// shouldn't really happen, in case a system call returns an unexpected value
+    Uninitialised,
+    NoError,
+    ContentError, // malformed XML file or failed to load all the needed content
+    InvalidExtension,
+    FileDoesntExist,
+    NoReadPermission,
+    Unknown // shouldn't really happen, in case a system call returns an unexpected value
 };
 
 class SaveGameHeader
 {
 public:
-								SaveGameHeader( const std::filesystem::path& filename );
+    SaveGameHeader( const std::filesystem::path& filename );
 
-	bool						Read( tinyxml2::XMLDocument& xmlDoc );
-	inline bool					IsValid() const				{ return m_Error == SaveGameHeaderError::NoError; }
-	inline SaveGameHeaderError	GetError() const			{ return m_Error; }
+    bool Read( tinyxml2::XMLDocument& xmlDoc );
+    inline bool IsValid() const { return m_Error == SaveGameHeaderError::NoError; }
+    inline SaveGameHeaderError GetError() const { return m_Error; }
 
-	inline const std::filesystem::path& GetFilename() const { return m_Filename; }
-	inline const std::string&	GetCaptainName() const		{ return m_CaptainName; }
-	inline const std::string&	GetShipName() const			{ return m_ShipName; }
-	inline float				GetPlayedTime() const		{ return m_PlayedTime; }
-	inline bool					IsAlive() const				{ return m_Alive; }
-	inline Difficulty			GetDifficulty() const		{ return m_Difficulty; }
-	inline GameMode				GetGameMode() const			{ return m_GameMode; }
+    inline const std::filesystem::path& GetFilename() const { return m_Filename; }
+    inline const std::string& GetCaptainName() const { return m_CaptainName; }
+    inline const std::string& GetShipName() const { return m_ShipName; }
+    inline float GetPlayedTime() const { return m_PlayedTime; }
+    inline bool IsAlive() const { return m_Alive; }
+    inline Difficulty GetDifficulty() const { return m_Difficulty; }
+    inline GameMode GetGameMode() const { return m_GameMode; }
 
 private:
-	std::filesystem::path		m_Filename;
-	std::string					m_CaptainName;
-	std::string					m_ShipName;
-	float						m_PlayedTime;
-	bool						m_Alive;
-	Difficulty					m_Difficulty;
-	GameMode					m_GameMode;
+    std::filesystem::path m_Filename;
+    std::string m_CaptainName;
+    std::string m_ShipName;
+    float m_PlayedTime;
+    bool m_Alive;
+    Difficulty m_Difficulty;
+    GameMode m_GameMode;
 
-	SaveGameHeaderError			m_Error;
+    SaveGameHeaderError m_Error;
 };
 
 GENESIS_DECLARE_SMART_PTR( SaveGameHeader );
 
-}
+} // namespace Hexterminate

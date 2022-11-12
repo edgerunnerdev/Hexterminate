@@ -30,30 +30,30 @@ class Faction;
 class CampaignRequest : public ImperialRequest
 {
 public:
-									CampaignRequest( RequestManager* pRequestManager );
+    CampaignRequest( RequestManager* pRequestManager );
 
-	virtual ImperialRequestType		GetType() const override				{ return ImperialRequestType::Campaign; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Campaign; }
 
-	virtual void					OnBegin() override;
-	virtual void					OnSuccess() override;
-	virtual void					OnPlayerEnterSector() override;
+    virtual void OnBegin() override;
+    virtual void OnSuccess() override;
+    virtual void OnPlayerEnterSector() override;
 
-	virtual void					Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
 private:
-	void							UpdateExpansionArc( float delta );
-	void							UpdatePirateArc( float delta );
-	void							UpdateMarauderArc( float delta );
-	void							UpdateAscentArc( float delta );
-	void							UpdateIrianiArc( float delta );
-	void							UpdateChrysamereArc( float delta );
-	void							ClearGoals( RequestGoalSharedPtrList& list );
-	void							SpawnShip( const std::string& ship, FactionId factionId, float x, float y );
+    void UpdateExpansionArc( float delta );
+    void UpdatePirateArc( float delta );
+    void UpdateMarauderArc( float delta );
+    void UpdateAscentArc( float delta );
+    void UpdateIrianiArc( float delta );
+    void UpdateChrysamereArc( float delta );
+    void ClearGoals( RequestGoalSharedPtrList& list );
+    void SpawnShip( const std::string& ship, FactionId factionId, float x, float y );
 
-	float							m_UpdateInterval;
-	RequestGoalSharedPtr			m_pExpansionGoal;
-	RequestGoalSharedPtrList		m_PirateSectorGoals;
-	RequestGoalSharedPtr			m_pFleetGoal;
+    float m_UpdateInterval;
+    RequestGoalSharedPtr m_pExpansionGoal;
+    RequestGoalSharedPtrList m_PirateSectorGoals;
+    RequestGoalSharedPtr m_pFleetGoal;
 };
 
-}
+} // namespace Hexterminate

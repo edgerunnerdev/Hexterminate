@@ -27,18 +27,18 @@ namespace Hexterminate
 // The waves get progressively larger as time goes by.
 /////////////////////////////////////////////////////////////////////
 
-class ChrysamereSwarmComponent : public Genesis::Component 
+class ChrysamereSwarmComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( ChrysamereSwarmComponent )
+    DECLARE_COMPONENT( ChrysamereSwarmComponent )
 public:
-	ChrysamereSwarmComponent();
-	virtual bool Initialise() override;
-	virtual void Update( float delta ) override;
+    ChrysamereSwarmComponent();
+    virtual bool Initialise() override;
+    virtual void Update( float delta ) override;
 
 private:
-	unsigned int m_Wave;
-	float m_Timer;
-	FleetList m_TemporaryFleets;
+    unsigned int m_Wave;
+    float m_Timer;
+    FleetList m_TemporaryFleets;
 };
 
-}
+} // namespace Hexterminate

@@ -12,27 +12,27 @@ namespace Hexterminate
 // It is used for spawning ships of sizes in FleetSpawner.
 enum class ShipType
 {
-	Invalid,
-	Gunship,
-	Battlecruiser,
-	Capital,
+    Invalid,
+    Gunship,
+    Battlecruiser,
+    Capital,
 
-	Count
+    Count
 };
 
 enum class DockingState
 {
-	Undocked,
-	Docking,
-	Docked,
-	Undocking
+    Undocked,
+    Docking,
+    Docked,
+    Undocking
 };
 
 enum class QuantumState
 {
-	Inactive,
-	White,
-	Black
+    Inactive,
+    White,
+    Black
 };
 
 class Ship;
@@ -44,4 +44,4 @@ typedef std::vector<ShipSpawnData> ShipSpawnDataVector;
 class ShipTweaks;
 using ShipTweaksUniquePtr = std::unique_ptr<ShipTweaks>;
 
-}
+} // namespace Hexterminate

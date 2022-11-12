@@ -32,26 +32,26 @@ class SectorInfo;
 class GalaxyGenerator
 {
 public:
-	GalaxyGenerator();
-	void Run( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
+    GalaxyGenerator();
+    void Run( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
 
 private:
-	bool IsFinished() const;
-	void GenerateHomeworlds( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
-	void GenerateSectors( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
-	void GenerateNames( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
-	std::vector< std::string > LoadNames() const;
-	int CalculateNecessarySectors( FactionPresence presence ) const;
+    bool IsFinished() const;
+    void GenerateHomeworlds( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
+    void GenerateSectors( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
+    void GenerateNames( Galaxy* pGalaxy, const GalaxyCreationInfo& creationInfo );
+    std::vector<std::string> LoadNames() const;
+    int CalculateNecessarySectors( FactionPresence presence ) const;
 
-	struct Data
-	{
-		Faction* pFaction;
-		SectorInfo* pHomeworldSector;
-		int necessarySectors;
-	};
+    struct Data
+    {
+        Faction* pFaction;
+        SectorInfo* pHomeworldSector;
+        int necessarySectors;
+    };
 
-	using DataVector = std::vector< Data >;
-	DataVector m_Data;
+    using DataVector = std::vector<Data>;
+    DataVector m_Data;
 };
 
-}
+} // namespace Hexterminate

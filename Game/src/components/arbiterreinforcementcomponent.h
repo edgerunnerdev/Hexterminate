@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <component.h>
 #include "fleet/fleet.fwd.h"
+#include <component.h>
 
 namespace Hexterminate
 {
@@ -28,15 +28,15 @@ class Ship;
 // have been previously destroyed.
 /////////////////////////////////////////////////////////////////////
 
-class ArbiterReinforcementComponent : public Genesis::Component 
+class ArbiterReinforcementComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( ArbiterReinforcementComponent )
+    DECLARE_COMPONENT( ArbiterReinforcementComponent )
 public:
-	virtual bool Initialise() override;
+    virtual bool Initialise() override;
 
 private:
-	void SpawnArbiters();
-	FleetSharedPtr m_pTemporaryFleet;
+    void SpawnArbiters();
+    FleetSharedPtr m_pTemporaryFleet;
 };
 
-}
+} // namespace Hexterminate

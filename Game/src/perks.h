@@ -31,42 +31,41 @@ namespace Hexterminate
 
 enum class Perk
 {
-	EngineRemapping, 
-	EvasionProtocols,
-	ThrustVectoring,
-	RammingSpeed,
-	GunshipConstruction,
-	BattlecruiserConstruction,
-	BattleshipConstruction,
-	DreadnaughtConstruction,
-	SupportRequest,
-	PrimaryFleet,
-	PriorityRequisition,
-	PrototypeAccess,
-	MagneticLoaders,
-	AdvancedElectrocoils,
-	PlasmaWarheads,
-	Siegebreaker,
-	AdvancedHeatsinks,
-	PhaseSynchronisation,
-	Disruption,
-	Overload,
-	FrequencyCycling,
-	KineticHardening,
-	Superconductors,
-	EmergencyCapacitors,
-	ReclaimedSectors,
-	SharedGlory,
-	SwordOfTheEmpire,
-	UnityIsStrength,
-	LighterMaterials,
-	Nanobots,
-	ReinforcedBulkheads,
-	Unbroken,
+    EngineRemapping,
+    EvasionProtocols,
+    ThrustVectoring,
+    RammingSpeed,
+    GunshipConstruction,
+    BattlecruiserConstruction,
+    BattleshipConstruction,
+    DreadnaughtConstruction,
+    SupportRequest,
+    PrimaryFleet,
+    PriorityRequisition,
+    PrototypeAccess,
+    MagneticLoaders,
+    AdvancedElectrocoils,
+    PlasmaWarheads,
+    Siegebreaker,
+    AdvancedHeatsinks,
+    PhaseSynchronisation,
+    Disruption,
+    Overload,
+    FrequencyCycling,
+    KineticHardening,
+    Superconductors,
+    EmergencyCapacitors,
+    ReclaimedSectors,
+    SharedGlory,
+    SwordOfTheEmpire,
+    UnityIsStrength,
+    LighterMaterials,
+    Nanobots,
+    ReinforcedBulkheads,
+    Unbroken,
 
-	Count
+    Count
 };
-
 
 /////////////////////////////////////////////////////////////////////
 // Perks
@@ -77,38 +76,38 @@ static const unsigned int sMaxPerks = 64;
 class Perks : public Serialisable
 {
 public:
-						Perks();
+    Perks();
 
-	bool				IsEnabled( Perk perk ) const;
-	void				Enable( Perk perk );
-	void				Reset();
+    bool IsEnabled( Perk perk ) const;
+    void Enable( Perk perk );
+    void Reset();
 
-	// Serialisable
-	virtual bool		Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
-	virtual bool		Read( tinyxml2::XMLElement* pRootElement ) override;
-	virtual int			GetVersion() const override { return 1; }
-	virtual void		UpgradeFromVersion( int version ) override {}
+    // Serialisable
+    virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
+    virtual bool Read( tinyxml2::XMLElement* pRootElement ) override;
+    virtual int GetVersion() const override { return 1; }
+    virtual void UpgradeFromVersion( int version ) override {}
 
 private:
-	std::bitset<sMaxPerks> m_Bitset;
+    std::bitset<sMaxPerks> m_Bitset;
 };
 
 inline bool Perks::IsEnabled( Perk perk ) const
 {
-	return m_Bitset.test( static_cast<std::size_t>( perk ) );
+    return m_Bitset.test( static_cast<std::size_t>( perk ) );
 }
 
 inline void Perks::Enable( Perk perk )
 {
-	m_Bitset.set( static_cast<std::size_t>( perk ) );
+    m_Bitset.set( static_cast<std::size_t>( perk ) );
 }
 
 inline void Perks::Reset()
 {
-	m_Bitset.reset();
+    m_Bitset.reset();
 
-	// The "Gunship construction" perk should always be enabled
-	Enable( Perk::GunshipConstruction );
+    // The "Gunship construction" perk should always be enabled
+    Enable( Perk::GunshipConstruction );
 }
 
-}
+} // namespace Hexterminate

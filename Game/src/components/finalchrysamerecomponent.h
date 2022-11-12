@@ -26,17 +26,17 @@ class Ship;
 // Spawns the Final variant of the Chrysamere.
 /////////////////////////////////////////////////////////////////////
 
-class FinalChrysamereComponent : public Genesis::Component 
+class FinalChrysamereComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( FinalChrysamereComponent )
+    DECLARE_COMPONENT( FinalChrysamereComponent )
 public:
-	FinalChrysamereComponent();
-	virtual bool Initialise() override;
-	virtual void Update( float delta ) override;
+    FinalChrysamereComponent();
+    virtual bool Initialise() override;
+    virtual void Update( float delta ) override;
 
 private:
-	Ship* m_pChrysamere;
-	float m_Timer;
+    Ship* m_pChrysamere;
+    float m_Timer;
 };
 
-}
+} // namespace Hexterminate

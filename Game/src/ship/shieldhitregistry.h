@@ -29,36 +29,36 @@ static const int sMaxShieldHitRegistryPoints = 180;
 class ShieldHitRegistry
 {
 public:
-					ShieldHitRegistry();
+    ShieldHitRegistry();
 
-	void			Update( float delta );
-	void			Hit( float angle, float damage );
-	float			SampleAt( int index ) const;
-	
-	void			DebugDraw( float x, float y );
+    void Update( float delta );
+    void Hit( float angle, float damage );
+    float SampleAt( int index ) const;
+
+    void DebugDraw( float x, float y );
 
 private:
-	float			EvaluateGaussian( float x, float mean, float deviation ) const;
-	int				GetIndex( float angle ) const;
-	int				GetNextIndex( int index ) const;
-	int				GetPreviousIndex( int index ) const;
+    float EvaluateGaussian( float x, float mean, float deviation ) const;
+    int GetIndex( float angle ) const;
+    int GetNextIndex( int index ) const;
+    int GetPreviousIndex( int index ) const;
 
-	FloatVector		m_HitRegistry;
+    FloatVector m_HitRegistry;
 };
 
 inline int ShieldHitRegistry::GetNextIndex( int index ) const
 {
-	return ( index < sMaxShieldHitRegistryPoints - 1 ) ? index + 1 : 0;
+    return ( index < sMaxShieldHitRegistryPoints - 1 ) ? index + 1 : 0;
 }
 
 inline int ShieldHitRegistry::GetPreviousIndex( int index ) const
 {
-	return ( index <= 0 ) ? sMaxShieldHitRegistryPoints - 1 : index - 1;
+    return ( index <= 0 ) ? sMaxShieldHitRegistryPoints - 1 : index - 1;
 }
 
 inline float ShieldHitRegistry::EvaluateGaussian( float x, float mean, float deviation ) const
 {
-	return exp( - pow( x - mean, 2.0f ) / ( 2.0f * deviation * deviation ) );
+    return exp( -pow( x - mean, 2.0f ) / ( 2.0f * deviation * deviation ) );
 }
 
-}
+} // namespace Hexterminate

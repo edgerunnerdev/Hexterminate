@@ -19,45 +19,44 @@
 
 #include "requests/strongholdrequestinfo.h"
 
-#include "fleet/fleetbehaviour.h"
-#include "requests/strongholdrequest.h"
-#include "requests/requestmanager.h"
 #include "faction/faction.h"
+#include "fleet/fleetbehaviour.h"
 #include "hexterminate.h"
-
+#include "requests/requestmanager.h"
+#include "requests/strongholdrequest.h"
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr StrongholdRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) == false )
-		return ImperialRequestSharedPtr();
+    if ( CommonInstantiationChecks( pRequestManager ) == false )
+        return ImperialRequestSharedPtr();
 
-	SectorInfo* pSectorInfo = FindSector();
-	if ( pSectorInfo && pSectorInfo->IsPersonal() == false && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
-	{
-		return std::make_shared<StrongholdRequest>( pRequestManager, pSectorInfo );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    SectorInfo* pSectorInfo = FindSector();
+    if ( pSectorInfo && pSectorInfo->IsPersonal() == false && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
+    {
+        return std::make_shared<StrongholdRequest>( pRequestManager, pSectorInfo );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
 SectorInfo* StrongholdRequestInfo::FindSector() const
 {
-	Faction* pFaction = g_pGame->GetFaction( FactionId::Neutral );
-	SectorInfoVector controlledSectors = pFaction->GetControlledSectors();
+    Faction* pFaction = g_pGame->GetFaction( FactionId::Neutral );
+    SectorInfoVector controlledSectors = pFaction->GetControlledSectors();
 
-	if ( controlledSectors.empty() == false )
-	{
-		return controlledSectors[ rand() % controlledSectors.size() ];
-	}
-	else
-	{
-		return nullptr;
-	}
+    if ( controlledSectors.empty() == false )
+    {
+        return controlledSectors[ rand() % controlledSectors.size() ];
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
-}
+} // namespace Hexterminate

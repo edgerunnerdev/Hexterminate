@@ -22,7 +22,6 @@ namespace Hexterminate
 
 class Ship;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Controller
 // The Controller interface is used to control a Ship.
@@ -32,32 +31,34 @@ class Ship;
 class Controller
 {
 public:
-					Controller( Ship* pShip ): m_pShip( pShip ), m_Suspended( false ) {};
-	virtual			~Controller() {};
-	virtual void	Update( float delta ) = 0;
+    Controller( Ship* pShip )
+        : m_pShip( pShip )
+        , m_Suspended( false ){};
+    virtual ~Controller(){};
+    virtual void Update( float delta ) = 0;
 
-	inline Ship*	GetShip() const;
-	void			Suspend( bool state );
-	bool			IsSuspended() const;
+    inline Ship* GetShip() const;
+    void Suspend( bool state );
+    bool IsSuspended() const;
 
 private:
-	Ship*			m_pShip;
-	bool			m_Suspended;
+    Ship* m_pShip;
+    bool m_Suspended;
 };
 
 inline Ship* Controller::GetShip() const
 {
-	return m_pShip;
+    return m_pShip;
 }
 
 inline void Controller::Suspend( bool state )
 {
-	m_Suspended = state;
+    m_Suspended = state;
 }
 
 inline bool Controller::IsSuspended() const
 {
-	return m_Suspended;
+    return m_Suspended;
 }
 
-}
+} // namespace Hexterminate

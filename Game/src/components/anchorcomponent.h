@@ -27,20 +27,20 @@ class Ship;
 // Creates an Anchor and several Anchor defenses around it.
 /////////////////////////////////////////////////////////////////////
 
-class AnchorComponent : public Genesis::Component 
+class AnchorComponent : public Genesis::Component
 {
-	DECLARE_COMPONENT( AnchorComponent )
+    DECLARE_COMPONENT( AnchorComponent )
 public:
-	AnchorComponent();
-	virtual bool Initialise() override;
-	virtual void Update( float delta ) override;
+    AnchorComponent();
+    virtual bool Initialise() override;
+    virtual void Update( float delta ) override;
 
 private:
-	void SpawnAnchor();
-	void SpawnAnchorDefenses();
+    void SpawnAnchor();
+    void SpawnAnchorDefenses();
 
-	Ship* m_pAnchor;
-	std::vector< Ship* > m_pAnchorDefenses;
+    Ship* m_pAnchor;
+    std::vector<Ship*> m_pAnchorDefenses;
 };
 
-}
+} // namespace Hexterminate

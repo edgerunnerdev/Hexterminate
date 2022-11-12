@@ -17,9 +17,9 @@
 
 #pragma once
 
+#include <inputmanager.h>
 #include <scene/layer.h>
 #include <scene/sceneobject.h>
-#include <inputmanager.h>
 #include <shader.h>
 #include <vertexbuffer.h>
 
@@ -32,52 +32,52 @@ class Hyperscape;
 // HyperscapeRep
 //-----------------------------------------------------------------------------
 
-class HyperscapeRep: public Genesis::SceneObject
+class HyperscapeRep : public Genesis::SceneObject
 {
 public:
-	HyperscapeRep( Hyperscape* pHyperscape );
-	virtual ~HyperscapeRep();
+    HyperscapeRep( Hyperscape* pHyperscape );
+    virtual ~HyperscapeRep();
 
-	void Initialise();
-	void RemoveFromScene();
+    void Initialise();
+    void RemoveFromScene();
 
-	virtual void Update( float delta );
-	virtual void Render();
+    virtual void Update( float delta );
+    virtual void Render();
 
-	void Show( bool state );
-	bool IsVisible() const;
+    void Show( bool state );
+    bool IsVisible() const;
 
 private:
-	void UpdateInput();
-	void UpdateDrawInfo();
+    void UpdateInput();
+    void UpdateDrawInfo();
 
-	void BuildBackground();
-	void DrawBackground();
+    void BuildBackground();
+    void DrawBackground();
 
-	void OnLeftMouseButtonDown();
+    void OnLeftMouseButtonDown();
 
-	Hyperscape* m_pHyperscape;
-	bool m_Show;
+    Hyperscape* m_pHyperscape;
+    bool m_Show;
 
-	Genesis::Shader* m_pBackgroundShader;
-	Genesis::VertexBuffer* m_pBackgroundVB;
-	Genesis::Shader* m_pGridShader;
-	Genesis::ShaderUniform* m_pGridDiffuseSampler;
-	Genesis::ShaderUniform* m_pGridParallax;
-	Genesis::VertexBuffer* m_pGridVB;
+    Genesis::Shader* m_pBackgroundShader;
+    Genesis::VertexBuffer* m_pBackgroundVB;
+    Genesis::Shader* m_pGridShader;
+    Genesis::ShaderUniform* m_pGridDiffuseSampler;
+    Genesis::ShaderUniform* m_pGridParallax;
+    Genesis::VertexBuffer* m_pGridVB;
 
-	Genesis::LayerSharedPtr m_pLayer;
+    Genesis::LayerSharedPtr m_pLayer;
 
-	Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
+    Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
 
-	glm::vec2 m_Parallax;
-	bool m_WasBleachBypassEnabled;
-	bool m_WasVignetteEnabled;
+    glm::vec2 m_Parallax;
+    bool m_WasBleachBypassEnabled;
+    bool m_WasVignetteEnabled;
 };
 
-inline bool HyperscapeRep::IsVisible() const 
-{ 
-	return m_Show; 
+inline bool HyperscapeRep::IsVisible() const
+{
+    return m_Show;
 }
 
 } // namespace Hexterminate

@@ -36,18 +36,17 @@
 #include "requests/requestgoal.h"
 #include "ui/window.h"
 
-
 namespace Genesis
 {
-	class Layer;
-	class ResourceImage;
-	class VertexBuffer;
+class Layer;
+class ResourceImage;
+class VertexBuffer;
 
-	namespace Gui
-	{
-		class Text;
-	}
+namespace Gui
+{
+    class Text;
 }
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -58,131 +57,133 @@ class SectorDetails;
 class GalaxyWindow;
 using GalaxyWindowSharedPtr = std::shared_ptr<GalaxyWindow>;
 
-
 /////////////////////////////////////////////////////////////////////
 // SectorDrawInfo
 /////////////////////////////////////////////////////////////////////
 
 struct SectorDrawInfo
 {
-	SectorDrawInfo()
-	{
-		x = 0;
-		y = 0;
-	};
+    SectorDrawInfo()
+    {
+        x = 0;
+        y = 0;
+    };
 
-	SectorDrawInfo( int _x, int _y )
-	{
-		x = _x;
-		y = _y;
-	};
+    SectorDrawInfo( int _x, int _y )
+    {
+        x = _x;
+        y = _y;
+    };
 
-	Genesis::Color colour;
-	int x, y;
+    Genesis::Color colour;
+    int x, y;
 };
 
-typedef std::vector< SectorDrawInfo > SectorDrawInfoVector;
-
+typedef std::vector<SectorDrawInfo> SectorDrawInfoVector;
 
 /////////////////////////////////////////////////////////////////////
 // GalaxyRep
 /////////////////////////////////////////////////////////////////////
 
-class GalaxyRep: public Genesis::SceneObject
+class GalaxyRep : public Genesis::SceneObject
 {
 public:
-								GalaxyRep( Galaxy* pGalaxy );
-	virtual						~GalaxyRep();
+    GalaxyRep( Galaxy* pGalaxy );
+    virtual ~GalaxyRep();
 
-	void						Initialise();
-	void						OnGalaxyPopulated();
-	void						OnGalaxyReset();
-	void						RemoveFromScene();
+    void Initialise();
+    void OnGalaxyPopulated();
+    void OnGalaxyReset();
+    void RemoveFromScene();
 
-	virtual void				Update( float delta );
-	virtual void				Render();
+    virtual void Update( float delta );
+    virtual void Render();
 
-	void						Show( bool state );
-	inline bool					IsVisible() const									{ return m_Show; }
-	inline void					GetOffset( float& offsetX, float& offsetY ) const	{ offsetX = m_OffsetX; offsetY = m_OffsetY; }
-	Math::FPoint2				GetOffset() const									{ return Math::FPoint2( m_OffsetX, m_OffsetY ); }
+    void Show( bool state );
+    inline bool IsVisible() const { return m_Show; }
+    inline void GetOffset( float& offsetX, float& offsetY ) const
+    {
+        offsetX = m_OffsetX;
+        offsetY = m_OffsetY;
+    }
+    Math::FPoint2 GetOffset() const { return Math::FPoint2( m_OffsetX, m_OffsetY ); }
 
-	GalaxyWindow*				GetGalaxyWindow() const;
-	const glm::vec2& GetSize() const;
+    GalaxyWindow* GetGalaxyWindow() const;
+    const glm::vec2& GetSize() const;
 
 private:
-	void						UpdateInput();
-	void						UpdateDrawInfo();
-	void						UpdateGoalDrawInfo();
+    void UpdateInput();
+    void UpdateDrawInfo();
+    void UpdateGoalDrawInfo();
 
-	void						DrawBackground();
-	void						DrawSectors( SectorDrawInfoVector& drawInfoVec, Genesis::Shader* pShader, Genesis::ShaderUniformInstances* pShaderUniforms, bool useFactionColour );
-	void						DrawSectorsThreatRatings();
-	void						DrawHomeworldSectors();
-	void						DrawGrid();
-	void						DrawGoals();
+    void DrawBackground();
+    void DrawSectors( SectorDrawInfoVector& drawInfoVec, Genesis::Shader* pShader, Genesis::ShaderUniformInstances* pShaderUniforms, bool useFactionColour );
+    void DrawSectorsThreatRatings();
+    void DrawHomeworldSectors();
+    void DrawGrid();
+    void DrawGoals();
 
-	void						FocusOnPlayerFleet();	// Sets the offsets needed to draw the galaxy correctly, while trying to player's fleet centered.
-	void						SetHoverSector();		// Decides which sector lies underneath the mouse pointer, if any. Result can be nullptr.
+    void FocusOnPlayerFleet(); // Sets the offsets needed to draw the galaxy correctly, while trying to player's fleet centered.
+    void SetHoverSector(); // Decides which sector lies underneath the mouse pointer, if any. Result can be nullptr.
 
-	void						OnLeftMouseButtonDown();
+    void OnLeftMouseButtonDown();
 
-	Galaxy*						m_pGalaxy;
-	bool						m_Show;
+    Galaxy* m_pGalaxy;
+    bool m_Show;
 
-	Genesis::Shader*			m_pBackgroundShader;
-	Genesis::VertexBuffer*		m_pBackgroundVB;
+    Genesis::Shader* m_pBackgroundShader;
+    Genesis::VertexBuffer* m_pBackgroundVB;
 
-	Genesis::Shader*			m_pSectorShader;
-	Genesis::Shader*			m_pSectorShipyardShader;
-	Genesis::Shader*			m_pSectorProbeShader;
-	Genesis::Shader*			m_pSectorStarfortShader;
-	Genesis::Shader*			m_pSectorInhibitorShader;
-	Genesis::Shader*			m_pSectorHomeworldShader;
-	Genesis::VertexBuffer*		m_pSectorVB;
-	Genesis::VertexBuffer*		m_pSectorInhibitorVB;
-	Genesis::VertexBuffer*		m_pSectorHomeworldVB;
+    Genesis::Shader* m_pSectorShader;
+    Genesis::Shader* m_pSectorShipyardShader;
+    Genesis::Shader* m_pSectorProbeShader;
+    Genesis::Shader* m_pSectorStarfortShader;
+    Genesis::Shader* m_pSectorInhibitorShader;
+    Genesis::Shader* m_pSectorHomeworldShader;
+    Genesis::VertexBuffer* m_pSectorVB;
+    Genesis::VertexBuffer* m_pSectorInhibitorVB;
+    Genesis::VertexBuffer* m_pSectorHomeworldVB;
 
-	Genesis::Shader*			m_pSectorCrossShader;
-	Genesis::VertexBuffer*		m_pSectorCrossVB;
+    Genesis::Shader* m_pSectorCrossShader;
+    Genesis::VertexBuffer* m_pSectorCrossVB;
     Genesis::ShaderUniformInstances m_SectorCrossUniforms;
 
-	Genesis::ShaderUniform*		m_pSectorHomeworldDiffuseSampler;
-	std::array< Genesis::ResourceImage*, (int)FactionId::Count > m_HomeworldImages;
+    Genesis::ShaderUniform* m_pSectorHomeworldDiffuseSampler;
+    std::array<Genesis::ResourceImage*, (int)FactionId::Count> m_HomeworldImages;
 
-	Genesis::Shader*			m_pSectorThreatShader;
-	std::array< Genesis::ShaderUniformInstances, static_cast<size_t>( ThreatRating::Count ) > m_pSectorThreatUniforms;
+    Genesis::Shader* m_pSectorThreatShader;
+    std::array<Genesis::ShaderUniformInstances, static_cast<size_t>( ThreatRating::Count )> m_pSectorThreatUniforms;
 
-	Genesis::VertexBuffer*		m_pGoalTargetVB;
+    Genesis::VertexBuffer* m_pGoalTargetVB;
 
-	Genesis::LayerSharedPtr		m_pLayer;
+    Genesis::LayerSharedPtr m_pLayer;
 
-	float						m_OffsetX;
-	float						m_OffsetY;
+    float m_OffsetX;
+    float m_OffsetY;
 
-	SectorInfo*					m_pHoverSector;
-	SectorDetails*				m_pSectorDetails;
+    SectorInfo* m_pHoverSector;
+    SectorDetails* m_pSectorDetails;
 
-	bool						m_ExitMenu;
+    bool m_ExitMenu;
 
-	SectorDrawInfoVector		m_SectorDrawInfo;
-	SectorDrawInfoVector		m_SectorDrawInfoShipyard;
-	SectorDrawInfoVector		m_SectorDrawInfoProbes;
-	SectorDrawInfoVector		m_SectorDrawInfoStarforts;
-	SectorDrawInfoVector		m_SectorDrawInfoInhibitors;
+    SectorDrawInfoVector m_SectorDrawInfo;
+    SectorDrawInfoVector m_SectorDrawInfoShipyard;
+    SectorDrawInfoVector m_SectorDrawInfoProbes;
+    SectorDrawInfoVector m_SectorDrawInfoStarforts;
+    SectorDrawInfoVector m_SectorDrawInfoInhibitors;
 
-	GalaxyWindowSharedPtr		m_pGalaxyWindow;
-	Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
+    GalaxyWindowSharedPtr m_pGalaxyWindow;
+    Genesis::InputCallbackToken m_LeftMouseButtonDownToken;
 
-	bool						m_InputPending;
-	uint32_t					m_InputTimer;
+    bool m_InputPending;
+    uint32_t m_InputTimer;
 
-	glm::vec2 m_Size;
+    glm::vec2 m_Size;
 };
 
 inline const glm::vec2& GalaxyRep::GetSize() const
 {
-	return m_Size;
+    return m_Size;
 }
 
-}
+} // namespace Hexterminate

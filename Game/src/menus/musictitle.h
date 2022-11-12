@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "eva.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -26,13 +26,13 @@ namespace Hexterminate
 class MusicTitle
 {
 public:
-							MusicTitle();
-							~MusicTitle();
-	void					Update( float delta );
+    MusicTitle();
+    ~MusicTitle();
+    void Update( float delta );
 
 private:
-	Genesis::Gui::Text*		m_pTextGui;
-	Genesis::Gui::Image*	m_pIcon;
+    Genesis::Gui::Text* m_pTextGui;
+    Genesis::Gui::Image* m_pIcon;
 };
 
-}
+} // namespace Hexterminate

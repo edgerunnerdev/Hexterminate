@@ -25,9 +25,9 @@ namespace Hexterminate
 class SectorEventNeutralFlagship : public SectorEvent
 {
 public:
-					SectorEventNeutralFlagship();
+    SectorEventNeutralFlagship();
 
-	virtual void	OnPlayerEnterSector() override;
+    virtual void OnPlayerEnterSector() override;
 };
 
-}
+} // namespace Hexterminate

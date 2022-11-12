@@ -29,24 +29,24 @@ static const int DefendRequestReward = 500;
 class DefendRequest : public ImperialRequest
 {
 public:
-									DefendRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo );
+    DefendRequest( RequestManager* pRequestManager, SectorInfo* pSectorInfo );
 
-	virtual ImperialRequestType		GetType() const override				{ return ImperialRequestType::Defend; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Defend; }
 
-	virtual void					Update( float delta ) override;
+    virtual void Update( float delta ) override;
 
-	virtual void					OnBegin() override;
-	virtual void					OnSuccess() override;
-	virtual void					OnFailure() override;
+    virtual void OnBegin() override;
+    virtual void OnSuccess() override;
+    virtual void OnFailure() override;
 
-	virtual int						GetConquestReward( const SectorInfo* pSectorInfo ) const override;
+    virtual int GetConquestReward( const SectorInfo* pSectorInfo ) const override;
 
-	inline SectorInfo*				GetSectorInfo() const					{ return m_pSectorInfo; }
+    inline SectorInfo* GetSectorInfo() const { return m_pSectorInfo; }
 
 private:
-	RequestGoalSharedPtr			m_pGoal;
-	SectorInfo*						m_pSectorInfo;
-	int								m_Reward;
+    RequestGoalSharedPtr m_pGoal;
+    SectorInfo* m_pSectorInfo;
+    int m_Reward;
 };
 
-}
+} // namespace Hexterminate

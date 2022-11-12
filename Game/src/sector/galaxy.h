@@ -17,10 +17,10 @@
 
 #pragma once
 
-#include <vector>
 #include "galaxycreationinfo.h"
 #include "globals.h"
 #include "serialisable.h"
+#include <vector>
 
 namespace Hexterminate
 {
@@ -33,60 +33,59 @@ class GalaxyRep;
 class Galaxy : public Serialisable
 {
 public:
-						Galaxy();
-						~Galaxy();
+    Galaxy();
+    ~Galaxy();
 
-	void				Reset();
-	void				Update( float delta );
-	void				Show( bool state );
+    void Reset();
+    void Update( float delta );
+    void Show( bool state );
 
-	inline SectorInfo*	GetSectorInfo( int x, int y ) const;
-	inline bool			IsInitialised() const				{ return m_Initialised; }
-	inline GalaxyRep*	GetRepresentation() const			{ return m_pRep; }
-	bool				IsVisible() const;
+    inline SectorInfo* GetSectorInfo( int x, int y ) const;
+    inline bool IsInitialised() const { return m_Initialised; }
+    inline GalaxyRep* GetRepresentation() const { return m_pRep; }
+    bool IsVisible() const;
 
-	void				Create( const GalaxyCreationInfo& creationInfo );
-	void				ForceNextTurn();
+    void Create( const GalaxyCreationInfo& creationInfo );
+    void ForceNextTurn();
 
-	inline float		GetCompression() const				{ return m_Compression; }
-	FogOfWar*			GetFogOfWar() const;
+    inline float GetCompression() const { return m_Compression; }
+    FogOfWar* GetFogOfWar() const;
 
-	// Serialisable
-	virtual bool		Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
-	virtual bool		Read( tinyxml2::XMLElement* pRootElement ) override;
-	virtual int			GetVersion() const override			{ return 5; }
-	virtual void		UpgradeFromVersion( int version ) override;
+    // Serialisable
+    virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
+    virtual bool Read( tinyxml2::XMLElement* pRootElement ) override;
+    virtual int GetVersion() const override { return 5; }
+    virtual void UpgradeFromVersion( int version ) override;
 
 private:
-	void				GenerateProceduralGalaxy( const GalaxyCreationInfo& galaxyCreationInfo );
-	void				CalculateCompression();
-	void				UpdateDebugUI();
-	void				EndGameCheck();
+    void GenerateProceduralGalaxy( const GalaxyCreationInfo& galaxyCreationInfo );
+    void CalculateCompression();
+    void UpdateDebugUI();
+    void EndGameCheck();
 
-	bool				m_Initialised;
-	SectorInfo*			m_Sectors[NumSectorsX][NumSectorsY];
-	GalaxyRep*			m_pRep;
-	float				m_Compression;
-	bool				m_DebugWindowOpen;
-	FogOfWar*			m_pFogOfWar;
+    bool m_Initialised;
+    SectorInfo* m_Sectors[ NumSectorsX ][ NumSectorsY ];
+    GalaxyRep* m_pRep;
+    float m_Compression;
+    bool m_DebugWindowOpen;
+    FogOfWar* m_pFogOfWar;
 };
-
 
 inline SectorInfo* Galaxy::GetSectorInfo( int x, int y ) const
 {
-	if ( x < 0 || x >= NumSectorsX || y < 0 || y >= NumSectorsY )
-	{
-		return nullptr;
-	}
-	else
-	{
-		return m_Sectors[ x ][ y ];
-	}
+    if ( x < 0 || x >= NumSectorsX || y < 0 || y >= NumSectorsY )
+    {
+        return nullptr;
+    }
+    else
+    {
+        return m_Sectors[ x ][ y ];
+    }
 }
 
 inline FogOfWar* Galaxy::GetFogOfWar() const
 {
-	return m_pFogOfWar;
+    return m_pFogOfWar;
 }
 
-}
+} // namespace Hexterminate

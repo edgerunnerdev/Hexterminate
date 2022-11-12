@@ -25,13 +25,13 @@ class SectorInfo;
 class InfiniteWarRequestInfo : public ImperialRequestInfo
 {
 public:
-	virtual ImperialRequestType			GetType() const override { return ImperialRequestType::InfiniteWar; }
-	virtual AllowedGameMode				GetAllowedGameMode() const override { return AllowedGameMode::InfiniteWar; }
-	virtual int							GetMaximumRequests() const override { return 1; }
-	virtual float						GetMinimumTimeBetweenRequests() const override { return 2.0f; }
-    virtual float                       GetMinimumTimeBeforeRequest() const override { return 5.0f; }
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::InfiniteWar; }
+    virtual AllowedGameMode GetAllowedGameMode() const override { return AllowedGameMode::InfiniteWar; }
+    virtual int GetMaximumRequests() const override { return 1; }
+    virtual float GetMinimumTimeBetweenRequests() const override { return 2.0f; }
+    virtual float GetMinimumTimeBeforeRequest() const override { return 5.0f; }
 
-	virtual ImperialRequestSharedPtr	TryInstantiate( RequestManager* pRequestManager ) const override;
+    virtual ImperialRequestSharedPtr TryInstantiate( RequestManager* pRequestManager ) const override;
 };
 
-}
+} // namespace Hexterminate

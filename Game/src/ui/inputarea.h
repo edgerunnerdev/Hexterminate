@@ -21,7 +21,7 @@
 
 namespace Genesis::Gui
 {
-    class InputArea;
+class InputArea;
 }
 
 namespace Hexterminate::UI

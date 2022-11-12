@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": true,
     "cmake.configureArgs": [
         "-DUSE_STEAM=OFF"
     ],

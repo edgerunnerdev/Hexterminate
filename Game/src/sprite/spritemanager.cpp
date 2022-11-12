@@ -27,104 +27,104 @@
 namespace Hexterminate
 {
 
-SpriteManager::SpriteManager() :
-m_pTexture( nullptr ),
-m_pShader( nullptr ),
-m_pVertexBuffer( nullptr )
+SpriteManager::SpriteManager()
+    : m_pTexture( nullptr )
+    , m_pShader( nullptr )
+    , m_pVertexBuffer( nullptr )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	m_Sprites.reserve( 512 );
+    m_Sprites.reserve( 512 );
 
-	m_pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/images/sprites.png" );
+    m_pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/images/sprites.png" );
 
-	m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "sprite" );
-	Genesis::ShaderUniform* pSampler = m_pShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
-	pSampler->Set( m_pTexture, GL_TEXTURE0 );
+    m_pShader = FrameWork::GetRenderSystem()->GetShaderCache()->Load( "sprite" );
+    Genesis::ShaderUniform* pSampler = m_pShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
+    pSampler->Set( m_pTexture, GL_TEXTURE0 );
 
-	m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
+    m_pVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
 };
 
 SpriteManager::~SpriteManager()
 {
-	delete m_pVertexBuffer;
+    delete m_pVertexBuffer;
 }
 
 void SpriteManager::Update( float delta )
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	if ( m_Sprites.empty() )
-	{
-		return;
-	}
+    if ( m_Sprites.empty() )
+    {
+        return;
+    }
 
-	PositionData posData;
-	UVData uvData;
-	ColourData colourData;
+    PositionData posData;
+    UVData uvData;
+    ColourData colourData;
 
-	unsigned int numVertices = m_Sprites.size() * 6;
-	posData.reserve( numVertices );
-	uvData.reserve( numVertices );
-	colourData.reserve( numVertices );
+    unsigned int numVertices = m_Sprites.size() * 6;
+    posData.reserve( numVertices );
+    uvData.reserve( numVertices );
+    colourData.reserve( numVertices );
 
-	for ( auto& sprite : m_Sprites )
-	{
-		const float halfWidth = sprite.GetWidth() / 2.0f;
-		const glm::vec3& src = sprite.GetSource();
-		const glm::vec3& dst = sprite.GetDestination();
-		glm::vec3 dir = glm::normalize( dst - src );
-		glm::vec3 perp( -dir.y * halfWidth, dir.x * halfWidth, 0.0f );
+    for ( auto& sprite : m_Sprites )
+    {
+        const float halfWidth = sprite.GetWidth() / 2.0f;
+        const glm::vec3& src = sprite.GetSource();
+        const glm::vec3& dst = sprite.GetDestination();
+        glm::vec3 dir = glm::normalize( dst - src );
+        glm::vec3 perp( -dir.y * halfWidth, dir.x * halfWidth, 0.0f );
 
-		posData.emplace_back( src.x + perp.x, src.y + perp.y, src.z ); // 0
-		posData.emplace_back( src.x - perp.x, src.y - perp.y, src.z ); // 1
-		posData.emplace_back( dst.x - perp.x, dst.y - perp.y, src.z ); // 2
-		posData.emplace_back( src.x + perp.x, src.y + perp.y, src.z ); // 0
-		posData.emplace_back( dst.x - perp.x, dst.y - perp.y, src.z ); // 2
-		posData.emplace_back( dst.x + perp.x, dst.y + perp.y, src.z ); // 3
+        posData.emplace_back( src.x + perp.x, src.y + perp.y, src.z ); // 0
+        posData.emplace_back( src.x - perp.x, src.y - perp.y, src.z ); // 1
+        posData.emplace_back( dst.x - perp.x, dst.y - perp.y, src.z ); // 2
+        posData.emplace_back( src.x + perp.x, src.y + perp.y, src.z ); // 0
+        posData.emplace_back( dst.x - perp.x, dst.y - perp.y, src.z ); // 2
+        posData.emplace_back( dst.x + perp.x, dst.y + perp.y, src.z ); // 3
 
-		uvData.emplace_back( 1.0f, 0.0f ); // 0
-		uvData.emplace_back( 0.0f, 0.0f ); // 1
-		uvData.emplace_back( 0.0f, 1.0f ); // 2
-		uvData.emplace_back( 1.0f, 0.0f ); // 0
-		uvData.emplace_back( 0.0f, 1.0f ); // 2
-		uvData.emplace_back( 1.0f, 1.0f ); // 3
+        uvData.emplace_back( 1.0f, 0.0f ); // 0
+        uvData.emplace_back( 0.0f, 0.0f ); // 1
+        uvData.emplace_back( 0.0f, 1.0f ); // 2
+        uvData.emplace_back( 1.0f, 0.0f ); // 0
+        uvData.emplace_back( 0.0f, 1.0f ); // 2
+        uvData.emplace_back( 1.0f, 1.0f ); // 3
 
-		const glm::vec4 colour = sprite.GetColour().glm();
-		for ( int i = 0; i < 6; ++i )
-		{
-			colourData.push_back( colour );
-		}
-	}
+        const glm::vec4 colour = sprite.GetColour().glm();
+        for ( int i = 0; i < 6; ++i )
+        {
+            colourData.push_back( colour );
+        }
+    }
 
-	m_pVertexBuffer->CopyPositions( posData );
-	m_pVertexBuffer->CopyUVs( uvData );
-	m_pVertexBuffer->CopyColours( colourData );
+    m_pVertexBuffer->CopyPositions( posData );
+    m_pVertexBuffer->CopyUVs( uvData );
+    m_pVertexBuffer->CopyColours( colourData );
 }
 
 void SpriteManager::Render()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	if ( m_Sprites.empty() )
-		return;
+    if ( m_Sprites.empty() )
+        return;
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
 
-	m_pShader->Use();
-	m_pVertexBuffer->Draw( m_Sprites.size() * 6 );
+    m_pShader->Use();
+    m_pVertexBuffer->Draw( m_Sprites.size() * 6 );
 
-	if ( g_pGame->IsPaused() == false )
-	{
-		m_Sprites.clear();
-	}
+    if ( g_pGame->IsPaused() == false )
+    {
+        m_Sprites.clear();
+    }
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
 }
 
 void SpriteManager::AddSprite( const Sprite& Sprite )
 {
-	m_Sprites.push_back( Sprite );
+    m_Sprites.push_back( Sprite );
 }
 
-}
+} // namespace Hexterminate

@@ -18,23 +18,22 @@
 #include "requests/requestgoal.h"
 #include "requests/requestgoalrep.h"
 
-
 namespace Hexterminate
 {
 
-RequestGoal::RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Color& colour ) :
-m_pFleet( pFleet ), 
-m_pSectorInfo( nullptr ), 
-m_Description( description ) 
-{ 
-	m_pRepresentation = std::make_shared< RequestGoalRep >( this, colour );
+RequestGoal::RequestGoal( FleetWeakPtr pFleet, const std::string& description, const Color& colour )
+    : m_pFleet( pFleet )
+    , m_pSectorInfo( nullptr )
+    , m_Description( description )
+{
+    m_pRepresentation = std::make_shared<RequestGoalRep>( this, colour );
 }
 
-RequestGoal::RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Color& colour ) :
-m_pSectorInfo( pSectorInfo), 
-m_Description( description ) 
-{ 
-	m_pRepresentation = std::make_shared< RequestGoalRep >( this, colour );
+RequestGoal::RequestGoal( SectorInfo* pSectorInfo, const std::string& description, const Color& colour )
+    : m_pSectorInfo( pSectorInfo )
+    , m_Description( description )
+{
+    m_pRepresentation = std::make_shared<RequestGoalRep>( this, colour );
 }
 
-}
+} // namespace Hexterminate

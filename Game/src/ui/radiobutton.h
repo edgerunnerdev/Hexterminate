@@ -22,12 +22,12 @@
 
 namespace Genesis
 {
-    class ResourceSound;
+class ResourceSound;
 }
 
 namespace Genesis::Gui
 {
-    class RadioButton;
+class RadioButton;
 }
 
 namespace Hexterminate::UI

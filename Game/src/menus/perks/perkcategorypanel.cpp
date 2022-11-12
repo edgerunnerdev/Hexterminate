@@ -16,54 +16,53 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "menus/perks/perkcategorypanel.h"
+#include "hexterminate.h"
 #include "menus/eva.h"
 #include "misc/gui.h"
 #include "player.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
 
-PerkCategoryPanel::PerkCategoryPanel() :
-m_pTitle( nullptr ),
-m_PreviousUnlocked( true )
+PerkCategoryPanel::PerkCategoryPanel()
+    : m_pTitle( nullptr )
+    , m_PreviousUnlocked( true )
 {
-
 }
 
 void PerkCategoryPanel::Init( const std::string& category )
 {
-	m_pTitle = GuiExtended::CreateText( 8, 8, 256, 32, "> " + category, this );
+    m_pTitle = GuiExtended::CreateText( 8, 8, 256, 32, "> " + category, this );
 }
 
 void PerkCategoryPanel::Show( bool state )
 {
-	Genesis::Gui::Image::Show( state );
+    Genesis::Gui::Image::Show( state );
 
-	for ( PerkPanel* pPerk : m_Perks )
-	{
-		pPerk->Show( state );
-	}
+    for ( PerkPanel* pPerk : m_Perks )
+    {
+        pPerk->Show( state );
+    }
 }
 
 void PerkCategoryPanel::AddPerk( Perk perk, const std::string& name, const std::string& description, const std::string& icon, int cost )
 {
-	PerkState state = m_PreviousUnlocked ? PerkState::Locked : PerkState::Disabled;
+    PerkState state = m_PreviousUnlocked ? PerkState::Locked : PerkState::Disabled;
 
-	const int panelHeight = 106;
-	const int panelWidth = 188;
+    const int panelHeight = 106;
+    const int panelWidth = 188;
 
-	PerkPanel* pPanel = new PerkPanel();
-	pPanel->SetSize( panelWidth, panelHeight );
-	pPanel->SetColour( 0.0f, 0.0f, 0.0f, 0.5f );
-	pPanel->SetBorderColour( 1.0f, 1.0f, 1.0f, 0.25f );
-	pPanel->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
-	pPanel->SetPosition( 4 + m_Perks.size() * ( panelWidth + 4 ), 32 );
-	pPanel->Init( perk, name, description, icon, cost, state );
-	AddElement( pPanel );
-	m_Perks.push_back( pPanel );
+    PerkPanel* pPanel = new PerkPanel();
+    pPanel->SetSize( panelWidth, panelHeight );
+    pPanel->SetColour( 0.0f, 0.0f, 0.0f, 0.5f );
+    pPanel->SetBorderColour( 1.0f, 1.0f, 1.0f, 0.25f );
+    pPanel->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
+    pPanel->SetPosition( 4 + m_Perks.size() * ( panelWidth + 4 ), 32 );
+    pPanel->Init( perk, name, description, icon, cost, state );
+    AddElement( pPanel );
+    m_Perks.push_back( pPanel );
 
-	m_PreviousUnlocked = ( state == PerkState::Enabled );
+    m_PreviousUnlocked = ( state == PerkState::Enabled );
 }
 
 void PerkCategoryPanel::HandleGameEvent( GameEvent* pEvent )
@@ -76,13 +75,13 @@ void PerkCategoryPanel::HandleGameEvent( GameEvent* pEvent )
         {
             PerkState state;
             if ( g_pGame->GetPlayer()->GetPerks()->IsEnabled( pPerkPanel->GetPerk() ) )
-	        {
-		        state = PerkState::Enabled;
-	        }
-	        else
-	        {
-		        state = m_PreviousUnlocked ? PerkState::Locked : PerkState::Disabled;
-	        }
+            {
+                state = PerkState::Enabled;
+            }
+            else
+            {
+                state = m_PreviousUnlocked ? PerkState::Locked : PerkState::Disabled;
+            }
 
             pPerkPanel->SetState( state );
 
@@ -91,4 +90,4 @@ void PerkCategoryPanel::HandleGameEvent( GameEvent* pEvent )
     }
 }
 
-}
+} // namespace Hexterminate

@@ -16,80 +16,79 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef _DEBUG
-#include <sstream>
-#include <render/debugrender.h>
 #include "hexterminate.h"
+#include <render/debugrender.h>
+#include <sstream>
 #endif
 
-#include "particles/particlemanager.h"
 #include "particles/particleemitter.h"
+#include "particles/particlemanager.h"
 
-namespace Hexterminate 
+namespace Hexterminate
 {
 
 static int sMaxEmitters = 2048;
 
 ParticleManager::ParticleManager()
 {
-	m_Emitters.resize( sMaxEmitters );
-	for ( int i = 0; i < sMaxEmitters; ++i )
-	{
-		m_Emitters[ i ].Reset();
-	}
-	m_Idx = 0;
+    m_Emitters.resize( sMaxEmitters );
+    for ( int i = 0; i < sMaxEmitters; ++i )
+    {
+        m_Emitters[ i ].Reset();
+    }
+    m_Idx = 0;
 }
 
 ParticleManager::~ParticleManager()
 {
-
 }
 
 void ParticleManager::Update( float delta )
 {
-	int activeEmitters = 0;
-	for ( auto& emitter : m_Emitters )
-	{
-		if ( emitter.IsActive() )
-		{
-			emitter.Update( delta );
-			activeEmitters++;
-		}
-	}
+    int activeEmitters = 0;
+    for ( auto& emitter : m_Emitters )
+    {
+        if ( emitter.IsActive() )
+        {
+            emitter.Update( delta );
+            activeEmitters++;
+        }
+    }
 
-//#ifdef _DEBUG
-//	glm::vec3 colour = ( activeEmitters < sMaxEmitters ) ? glm::vec3( 0.0f, 1.0f, 0.0f ) : glm::vec3( 1.0f, 0.0f, 0.0f );
-//	std::stringstream ss;
-//	ss << "Active emitters: " << activeEmitters << "/" << sMaxEmitters;
-//	g_pGame->GetDebugRender()->DrawText( 16.0f, 16.0f, ss.str(), colour );
-//#endif
+    //#ifdef _DEBUG
+    //	glm::vec3 colour = ( activeEmitters < sMaxEmitters ) ? glm::vec3( 0.0f, 1.0f, 0.0f ) : glm::vec3( 1.0f, 0.0f, 0.0f );
+    //	std::stringstream ss;
+    //	ss << "Active emitters: " << activeEmitters << "/" << sMaxEmitters;
+    //	g_pGame->GetDebugRender()->DrawText( 16.0f, 16.0f, ss.str(), colour );
+    //#endif
 }
 
 ParticleEmitter* ParticleManager::GetAvailableEmitter()
 {
-	int numEmitters = m_Emitters.size();
-	for ( int i = m_Idx; i < numEmitters; ++i )
-	{
-		if ( m_Emitters[ i ].IsActive() == false )
-		{
-			m_Idx = i;
-			m_Emitters[ i ].Reset();
-			return &m_Emitters[ i ];
-		}
-	}
+    int numEmitters = m_Emitters.size();
+    for ( int i = m_Idx; i < numEmitters; ++i )
+    {
+        if ( m_Emitters[ i ].IsActive() == false )
+        {
+            m_Idx = i;
+            m_Emitters[ i ].Reset();
+            return &m_Emitters[ i ];
+        }
+    }
 
-	for ( int i = 0; i < m_Idx; ++i )
-	{
-		if ( m_Emitters[ i ].IsActive() == false )
-		{
-			m_Idx = i;
-			m_Emitters[ i ].Reset();
-			return &m_Emitters[ i ];
-		}
-	}
+    for ( int i = 0; i < m_Idx; ++i )
+    {
+        if ( m_Emitters[ i ].IsActive() == false )
+        {
+            m_Idx = i;
+            m_Emitters[ i ].Reset();
+            return &m_Emitters[ i ];
+        }
+    }
 
-	// If all emitters have been used, override the first one
-	m_Emitters[ 0 ].Reset();
-	return &m_Emitters[ 0 ];
+    // If all emitters have been used, override the first one
+    m_Emitters[ 0 ].Reset();
+    return &m_Emitters[ 0 ];
 }
 
-}
+} // namespace Hexterminate

@@ -20,10 +20,10 @@
 
 #ifdef DEV_MODE_ALLOWED
 
-#include <gui/gui.h>
 #include "menus/table.h"
 #include "menus/tablerow.h"
 #include "ship/moduleinfo.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -41,29 +41,28 @@ class ModuleInfo;
 class PanelShipyardDebug
 {
 public:
-							PanelShipyardDebug();
-							~PanelShipyardDebug();
-	void					Update( float delta );
+    PanelShipyardDebug();
+    ~PanelShipyardDebug();
+    void Update( float delta );
 
-	const std::string&		GetLoadedFilename() const;
-	void					SetLoadedFilename( const std::string& filename );
+    const std::string& GetLoadedFilename() const;
+    void SetLoadedFilename( const std::string& filename );
 
-	void					SetFactionFilter( FactionId faction );
+    void SetFactionFilter( FactionId faction );
 
 private:
-	void					CreateFactionSelectButtons();
-	void					CreateTableWindow();
-	void					CreateTable( FactionId factionId );
-	void					CreateButtonSave();
+    void CreateFactionSelectButtons();
+    void CreateTableWindow();
+    void CreateTable( FactionId factionId );
+    void CreateButtonSave();
 
-	EvaWindow*				m_pTableWindow;
-	Genesis::Gui::Text*		m_pTableTitle;
-	Table*					m_pTable[ static_cast<unsigned int>( FactionId::Count ) ];
-	ButtonSaveHexGrid*		m_pButtonSave;
-	ButtonFactionSelect*	m_pButtonFactionSelect[ static_cast<unsigned int>( FactionId::Count ) ];
-	FactionId				m_SelectedFaction;
+    EvaWindow* m_pTableWindow;
+    Genesis::Gui::Text* m_pTableTitle;
+    Table* m_pTable[ static_cast<unsigned int>( FactionId::Count ) ];
+    ButtonSaveHexGrid* m_pButtonSave;
+    ButtonFactionSelect* m_pButtonFactionSelect[ static_cast<unsigned int>( FactionId::Count ) ];
+    FactionId m_SelectedFaction;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonFactionSelect
@@ -72,15 +71,14 @@ private:
 class ButtonFactionSelect : public Genesis::Gui::Button
 {
 public:
-							ButtonFactionSelect( PanelShipyardDebug* pOwner, FactionId factionId );
-	virtual					~ButtonFactionSelect() override {};
-	virtual void			OnPress() override;
+    ButtonFactionSelect( PanelShipyardDebug* pOwner, FactionId factionId );
+    virtual ~ButtonFactionSelect() override{};
+    virtual void OnPress() override;
 
 private:
-	PanelShipyardDebug*		m_pOwner;
-	FactionId				m_FactionId;
+    PanelShipyardDebug* m_pOwner;
+    FactionId m_FactionId;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonSaveHexGrid
@@ -89,32 +87,31 @@ private:
 class ButtonSaveHexGrid : public Genesis::Gui::Button
 {
 public:
-							ButtonSaveHexGrid( PanelShipyardDebug* pOwner );
-	virtual					~ButtonSaveHexGrid() override {};
-	virtual void			OnPress() override;
+    ButtonSaveHexGrid( PanelShipyardDebug* pOwner );
+    virtual ~ButtonSaveHexGrid() override{};
+    virtual void OnPress() override;
 
 private:
-	PanelShipyardDebug*		m_pOwner;
+    PanelShipyardDebug* m_pOwner;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // TableRowHexGrid
 ///////////////////////////////////////////////////////////////////////////////
 
-class TableRowHexGrid: public TableRow
+class TableRowHexGrid : public TableRow
 {
 public:
-							TableRowHexGrid( PanelShipyardDebug* pOwner, const std::string& filename );
-	virtual					~TableRowHexGrid() override {};
-	virtual void			OnPress() override;
+    TableRowHexGrid( PanelShipyardDebug* pOwner, const std::string& filename );
+    virtual ~TableRowHexGrid() override{};
+    virtual void OnPress() override;
 
 private:
-	PanelShipyardDebug*		m_pOwner;
-	std::string				m_Filename;
+    PanelShipyardDebug* m_pOwner;
+    std::string m_Filename;
 };
 
-}
+} // namespace Hexterminate
 
 #endif
 

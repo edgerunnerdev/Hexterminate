@@ -24,85 +24,83 @@
 
 namespace Genesis
 {
-    class Shader;
-    class VertexBuffer;
-}
+class Shader;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 class TableRow;
 
-typedef std::vector< TableRow* > TableRowVector;
-typedef std::vector< float > TableDimensions;
-typedef std::vector< Genesis::Gui::Text* > TextVector;
-
+typedef std::vector<TableRow*> TableRowVector;
+typedef std::vector<float> TableDimensions;
+typedef std::vector<Genesis::Gui::Text*> TextVector;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Table
 ///////////////////////////////////////////////////////////////////////////////
 
-class Table: public Genesis::Gui::GuiElement
+class Table : public Genesis::Gui::GuiElement
 {
 public:
-						Table();
-	virtual				~Table();
+    Table();
+    virtual ~Table();
 
-	virtual void		Update( float delta ) override;
-	virtual void		Render() override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-	int					AddRow( TableRow* pTableRow );
-	TableRow*			GetRow( unsigned int index ) const;
-	unsigned int		GetRowCount() const;
-	float				GetRowHeight() const;
+    int AddRow( TableRow* pTableRow );
+    TableRow* GetRow( unsigned int index ) const;
+    unsigned int GetRowCount() const;
+    float GetRowHeight() const;
 
-	void				NotifyContentUpdated();
+    void NotifyContentUpdated();
 
 private:
-	bool				UpdateDimensions( TableRow* pTableRow );
-	void				UpdatePositions();
-	void				UpdateContents();
+    bool UpdateDimensions( TableRow* pTableRow );
+    void UpdatePositions();
+    void UpdateContents();
 
-	void				OnMousePressedCallback();
+    void OnMousePressedCallback();
 
-	TableRowVector		m_Rows;
-	TableDimensions		m_Dimensions;
-	TextVector			m_Text;
+    TableRowVector m_Rows;
+    TableDimensions m_Dimensions;
+    TextVector m_Text;
 
-	bool				m_PositionsDirty;
-	bool				m_ContentsDirty;
+    bool m_PositionsDirty;
+    bool m_ContentsDirty;
 
-	float				m_RowHeight;
+    float m_RowHeight;
 
-	Genesis::InputCallbackToken	m_MousePressedToken;
+    Genesis::InputCallbackToken m_MousePressedToken;
 
-    Genesis::Shader*    m_pShader;
+    Genesis::Shader* m_pShader;
     Genesis::VertexBuffer* m_pVertexBuffer;
-
 };
 
 inline unsigned int Table::GetRowCount() const
 {
-	return m_Rows.size();
+    return m_Rows.size();
 }
 
 inline TableRow* Table::GetRow( unsigned int index ) const
 {
-	if ( index < m_Rows.size() )
-		return m_Rows[ index ];
-	else
-		return nullptr;
+    if ( index < m_Rows.size() )
+        return m_Rows[ index ];
+    else
+        return nullptr;
 }
 
 inline void Table::NotifyContentUpdated()
 {
-	m_PositionsDirty = true;
-	m_ContentsDirty = true;
+    m_PositionsDirty = true;
+    m_ContentsDirty = true;
 }
 
 inline float Table::GetRowHeight() const
 {
-	return m_RowHeight;
+    return m_RowHeight;
 }
 
-}
+} // namespace Hexterminate

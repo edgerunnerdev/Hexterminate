@@ -24,10 +24,10 @@
 
 namespace Genesis::Gui
 {
-    class Text;
+class Text;
 }
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
 class Text : public Element

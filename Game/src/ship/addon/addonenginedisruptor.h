@@ -17,10 +17,10 @@
 
 #pragma once
 
-#include <array>
-
 #include "laser/laser.h"
 #include "ship/addon/addon.h"
+
+#include <array>
 
 namespace Genesis
 {
@@ -37,35 +37,35 @@ static const float sEngineDisruptorLaserDuration = 1.0f; // in seconds
 class AddonEngineDisruptor : public Addon
 {
 public:
-					AddonEngineDisruptor( AddonModule* pModule, Ship* pOwner );
-	virtual			~AddonEngineDisruptor() {};
+    AddonEngineDisruptor( AddonModule* pModule, Ship* pOwner );
+    virtual ~AddonEngineDisruptor(){};
 
-	virtual void	Activate() override;
-	virtual void	Update( float delta ) override;
+    virtual void Activate() override;
+    virtual void Update( float delta ) override;
 
 private:
-	void			LoadSFX();
-	void			PlaySFX();
-	void			UpdateFiring( float delta );
-	void			UpdateLaser( float delta );
-	void			UpdateShockwave( float delta );
-	
-	struct DisruptorLaser
-	{
-		float m_Timer;
-		Laser m_Laser;
-		glm::vec3 m_Target;
-	};
+    void LoadSFX();
+    void PlaySFX();
+    void UpdateFiring( float delta );
+    void UpdateLaser( float delta );
+    void UpdateShockwave( float delta );
 
-	std::array< DisruptorLaser, sEngineDisruptorShockwaveCount > m_DisruptorLasers;
-	std::array< float, sEngineDisruptorShockwaveCount > m_ShockwaveTimers;
+    struct DisruptorLaser
+    {
+        float m_Timer;
+        Laser m_Laser;
+        glm::vec3 m_Target;
+    };
 
-	Genesis::ResourceSound* m_pSFX;
-	float m_ShockwaveMaximumRadius;
-	float m_ShockwaveParticleScale;
-	glm::vec3 m_DisruptorAnchor;
-	int m_TimesToFire;
-	float m_TimeToNextShot;
+    std::array<DisruptorLaser, sEngineDisruptorShockwaveCount> m_DisruptorLasers;
+    std::array<float, sEngineDisruptorShockwaveCount> m_ShockwaveTimers;
+
+    Genesis::ResourceSound* m_pSFX;
+    float m_ShockwaveMaximumRadius;
+    float m_ShockwaveParticleScale;
+    glm::vec3 m_DisruptorAnchor;
+    int m_TimesToFire;
+    float m_TimeToNextShot;
 };
 
-}
+} // namespace Hexterminate

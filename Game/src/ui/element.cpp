@@ -18,17 +18,17 @@
 #include <filesystem>
 #include <sstream>
 
+#include <configuration.h>
+#include <genesis.h>
 #include <gui/gui.h>
 #include <imgui/imgui.h>
-#include <configuration.h>
 #include <logger.h>
-#include <genesis.h>
 
+#include "hexterminate.h"
 #include "menus/popup.h"
 #include "ui/design.h"
 #include "ui/element.h"
 #include "ui/rootelement.h"
-#include "hexterminate.h"
 
 namespace Hexterminate::UI
 {
@@ -37,18 +37,17 @@ static const char* sElementPropertyPosition = "position";
 static const char* sElementPropertySize = "size";
 static const char* sElementPropertyAnchor = "anchor";
 
-
-Element::Element( const std::string& name ) :
-m_Name( name ),
-m_IsPopupElement( false ),
-m_IsEditable( true ),
-m_IsDynamic( false ),
-m_AnchorTop( true ),
-m_AnchorLeft( true ),
-m_AnchorBottom( false ),
-m_AnchorRight( false ),
-m_PaddingRight( false ),
-m_PaddingBottom( false )
+Element::Element( const std::string& name )
+    : m_Name( name )
+    , m_IsPopupElement( false )
+    , m_IsEditable( true )
+    , m_IsDynamic( false )
+    , m_AnchorTop( true )
+    , m_AnchorLeft( true )
+    , m_AnchorBottom( false )
+    , m_AnchorRight( false )
+    , m_PaddingRight( false )
+    , m_PaddingBottom( false )
 {
     m_pPanel = new Genesis::Gui::Panel();
     m_pPanel->SetSize( 128.0f, 128.0f );
@@ -59,12 +58,11 @@ m_PaddingBottom( false )
 
 Element::~Element()
 {
-
 }
 
 void Element::Update()
 {
-    for (auto& pChild : m_Children)
+    for ( auto& pChild : m_Children )
     {
         pChild->Update();
     }
@@ -171,7 +169,7 @@ void Element::SaveInternal( json& data, bool saveProperties /* = true */ )
     {
         for ( auto& pChild : GetChildren() )
         {
-            json& childData = data[pChild->GetName()];
+            json& childData = data[ pChild->GetName() ];
             pChild->SaveInternal( childData );
         }
     }
@@ -242,10 +240,10 @@ void Element::RenderProperties()
             m_pPanel->Show( visible );
         }
 
-        ImGui::Text("%s", "Anchor");
-        ImGui::PushStyleVar(ImGuiStyleVar_SelectableTextAlign, ImVec2(0.5f, 0.5f));
+        ImGui::Text( "%s", "Anchor" );
+        ImGui::PushStyleVar( ImGuiStyleVar_SelectableTextAlign, ImVec2( 0.5f, 0.5f ) );
         ImVec2 s( 25, 25 );
-        ImGui::InvisibleButton( "TL", s ); 
+        ImGui::InvisibleButton( "TL", s );
         ImGui::SameLine();
         if ( ImGui::Selectable( "T", m_AnchorTop, 0, s ) )
         {
@@ -264,7 +262,7 @@ void Element::RenderProperties()
             m_AnchorRight = !m_AnchorRight;
         }
 
-        ImGui::InvisibleButton( "BL", s ); 
+        ImGui::InvisibleButton( "BL", s );
         ImGui::SameLine();
         if ( ImGui::Selectable( "B", m_AnchorBottom, 0, s ) )
         {
@@ -273,22 +271,22 @@ void Element::RenderProperties()
         ImGui::PopStyleVar();
 
         glm::vec2 gpos = m_pPanel->GetPosition();
-        int ipos[2] = { static_cast<int>( gpos.x ), static_cast<int>( gpos.y ) };
-        InputIntExt( "X", &ipos[0], !m_AnchorLeft );
-        InputIntExt( "Y", &ipos[1], !m_AnchorTop );
-        SetPosition( ipos[0], ipos[1] );
+        int ipos[ 2 ] = { static_cast<int>( gpos.x ), static_cast<int>( gpos.y ) };
+        InputIntExt( "X", &ipos[ 0 ], !m_AnchorLeft );
+        InputIntExt( "Y", &ipos[ 1 ], !m_AnchorTop );
+        SetPosition( ipos[ 0 ], ipos[ 1 ] );
 
         InputIntExt( "Padding right", &m_PaddingRight, !m_AnchorRight );
         InputIntExt( "Padding bottom", &m_PaddingBottom, !m_AnchorBottom );
 
         glm::vec2 gsize = m_pPanel->GetSize();
-        int isize[2] = { static_cast<int>( gsize.x ), static_cast<int>( gsize.y ) };
+        int isize[ 2 ] = { static_cast<int>( gsize.x ), static_cast<int>( gsize.y ) };
         const bool isWidthReadOnly = !IsResizeable() || ( m_AnchorLeft && m_AnchorRight );
-        InputIntExt( "Width", &isize[0], isWidthReadOnly );
+        InputIntExt( "Width", &isize[ 0 ], isWidthReadOnly );
         const bool isHeightReadOnly = !IsResizeable() || ( m_AnchorTop && m_AnchorBottom );
-        InputIntExt( "Height", &isize[1], isHeightReadOnly );
+        InputIntExt( "Height", &isize[ 1 ], isHeightReadOnly );
 
-        SetSize( isize[0], isize[1] );
+        SetSize( isize[ 0 ], isize[ 1 ] );
     }
 }
 

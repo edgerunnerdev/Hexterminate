@@ -25,34 +25,32 @@ namespace Hexterminate
 // ShipCollisionInfo
 ///////////////////////////////////////////////////////////////////////////////
 
-ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, Module* pModule ) :
-m_pShip( pShip ),
-m_pModule( pModule ),
-m_pAddonPhaseBarrier( nullptr ),
-m_pShield( nullptr ),
-m_Type( ShipCollisionType::Module )
+ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, Module* pModule )
+    : m_pShip( pShip )
+    , m_pModule( pModule )
+    , m_pAddonPhaseBarrier( nullptr )
+    , m_pShield( nullptr )
+    , m_Type( ShipCollisionType::Module )
 {
-
 }
 
-ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, AddonPhaseBarrier* pAddonPhaseBarrier ) :
-	m_pShip( pShip ),
-	m_pModule( nullptr ),
-	m_pAddonPhaseBarrier( pAddonPhaseBarrier ),
-	m_pShield( nullptr ),
-	m_Type( ShipCollisionType::PhaseBarrier )
+ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, AddonPhaseBarrier* pAddonPhaseBarrier )
+    : m_pShip( pShip )
+    , m_pModule( nullptr )
+    , m_pAddonPhaseBarrier( pAddonPhaseBarrier )
+    , m_pShield( nullptr )
+    , m_Type( ShipCollisionType::PhaseBarrier )
 {
-	m_pModule = pAddonPhaseBarrier->GetModule();
+    m_pModule = pAddonPhaseBarrier->GetModule();
 }
 
-ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, Shield* pShield ) :
-	m_pShip( pShip ),
-	m_pModule( nullptr ),
-	m_pAddonPhaseBarrier( nullptr ),
-	m_pShield( pShield ),
-	m_Type( ShipCollisionType::Shield )
+ShipCollisionInfo::ShipCollisionInfo( Ship* pShip, Shield* pShield )
+    : m_pShip( pShip )
+    , m_pModule( nullptr )
+    , m_pAddonPhaseBarrier( nullptr )
+    , m_pShield( pShield )
+    , m_Type( ShipCollisionType::Shield )
 {
-	
 }
 
-}
+} // namespace Hexterminate

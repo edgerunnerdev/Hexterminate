@@ -14,73 +14,72 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "components/chrysamereswarmcomponent.h"
+#include "blackboard.h"
 #include "fleet/fleet.h"
+#include "hexterminate.h"
 #include "requests/campaigntags.h"
 #include "sector/sector.h"
 #include "ship/shipinfo.h"
-#include "blackboard.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
 
 IMPLEMENT_COMPONENT( ChrysamereSwarmComponent )
 
-ChrysamereSwarmComponent::ChrysamereSwarmComponent() :
-m_Wave( 0u ),
-m_Timer( 5.0f )
+ChrysamereSwarmComponent::ChrysamereSwarmComponent()
+    : m_Wave( 0u )
+    , m_Timer( 5.0f )
 {
-
 }
 
-bool ChrysamereSwarmComponent::Initialise() 
+bool ChrysamereSwarmComponent::Initialise()
 {
-	BlackboardSharedPtr pBlackboard = g_pGame->GetBlackboard();
-	if ( pBlackboard->Exists( sFinalChrysamereDestroyed ) == false )
-	{
-		g_pGame->AddIntel( GameCharacter::Chrysamere,
-			"You tread beyond where you're permitted to." );
+    BlackboardSharedPtr pBlackboard = g_pGame->GetBlackboard();
+    if ( pBlackboard->Exists( sFinalChrysamereDestroyed ) == false )
+    {
+        g_pGame->AddIntel( GameCharacter::Chrysamere,
+            "You tread beyond where you're permitted to." );
 
-		g_pGame->AddIntel( GameCharacter::FleetIntelligence,
-			"Multiple hyperspace wavefronts detected. This system appears to be receiving reinforcements from an automated shipyard outside of realspace. We need to be fast, Captain, or they will grind us down." );
+        g_pGame->AddIntel( GameCharacter::FleetIntelligence,
+            "Multiple hyperspace wavefronts detected. This system appears to be receiving reinforcements from an automated shipyard outside of realspace. We need to be fast, Captain, or they will grind us down." );
 
-		g_pGame->AddIntel( GameCharacter::Chrysamere,
-			"How many will it take to destroy you? Five? Ten? A hundred?" );
+        g_pGame->AddIntel( GameCharacter::Chrysamere,
+            "How many will it take to destroy you? Five? Ten? A hundred?" );
 
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void ChrysamereSwarmComponent::Update( float delta )
 {
-	m_Timer -= delta;
-	if ( m_Timer <= 0.0f )
-	{
-		Sector* pCurrentSector = g_pGame->GetCurrentSector();
+    m_Timer -= delta;
+    if ( m_Timer <= 0.0f )
+    {
+        Sector* pCurrentSector = g_pGame->GetCurrentSector();
 
-		m_Timer = 45.0f;
-		m_Wave++;
+        m_Timer = 45.0f;
+        m_Wave++;
 
-		FleetSharedPtr temporaryFleet = std::make_shared<Fleet>();
-		temporaryFleet->Initialise( g_pGame->GetFaction( FactionId::Special ), pCurrentSector->GetSectorInfo() );
+        FleetSharedPtr temporaryFleet = std::make_shared<Fleet>();
+        temporaryFleet->Initialise( g_pGame->GetFaction( FactionId::Special ), pCurrentSector->GetSectorInfo() );
 
-		const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Special ), "special_chrysamere_drone" );
+        const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Special ), "special_chrysamere_drone" );
 
-		const int numShips = 2 + m_Wave * 2;
-		for ( int i = 0; i < numShips; ++i )
-		{
-			temporaryFleet->AddShip( pShipInfo );
-		}
+        const int numShips = 2 + m_Wave * 2;
+        for ( int i = 0; i < numShips; ++i )
+        {
+            temporaryFleet->AddShip( pShipInfo );
+        }
 
-		if ( pCurrentSector->Reinforce( temporaryFleet ) )
-		{
-			m_TemporaryFleets.push_back( temporaryFleet );
-		}
-	}
+        if ( pCurrentSector->Reinforce( temporaryFleet ) )
+        {
+            m_TemporaryFleets.push_back( temporaryFleet );
+        }
+    }
 }
 
-}
+} // namespace Hexterminate

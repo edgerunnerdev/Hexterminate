@@ -21,8 +21,8 @@
 
 #include <math/constants.h>
 #include <math/misc.h>
-#include <resources/resourceimage.h>
 #include <rendersystem.h>
+#include <resources/resourceimage.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
 #include <vertexbuffer.h>
@@ -36,9 +36,9 @@ namespace Hexterminate
 Genesis::Shader* Beam::m_pShader = nullptr;
 Genesis::Shader* Beam::m_pFlareShader = nullptr;
 
-Beam::Beam() :
-m_pBeamVertexBuffer( nullptr ),
-m_pFlareVertexBuffer( nullptr )
+Beam::Beam()
+    : m_pBeamVertexBuffer( nullptr )
+    , m_pFlareVertexBuffer( nullptr )
 {
 }
 
@@ -50,29 +50,29 @@ Beam::~Beam()
 
 void Beam::Create( Weapon* pWeapon, float additionalRotation /* = 0.0f */ )
 {
-	Ammo::Create( pWeapon, additionalRotation );
+    Ammo::Create( pWeapon, additionalRotation );
 
-	m_IsGlowSource = true;
-	m_DiesOnHit = false;
+    m_IsGlowSource = true;
+    m_DiesOnHit = false;
 
-	SetupBeam();
-	SetupBeamFlare();
+    SetupBeam();
+    SetupBeamFlare();
 }
 
 void Beam::SetupBeam()
 {
     using namespace Genesis;
 
-	m_pBeamVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
+    m_pBeamVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
 
-	if ( m_pShader == nullptr )
-	{
+    if ( m_pShader == nullptr )
+    {
         RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
         m_pShader = pRenderSystem->GetShaderCache()->Load( "beam" );
         ResourceImage* pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/images/beam.jpg" );
         ShaderUniform* pTextureSamplerUniform = m_pShader->RegisterUniform( "k_sampler0", ShaderUniformType::Texture );
         pTextureSamplerUniform->Set( pTexture, GL_TEXTURE0 );
-	}
+    }
 }
 
 void Beam::SetupBeamFlare()
@@ -81,8 +81,8 @@ void Beam::SetupBeamFlare()
 
     m_pFlareVertexBuffer = new VertexBuffer( GeometryType::Triangle, VBO_POSITION | VBO_UV | VBO_COLOUR );
 
-	if ( m_pFlareShader == nullptr )
-	{
+    if ( m_pFlareShader == nullptr )
+    {
         RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
         m_pFlareShader = pRenderSystem->GetShaderCache()->Load( "beamflare" );
         ResourceImage* pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/images/beamflare.png" );
@@ -91,52 +91,51 @@ void Beam::SetupBeamFlare()
         ShaderUniform* pMaskSamplerUniform = m_pFlareShader->RegisterUniform( "k_sampler1", ShaderUniformType::Texture );
         pTextureSamplerUniform->Set( pTexture, GL_TEXTURE0 );
         pMaskSamplerUniform->Set( pMask, GL_TEXTURE1 );
-	}
+    }
 }
 
 void Beam::Update( float delta )
 {
-	m_Angle = m_pOwner->GetAngle() + m_AdditionalRotation;
+    m_Angle = m_pOwner->GetAngle() + m_AdditionalRotation;
 
+    glm::mat4x4 weaponTransform = m_pOwner->GetWorldTransform();
 
-	glm::mat4x4 weaponTransform = m_pOwner->GetWorldTransform();
+    m_MuzzleOffset = m_pOwner->GetMuzzleOffset();
+    m_pOwner->MarkMuzzleAsUsed();
+    glm::mat4x4 muzzleOffsetTransform = glm::translate( m_MuzzleOffset );
 
-	m_MuzzleOffset = m_pOwner->GetMuzzleOffset();
-	m_pOwner->MarkMuzzleAsUsed();
-	glm::mat4x4 muzzleOffsetTransform = glm::translate( m_MuzzleOffset );
+    weaponTransform = weaponTransform * muzzleOffsetTransform;
 
-	weaponTransform = weaponTransform * muzzleOffsetTransform;
+    glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
+    glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
+    Math::RotateVector( weaponForward, Genesis::kDegToRad * m_AdditionalRotation );
 
-	glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
-	glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
-	Math::RotateVector( weaponForward, Genesis::kDegToRad * m_AdditionalRotation );
-
-	m_Src = weaponPosition;
-	m_Dst = m_Src + weaponForward * m_RayLength;
-	m_Dir = weaponForward;
+    m_Src = weaponPosition;
+    m_Dst = m_Src + weaponForward * m_RayLength;
+    m_Dir = weaponForward;
 }
 
 void Beam::Render()
 {
     using namespace glm;
-	using namespace Genesis;
+    using namespace Genesis;
 
-	if ( GetHitFraction() <= 0.0f )
-	{
-		return;
-	}
+    if ( GetHitFraction() <= 0.0f )
+    {
+        return;
+    }
 
-	FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
+    FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
 
     const mat4 translation = translate( m_Src );
     const mat4 rotation = rotate( mat4( 1.0f ), -m_Angle, vec3( 0.0f, 0.0f, 1.0f ) );
     const mat4 modelMatrix = translation * rotation;
 
-	const float opacity = GetOpacity();
-	const Genesis::Color& beamColour = m_pOwner->GetInfo()->GetBeamColour();
+    const float opacity = GetOpacity();
+    const Genesis::Color& beamColour = m_pOwner->GetInfo()->GetBeamColour();
 
     RenderBeam( modelMatrix, beamColour, opacity );
-	RenderBeamFlare( modelMatrix, beamColour, opacity );
+    RenderBeamFlare( modelMatrix, beamColour, opacity );
 
     FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
 }
@@ -146,14 +145,14 @@ void Beam::RenderBeam( const glm::mat4& modelMatrix, const Genesis::Color& beamC
     using namespace Genesis;
 
     PositionData posData;
-	UVData uvData;
+    UVData uvData;
     ColourData colourData;
 
     const float u = 1.0f;
-	const float v = 1.0f;
-	const float hw = m_pOwner->GetInfo()->GetBeamWidth() / 2.0f;
-	const float l = m_pOwner->GetInfo()->GetRange( m_pOwner->GetOwner() ) * GetHitFraction();
-	const float offset = m_pOwner->GetInfo()->GetBeamWidth() * 0.5f;
+    const float v = 1.0f;
+    const float hw = m_pOwner->GetInfo()->GetBeamWidth() / 2.0f;
+    const float l = m_pOwner->GetInfo()->GetRange( m_pOwner->GetOwner() ) * GetHitFraction();
+    const float offset = m_pOwner->GetInfo()->GetBeamWidth() * 0.5f;
 
     const glm::vec4 colour( beamColour.r, beamColour.g, beamColour.b, opacity );
     for ( int i = 0; i < 6; ++i )
@@ -191,4 +190,4 @@ void Beam::RenderBeamFlare( const glm::mat4& modelMatrix, const Genesis::Color& 
     m_pFlareVertexBuffer->Draw();
 }
 
-}
+} // namespace Hexterminate

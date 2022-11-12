@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "fleet/fleet.fwd.h"
+#include "globals.h"
 #include "menus/detailswindow.h"
 #include "sector/sectorinfo.h"
-#include "globals.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -33,7 +33,6 @@ class EnterSectorButton;
 class Fleet;
 class PointOfInterest;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // SectorDetails
 // Window that shows up in the Galaxy screen, when the player's fleet is
@@ -41,89 +40,85 @@ class PointOfInterest;
 // a button to enter the sector.
 ///////////////////////////////////////////////////////////////////////////////
 
-class SectorDetails: public DetailsWindow
+class SectorDetails : public DetailsWindow
 {
 public:
-							SectorDetails();
-	virtual					~SectorDetails();
-	void					SetSectorInfo( SectorInfo* pSectorInfo );
-	SectorInfo*				GetSectorInfo() const;
+    SectorDetails();
+    virtual ~SectorDetails();
+    void SetSectorInfo( SectorInfo* pSectorInfo );
+    SectorInfo* GetSectorInfo() const;
 
-	virtual void			SetAnchor( float x, float y ) override;
-	virtual void			Show( bool state ) override;
+    virtual void SetAnchor( float x, float y ) override;
+    virtual void Show( bool state ) override;
 
 private:
-	Genesis::Color			GetThreatRatingColour( ThreatRating rating ) const;
-	std::string				GetThreatRatingText( ThreatRating rating ) const;
+    Genesis::Color GetThreatRatingColour( ThreatRating rating ) const;
+    std::string GetThreatRatingText( ThreatRating rating ) const;
 
-	SectorInfo*				m_pSectorInfo;
-	Genesis::Gui::Text*		m_pTitle;
-	DeployProbeButton*		m_pDeployProbeButton;
-	DeployStarfortButton*	m_pDeployStarfortButton;
-	EnterSectorButton*		m_pEnterSectorButton;
-	Genesis::Gui::Panel*	m_pThreatBackground;
-	PointOfInterest*		m_pPointOfInterest;
+    SectorInfo* m_pSectorInfo;
+    Genesis::Gui::Text* m_pTitle;
+    DeployProbeButton* m_pDeployProbeButton;
+    DeployStarfortButton* m_pDeployStarfortButton;
+    EnterSectorButton* m_pEnterSectorButton;
+    Genesis::Gui::Panel* m_pThreatBackground;
+    PointOfInterest* m_pPointOfInterest;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // GenericSectorButton
 ///////////////////////////////////////////////////////////////////////////////
 
-class GenericSectorButton: public Genesis::Gui::Button
+class GenericSectorButton : public Genesis::Gui::Button
 {
 public:
-						GenericSectorButton();
-	void				SetSectorInfo( SectorInfo* pSectorInfo );
+    GenericSectorButton();
+    void SetSectorInfo( SectorInfo* pSectorInfo );
 
 protected:
-	SectorInfo*			m_pSectorInfo;
+    SectorInfo* m_pSectorInfo;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // DeployProbeButton
 ///////////////////////////////////////////////////////////////////////////////
 
-class DeployProbeButton: public GenericSectorButton
+class DeployProbeButton : public GenericSectorButton
 {
 public:
-						DeployProbeButton();
-	virtual void 		Update( float delta ) override;
-	virtual void		OnPress() override;
+    DeployProbeButton();
+    virtual void Update( float delta ) override;
+    virtual void OnPress() override;
 
 private:
-	bool				m_CanDeploy;
-	int					m_Cost;
+    bool m_CanDeploy;
+    int m_Cost;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // DeployStarfortButton
 ///////////////////////////////////////////////////////////////////////////////
 
-class DeployStarfortButton: public GenericSectorButton
+class DeployStarfortButton : public GenericSectorButton
 {
 public:
-						DeployStarfortButton();
-	virtual void		Update( float delta ) override;
-	virtual void		OnPress() override;
+    DeployStarfortButton();
+    virtual void Update( float delta ) override;
+    virtual void OnPress() override;
 
 private:
-	bool				m_CanDeploy;
-	int					m_Cost;
+    bool m_CanDeploy;
+    int m_Cost;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // EnterSectorButton
 ///////////////////////////////////////////////////////////////////////////////
 
-class EnterSectorButton: public GenericSectorButton
+class EnterSectorButton : public GenericSectorButton
 {
 public:
-						EnterSectorButton();
-	virtual void		OnPress() override;
+    EnterSectorButton();
+    virtual void OnPress() override;
 };
 
-}
+} // namespace Hexterminate

@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <resources/resourceimage.h>
-#include <gui/gui.h>
 #include <configuration.h>
+#include <gui/gui.h>
+#include <resources/resourceimage.h>
 
 #include "menus/eva.h"
 #include "menus/paneldocking.h"
@@ -27,44 +27,44 @@ namespace Hexterminate
 
 PanelDocking::PanelDocking()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	ResourceImage* pBackgroundImage = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/ui/docking_background.png" );
-	const int backgroundWidth = static_cast<int>( pBackgroundImage->GetWidth() );
-	const int backgroundHeight = static_cast<int>( pBackgroundImage->GetHeight() );
-	const int screenWidth = static_cast<int>( Configuration::GetScreenWidth() );
-	const int screenHeight = static_cast<int>( Configuration::GetScreenHeight() );
+    ResourceImage* pBackgroundImage = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/ui/docking_background.png" );
+    const int backgroundWidth = static_cast<int>( pBackgroundImage->GetWidth() );
+    const int backgroundHeight = static_cast<int>( pBackgroundImage->GetHeight() );
+    const int screenWidth = static_cast<int>( Configuration::GetScreenWidth() );
+    const int screenHeight = static_cast<int>( Configuration::GetScreenHeight() );
 
-	m_pBackground = new Gui::Image();
-	m_pBackground->SetSize( backgroundWidth, backgroundHeight );
-	m_pBackground->SetPosition( ( screenWidth - backgroundWidth ) / 2, screenHeight - 200 - backgroundHeight / 2 );
-	m_pBackground->SetTexture( pBackgroundImage );
-	m_pBackground->SetHiddenForCapture( true );
-	m_pBackground->Show( false );
-	FrameWork::GetGuiManager()->AddElement( m_pBackground );
+    m_pBackground = new Gui::Image();
+    m_pBackground->SetSize( backgroundWidth, backgroundHeight );
+    m_pBackground->SetPosition( ( screenWidth - backgroundWidth ) / 2, screenHeight - 200 - backgroundHeight / 2 );
+    m_pBackground->SetTexture( pBackgroundImage );
+    m_pBackground->SetHiddenForCapture( true );
+    m_pBackground->Show( false );
+    FrameWork::GetGuiManager()->AddElement( m_pBackground );
 
-	m_pDockingText = new Genesis::Gui::Text();
-	m_pDockingText->SetFont( EVA_FONT );
-	m_pDockingText->SetColour( EVA_TEXT_COLOUR );
-	m_pDockingText->SetSize( 340, 64 );
-	m_pDockingText->SetText( "Press 'F' to dock" );
-	m_pDockingText->SetPosition( 197, 111 );
-	m_pBackground->AddElement( m_pDockingText );
+    m_pDockingText = new Genesis::Gui::Text();
+    m_pDockingText->SetFont( EVA_FONT );
+    m_pDockingText->SetColour( EVA_TEXT_COLOUR );
+    m_pDockingText->SetSize( 340, 64 );
+    m_pDockingText->SetText( "Press 'F' to dock" );
+    m_pDockingText->SetPosition( 197, 111 );
+    m_pBackground->AddElement( m_pDockingText );
 }
 
 PanelDocking::~PanelDocking()
 {
-	using namespace Genesis;
-	Gui::GuiManager* pGuiManager = FrameWork::GetGuiManager();
-	if ( pGuiManager != nullptr )
-	{
-		pGuiManager->RemoveElement( m_pBackground );
-	}
+    using namespace Genesis;
+    Gui::GuiManager* pGuiManager = FrameWork::GetGuiManager();
+    if ( pGuiManager != nullptr )
+    {
+        pGuiManager->RemoveElement( m_pBackground );
+    }
 }
 
 void PanelDocking::Show( bool state )
 {
-	m_pBackground->Show( state );
+    m_pBackground->Show( state );
 }
 
-}
+} // namespace Hexterminate

@@ -17,15 +17,15 @@
 
 #pragma once
 
-#include <string>
 #include <scene/sceneobject.h>
 #include <shader.h>
+#include <string>
 
 namespace Genesis
 {
-    class ShaderUniform;
-	class VertexBuffer;
-}
+class ShaderUniform;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -40,22 +40,22 @@ class StarInfo;
 class Background : public Genesis::SceneObject
 {
 public:
-								Background( const BackgroundInfo* pBackgroundInfo, StarInfo* pStarInfo );
-	virtual						~Background() override;
-    virtual void                Update( float delta ) override;
-	virtual void				Render() override;
+    Background( const BackgroundInfo* pBackgroundInfo, StarInfo* pStarInfo );
+    virtual ~Background() override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-    const glm::vec4&            GetAmbientColour() const;
+    const glm::vec4& GetAmbientColour() const;
 
 private:
-	void						CreateGeometry();
+    void CreateGeometry();
 
-	Genesis::Shader*			m_pShader;
-	const BackgroundInfo*		m_pBackgroundInfo;
-	Genesis::VertexBuffer*		m_pVertexBuffer;
-    StarInfo*                   m_pStarInfo;
-    Genesis::ShaderUniform*     m_pStarOffset;
-    glm::vec4                   m_AmbientColour;
+    Genesis::Shader* m_pShader;
+    const BackgroundInfo* m_pBackgroundInfo;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    StarInfo* m_pStarInfo;
+    Genesis::ShaderUniform* m_pStarOffset;
+    glm::vec4 m_AmbientColour;
 };
 
 inline const glm::vec4& Background::GetAmbientColour() const
@@ -63,4 +63,4 @@ inline const glm::vec4& Background::GetAmbientColour() const
     return m_AmbientColour;
 }
 
-}
+} // namespace Hexterminate

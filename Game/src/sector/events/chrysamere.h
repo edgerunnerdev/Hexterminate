@@ -27,14 +27,14 @@ class Ship;
 class SectorEventChrysamere : public SectorEvent
 {
 public:
-					SectorEventChrysamere();
+    SectorEventChrysamere();
 
-	virtual bool	IsAvailableAt( const SectorInfo* pSectorInfo ) const override;
-	virtual void	OnPlayerEnterSector() override;
-	virtual void	OnShipDestroyed( Ship* pShip ) override;
+    virtual bool IsAvailableAt( const SectorInfo* pSectorInfo ) const override;
+    virtual void OnPlayerEnterSector() override;
+    virtual void OnShipDestroyed( Ship* pShip ) override;
 
 private:
-	Ship*			m_pChrysamere;
+    Ship* m_pChrysamere;
 };
 
-}
+} // namespace Hexterminate

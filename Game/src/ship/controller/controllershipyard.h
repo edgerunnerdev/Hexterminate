@@ -19,6 +19,12 @@
 
 #include "ship/controller/controller.h"
 
+// clang-format off
+#include <beginexternalheaders.h>
+#include <glm/vec3.hpp>
+#include <endexternalheaders.h>
+// clang-format on
+
 namespace Hexterminate
 {
 
@@ -28,17 +34,17 @@ namespace Hexterminate
 // undocking.
 ///////////////////////////////////////////////////////////////////////////////
 
-class ControllerShipyard: public Controller
+class ControllerShipyard : public Controller
 {
 public:
-					ControllerShipyard( Ship* pShip );
-	virtual			~ControllerShipyard();
-	virtual void	Update( float delta );
+    ControllerShipyard( Ship* pShip );
+    virtual ~ControllerShipyard();
+    virtual void Update( float delta );
 
 private:
-	glm::vec3		m_StartPosition;
-	float			m_LerpDuration;
-	float			m_LerpTimer;
+    glm::vec3 m_StartPosition;
+    float m_LerpDuration;
+    float m_LerpTimer;
 };
 
-}
+} // namespace Hexterminate

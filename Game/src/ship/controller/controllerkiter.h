@@ -24,20 +24,20 @@ namespace Hexterminate
 
 ///////////////////////////////////////////////////////////////////////////////
 // ControllerKiter
-// Kiting behaviour for AI ships. 
+// Kiting behaviour for AI ships.
 // Meant for agile ships, it attempts to keep the target at range while
-// circling int.
+// circling it.
 ///////////////////////////////////////////////////////////////////////////////
 
-class ControllerKiter: public ControllerAI
+class ControllerKiter : public ControllerAI
 {
 public:
-					ControllerKiter( Ship* pShip );
-	virtual			~ControllerKiter() {};
-	virtual void	HandleOrders( float delta ) override;
+    ControllerKiter( Ship* pShip );
+    virtual ~ControllerKiter(){};
+    virtual void HandleOrders( float delta ) override;
 
 private:
-	bool			OrbitTargetShip();
+    bool OrbitTargetShip();
 };
 
-}
+} // namespace Hexterminate

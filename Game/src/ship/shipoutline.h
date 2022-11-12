@@ -36,31 +36,31 @@ using ShipOutlineUniquePtr = std::unique_ptr<ShipOutline>;
 class ShipOutline
 {
 public:
-	ShipOutline();
-	~ShipOutline();
+    ShipOutline();
+    ~ShipOutline();
 
-	void DrawShipOutlineTweaks();
+    void DrawShipOutlineTweaks();
 
-	bool IsEnabled() const;
-	float GetThickness() const;
-	bool AffectsShip( Ship* pShip ) const;
-	Genesis::Material* GetOutlineMaterial( Ship* pShip ) const;
+    bool IsEnabled() const;
+    float GetThickness() const;
+    bool AffectsShip( Ship* pShip ) const;
+    Genesis::Material* GetOutlineMaterial( Ship* pShip ) const;
 
 private:
-	float m_Thickness;
-	Genesis::Material* m_pMaterialPlayer;
-	Genesis::Material* m_pMaterialFriendly;
-	Genesis::Material* m_pMaterialHostile;
+    float m_Thickness;
+    Genesis::Material* m_pMaterialPlayer;
+    Genesis::Material* m_pMaterialFriendly;
+    Genesis::Material* m_pMaterialHostile;
 };
 
 inline bool ShipOutline::IsEnabled() const
 {
-	return Genesis::Configuration::GetOutlines();
+    return Genesis::Configuration::GetOutlines();
 }
 
 inline float ShipOutline::GetThickness() const
 {
-	return m_Thickness;
+    return m_Thickness;
 }
 
 } // namespace Hexterminate

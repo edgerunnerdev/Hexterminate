@@ -27,23 +27,23 @@ namespace Hexterminate
 
 Torpedo::Torpedo()
 {
-	SetGlowColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    SetGlowColour( Genesis::Color( 1.0f, 1.0f, 1.0f, 1.0f ) );
 }
 
 MissileType Torpedo::GetType() const
 {
-	return MissileType::Torpedo;
+    return MissileType::Torpedo;
 }
 
 const std::string Torpedo::GetResourceName() const
 {
-	static const std::string sResourceName( "data/models/ammo/torpedo.tmf" );
-	return sResourceName;
+    static const std::string sResourceName( "data/models/ammo/torpedo.tmf" );
+    return sResourceName;
 }
 
 Trail* Torpedo::CreateTrail() const
 {
-	return new Trail( 5.0f, 2.0f, Genesis::Color( 0.6f, 0.2f, 0.2f, 0.5f ) );
+    return new Trail( 5.0f, 2.0f, Genesis::Color( 0.6f, 0.2f, 0.2f, 0.5f ) );
 }
 
-}
+} // namespace Hexterminate

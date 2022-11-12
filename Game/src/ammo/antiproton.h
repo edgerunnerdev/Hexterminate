@@ -21,39 +21,38 @@
 
 namespace Genesis
 {
-	class Shader;
-	class ResourceImage;
-    class VertexBuffer;
-}
+class Shader;
+class ResourceImage;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 class Weapon;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Antiproton
 ///////////////////////////////////////////////////////////////////////////////
 
-class Antiproton: public Ammo
+class Antiproton : public Ammo
 {
 public:
-										Antiproton();
-	virtual								~Antiproton();
+    Antiproton();
+    virtual ~Antiproton();
 
-	virtual void						Create( Weapon* pWeapon, float additionalRotation = 0.0f  ) override;
-	virtual void						Update( float delta ) override;
-	virtual void						Render() override;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
-	QuantumState						GetQuantumState() const;
+    QuantumState GetQuantumState() const;
 
 private:
-	static Genesis::Shader*				m_pShader;
-    Genesis::VertexBuffer*              m_pVertexBuffer;
-	Genesis::ShaderUniform*				m_pInternalRadiusUniform;
-	Genesis::ShaderUniform*				m_pExternalRadiusUniform;
-	QuantumState						m_QuantumState;
+    static Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
+    Genesis::ShaderUniform* m_pInternalRadiusUniform;
+    Genesis::ShaderUniform* m_pExternalRadiusUniform;
+    QuantumState m_QuantumState;
 };
 
-}
+} // namespace Hexterminate

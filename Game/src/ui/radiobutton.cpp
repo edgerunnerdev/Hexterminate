@@ -28,29 +28,27 @@ namespace Hexterminate::UI
 static const char* sRadioButtonPropertyChecked = "checked";
 static const char* sRadioButtonPropertyEnabled = "enabled";
 
-RadioButton::RadioButton( const std::string& name, const std::string& groupName, RadioButtonPressedCallback pCallback ) : 
-Element( name ),
-m_WasHovered( false )
+RadioButton::RadioButton( const std::string& name, const std::string& groupName, RadioButtonPressedCallback pCallback )
+    : Element( name )
+    , m_WasHovered( false )
 {
     using namespace Genesis;
 
     m_pClickSFX = Genesis::Gui::LoadSFX( "data/sfx/beep.wav" );
     m_pHoverSFX = Genesis::Gui::LoadSFX( "data/sfx/hover.wav" );
 
-    m_pRadioButton = new Gui::RadioButton( 0, 0, EVA_FONT, "", groupName, false, 
-        [this, pCallback]() 
-        { 
+    m_pRadioButton = new Gui::RadioButton( 0, 0, EVA_FONT, "", groupName, false,
+        [ this, pCallback ]() {
             Genesis::Gui::PlaySFX( m_pClickSFX );
 
             if ( pCallback != nullptr )
             {
                 pCallback();
             }
-        } 
-    );
-	m_pRadioButton->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
-	m_pRadioButton->SetColour( EVA_BUTTON_COLOUR_BACKGROUND );
-	m_pRadioButton->SetBulletColour( EVA_CHECKBOX_BULLET_COLOUR );
+        } );
+    m_pRadioButton->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
+    m_pRadioButton->SetColour( EVA_BUTTON_COLOUR_BACKGROUND );
+    m_pRadioButton->SetBulletColour( EVA_CHECKBOX_BULLET_COLOUR );
 
     GetPanel()->AddElement( m_pRadioButton );
 

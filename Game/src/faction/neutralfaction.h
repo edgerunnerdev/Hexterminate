@@ -29,14 +29,14 @@ namespace Hexterminate
 // Note that it doesn't call Faction::ProcessTurn.
 ///////////////////////////////////////////////////////////////////////////////
 
-class NeutralFaction: public Faction
+class NeutralFaction : public Faction
 {
 public:
-	NeutralFaction( const FactionInfo& info );
-	virtual ~NeutralFaction() {};
+    NeutralFaction( const FactionInfo& info );
+    virtual ~NeutralFaction(){};
 
 protected:
-	virtual void ProcessTurn();
+    virtual void ProcessTurn();
 };
 
-}
+} // namespace Hexterminate

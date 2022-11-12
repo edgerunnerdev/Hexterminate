@@ -22,34 +22,34 @@
 
 #include <genesis.h>
 
-#include "ship/moduleinfo.h"
 #include "faction/faction.h"
 #include "hexterminate.h"
+#include "ship/moduleinfo.h"
 
 namespace Hexterminate
 {
-	std::string					ToLower( const std::string& str );	
-	std::wstring				ToWString( const std::string& str );
-	std::string					ToString( const std::wstring& str );
-	std::string					ToString( const std::string& str );
-	std::string					ToString( int value );
-	std::string					ToString( unsigned int value );
-	std::string					ToString( float value );
-	std::string					ToString( WeaponSystem weaponSystem );
-	std::string					ToString( DamageType damageType );
-	std::string					ToString( ModuleRarity rarity );
-	std::string					ToString( AddonCategory );
-    std::string                 ToString( FactionId faction );
-	std::string					ToString( Difficulty difficulty );
-	std::string					ToString( GameMode gameMode );
-	std::string					ToString( FactionPresence presence );
-	const std::string&			ToString( Perk perk );
-	const std::string&			ToString( ShipType shipType );
-	std::string					ToStringPercentage( float value ); // Expects a value [0-1]
-	std::string					ToStringTime( float value );
-	int							CountLines( const std::string& text );
-	bool						StringEndsWith( const std::string& text, const std::string& substring );
-	bool						StringEndsWith( const std::wstring& text, const std::wstring& substring );
-	std::vector<std::string>	Split( const std::string& s, char delim );
-	std::string					BreakdownString( const std::string& text, int maximumCharacters );
-}
+std::string ToLower( const std::string& str );
+std::wstring ToWString( const std::string& str );
+std::string ToString( const std::wstring& str );
+std::string ToString( const std::string& str );
+std::string ToString( int value );
+std::string ToString( unsigned int value );
+std::string ToString( float value );
+std::string ToString( WeaponSystem weaponSystem );
+std::string ToString( DamageType damageType );
+std::string ToString( ModuleRarity rarity );
+std::string ToString( AddonCategory );
+std::string ToString( FactionId faction );
+std::string ToString( Difficulty difficulty );
+std::string ToString( GameMode gameMode );
+std::string ToString( FactionPresence presence );
+const std::string& ToString( Perk perk );
+const std::string& ToString( ShipType shipType );
+std::string ToStringPercentage( float value ); // Expects a value [0-1]
+std::string ToStringTime( float value );
+int CountLines( const std::string& text );
+bool StringEndsWith( const std::string& text, const std::string& substring );
+bool StringEndsWith( const std::wstring& text, const std::wstring& substring );
+std::vector<std::string> Split( const std::string& s, char delim );
+std::string BreakdownString( const std::string& text, int maximumCharacters );
+} // namespace Hexterminate

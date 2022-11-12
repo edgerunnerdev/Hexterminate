@@ -24,25 +24,24 @@ namespace Hexterminate
 
 class Weapon;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Lance
 ///////////////////////////////////////////////////////////////////////////////
 
-class Lance: public Beam
+class Lance : public Beam
 {
 public:
-										Lance();
+    Lance();
 
-	virtual void						Create( Weapon* pWeapon, float additionalRotation = 0.0f  ) override;
-	virtual void						Update( float delta ) override;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
+    virtual void Update( float delta ) override;
 
 protected:
-	virtual float						GetOpacity() const override;
+    virtual float GetOpacity() const override;
 
 private:
-	float								m_Lifetime;
-	float								m_MaxLifetime;
+    float m_Lifetime;
+    float m_MaxLifetime;
 };
 
-}
+} // namespace Hexterminate

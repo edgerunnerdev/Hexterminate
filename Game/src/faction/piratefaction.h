@@ -22,14 +22,14 @@
 namespace Hexterminate
 {
 
-class PirateFaction: public Faction
+class PirateFaction : public Faction
 {
 public:
-	PirateFaction( const FactionInfo& info );
-	virtual ~PirateFaction() {};
+    PirateFaction( const FactionInfo& info );
+    virtual ~PirateFaction(){};
 
 protected:
-	virtual void ProcessTurn();
+    virtual void ProcessTurn();
 };
 
-}
+} // namespace Hexterminate

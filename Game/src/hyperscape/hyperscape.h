@@ -37,32 +37,32 @@ class Starfield;
 class Hyperscape : public Serialisable
 {
 public:
-	Hyperscape();
-	~Hyperscape();
+    Hyperscape();
+    ~Hyperscape();
 
-	void Update( float delta );
-	void Show( bool state );
-	HyperscapeRep* GetRepresentation() const;
-	bool IsVisible() const;
+    void Update( float delta );
+    void Show( bool state );
+    HyperscapeRep* GetRepresentation() const;
+    bool IsVisible() const;
 
-	// Serialisable
-	virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
-	virtual bool Read( tinyxml2::XMLElement* pRootElement ) override;
-	virtual int GetVersion() const override;
-	virtual void UpgradeFromVersion( int version ) override;
+    // Serialisable
+    virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
+    virtual bool Read( tinyxml2::XMLElement* pRootElement ) override;
+    virtual int GetVersion() const override;
+    virtual void UpgradeFromVersion( int version ) override;
 
 private:
-	void UpdateDebugUI();
+    void UpdateDebugUI();
 
-	std::unique_ptr<HyperscapeRep> m_pRep;
-	std::unique_ptr<SilverThread> m_pSilverThread;
-	std::unique_ptr<Starfield> m_pStarfield;
-	bool m_DebugWindowOpen;
+    std::unique_ptr<HyperscapeRep> m_pRep;
+    std::unique_ptr<SilverThread> m_pSilverThread;
+    std::unique_ptr<Starfield> m_pStarfield;
+    bool m_DebugWindowOpen;
 };
 
 inline HyperscapeRep* Hyperscape::GetRepresentation() const
 {
-	return m_pRep.get();
+    return m_pRep.get();
 }
 
 } // namespace Hexterminate

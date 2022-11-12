@@ -22,7 +22,7 @@ namespace Hexterminate
 
 class RequestGoalRep;
 
-typedef std::shared_ptr< RequestGoalRep > RequestGoalRepSharedPtr;
-typedef std::weak_ptr< RequestGoalRep > RequestGoalRepWeakPtr;
+typedef std::shared_ptr<RequestGoalRep> RequestGoalRepSharedPtr;
+typedef std::weak_ptr<RequestGoalRep> RequestGoalRepWeakPtr;
 
-}
+} // namespace Hexterminate

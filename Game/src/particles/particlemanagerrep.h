@@ -17,17 +17,17 @@
 
 #pragma once
 
-#include <scene/sceneobject.h>
-#include <rendersystem.h>
 #include "particles/particlepass.h"
+#include <rendersystem.h>
+#include <scene/sceneobject.h>
 
 namespace Genesis
 {
 namespace Gui
 {
-class Atlas;
+    class Atlas;
 }
-}
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -45,24 +45,24 @@ static const int sNumParticlePasses = 2;
 class ParticleManagerRep : public Genesis::SceneObject
 {
 public:
-								ParticleManagerRep( ParticleManager* pParticleManager);
-	virtual						~ParticleManagerRep();
-	void						SetParticleManager( ParticleManager* pParticleManager );
-	void						Update( float delta ) override;
-	void						Render() override;
+    ParticleManagerRep( ParticleManager* pParticleManager );
+    virtual ~ParticleManagerRep();
+    void SetParticleManager( ParticleManager* pParticleManager );
+    void Update( float delta ) override;
+    void Render() override;
 
 private:
-	int							FindIndexForTexture( ParticlePass* pPass, int id );
-	void						AddQuad( const Genesis::Gui::Atlas* pAtlas, const Particle* pParticle, Genesis::PositionData& vertices, Genesis::UVData& uvs, Genesis::ColourData& colours );
-	void						RenderGeometry( ParticlePass* pPass, const ParticleRenderData& particleRenderData, unsigned int startIdx, unsigned int endIdx );
-	Genesis::Shader*			GetShader( Genesis::BlendMode blendMode, int textureId );
-	ParticleManager*			m_pParticleManager;
-	ParticlePass*				m_pPass[2];
+    int FindIndexForTexture( ParticlePass* pPass, int id );
+    void AddQuad( const Genesis::Gui::Atlas* pAtlas, const Particle* pParticle, Genesis::PositionData& vertices, Genesis::UVData& uvs, Genesis::ColourData& colours );
+    void RenderGeometry( ParticlePass* pPass, const ParticleRenderData& particleRenderData, unsigned int startIdx, unsigned int endIdx );
+    Genesis::Shader* GetShader( Genesis::BlendMode blendMode, int textureId );
+    ParticleManager* m_pParticleManager;
+    ParticlePass* m_pPass[ 2 ];
 };
 
 inline void ParticleManagerRep::SetParticleManager( ParticleManager* pParticleManager )
 {
-	m_pParticleManager = pParticleManager;
+    m_pParticleManager = pParticleManager;
 }
 
-}
+} // namespace Hexterminate

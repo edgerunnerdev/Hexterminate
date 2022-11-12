@@ -17,9 +17,11 @@
 
 #pragma once
 
+// clang-format off
 #include <beginexternalheaders.h>
 #include <tinyxml2.h>
 #include <endexternalheaders.h>
+// clang-format on
 
 namespace Hexterminate
 {
@@ -27,13 +29,13 @@ namespace Hexterminate
 class Serialisable
 {
 public:
-	Serialisable() {};
-	virtual ~Serialisable() {};
+    Serialisable(){};
+    virtual ~Serialisable(){};
 
-	virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) = 0;
-	virtual bool Read( tinyxml2::XMLElement* pRootElement ) = 0;
-	virtual int GetVersion() const = 0;
-	virtual void UpgradeFromVersion( int version ) = 0;
+    virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) = 0;
+    virtual bool Read( tinyxml2::XMLElement* pRootElement ) = 0;
+    virtual int GetVersion() const = 0;
+    virtual void UpgradeFromVersion( int version ) = 0;
 };
 
-}
+} // namespace Hexterminate

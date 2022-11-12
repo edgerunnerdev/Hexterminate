@@ -16,56 +16,55 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "sector/events/sectorevent.h"
-#include "sector/sectorinfo.h"
-#include "sector/sector.h"
 #include "hexterminate.h"
+#include "sector/sector.h"
+#include "sector/sectorinfo.h"
 
 namespace Hexterminate
 {
 
-SectorEvent::SectorEvent() :
-m_Name( "" ),
-m_FactionMask( 0 ),
-m_IsRepeatable( true ),
-m_MinimumPlayTime( 0 )
+SectorEvent::SectorEvent()
+    : m_Name( "" )
+    , m_FactionMask( 0 )
+    , m_IsRepeatable( true )
+    , m_MinimumPlayTime( 0 )
 {
-
 }
 
 bool SectorEvent::IsAllowedForFaction( FactionId factionId ) const
 {
-	return ( m_FactionMask & ( 1 << (int)factionId ) );
+    return ( m_FactionMask & ( 1 << (int)factionId ) );
 }
 
 void SectorEvent::AllowForFaction( FactionId factionId )
 {
-	m_FactionMask |= ( 1 << (int)factionId );
+    m_FactionMask |= ( 1 << (int)factionId );
 }
 
 void SectorEvent::DisallowForFaction( FactionId factionId )
 {
-	m_FactionMask &= ~( 1 << (int)factionId );
+    m_FactionMask &= ~( 1 << (int)factionId );
 }
 
 bool SectorEvent::IsAvailableAt( const SectorInfo* pSectorInfo ) const
 {
-	if ( g_pGame->GetPlayedTime() < (float)m_MinimumPlayTime * 60.0f )
-	{
-		return false;
-	}
-	else
-	{
-		return IsAllowedForFaction( pSectorInfo->GetFaction()->GetFactionId() );
-	}
+    if ( g_pGame->GetPlayedTime() < (float)m_MinimumPlayTime * 60.0f )
+    {
+        return false;
+    }
+    else
+    {
+        return IsAllowedForFaction( pSectorInfo->GetFaction()->GetFactionId() );
+    }
 }
 
 void SectorEvent::HandleGameEvent( GameEvent* pEvent )
 {
-	if ( pEvent != nullptr && pEvent->GetType() == GameEventType::ShipDestroyed )
-	{
-		GameEventShipDestroyed* pGameEventShipDestroyed = static_cast< GameEventShipDestroyed* >( pEvent );
-		OnShipDestroyed( pGameEventShipDestroyed->GetShip() );
-	}
+    if ( pEvent != nullptr && pEvent->GetType() == GameEventType::ShipDestroyed )
+    {
+        GameEventShipDestroyed* pGameEventShipDestroyed = static_cast<GameEventShipDestroyed*>( pEvent );
+        OnShipDestroyed( pGameEventShipDestroyed->GetShip() );
+    }
 }
 
-}
+} // namespace Hexterminate

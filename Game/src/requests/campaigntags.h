@@ -29,7 +29,7 @@ static const std::string sSecondExpansionEvent( "#second_expansion_event" );
 static const std::string sSecondExpansionEventCompleted( "#second_expansion_event_completed" );
 static const std::string sExpansionArcFinished( "#expansion_arc_finished" );
 
-// Pirate arc 
+// Pirate arc
 static const std::string sFirstPirateEvent( "#first_pirate_event" );
 static const std::string sFirstPirateEventCompleted( "#first_pirate_event_completed" );
 static const std::string sPirateShipyardsCaptured( "#pirate_shipyards_captured" );
@@ -77,4 +77,4 @@ static const std::string sIrianiArcFinished( "iriani_arc_finished" );
 // Game end
 static const std::string sGameEnd( "#game_end" );
 
-}
+} // namespace Hexterminate

@@ -29,89 +29,89 @@ namespace Hexterminate
 class Particle
 {
 public:
-	Particle();
-	~Particle() {};
+    Particle();
+    ~Particle(){};
 
-	void Reset();
+    void Reset();
 
-	const glm::vec3& GetPosition() const;
-	void SetPosition( const glm::vec3& position );
-	void SetLifetime( float value );
-	void SetScale( float value );
-	bool IsAlive() const;
-	void SetVelocity( const glm::vec3& velocity );
-	void SetAlpha( float value );
+    const glm::vec3& GetPosition() const;
+    void SetPosition( const glm::vec3& position );
+    void SetLifetime( float value );
+    void SetScale( float value );
+    bool IsAlive() const;
+    void SetVelocity( const glm::vec3& velocity );
+    void SetAlpha( float value );
 
-	void Update( float delta );
+    void Update( float delta );
 
-	float GetCurrentLifetime() const;
-	float GetInitialLifetime() const;
-	float GetScale() const;
-	float GetAlpha() const;
+    float GetCurrentLifetime() const;
+    float GetInitialLifetime() const;
+    float GetScale() const;
+    float GetAlpha() const;
 
 private:
-	glm::vec3 m_Position;
-	glm::vec3 m_Velocity;
-	float m_Lifetime;
-	float m_InitialLifetime;
-	float m_Scale;
-	float m_Alpha;
+    glm::vec3 m_Position;
+    glm::vec3 m_Velocity;
+    float m_Lifetime;
+    float m_InitialLifetime;
+    float m_Scale;
+    float m_Alpha;
 };
 
 inline const glm::vec3& Particle::GetPosition() const
 {
-	return m_Position;
+    return m_Position;
 }
 
 inline void Particle::SetPosition( const glm::vec3& position )
 {
-	m_Position = position;
+    m_Position = position;
 }
 
 inline void Particle::SetLifetime( float value )
 {
-	m_Lifetime = value;
-	m_InitialLifetime = value;
+    m_Lifetime = value;
+    m_InitialLifetime = value;
 }
 
 inline bool Particle::IsAlive() const
 {
-	return m_Lifetime > 0.0f;
+    return m_Lifetime > 0.0f;
 }
 
 inline float Particle::GetCurrentLifetime() const
 {
-	return m_Lifetime;
+    return m_Lifetime;
 }
 
 inline float Particle::GetInitialLifetime() const
 {
-	return m_InitialLifetime;
+    return m_InitialLifetime;
 }
 
 inline float Particle::GetScale() const
 {
-	return m_Scale;
+    return m_Scale;
 }
 
 inline void Particle::SetScale( float value )
 {
-	m_Scale = value;
+    m_Scale = value;
 }
 
 inline void Particle::SetVelocity( const glm::vec3& velocity )
 {
-	m_Velocity = velocity;
+    m_Velocity = velocity;
 }
 
 inline float Particle::GetAlpha() const
 {
-	return m_Alpha;
+    return m_Alpha;
 }
 
 inline void Particle::SetAlpha( float value )
 {
-	m_Alpha = value;
+    m_Alpha = value;
 }
 
-}
+} // namespace Hexterminate

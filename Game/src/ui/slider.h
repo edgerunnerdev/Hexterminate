@@ -30,7 +30,7 @@ namespace Hexterminate::UI
 class Slider : public Element
 {
 public:
-    using OnValueChanged = std::function<void(float)>;
+    using OnValueChanged = std::function<void( float )>;
 
     Slider( const std::string& name, OnValueChanged onValueChanged = nullptr );
     virtual ~Slider() override;
@@ -47,8 +47,8 @@ private:
     PanelSharedPtr m_pBar;
     PanelSharedPtr m_pHandle;
     bool m_Grabbed;
-    Genesis::InputCallbackToken	m_LeftClickPressedToken;
-    Genesis::InputCallbackToken	m_LeftClickReleasedToken;
+    Genesis::InputCallbackToken m_LeftClickPressedToken;
+    Genesis::InputCallbackToken m_LeftClickReleasedToken;
     OnValueChanged m_OnValueChanged;
 };
 

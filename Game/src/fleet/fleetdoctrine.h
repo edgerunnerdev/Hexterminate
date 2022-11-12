@@ -34,21 +34,21 @@ namespace Hexterminate
 class FleetDoctrine
 {
 public:
-	FleetDoctrine();
-	FleetDoctrine( FleetBehaviourType behaviourType, float gunships, float battlecruisers, float capitals );
-	~FleetDoctrine() {};
+    FleetDoctrine();
+    FleetDoctrine( FleetBehaviourType behaviourType, float gunships, float battlecruisers, float capitals );
+    ~FleetDoctrine(){};
 
-	float GetRatio( ShipType type ) const;
-	FleetBehaviourType GetBehaviourType() const		{ return m_BehaviourType; }
+    float GetRatio( ShipType type ) const;
+    FleetBehaviourType GetBehaviourType() const { return m_BehaviourType; }
 
 private:
-	std::array<float, static_cast<size_t>( ShipType::Count )> m_Ratio;
-	FleetBehaviourType m_BehaviourType;
+    std::array<float, static_cast<size_t>( ShipType::Count )> m_Ratio;
+    FleetBehaviourType m_BehaviourType;
 };
 
 inline float FleetDoctrine::GetRatio( ShipType type ) const
 {
-	return m_Ratio[ static_cast<int>( type ) ];
+    return m_Ratio[ static_cast<int>( type ) ];
 }
 
-}
+} // namespace Hexterminate

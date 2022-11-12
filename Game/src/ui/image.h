@@ -23,12 +23,12 @@
 
 namespace Genesis
 {
-    class ResourceImage;
+class ResourceImage;
 
-    namespace Gui
-    {
-        class Image;
-    } // namespace Gui
+namespace Gui
+{
+    class Image;
+} // namespace Gui
 } // namespace Genesis
 
 namespace Hexterminate::UI
@@ -37,14 +37,14 @@ namespace Hexterminate::UI
 class Image : public Element
 {
 public:
-	enum class BlendMode
-	{
-		Disabled,
-		Blend,
-		Add,
-		Multiply,
-		Screen
-	};
+    enum class BlendMode
+    {
+        Disabled,
+        Blend,
+        Add,
+        Multiply,
+        Screen
+    };
 
     Image( const std::string& name, const std::string& path = "" );
     virtual ~Image() override;

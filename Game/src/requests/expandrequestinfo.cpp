@@ -19,54 +19,53 @@
 
 #include "requests/expandrequestinfo.h"
 
+#include "faction/faction.h"
 #include "fleet/fleetbehaviour.h"
+#include "hexterminate.h"
 #include "misc/randomshuffle.h"
 #include "requests/expandrequest.h"
 #include "requests/requestmanager.h"
-#include "faction/faction.h"
-#include "hexterminate.h"
-
 
 namespace Hexterminate
 {
 
 ImperialRequestSharedPtr ExpandRequestInfo::TryInstantiate( RequestManager* pRequestManager ) const
 {
-	if ( CommonInstantiationChecks( pRequestManager ) == false )
-		return ImperialRequestSharedPtr();
+    if ( CommonInstantiationChecks( pRequestManager ) == false )
+        return ImperialRequestSharedPtr();
 
-	SectorInfo* pSectorInfo = FindSector();
-	if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
-	{
-		return std::make_shared<ExpandRequest>( pRequestManager, pSectorInfo );
-	}
-	else
-	{
-		return ImperialRequestSharedPtr();
-	}
+    SectorInfo* pSectorInfo = FindSector();
+    if ( pSectorInfo && IsDuplicateSector( pRequestManager, pSectorInfo ) == false )
+    {
+        return std::make_shared<ExpandRequest>( pRequestManager, pSectorInfo );
+    }
+    else
+    {
+        return ImperialRequestSharedPtr();
+    }
 }
 
 SectorInfo* ExpandRequestInfo::FindSector() const
 {
-	Faction* pFaction = g_pGame->GetFaction( FactionId::Empire );
-	const SectorInfoVector& controlledSectors = pFaction->GetControlledSectors();
-	SectorInfoVector hostileBorderingSectors;
-	for ( auto& pSectorInfo : controlledSectors )
-	{
-		FleetBehaviourExpansionist::sGetHostileBorderingSectors( pFaction, pSectorInfo, hostileBorderingSectors );
-	}
+    Faction* pFaction = g_pGame->GetFaction( FactionId::Empire );
+    const SectorInfoVector& controlledSectors = pFaction->GetControlledSectors();
+    SectorInfoVector hostileBorderingSectors;
+    for ( auto& pSectorInfo : controlledSectors )
+    {
+        FleetBehaviourExpansionist::sGetHostileBorderingSectors( pFaction, pSectorInfo, hostileBorderingSectors );
+    }
 
-	SectorInfoVector::iterator it = std::unique( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
-	hostileBorderingSectors.resize( std::distance( hostileBorderingSectors.begin(), it ) );
-	if ( hostileBorderingSectors.empty() == false )
-	{
-		RandomShuffle::Shuffle( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
-		return hostileBorderingSectors.front();
-	}
-	else
-	{
-		return nullptr;
-	}
+    SectorInfoVector::iterator it = std::unique( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
+    hostileBorderingSectors.resize( std::distance( hostileBorderingSectors.begin(), it ) );
+    if ( hostileBorderingSectors.empty() == false )
+    {
+        RandomShuffle::Shuffle( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
+        return hostileBorderingSectors.front();
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
-}
+} // namespace Hexterminate

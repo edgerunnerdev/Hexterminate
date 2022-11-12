@@ -22,10 +22,10 @@
 
 namespace Genesis
 {
-    class ResourceFont;
+class ResourceFont;
 }
 
-namespace Hexterminate::UI 
+namespace Hexterminate::UI
 {
 
 using FontVector = std::vector<Genesis::ResourceFont*>;

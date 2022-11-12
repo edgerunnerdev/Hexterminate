@@ -20,7 +20,6 @@
 #include <map>
 #include <string>
 
-
 namespace Hexterminate
 {
 
@@ -36,15 +35,15 @@ enum class ContextualTipType
     EnterSector1,
     EnterSector2,
     EnterSectorWithArmourRepairer,
-	EnterSectorWithParticleAccelerator,
+    EnterSectorWithParticleAccelerator,
     ArmourRepairer,
     Autocannon,
     Artillery,
-	Missiles,
-	Torpedoes,
-	Rockets,
-	IonCannon,
-	Lance,
+    Missiles,
+    Torpedoes,
+    Rockets,
+    IonCannon,
+    Lance,
     Engines,
     MissileInterceptor,
     Reactor,
@@ -56,21 +55,20 @@ enum class ContextualTipType
     PoweredArmour,
     RegenerativeArmour,
     OmniArmour,
-	Shipyard,
-	DeflectorShield,
-	NullPointGenerator,
-	ShieldBattery,
-	CovariantShieldArray,
-	NoEnemies,
-	EngineDisruptor,
-	ParticleAccelerator,
-	Antiproton,
-	QuantumAlternator,
-	RammingProw,
+    Shipyard,
+    DeflectorShield,
+    NullPointGenerator,
+    ShieldBattery,
+    CovariantShieldArray,
+    NoEnemies,
+    EngineDisruptor,
+    ParticleAccelerator,
+    Antiproton,
+    QuantumAlternator,
+    RammingProw,
 
     Count
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ContextualTips
@@ -88,9 +86,9 @@ public:
     static bool HasBeenPresented( ContextualTipType tip );
 
 private:
-    typedef std::map< std::string, ContextualTipType > TagTypeMap;
+    typedef std::map<std::string, ContextualTipType> TagTypeMap;
     static TagTypeMap m_LookupTable;
     static bool m_LookupTableInitialised;
 };
 
-}
+} // namespace Hexterminate

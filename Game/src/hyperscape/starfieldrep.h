@@ -23,9 +23,9 @@
 
 namespace Genesis
 {
-	class Shader;
-	class ShaderUniform;
-}
+class Shader;
+class ShaderUniform;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -36,33 +36,33 @@ class Starfield;
 // StarfieldRep
 //-----------------------------------------------------------------------------
 
-class StarfieldRep: public Genesis::SceneObject
+class StarfieldRep : public Genesis::SceneObject
 {
 public:
-	StarfieldRep( Starfield* pStarfield );
-	virtual ~StarfieldRep();
+    StarfieldRep( Starfield* pStarfield );
+    virtual ~StarfieldRep();
 
-	void Initialise();
-	void RemoveFromScene();
+    void Initialise();
+    void RemoveFromScene();
 
-	virtual void Update( float delta );
-	virtual void Render();
+    virtual void Update( float delta );
+    virtual void Render();
 
 private:
-	void BuildStarfield();
+    void BuildStarfield();
 
-	Starfield* m_pStarfield;
+    Starfield* m_pStarfield;
 
-	Genesis::Shader* m_pStarShader;
-	Genesis::ShaderUniform* m_pStarfieldParallax;
-	Genesis::VertexBuffer* m_pStarfieldVB;
-	Genesis::PositionData m_PositionData;
-	Genesis::UVData m_UVData;
-	Genesis::ColourData m_ColorData;
+    Genesis::Shader* m_pStarShader;
+    Genesis::ShaderUniform* m_pStarfieldParallax;
+    Genesis::VertexBuffer* m_pStarfieldVB;
+    Genesis::PositionData m_PositionData;
+    Genesis::UVData m_UVData;
+    Genesis::ColourData m_ColorData;
 
-	Genesis::LayerSharedPtr m_pLayer;
+    Genesis::LayerSharedPtr m_pLayer;
 
-	glm::vec2 m_Parallax;
+    glm::vec2 m_Parallax;
 };
 
 } // namespace Hexterminate

@@ -27,12 +27,12 @@ class SectorInfo;
 class CampaignRequestInfo : public ImperialRequestInfo
 {
 public:
-	virtual ImperialRequestType			GetType() const override { return ImperialRequestType::Campaign; }
-	virtual AllowedGameMode				GetAllowedGameMode() const override { return AllowedGameMode::Campaign; }
-	virtual int							GetMaximumRequests() const override { return 1; }
-	virtual float						GetMinimumTimeBetweenRequests() const override { return 2.0f; }
-    virtual float                       GetMinimumTimeBeforeRequest() const override { return 5.0f; }
-	virtual ImperialRequestSharedPtr	TryInstantiate( RequestManager* pRequestManager ) const override;
+    virtual ImperialRequestType GetType() const override { return ImperialRequestType::Campaign; }
+    virtual AllowedGameMode GetAllowedGameMode() const override { return AllowedGameMode::Campaign; }
+    virtual int GetMaximumRequests() const override { return 1; }
+    virtual float GetMinimumTimeBetweenRequests() const override { return 2.0f; }
+    virtual float GetMinimumTimeBeforeRequest() const override { return 5.0f; }
+    virtual ImperialRequestSharedPtr TryInstantiate( RequestManager* pRequestManager ) const override;
 };
 
-}
+} // namespace Hexterminate

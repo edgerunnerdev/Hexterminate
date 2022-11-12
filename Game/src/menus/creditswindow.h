@@ -28,15 +28,15 @@ namespace Hexterminate
 class CreditsWindow : public UI::Window
 {
 public:
-	CreditsWindow();
+    CreditsWindow();
 
-	virtual void Update() override;
-	virtual void Reset() override;
+    virtual void Update() override;
+    virtual void Reset() override;
 
 private:
-	UI::TextSharedPtr m_pText;
-	size_t m_Index;
-	float m_Timer;
+    UI::TextSharedPtr m_pText;
+    size_t m_Index;
+    float m_Timer;
 };
 
 } // namespace Hexterminate

@@ -21,50 +21,49 @@
 
 namespace Genesis
 {
-	class Shader;
-	class ResourceImage;
-    class VertexBuffer;
-}
+class Shader;
+class ResourceImage;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 class Weapon;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Beam
 ///////////////////////////////////////////////////////////////////////////////
 
-class Beam: public Ammo
+class Beam : public Ammo
 {
 public:
-										Beam();
-	virtual								~Beam();
+    Beam();
+    virtual ~Beam();
 
-	virtual void						Create( Weapon* pWeapon, float additionalRotation = 0.0f  ) override;
-	virtual void						Update( float delta ) override;
-	virtual void						Render() override;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
 
 protected:
-	virtual float						GetOpacity() const;
+    virtual float GetOpacity() const;
 
 private:
-	void								SetupBeam();
-	void								SetupBeamFlare();
-	void								RenderBeam( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity );
-	void								RenderBeamFlare( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity );
+    void SetupBeam();
+    void SetupBeamFlare();
+    void RenderBeam( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity );
+    void RenderBeamFlare( const glm::mat4& modelMatrix, const Genesis::Color& beamColour, float opacity );
 
-	static Genesis::Shader*				m_pShader;
-	static Genesis::Shader*				m_pFlareShader;
+    static Genesis::Shader* m_pShader;
+    static Genesis::Shader* m_pFlareShader;
 
-    Genesis::VertexBuffer*              m_pBeamVertexBuffer;
-    Genesis::VertexBuffer*              m_pFlareVertexBuffer;
+    Genesis::VertexBuffer* m_pBeamVertexBuffer;
+    Genesis::VertexBuffer* m_pFlareVertexBuffer;
 };
 
 inline float Beam::GetOpacity() const
 {
-	return 1.0f;
+    return 1.0f;
 }
 
-}
+} // namespace Hexterminate

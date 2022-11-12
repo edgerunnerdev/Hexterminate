@@ -20,8 +20,8 @@
 #include <memory>
 #include <vector>
 
-#include <gui/gui.h>
 #include "ship/moduleinfo.h"
+#include <gui/gui.h>
 
 namespace Genesis
 {
@@ -36,33 +36,33 @@ class TableRow;
 class FleetStatus;
 class Ship;
 
-using FleetStatusUniquePtr = std::unique_ptr< FleetStatus >;
+using FleetStatusUniquePtr = std::unique_ptr<FleetStatus>;
 
 class FleetStatus
 {
 public:
-	FleetStatus();
-	virtual ~FleetStatus();
-	void Update();
+    FleetStatus();
+    virtual ~FleetStatus();
+    void Update();
 
-	void AddShip( Ship* pShip );
+    void AddShip( Ship* pShip );
 
 private:
-	void AddFleetRows();
-	Genesis::Color GetShipIntegrityColour( int integrity ) const;
+    void AddFleetRows();
+    Genesis::Color GetShipIntegrityColour( int integrity ) const;
 
-	Genesis::Gui::Panel* m_pMainPanel;
-	Table* m_pTable;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Table* m_pTable;
 
-	struct Entry
-	{
-		TableRow* m_pRow;
-		Ship* m_pShip;
-		bool m_Destroyed;
-	};
-	using EntryVector = std::vector< Entry >;
-	EntryVector m_Entries;
-	Genesis::ResourceSound* m_pShipLostSFX;
+    struct Entry
+    {
+        TableRow* m_pRow;
+        Ship* m_pShip;
+        bool m_Destroyed;
+    };
+    using EntryVector = std::vector<Entry>;
+    EntryVector m_Entries;
+    Genesis::ResourceSound* m_pShipLostSFX;
 };
 
-}
+} // namespace Hexterminate

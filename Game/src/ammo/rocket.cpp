@@ -27,24 +27,24 @@ namespace Hexterminate
 
 Rocket::Rocket()
 {
-	SetGlowSize( 25.0f );
-	SetGlowColour( Genesis::Color( 1.0f, 0.4f, 0.0f, 1.0f ) );
+    SetGlowSize( 25.0f );
+    SetGlowColour( Genesis::Color( 1.0f, 0.4f, 0.0f, 1.0f ) );
 }
 
 MissileType Rocket::GetType() const
 {
-	return MissileType::Rocket;
+    return MissileType::Rocket;
 }
 
 const std::string Rocket::GetResourceName() const
 {
-	static const std::string sResourceName( "data/models/ammo/missile.tmf" );
-	return sResourceName;
+    static const std::string sResourceName( "data/models/ammo/missile.tmf" );
+    return sResourceName;
 }
 
 Trail* Rocket::CreateTrail() const
 {
-	return new Trail( 1.5f, 2.5f, Genesis::Color( 0.6f, 0.2f, 0.0f, 1.0f ) );
+    return new Trail( 1.5f, 2.5f, Genesis::Color( 0.6f, 0.2f, 0.0f, 1.0f ) );
 }
 
-}
+} // namespace Hexterminate

@@ -30,25 +30,25 @@ namespace Genesis
 class Shader;
 class ShaderUniform;
 
-}
+} // namespace Genesis
 
 namespace Hexterminate
 {
 
 enum class ShipShaderUniform
 {
-	PrimaryPaint = 0,
-	SecondaryPaint,
-	Health,
-	RepairEdgeAlpha,
-	RepairEdgeOffset,
-	ClipActive,
-	Clip,
-	ClipForward,
-	AmbientColour,
-	EmissiveColour,
-	OverlayColour,
-	EMPActive,
+    PrimaryPaint = 0,
+    SecondaryPaint,
+    Health,
+    RepairEdgeAlpha,
+    RepairEdgeOffset,
+    ClipActive,
+    Clip,
+    ClipForward,
+    AmbientColour,
+    EmissiveColour,
+    OverlayColour,
+    EMPActive,
     DiffuseMap,
     SpecularMap,
     PaintMap,
@@ -59,8 +59,8 @@ enum class ShipShaderUniform
 class ShipShaderUniforms
 {
 public:
-	ShipShaderUniforms();
-	
+    ShipShaderUniforms();
+
     Genesis::Shader* GetShader() const;
 
     void Set( ShipShaderUniform shipShaderUniform, int value );
@@ -68,12 +68,12 @@ public:
     void Set( ShipShaderUniform shipShaderUniform, const glm::vec4& value );
     void Set( ShipShaderUniform shipShaderUniform, Genesis::ResourceImage* pTexture );
 
-	Genesis::ShaderUniform* Get( ShipShaderUniform shipShaderUniform ) const;
+    Genesis::ShaderUniform* Get( ShipShaderUniform shipShaderUniform ) const;
 
 private:
     GLenum UniformToGL( ShipShaderUniform uniform ) const;
 
-    typedef std::array< Genesis::ShaderUniform*, static_cast< size_t >( ShipShaderUniform::Count ) > ShaderUniformArray;
+    typedef std::array<Genesis::ShaderUniform*, static_cast<size_t>( ShipShaderUniform::Count )> ShaderUniformArray;
     ShaderUniformArray m_Uniforms;
     Genesis::Shader* m_pShader;
 };
@@ -85,7 +85,7 @@ inline Genesis::Shader* ShipShaderUniforms::GetShader() const
 
 inline Genesis::ShaderUniform* ShipShaderUniforms::Get( ShipShaderUniform shipShaderUniform ) const
 {
-	return m_Uniforms[ static_cast< size_t >( shipShaderUniform ) ];
+    return m_Uniforms[ static_cast<size_t>( shipShaderUniform ) ];
 }
 
-}
+} // namespace Hexterminate

@@ -21,30 +21,32 @@
 #include "ui/itoggleable.h"
 #include "ui/togglegroup.h"
 
-namespace Hexterminate {
-namespace UI {
-
-void ToggleGroup::Add( IToggleableSharedPtr pToggleable )
+namespace Hexterminate
 {
-	m_Group.push_back( pToggleable );
-}
-
-void ToggleGroup::Clear()
+namespace UI
 {
-	m_Group.clear();
-}
 
-void ToggleGroup::Select( IToggleable* pToggleable )
-{
-	for ( auto& pGroupedToggleableWeakPtr : m_Group )
-	{
-		IToggleableSharedPtr pGroupedToggleable = pGroupedToggleableWeakPtr.lock();
-		if ( pGroupedToggleable != nullptr )
-		{
-			pGroupedToggleable->Toggle( pGroupedToggleable.get() == pToggleable );
-		}
-	}
-}
+    void ToggleGroup::Add( IToggleableSharedPtr pToggleable )
+    {
+        m_Group.push_back( pToggleable );
+    }
+
+    void ToggleGroup::Clear()
+    {
+        m_Group.clear();
+    }
+
+    void ToggleGroup::Select( IToggleable* pToggleable )
+    {
+        for ( auto& pGroupedToggleableWeakPtr : m_Group )
+        {
+            IToggleableSharedPtr pGroupedToggleable = pGroupedToggleableWeakPtr.lock();
+            if ( pGroupedToggleable != nullptr )
+            {
+                pGroupedToggleable->Toggle( pGroupedToggleable.get() == pToggleable );
+            }
+        }
+    }
 
 } // namespace UI
 } // namespace Hexterminate

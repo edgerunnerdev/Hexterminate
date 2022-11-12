@@ -23,27 +23,27 @@ namespace Hexterminate
 {
 
 class Trail;
-typedef std::list< Trail* > TrailList;
+typedef std::list<Trail*> TrailList;
 
 class TrailManager
 {
 public:
-						TrailManager();
-						~TrailManager();
+    TrailManager();
+    ~TrailManager();
 
-	void				Update( float delta );
-	const TrailList&	GetTrails() const;
-	void				Add( Trail* pTrail );
-	void				Remove( Trail* pTrail );
+    void Update( float delta );
+    const TrailList& GetTrails() const;
+    void Add( Trail* pTrail );
+    void Remove( Trail* pTrail );
 
 private:
-	void				ProcessOrphanedTrails();
-	TrailList			m_Trails;
+    void ProcessOrphanedTrails();
+    TrailList m_Trails;
 };
 
 inline const TrailList& TrailManager::GetTrails() const
 {
-	return m_Trails;
+    return m_Trails;
 }
 
-}
+} // namespace Hexterminate

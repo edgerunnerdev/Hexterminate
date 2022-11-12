@@ -40,30 +40,29 @@ using CodexEntryVector = std::vector<CodexEntry*>;
 class CodexWindow : public UI::Window
 {
 public:
-	CodexWindow();
+    CodexWindow();
 
-	void ShowEntry( const std::string& content );
+    void ShowEntry( const std::string& content );
 
 private:
-	void LoadEntries();
-	void LoadEntry( const std::filesystem::path& path );
-	void RefreshUI();
-	void AddEntry( const std::string& category, const std::string& name, const std::string& content );
-	CodexCategory& GetCategory( const std::string& name );
+    void LoadEntries();
+    void LoadEntry( const std::filesystem::path& path );
+    void RefreshUI();
+    void AddEntry( const std::string& category, const std::string& name, const std::string& content );
+    CodexCategory& GetCategory( const std::string& name );
 
-	using Categories = std::map<std::string, CodexCategory>;
-	Categories m_Categories;
+    using Categories = std::map<std::string, CodexCategory>;
+    Categories m_Categories;
 
-	UI::PanelSharedPtr m_pCategoriesPanel;
-	UI::PanelSharedPtr m_pContentPanel;
+    UI::PanelSharedPtr m_pCategoriesPanel;
+    UI::PanelSharedPtr m_pContentPanel;
 
-	UI::ScrollingElementSharedPtr m_pCategoriesArea;
+    UI::ScrollingElementSharedPtr m_pCategoriesArea;
 
-	UI::ImageSharedPtr m_pModuleWireframe;
-	UI::TextSharedPtr m_pContentText;
-	UI::ToggleGroupSharedPtr m_pEntryToggleGroup;
+    UI::ImageSharedPtr m_pModuleWireframe;
+    UI::TextSharedPtr m_pContentText;
+    UI::ToggleGroupSharedPtr m_pEntryToggleGroup;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // CodexCategory
@@ -72,19 +71,18 @@ private:
 class CodexCategory
 {
 public:
-	CodexCategory();
-	CodexCategory( const std::string& name, UI::Element* pParent );
-	UI::Button* GetButton() const;
-	void AddEntry( const std::string& name, const std::string& content, UI::Element* pParent, CodexWindow* pCodexWindow, UI::ToggleGroupSharedPtr pEntryToggleGroup );
-	CodexEntryVector GetEntries();
+    CodexCategory();
+    CodexCategory( const std::string& name, UI::Element* pParent );
+    UI::Button* GetButton() const;
+    void AddEntry( const std::string& name, const std::string& content, UI::Element* pParent, CodexWindow* pCodexWindow, UI::ToggleGroupSharedPtr pEntryToggleGroup );
+    CodexEntryVector GetEntries();
 
 private:
-	UI::ButtonSharedPtr m_pButton;
+    UI::ButtonSharedPtr m_pButton;
 
-	using Entries = std::map<std::string, CodexEntryUniquePtr>;
-	Entries m_Entries;
+    using Entries = std::map<std::string, CodexEntryUniquePtr>;
+    Entries m_Entries;
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // CodexEntry
@@ -93,16 +91,16 @@ private:
 class CodexEntry
 {
 public:
-	CodexEntry();
-	CodexEntry( const std::string& name, const std::string& content, UI::Element* pParent, CodexWindow* pCodexWindow, UI::ToggleGroupSharedPtr pEntryToggleGroup );
-	UI::Button* GetButton() const;
+    CodexEntry();
+    CodexEntry( const std::string& name, const std::string& content, UI::Element* pParent, CodexWindow* pCodexWindow, UI::ToggleGroupSharedPtr pEntryToggleGroup );
+    UI::Button* GetButton() const;
 
 private:
-	void OnButtonPressed();
+    void OnButtonPressed();
 
-	UI::ButtonSharedPtr m_pButton;
-	std::string m_Content;
-	CodexWindow* m_pCodexWindow;
+    UI::ButtonSharedPtr m_pButton;
+    std::string m_Content;
+    CodexWindow* m_pCodexWindow;
 };
 
 } // namespace Hexterminate

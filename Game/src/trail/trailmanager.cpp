@@ -17,75 +17,74 @@
 
 #include <memory.h>
 
+#include "hexterminate.h"
 #include "trail/trail.h"
 #include "trail/trailmanager.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
 
 TrailManager::TrailManager()
 {
-
 }
 
 TrailManager::~TrailManager()
 {
-	for ( auto& pTrail : m_Trails )
-	{
-		delete pTrail;
-	}
+    for ( auto& pTrail : m_Trails )
+    {
+        delete pTrail;
+    }
 }
 
 void TrailManager::Update( float delta )
 {
-	if ( g_pGame->IsPaused() == false )
-	{
-		for ( auto& pTrail : m_Trails )
-		{
-			pTrail->Update( delta );
-		}
-	}
+    if ( g_pGame->IsPaused() == false )
+    {
+        for ( auto& pTrail : m_Trails )
+        {
+            pTrail->Update( delta );
+        }
+    }
 
-	ProcessOrphanedTrails();
+    ProcessOrphanedTrails();
 }
 
 void TrailManager::Add( Trail* pTrail )
 {
-	for ( auto& pCurrentTrail : m_Trails )
-	{
-		if ( pCurrentTrail == pTrail )
-		{
-			return;
-		}
-	}
+    for ( auto& pCurrentTrail : m_Trails )
+    {
+        if ( pCurrentTrail == pTrail )
+        {
+            return;
+        }
+    }
 
-	m_Trails.push_back( pTrail );
+    m_Trails.push_back( pTrail );
 }
 
 void TrailManager::Remove( Trail* pTrail )
 {
-	m_Trails.remove( pTrail );
-	if ( pTrail->IsOrphan() )
-	{
-		delete pTrail;
-	}
+    m_Trails.remove( pTrail );
+    if ( pTrail->IsOrphan() )
+    {
+        delete pTrail;
+    }
 }
 
 void TrailManager::ProcessOrphanedTrails()
 {
-	for ( TrailList::iterator it = m_Trails.begin(); it != m_Trails.end(); )
-	{
-		if ( (*it)->IsOrphan() && (*it)->GetActivePoints() == 0 )
-		{
-			delete *it;
-			it = m_Trails.erase( it );
-		}
-		else
-		{
-			it++;
-		}
-	}
+    for ( TrailList::iterator it = m_Trails.begin(); it != m_Trails.end(); )
+    {
+        if ( ( *it )->IsOrphan() && ( *it )->GetActivePoints() == 0 )
+        {
+            delete *it;
+            it = m_Trails.erase( it );
+        }
+        else
+        {
+            it++;
+        }
+    }
 }
 
-}
+} // namespace Hexterminate

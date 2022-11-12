@@ -22,54 +22,54 @@ namespace Hexterminate
 
 GalaxyCreationInfo::GalaxyCreationInfo( CreationMode creationMode )
 {
-	m_CreationMode = creationMode;
+    m_CreationMode = creationMode;
 
-	for ( int i = 0; i < static_cast< int >( FactionId::Count ); ++i )
-	{
-		SetFaction( static_cast< FactionId >( i ), FactionPresence::Standard, GenerationType::Expansion, true );
-	}
-	SetFaction( FactionId::Neutral, FactionPresence::None, GenerationType::Expansion, false );
-	SetFaction( FactionId::Player, FactionPresence::None, GenerationType::Expansion, false );
-	SetFaction( FactionId::Special, FactionPresence::None, GenerationType::Expansion, false );
-	SetFaction( FactionId::Pirate, FactionPresence::Standard, GenerationType::Scattered, false );
+    for ( int i = 0; i < static_cast<int>( FactionId::Count ); ++i )
+    {
+        SetFaction( static_cast<FactionId>( i ), FactionPresence::Standard, GenerationType::Expansion, true );
+    }
+    SetFaction( FactionId::Neutral, FactionPresence::None, GenerationType::Expansion, false );
+    SetFaction( FactionId::Player, FactionPresence::None, GenerationType::Expansion, false );
+    SetFaction( FactionId::Special, FactionPresence::None, GenerationType::Expansion, false );
+    SetFaction( FactionId::Pirate, FactionPresence::Standard, GenerationType::Scattered, false );
 }
 
 GalaxyCreationInfo::CreationMode GalaxyCreationInfo::GetMode() const
 {
-	return m_CreationMode;
+    return m_CreationMode;
 }
 
 void GalaxyCreationInfo::SetFaction( FactionId factionId, FactionPresence presence, GenerationType generationType, bool hasHomeworld )
 {
-	if ( presence != FactionPresence::None && generationType == GenerationType::Expansion && hasHomeworld == false )
-	{
-		Genesis::FrameWork::GetLogger()->LogError( "A faction can only use the Expansion generation type if it has a homeworld." );
-	}
+    if ( presence != FactionPresence::None && generationType == GenerationType::Expansion && hasHomeworld == false )
+    {
+        Genesis::FrameWork::GetLogger()->LogError( "A faction can only use the Expansion generation type if it has a homeworld." );
+    }
 
-	Data& data = m_Data[ static_cast< size_t >( factionId ) ];
-	data.presence = presence;
-	data.generationType = generationType;
-	data.hasHomeworld = hasHomeworld;
+    Data& data = m_Data[ static_cast<size_t>( factionId ) ];
+    data.presence = presence;
+    data.generationType = generationType;
+    data.hasHomeworld = hasHomeworld;
 }
 
 FactionPresence GalaxyCreationInfo::GetFactionPresence( FactionId factionId ) const
 {
-	return m_Data[ static_cast< size_t >( factionId ) ].presence;
+    return m_Data[ static_cast<size_t>( factionId ) ].presence;
 }
 
 void GalaxyCreationInfo::SetFactionPresence( FactionId factionId, FactionPresence presence )
 {
-	m_Data[ static_cast< size_t >( factionId ) ].presence = presence;
+    m_Data[ static_cast<size_t>( factionId ) ].presence = presence;
 }
 
 GalaxyCreationInfo::GenerationType GalaxyCreationInfo::GetGenerationType( FactionId factionId ) const
 {
-	return m_Data[ static_cast< size_t >( factionId ) ].generationType;
+    return m_Data[ static_cast<size_t>( factionId ) ].generationType;
 }
 
 bool GalaxyCreationInfo::HasHomeworld( FactionId factionId ) const
 {
-	return m_Data[ static_cast< size_t >( factionId ) ].hasHomeworld;
+    return m_Data[ static_cast<size_t>( factionId ) ].hasHomeworld;
 }
 
-}
+} // namespace Hexterminate

@@ -19,12 +19,13 @@
 #include <memory>
 #include <string>
 
+// clang-format off
 #include <beginexternalheaders.h>
 #include <tinyxml2.h>
 #include <endexternalheaders.h>
+// clang-format on
 
 #include "serialisable.h"
-
 
 namespace Hexterminate
 {
@@ -32,7 +33,6 @@ namespace Hexterminate
 class Blackboard;
 typedef std::shared_ptr<Blackboard> BlackboardSharedPtr;
 typedef std::weak_ptr<Blackboard> BlackboardWeakPtr;
-
 
 /////////////////////////////////////////////////////////////////////
 // Blackboard
@@ -43,23 +43,23 @@ typedef std::weak_ptr<Blackboard> BlackboardWeakPtr;
 class Blackboard : public Serialisable
 {
 public:
-							Blackboard();
-	void					Add( const std::string& text, int value = 1 );
-	bool					Exists( const std::string& text ) const;
-	int						Get( const std::string& text ) const;
-	void					Clear();
-	void					UpdateDebugUI();
+    Blackboard();
+    void Add( const std::string& text, int value = 1 );
+    bool Exists( const std::string& text ) const;
+    int Get( const std::string& text ) const;
+    void Clear();
+    void UpdateDebugUI();
 
-	// Serialisable
-	virtual bool			Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
-	virtual bool			Read( tinyxml2::XMLElement* pRootElement ) override;
-	virtual int				GetVersion() const override { return 1; }
-	virtual void			UpgradeFromVersion( int version ) override {}
+    // Serialisable
+    virtual bool Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement ) override;
+    virtual bool Read( tinyxml2::XMLElement* pRootElement ) override;
+    virtual int GetVersion() const override { return 1; }
+    virtual void UpgradeFromVersion( int version ) override {}
 
 private:
-	typedef std::map< std::string, int > BlackboardMap;
-	BlackboardMap			m_Map;
-	bool					m_DebugUIOpen;
+    typedef std::map<std::string, int> BlackboardMap;
+    BlackboardMap m_Map;
+    bool m_DebugUIOpen;
 };
 
-}
+} // namespace Hexterminate

@@ -27,30 +27,28 @@ namespace Hexterminate::UI
 
 static const char* sCheckboxPropertyChecked = "checked";
 
-Checkbox::Checkbox( const std::string& name, CheckboxPressedCallback pCallback /* = nullptr */ ) : 
-Element( name ),
-m_WasHovered( false )
+Checkbox::Checkbox( const std::string& name, CheckboxPressedCallback pCallback /* = nullptr */ )
+    : Element( name )
+    , m_WasHovered( false )
 {
     using namespace Genesis;
 
     m_pClickSFX = Genesis::Gui::LoadSFX( "data/sfx/beep.wav" );
     m_pHoverSFX = Genesis::Gui::LoadSFX( "data/sfx/hover.wav" );
 
-	m_pCheckbox = new Gui::Checkbox( 0, 0, EVA_FONT, "", false,
-        [this, pCallback]( bool checked ) 
-        { 
+    m_pCheckbox = new Gui::Checkbox( 0, 0, EVA_FONT, "", false,
+        [ this, pCallback ]( bool checked ) {
             Genesis::Gui::PlaySFX( m_pClickSFX );
 
             if ( pCallback != nullptr )
             {
                 pCallback( checked );
             }
-        } 
-    );
+        } );
 
-	m_pCheckbox->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
-	m_pCheckbox->SetColour( EVA_BUTTON_COLOUR_BACKGROUND );
-	m_pCheckbox->SetBulletColour( EVA_CHECKBOX_BULLET_COLOUR );
+    m_pCheckbox->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
+    m_pCheckbox->SetColour( EVA_BUTTON_COLOUR_BACKGROUND );
+    m_pCheckbox->SetBulletColour( EVA_CHECKBOX_BULLET_COLOUR );
     GetPanel()->AddElement( m_pCheckbox );
 
     m_pText = std::make_shared<Text>( "Text" );
@@ -76,19 +74,19 @@ void Checkbox::Update()
 
 void Checkbox::RenderProperties()
 {
-	Element::RenderProperties();
+    Element::RenderProperties();
 
     if ( ImGui::CollapsingHeader( "Checkbox", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
         bool isChecked = m_pCheckbox->IsPressed();
-	    if ( ImGui::Checkbox( "Checked", &isChecked ) )
-	    {
-		    m_pCheckbox->SetPressed( isChecked );
-	    }
+        if ( ImGui::Checkbox( "Checked", &isChecked ) )
+        {
+            m_pCheckbox->SetPressed( isChecked );
+        }
     }
 }
 
-void Checkbox::SetSize( int width, int height ) 
+void Checkbox::SetSize( int width, int height )
 {
     Element::SetSize( width, height );
     m_pCheckbox->SetSize( 16, 16 );

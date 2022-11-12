@@ -25,31 +25,31 @@ namespace Hexterminate
 // This define must match the names set up in SteamWorks
 enum AchievementID
 {
-	ACH_BOOT_STAMPING,
-	ACH_IMPERIAL_DRM,
-	ACH_NOT_TODAY,
-	ACH_TIRED_OF_REPAINTING_IT,
-	ACH_NOT_EVEN_BEACONS,
-	ACH_TIS_BUT_A_SCRATCH,
-	ACH_FAVOURED_BY_THE_RNG_GODS,
-	ACH_WALK_SLOWLY,
-	ACH_TACTICAL_RELOCATION,
-	ACH_TO_GORGE_ON_LESSER_BEINGS,
-	ACH_THIS_ISNT_EVEN_MY_FINAL_FORM,
-	ACH_IMMORTAL_NO_MORE,
-	ACH_MANAGED_FREEDOM,
-	ACH_DEMIGOD,
-	ACH_HEXTERMINATED,
-	ACH_HEGEGONE,
-	ACH_FINITE_WAR
+    ACH_BOOT_STAMPING,
+    ACH_IMPERIAL_DRM,
+    ACH_NOT_TODAY,
+    ACH_TIRED_OF_REPAINTING_IT,
+    ACH_NOT_EVEN_BEACONS,
+    ACH_TIS_BUT_A_SCRATCH,
+    ACH_FAVOURED_BY_THE_RNG_GODS,
+    ACH_WALK_SLOWLY,
+    ACH_TACTICAL_RELOCATION,
+    ACH_TO_GORGE_ON_LESSER_BEINGS,
+    ACH_THIS_ISNT_EVEN_MY_FINAL_FORM,
+    ACH_IMMORTAL_NO_MORE,
+    ACH_MANAGED_FREEDOM,
+    ACH_DEMIGOD,
+    ACH_HEXTERMINATED,
+    ACH_HEGEGONE,
+    ACH_FINITE_WAR
 };
 
 struct Achievement_t
 {
-	AchievementID id;
-	const char* idAsCString;
-	char name[128];
-	bool achieved;
+    AchievementID id;
+    const char* idAsCString;
+    char name[ 128 ];
+    bool achieved;
 };
 
 #if USE_STEAM
@@ -57,33 +57,33 @@ struct Achievement_t
 class AchievementsManager
 {
 public:
-	AchievementsManager();
+    AchievementsManager();
 
-	void Update();
-	void UnlockAchievement( AchievementID achievementID );
+    void Update();
+    void UnlockAchievement( AchievementID achievementID );
 
-	STEAM_CALLBACK( AchievementsManager, OnUserStatsReceived, UserStatsReceived_t, m_CallbackUserStatsReceived );
+    STEAM_CALLBACK( AchievementsManager, OnUserStatsReceived, UserStatsReceived_t, m_CallbackUserStatsReceived );
 
 private:
 #ifdef _DEBUG
-	// Support for ImGui, appears under Game -> Achievements
-	void UpdateDebugUI();
+    // Support for ImGui, appears under Game -> Achievements
+    void UpdateDebugUI();
 #endif
 
-	// Steam User interface
-	ISteamUser *m_pSteamUser;
+    // Steam User interface
+    ISteamUser* m_pSteamUser;
 
-	// Steam UserStats interface
-	ISteamUserStats *m_pSteamUserStats;
+    // Steam UserStats interface
+    ISteamUserStats* m_pSteamUserStats;
 
-	// Did we get the stats from Steam?
-	bool m_RequestedStats;
-	bool m_StatsValid;
+    // Did we get the stats from Steam?
+    bool m_RequestedStats;
+    bool m_StatsValid;
 
-	// Should we store stats this frame?
-	bool m_StoreStats;
+    // Should we store stats this frame?
+    bool m_StoreStats;
 
-	bool m_DebugUIOpen;
+    bool m_DebugUIOpen;
 };
 
 #else
@@ -92,10 +92,10 @@ private:
 class AchievementsManager
 {
 public:
-	void Update() {}
-	void UnlockAchievement( AchievementID achievementID ) {}
+    void Update() {}
+    void UnlockAchievement( AchievementID achievementID ) {}
 };
 
 #endif
 
-}
+} // namespace Hexterminate

@@ -26,8 +26,8 @@ std::default_random_engine RandomShuffle::m_Engine = std::default_random_engine(
 
 void RandomShuffle::Initialise()
 {
-	const unsigned int seed = static_cast<unsigned int>( std::chrono::system_clock::now().time_since_epoch().count() );
-	m_Engine = std::default_random_engine( seed );
+    const unsigned int seed = static_cast<unsigned int>( std::chrono::system_clock::now().time_since_epoch().count() );
+    m_Engine = std::default_random_engine( seed );
 }
 
 } // namespace Hexterminate

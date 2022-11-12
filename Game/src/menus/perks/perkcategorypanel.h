@@ -17,21 +17,20 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <gui/gui.h>
 
-#include "menus/perks/perkpanel.h"
 #include "gameevents.h"
+#include "menus/perks/perkpanel.h"
 
 namespace Hexterminate
 {
 
 class PerkCategoryPanel;
 
-typedef std::vector< PerkCategoryPanel* > PerkCategoryPanelArray;
-
+typedef std::vector<PerkCategoryPanel*> PerkCategoryPanelArray;
 
 /////////////////////////////////////////////////////////////////////
 // PerkCategoryPanel
@@ -42,17 +41,17 @@ typedef std::vector< PerkCategoryPanel* > PerkCategoryPanelArray;
 class PerkCategoryPanel : public Genesis::Gui::Image, public GameEventHandler
 {
 public:
-	PerkCategoryPanel();
-	void Init( const std::string& category );
-	void AddPerk( Perk perk, const std::string& name, const std::string& description, const std::string& icon, int cost );
+    PerkCategoryPanel();
+    void Init( const std::string& category );
+    void AddPerk( Perk perk, const std::string& name, const std::string& description, const std::string& icon, int cost );
 
-	virtual void			Show( bool state ) override;
-    virtual void            HandleGameEvent( GameEvent* pEvent ) override;
+    virtual void Show( bool state ) override;
+    virtual void HandleGameEvent( GameEvent* pEvent ) override;
 
 private:
-	Genesis::Gui::Text*		m_pTitle;
-	PerkPanelArray			m_Perks;
-	bool					m_PreviousUnlocked;
+    Genesis::Gui::Text* m_pTitle;
+    PerkPanelArray m_Perks;
+    bool m_PreviousUnlocked;
 };
 
-}
+} // namespace Hexterminate

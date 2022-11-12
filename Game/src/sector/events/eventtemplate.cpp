@@ -16,32 +16,30 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "sector/events/eventtemplate.h"
-#include "sector/sector.h"
 #include "hexterminate.h"
+#include "sector/sector.h"
 
 namespace Hexterminate
 {
 
 SectorEventTemplate::SectorEventTemplate()
 {
-	SetName( "EventTemplate" );
+    SetName( "EventTemplate" );
 
-	AllowForFaction( FactionId::Empire );
+    AllowForFaction( FactionId::Empire );
 }
 
 bool SectorEventTemplate::IsAvailableAt( const SectorInfo* pSectorInfo ) const
 {
-	return SectorEvent::IsAvailableAt( pSectorInfo );
+    return SectorEvent::IsAvailableAt( pSectorInfo );
 }
 
 void SectorEventTemplate::OnPlayerEnterSector()
 {
-
 }
 
-void SectorEventTemplate::OnShipDestroyed( Ship* pShip ) 
+void SectorEventTemplate::OnShipDestroyed( Ship* pShip )
 {
-
 }
 
-}
+} // namespace Hexterminate

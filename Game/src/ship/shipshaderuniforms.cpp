@@ -15,19 +15,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
+#include <genesis.h>
 #include <rendersystem.h>
+#include <shader.h>
 #include <shadercache.h>
 #include <shaderuniform.h>
-#include <shader.h>
-#include <genesis.h>
 
 #include "shipshaderuniforms.h"
 
 namespace Hexterminate
 {
 
-ShipShaderUniforms::ShipShaderUniforms() :
-m_pShader( nullptr )
+ShipShaderUniforms::ShipShaderUniforms()
+    : m_pShader( nullptr )
 {
     using namespace Genesis;
 
@@ -112,4 +112,4 @@ GLenum ShipShaderUniforms::UniformToGL( ShipShaderUniform uniform ) const
     }
 }
 
-}
+} // namespace Hexterminate

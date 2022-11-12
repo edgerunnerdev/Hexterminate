@@ -17,38 +17,37 @@
 
 #pragma once
 
-#include <memory>
 #include <list>
+#include <memory>
 
 namespace Hexterminate
 {
 
 class ImperialRequest;
 
-typedef std::shared_ptr< ImperialRequest > ImperialRequestSharedPtr;
-typedef std::unique_ptr< ImperialRequest > ImperialRequestUniquePtr;
-typedef std::weak_ptr< ImperialRequest > ImperialRequestWeakPtr;
-typedef std::list< ImperialRequestSharedPtr > ImperialRequestList;
-typedef std::list< ImperialRequestWeakPtr> ImperialRequestWeakPtrList;
-
+typedef std::shared_ptr<ImperialRequest> ImperialRequestSharedPtr;
+typedef std::unique_ptr<ImperialRequest> ImperialRequestUniquePtr;
+typedef std::weak_ptr<ImperialRequest> ImperialRequestWeakPtr;
+typedef std::list<ImperialRequestSharedPtr> ImperialRequestList;
+typedef std::list<ImperialRequestWeakPtr> ImperialRequestWeakPtrList;
 
 // Warning: do not change the order of the requests, it is used in serialisation
 enum class ImperialRequestType
 {
-	Invalid,
+    Invalid,
 
-	Campaign,
-	Expand,
-	Defend,
-	ListeningStation,
-	TradeShip,
-	Gauntlet,
-	Stronghold,
+    Campaign,
+    Expand,
+    Defend,
+    ListeningStation,
+    TradeShip,
+    Gauntlet,
+    Stronghold,
     Invasion,
-	Arbiter,
-	InfiniteWar,
+    Arbiter,
+    InfiniteWar,
 
-	Count
+    Count
 };
 
-}
+} // namespace Hexterminate

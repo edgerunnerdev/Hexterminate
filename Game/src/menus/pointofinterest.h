@@ -17,16 +17,15 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include <gui/atlas.h>
+#include <gui/gui.h>
 #include <rendersystem.h>
-
 
 namespace Genesis
 {
-	class Shader;
-	class VertexBuffer;
-}
+class Shader;
+class VertexBuffer;
+} // namespace Genesis
 
 namespace Hexterminate
 {
@@ -38,75 +37,74 @@ namespace Hexterminate
 class PointOfInterestTarget
 {
 public:
-	const glm::vec2&			GetPointOfInterestEnd() const;
-	void						SetPointOfInterestEnd( const glm::vec2& position );
+    const glm::vec2& GetPointOfInterestEnd() const;
+    void SetPointOfInterestEnd( const glm::vec2& position );
 
 private:
-	glm::vec2					m_PointOfInterestEnd;
+    glm::vec2 m_PointOfInterestEnd;
 };
 
 inline const glm::vec2& PointOfInterestTarget::GetPointOfInterestEnd() const
 {
-	return m_PointOfInterestEnd;
+    return m_PointOfInterestEnd;
 }
 
 inline void PointOfInterestTarget::SetPointOfInterestEnd( const glm::vec2& position )
 {
-	m_PointOfInterestEnd = position;
+    m_PointOfInterestEnd = position;
 }
 
-	
 ///////////////////////////////////////////////////////////////////////////
 // PointOfInterest
 // Used to indicate a location in 2D space which is relevant to the player.
-// It is represented by a line starting at the start position and ending at 
+// It is represented by a line starting at the start position and ending at
 // the point of interest's end with a small circular icon.
 // A dynamic origin can be set by calling SetOrigin() with a class inheriting
 // from PointOfInterestTarget.
 ///////////////////////////////////////////////////////////////////////////////
 
-class PointOfInterest: public Genesis::Gui::GuiElement
+class PointOfInterest : public Genesis::Gui::GuiElement
 {
 public:
-								PointOfInterest();
-	virtual						~PointOfInterest();
-	virtual void				Render() override;
+    PointOfInterest();
+    virtual ~PointOfInterest();
+    virtual void Render() override;
 
-	void						SetStart( const glm::vec2& position );
-	void						SetEnd( const glm::vec2& position );
-	void						SetEnd( PointOfInterestTarget* pPointOfInterestTarget );
-	void						SetColour( const Genesis::Color& colour );
+    void SetStart( const glm::vec2& position );
+    void SetEnd( const glm::vec2& position );
+    void SetEnd( PointOfInterestTarget* pPointOfInterestTarget );
+    void SetColour( const Genesis::Color& colour );
 
 private:
-	glm::vec2					m_Start;
-	glm::vec2					m_StaticEnd;
-	PointOfInterestTarget*		m_pDynamicEnd;
+    glm::vec2 m_Start;
+    glm::vec2 m_StaticEnd;
+    PointOfInterestTarget* m_pDynamicEnd;
 
-	Genesis::Shader*			m_pShader;
-	Genesis::VertexBuffer*		m_pVertexBuffer;
+    Genesis::Shader* m_pShader;
+    Genesis::VertexBuffer* m_pVertexBuffer;
 
-	Genesis::Color				m_Colour;
+    Genesis::Color m_Colour;
 };
 
 inline void PointOfInterest::SetStart( const glm::vec2& position )
 {
-	m_Start = position;
+    m_Start = position;
 }
 
 inline void PointOfInterest::SetEnd( const glm::vec2& position )
 {
-	m_StaticEnd = position;
-	m_pDynamicEnd = nullptr;
+    m_StaticEnd = position;
+    m_pDynamicEnd = nullptr;
 }
 
 inline void PointOfInterest::SetEnd( PointOfInterestTarget* pPointOfInterestTarget )
 {
-	m_pDynamicEnd = pPointOfInterestTarget;
+    m_pDynamicEnd = pPointOfInterestTarget;
 }
 
 inline void PointOfInterest::SetColour( const Genesis::Color& colour )
 {
-	m_Colour = colour;
+    m_Colour = colour;
 }
 
-}
+} // namespace Hexterminate

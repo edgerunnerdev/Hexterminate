@@ -34,26 +34,25 @@ static const char* sTextPropertyFont = "font";
 static const char* sTextPropertyLineSpacing = "line_spacing";
 static const char* sTextPropertyColour = "colour";
 
-Text::Text( const std::string& name ) :
-Element( name ),
-m_Multiline( false ),
-m_pText( nullptr ),
-m_Label( "???" ),
-m_Colour( { 1.0f, 1.0f, 1.0f, 1.0f } )
+Text::Text( const std::string& name )
+    : Element( name )
+    , m_Multiline( false )
+    , m_pText( nullptr )
+    , m_Label( "???" )
+    , m_Colour( { 1.0f, 1.0f, 1.0f, 1.0f } )
 {
     m_pText = new Genesis::Gui::Text();
-	m_pText->SetSize( 256.0f, 16.0f );
-	m_pText->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
+    m_pText->SetSize( 256.0f, 16.0f );
+    m_pText->SetColour( 1.0f, 1.0f, 1.0f, 1.0f );
     m_pText->SetMultiLine( false );
-	m_pText->SetFont( Fonts::Get( "kimberley18light.fnt" ) );
+    m_pText->SetFont( Fonts::Get( "kimberley18light.fnt" ) );
     m_pText->SetLineSpacing( 1.4f );
-	m_pText->SetText( m_Label );
-	GetPanel()->AddElement( m_pText );
+    m_pText->SetText( m_Label );
+    GetPanel()->AddElement( m_pText );
 }
 
 Text::~Text()
 {
-
 }
 
 void Text::SaveProperties( json& properties )
@@ -159,7 +158,7 @@ void Text::RenderProperties()
         if ( ImGui::ColorEdit4( "Colour", m_Colour.data() ) )
         {
             m_pText->SetColour( m_Colour[ 0 ], m_Colour[ 1 ], m_Colour[ 2 ], m_Colour[ 3 ] );
-        }   
+        }
     }
 }
 

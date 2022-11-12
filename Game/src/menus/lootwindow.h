@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "gameevents.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -29,43 +29,43 @@ class ModuleInfo;
 class LootWindow : public GameEventHandler
 {
 public:
-							LootWindow();
-							~LootWindow();
-	void					Update( float delta );
+    LootWindow();
+    ~LootWindow();
+    void Update( float delta );
 
-	virtual	void			HandleGameEvent( GameEvent* pEvent ) override;
+    virtual void HandleGameEvent( GameEvent* pEvent ) override;
 
 private:
-    void                    InitialiseSounds();
-    void                    Test( float delta );
-	float					CalculateIconScaling() const;
-	float					CalculateAlpha() const;
+    void InitialiseSounds();
+    void Test( float delta );
+    float CalculateIconScaling() const;
+    float CalculateAlpha() const;
 
-	Genesis::Gui::Panel*	m_pMainPanel;
-	Genesis::Gui::Text*		m_pModuleName;
-	Genesis::Gui::Image*	m_pIcon;
-	Genesis::Gui::Image*	m_pWingsLeft;
-	Genesis::Gui::Image*	m_pWingsRight;
-	Meter*					m_pPerkMeter;
-	Genesis::Gui::Text*		m_pPerkAcquired;
+    Genesis::Gui::Panel* m_pMainPanel;
+    Genesis::Gui::Text* m_pModuleName;
+    Genesis::Gui::Image* m_pIcon;
+    Genesis::Gui::Image* m_pWingsLeft;
+    Genesis::Gui::Image* m_pWingsRight;
+    Meter* m_pPerkMeter;
+    Genesis::Gui::Text* m_pPerkAcquired;
 
-	bool					m_Dirty;
+    bool m_Dirty;
 
-    float                   m_PanelWidth;
-    float                   m_PanelHeight;
-    float                   m_IconSize;
+    float m_PanelWidth;
+    float m_PanelHeight;
+    float m_IconSize;
 
-	struct LootElement
-	{
-		ModuleInfo* pModuleInfo;
-		unsigned int quantity;
-	};
-	typedef std::list< LootElement > LootQueue;
-	LootQueue				m_LootQueue;
-	float					m_DisplayTimer;
+    struct LootElement
+    {
+        ModuleInfo* pModuleInfo;
+        unsigned int quantity;
+    };
+    typedef std::list<LootElement> LootQueue;
+    LootQueue m_LootQueue;
+    float m_DisplayTimer;
 
     Genesis::ResourceSound* m_pPerkPointAcquiredSFX;
     Genesis::ResourceSound* m_pPerkProgressSFX;
 };
 
-}
+} // namespace Hexterminate

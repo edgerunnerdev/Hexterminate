@@ -21,7 +21,7 @@
 
 namespace Genesis
 {
-	class ResourceModel;
+class ResourceModel;
 }
 
 namespace Hexterminate
@@ -33,82 +33,81 @@ class Ship;
 
 enum class MissileType
 {
-	Missile,
-	Torpedo,
-	Rocket
+    Missile,
+    Torpedo,
+    Rocket
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Missile
 ///////////////////////////////////////////////////////////////////////////////
 
-class Missile: public Ammo
+class Missile : public Ammo
 {
 public:
-								Missile();
-	virtual						~Missile() override;
+    Missile();
+    virtual ~Missile() override;
 
-	virtual void				Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
-	virtual void				Update( float delta ) override;
-	virtual void				Render() override;
-	virtual void				Kill() override;
-	virtual bool				CanBeIntercepted() const override;
-	virtual bool				CanBypassShields() const override;
+    virtual void Create( Weapon* pWeapon, float additionalRotation = 0.0f ) override;
+    virtual void Update( float delta ) override;
+    virtual void Render() override;
+    virtual void Kill() override;
+    virtual bool CanBeIntercepted() const override;
+    virtual bool CanBypassShields() const override;
 
 protected:
-	virtual MissileType			GetType() const;
-	virtual const std::string	GetResourceName() const;
-	virtual Trail*				CreateTrail() const;
+    virtual MissileType GetType() const;
+    virtual const std::string GetResourceName() const;
+    virtual Trail* CreateTrail() const;
 
-	void						SetGlowSize( float size );
-	float						GetGlowSize() const;
-	void						SetGlowColour( const Genesis::Color& colour );
-	const Genesis::Color&		GetGlowColour() const;
+    void SetGlowSize( float size );
+    float GetGlowSize() const;
+    void SetGlowColour( const Genesis::Color& colour );
+    const Genesis::Color& GetGlowColour() const;
 
 private:
-	Ship*						FindClosestShip( const glm::vec3& position );
-	void						UpdateTarget( float delta );
-	void						TrackTarget( float delta );
-	void						UpdateGlow();
+    Ship* FindClosestShip( const glm::vec3& position );
+    void UpdateTarget( float delta );
+    void TrackTarget( float delta );
+    void UpdateGlow();
 
-	Genesis::ResourceModel*		m_pModel;
-	Trail*						m_pTrail;
-	Ship*						m_pTargetShip;
-	float						m_LaunchTimer;
-	float						m_SwarmTimer;
-	float						m_GlowSize;
-	Genesis::Color				m_GlowColour;
+    Genesis::ResourceModel* m_pModel;
+    Trail* m_pTrail;
+    Ship* m_pTargetShip;
+    float m_LaunchTimer;
+    float m_SwarmTimer;
+    float m_GlowSize;
+    Genesis::Color m_GlowColour;
 };
 
 inline void Missile::SetGlowSize( float size )
 {
-	m_GlowSize = size;
+    m_GlowSize = size;
 }
 
 inline float Missile::GetGlowSize() const
 {
-	return m_GlowSize;
+    return m_GlowSize;
 }
 
 inline void Missile::SetGlowColour( const Genesis::Color& glowColour )
 {
-	m_GlowColour = glowColour;
+    m_GlowColour = glowColour;
 }
 
 inline const Genesis::Color& Missile::GetGlowColour() const
 {
-	return m_GlowColour;
+    return m_GlowColour;
 }
 
 inline bool Missile::CanBeIntercepted() const
 {
-	return m_LaunchTimer > 0.5f;
+    return m_LaunchTimer > 0.5f;
 }
 
 inline bool Missile::CanBypassShields() const
 {
-	return true;
+    return true;
 }
 
-}
+} // namespace Hexterminate

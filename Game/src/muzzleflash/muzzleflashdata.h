@@ -29,67 +29,67 @@ class Weapon;
 class MuzzleflashData
 {
 public:
-	MuzzleflashData( Weapon* pWeapon, const glm::vec3& muzzleOffset, int muzzleIndex, float scale, float lifetime );
-	Weapon* GetWeapon() const;
-	const glm::vec3& GetMuzzleOffset() const;
-	int GetMuzzleIndex() const;
-	float GetScale() const;
-	float GetLifetime() const;
-	void SetLifetime( float value );
-	float GetRotationMultiplier() const;
+    MuzzleflashData( Weapon* pWeapon, const glm::vec3& muzzleOffset, int muzzleIndex, float scale, float lifetime );
+    Weapon* GetWeapon() const;
+    const glm::vec3& GetMuzzleOffset() const;
+    int GetMuzzleIndex() const;
+    float GetScale() const;
+    float GetLifetime() const;
+    void SetLifetime( float value );
+    float GetRotationMultiplier() const;
 
 private:
-	Weapon* m_pWeapon;
-	glm::vec3 m_MuzzleOffset;
-	int m_MuzzleIndex;
-	float m_Scale;
-	float m_Lifetime;
-	float m_RotationMultiplier;
+    Weapon* m_pWeapon;
+    glm::vec3 m_MuzzleOffset;
+    int m_MuzzleIndex;
+    float m_Scale;
+    float m_Lifetime;
+    float m_RotationMultiplier;
 };
 
-inline MuzzleflashData::MuzzleflashData( Weapon* pWeapon, const glm::vec3& muzzleOffset, int muzzleIndex, float scale, float lifetime ) :
-	m_pWeapon( pWeapon ),
-	m_MuzzleOffset( muzzleOffset ),
-	m_MuzzleIndex( muzzleIndex ),
-	m_Scale( scale ),
-	m_Lifetime( lifetime )
+inline MuzzleflashData::MuzzleflashData( Weapon* pWeapon, const glm::vec3& muzzleOffset, int muzzleIndex, float scale, float lifetime )
+    : m_pWeapon( pWeapon )
+    , m_MuzzleOffset( muzzleOffset )
+    , m_MuzzleIndex( muzzleIndex )
+    , m_Scale( scale )
+    , m_Lifetime( lifetime )
 {
-	m_RotationMultiplier = gRand( -50.0f, 50.0f );
+    m_RotationMultiplier = gRand( -50.0f, 50.0f );
 }
 
 inline Weapon* MuzzleflashData::GetWeapon() const
 {
-	return m_pWeapon;
+    return m_pWeapon;
 }
 
 inline const glm::vec3& MuzzleflashData::GetMuzzleOffset() const
 {
-	return m_MuzzleOffset;
+    return m_MuzzleOffset;
 }
 
 inline int MuzzleflashData::GetMuzzleIndex() const
 {
-	return m_MuzzleIndex;
+    return m_MuzzleIndex;
 }
 
-inline float MuzzleflashData::GetScale() const 
+inline float MuzzleflashData::GetScale() const
 {
-	return m_Scale;
+    return m_Scale;
 }
 
 inline float MuzzleflashData::GetLifetime() const
 {
-	return m_Lifetime;
+    return m_Lifetime;
 }
 
-inline void MuzzleflashData::SetLifetime( float value ) 
+inline void MuzzleflashData::SetLifetime( float value )
 {
-	m_Lifetime = value;
+    m_Lifetime = value;
 }
 
 inline float MuzzleflashData::GetRotationMultiplier() const
 {
-	return m_RotationMultiplier;
+    return m_RotationMultiplier;
 }
 
-}
+} // namespace Hexterminate

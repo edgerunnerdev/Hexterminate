@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gui/gui.h>
 #include "menus/cursortype.h"
 #include "menus/eva.h"
+#include <gui/gui.h>
 
 namespace Hexterminate
 {
@@ -28,22 +28,21 @@ class ButtonPopup;
 
 enum class PopupMode
 {
-	Undefined,
-	YesNo,
-	Ok,
-	OkCancel
+    Undefined,
+    YesNo,
+    Ok,
+    OkCancel
 };
 
 enum class PopupState
 {
-	Undefined,
-	Displayed,
-	Yes,
-	No,
-	Ok,
-	Cancel
+    Undefined,
+    Displayed,
+    Yes,
+    No,
+    Ok,
+    Cancel
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Popup
@@ -52,44 +51,43 @@ enum class PopupState
 class Popup
 {
 public:
-							Popup();
-							~Popup();
+    Popup();
+    ~Popup();
 
-	void					Update( float delta );
-	void					Show( PopupMode mode, const std::string& text );
-	void					Close();
+    void Update( float delta );
+    void Show( PopupMode mode, const std::string& text );
+    void Close();
 
-	void					SetState( PopupState state );
-	PopupState				GetState() const;
+    void SetState( PopupState state );
+    PopupState GetState() const;
 
-	bool					IsActive() const;
-		
+    bool IsActive() const;
+
 private:
-	void					AlignToCentre( Genesis::Gui::Text* pText );
-	void					RepositionButtons();
+    void AlignToCentre( Genesis::Gui::Text* pText );
+    void RepositionButtons();
 
-	EvaWindow*				m_pWindow;
-	Genesis::Gui::Text*		m_pText;
-	ButtonPopup*			m_pButton[2];
-	Genesis::Gui::Panel*	m_pBackground;
+    EvaWindow* m_pWindow;
+    Genesis::Gui::Text* m_pText;
+    ButtonPopup* m_pButton[ 2 ];
+    Genesis::Gui::Panel* m_pBackground;
 
-	PopupState				m_State;
-	PopupMode				m_Mode;
+    PopupState m_State;
+    PopupMode m_Mode;
 
-	float					m_InputTimer;
-    CursorType              m_PreviousCursorType;
+    float m_InputTimer;
+    CursorType m_PreviousCursorType;
 };
 
 inline bool Popup::IsActive() const
 {
-	return ( m_State == PopupState::Displayed || m_InputTimer > 0.0f );
+    return ( m_State == PopupState::Displayed || m_InputTimer > 0.0f );
 }
 
 inline PopupState Popup::GetState() const
 {
-	return m_State;
+    return m_State;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // ButtonPopup
@@ -98,15 +96,15 @@ inline PopupState Popup::GetState() const
 class ButtonPopup : public Genesis::Gui::Button
 {
 public:
-							ButtonPopup( Popup* pOwner );
-	virtual					~ButtonPopup() override {};
-	virtual void			OnPress() override;
+    ButtonPopup( Popup* pOwner );
+    virtual ~ButtonPopup() override{};
+    virtual void OnPress() override;
 
-	void					SetCallbackState( PopupState state );
+    void SetCallbackState( PopupState state );
 
 private:
-	Popup*					m_pOwner;
-	PopupState				m_CallbackState;
+    Popup* m_pOwner;
+    PopupState m_CallbackState;
 };
 
-}
+} // namespace Hexterminate

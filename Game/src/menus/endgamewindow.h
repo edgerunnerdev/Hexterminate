@@ -30,23 +30,22 @@ class ButtonReturnToMenu;
 class EndGameWindow : public Genesis::Gui::GuiEventHandler
 {
 public:
-							EndGameWindow();
-	virtual					~EndGameWindow();
+    EndGameWindow();
+    virtual ~EndGameWindow();
 
-	virtual bool			HandleEvent( Genesis::Gui::GuiEvent event )	override;
+    virtual bool HandleEvent( Genesis::Gui::GuiEvent event ) override;
 
-	void					Init();
-	void					Show( bool state );
-	bool					IsVisible() const;
+    void Init();
+    void Show( bool state );
+    bool IsVisible() const;
 
 private:
-	Genesis::Gui::Image*	m_pMainPanel;
-	ButtonEvent*			m_pButtonClose;
-	Genesis::Gui::Text*		m_pTitle;
-	ButtonEvent*			m_pButtonResume;
-	ButtonReturnToMenu*		m_pButtonReturnToMenu;
+    Genesis::Gui::Image* m_pMainPanel;
+    ButtonEvent* m_pButtonClose;
+    Genesis::Gui::Text* m_pTitle;
+    ButtonEvent* m_pButtonResume;
+    ButtonReturnToMenu* m_pButtonReturnToMenu;
 };
-
 
 /////////////////////////////////////////////////////////////////////
 // ButtonReturnToMenu
@@ -55,7 +54,7 @@ private:
 class ButtonReturnToMenu : public Genesis::Gui::Button
 {
 public:
-	virtual void OnPress() override;
+    virtual void OnPress() override;
 };
 
-}
+} // namespace Hexterminate

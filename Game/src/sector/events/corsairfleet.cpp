@@ -15,10 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#include <math/misc.h>
+#include "hexterminate.h"
 #include "sector/sector.h"
 #include "ship/shipinfo.h"
-#include "hexterminate.h"
+#include <math/misc.h>
 
 #include "sector/events/corsairfleet.h"
 
@@ -27,53 +27,53 @@ namespace Hexterminate
 
 SectorEventCorsairFleet::SectorEventCorsairFleet()
 {
-	SetName( "CorsairFleet" );
-	SetMinimumPlayTime( 30 );
+    SetName( "CorsairFleet" );
+    SetMinimumPlayTime( 30 );
 
-	AllowForFaction( FactionId::Neutral );
-	AllowForFaction( FactionId::Marauders );
-	AllowForFaction( FactionId::Ascent );
-	AllowForFaction( FactionId::Pirate );
+    AllowForFaction( FactionId::Neutral );
+    AllowForFaction( FactionId::Marauders );
+    AllowForFaction( FactionId::Ascent );
+    AllowForFaction( FactionId::Pirate );
 }
 
 void SectorEventCorsairFleet::OnPlayerEnterSector()
 {
-	Sector* pCurrentSector = g_pGame->GetCurrentSector();
-	
-	g_pGame->AddFleetCommandIntel( "Captain, we've detected a Corsair wing at long range. They're a small group of pirates flying heavily shielded gunships." );
-	g_pGame->AddFleetCommandIntel( "These ships have covariant shield arrays, essentially generators overtuned past safety limits." );
+    Sector* pCurrentSector = g_pGame->GetCurrentSector();
 
-	const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Pirate ), "special_corsair" );
-	SDL_assert( pShipInfo != nullptr );
+    g_pGame->AddFleetCommandIntel( "Captain, we've detected a Corsair wing at long range. They're a small group of pirates flying heavily shielded gunships." );
+    g_pGame->AddFleetCommandIntel( "These ships have covariant shield arrays, essentially generators overtuned past safety limits." );
 
-	ShipCustomisationData customisationData;
-	customisationData.m_CaptainName = "";
-	customisationData.m_ShipName = "";
-	customisationData.m_pModuleInfoHexGrid = pShipInfo->GetModuleInfoHexGrid();
+    const ShipInfo* pShipInfo = g_pGame->GetShipInfoManager()->Get( g_pGame->GetFaction( FactionId::Pirate ), "special_corsair" );
+    SDL_assert( pShipInfo != nullptr );
 
-	const int numShips = 3;
-	const float spawnX = ( rand() % 2 == 0 ) ? -4000.0f : 4000.0f;
-	const float spawnY = ( rand() % 2 == 0 ) ? -4000.0f : 4000.0f;
-	const float xOffset[ numShips ] = { -150.0f, 0.0f, 150.0f };
-	const float yOffset[ numShips ] = { 100.0f, -100.0f, 100.0f };
+    ShipCustomisationData customisationData;
+    customisationData.m_CaptainName = "";
+    customisationData.m_ShipName = "";
+    customisationData.m_pModuleInfoHexGrid = pShipInfo->GetModuleInfoHexGrid();
 
-	for ( int i = 0; i < numShips; ++i )
-	{
-		ShipSpawnData spawnData;
-		spawnData.m_PositionX = spawnX + xOffset[ i ];
-		spawnData.m_PositionY = spawnY + yOffset[ i ];
+    const int numShips = 3;
+    const float spawnX = ( rand() % 2 == 0 ) ? -4000.0f : 4000.0f;
+    const float spawnY = ( rand() % 2 == 0 ) ? -4000.0f : 4000.0f;
+    const float xOffset[ numShips ] = { -150.0f, 0.0f, 150.0f };
+    const float yOffset[ numShips ] = { 100.0f, -100.0f, 100.0f };
 
-		Ship* pShip = new Ship();
-		pShip->SetInitialisationParameters(
-			g_pGame->GetFaction( FactionId::Pirate ),
-			pCurrentSector->GetRegionalFleet(),
-			customisationData,
-			spawnData,
-			pShipInfo );
+    for ( int i = 0; i < numShips; ++i )
+    {
+        ShipSpawnData spawnData;
+        spawnData.m_PositionX = spawnX + xOffset[ i ];
+        spawnData.m_PositionY = spawnY + yOffset[ i ];
 
-		pShip->Initialise();
-		pCurrentSector->AddShip( pShip );
-	}
+        Ship* pShip = new Ship();
+        pShip->SetInitialisationParameters(
+            g_pGame->GetFaction( FactionId::Pirate ),
+            pCurrentSector->GetRegionalFleet(),
+            customisationData,
+            spawnData,
+            pShipInfo );
+
+        pShip->Initialise();
+        pCurrentSector->AddShip( pShip );
+    }
 }
 
-}
+} // namespace Hexterminate

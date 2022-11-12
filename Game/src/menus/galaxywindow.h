@@ -19,9 +19,9 @@
 
 #include <gui/gui.h>
 
+#include "gameevents.h"
 #include "ui/types.fwd.h"
 #include "ui/window.h"
-#include "gameevents.h"
 
 namespace Hexterminate
 {
@@ -33,7 +33,6 @@ class FleetWindow;
 using FleetWindowSharedPtr = std::shared_ptr<FleetWindow>;
 class PerksWindow;
 
-
 /////////////////////////////////////////////////////////////////////
 // GalaxyWindow
 /////////////////////////////////////////////////////////////////////
@@ -41,54 +40,54 @@ class PerksWindow;
 class GalaxyWindow : public UI::Window, public GameEventHandler
 {
 public:
-							GalaxyWindow();
-	virtual					~GalaxyWindow();
+    GalaxyWindow();
+    virtual ~GalaxyWindow();
 
-	virtual	void			HandleGameEvent( GameEvent* pEvent ) override;
+    virtual void HandleGameEvent( GameEvent* pEvent ) override;
 
-	void					Show( bool state ) override;
+    void Show( bool state ) override;
 
-	virtual void Update() override;
+    virtual void Update() override;
 
-	void					ShowFleetWindow( bool state );
-	void					ShowPerksWindow( bool state );
-	void					ShowEndGameWindow();
+    void ShowFleetWindow( bool state );
+    void ShowPerksWindow( bool state );
+    void ShowEndGameWindow();
 
-	bool					IsFleetWindowVisible() const;
-	bool					IsPerksWindowVisible() const;
-	bool					IsEndGameWindowVisible() const;
-	bool					HasSubWindowsVisible() const;
+    bool IsFleetWindowVisible() const;
+    bool IsPerksWindowVisible() const;
+    bool IsEndGameWindowVisible() const;
+    bool HasSubWindowsVisible() const;
 
-	FleetWindow*			GetFleetWindow() const;
-	PerksWindow*			GetPerksWindow() const;
+    FleetWindow* GetFleetWindow() const;
+    PerksWindow* GetPerksWindow() const;
 
 private:
-	void					UpdatePerksText();
-    void                    UpdateInfluenceText();
-    void                    UpdateStardateText();
+    void UpdatePerksText();
+    void UpdateInfluenceText();
+    void UpdateStardateText();
 
-	UI::TextSharedPtr		m_pStardateText;
-	UI::TextSharedPtr		m_pInfluenceText;
-	UI::TextSharedPtr		m_pPerksText;
-	UI::ButtonSharedPtr		m_pFleetsButton;
-	UI::ButtonSharedPtr		m_pPerksButton;
-	UI::ImageSharedPtr		m_pStardateImage;
-	UI::ImageSharedPtr		m_pInfluenceImage;
-	UI::ImageSharedPtr		m_pPerksImage;
+    UI::TextSharedPtr m_pStardateText;
+    UI::TextSharedPtr m_pInfluenceText;
+    UI::TextSharedPtr m_pPerksText;
+    UI::ButtonSharedPtr m_pFleetsButton;
+    UI::ButtonSharedPtr m_pPerksButton;
+    UI::ImageSharedPtr m_pStardateImage;
+    UI::ImageSharedPtr m_pInfluenceImage;
+    UI::ImageSharedPtr m_pPerksImage;
 
-	FleetWindowSharedPtr	m_pFleetWindow;
-	PerksWindow*			m_pPerksWindow;
-	EndGameWindow*			m_pEndGameWindow;
+    FleetWindowSharedPtr m_pFleetWindow;
+    PerksWindow* m_pPerksWindow;
+    EndGameWindow* m_pEndGameWindow;
 };
 
 inline FleetWindow* GalaxyWindow::GetFleetWindow() const
 {
-	return m_pFleetWindow.get();
+    return m_pFleetWindow.get();
 }
 
 inline PerksWindow* GalaxyWindow::GetPerksWindow() const
 {
-	return m_pPerksWindow;
+    return m_pPerksWindow;
 }
 
-}
+} // namespace Hexterminate

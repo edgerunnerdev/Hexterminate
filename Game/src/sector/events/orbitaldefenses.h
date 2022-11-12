@@ -22,15 +22,15 @@
 namespace Hexterminate
 {
 
-class SectorEventOrbitalDefenses  : public SectorEvent
+class SectorEventOrbitalDefenses : public SectorEvent
 {
 public:
-					SectorEventOrbitalDefenses();
-	virtual			~SectorEventOrbitalDefenses() {}
+    SectorEventOrbitalDefenses();
+    virtual ~SectorEventOrbitalDefenses() {}
 
-	virtual bool	IsAvailableAt( const SectorInfo* pSectorInfo ) const override;
-	virtual void	OnPlayerEnterSector() override;
-	virtual void	OnShipDestroyed( Ship* pShip ) override;
+    virtual bool IsAvailableAt( const SectorInfo* pSectorInfo ) const override;
+    virtual void OnPlayerEnterSector() override;
+    virtual void OnShipDestroyed( Ship* pShip ) override;
 };
 
-}
+} // namespace Hexterminate

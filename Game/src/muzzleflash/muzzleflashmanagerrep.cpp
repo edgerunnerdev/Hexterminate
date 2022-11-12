@@ -17,32 +17,32 @@
 
 #include <glm/gtc/matrix_access.hpp>
 
-#include <rendersystem.h>
-#include <genesis.h>
-#include <render/debugrender.h>
-#include <shader.h>
-#include <shadercache.h>
-#include <shaderuniform.h>
-#include "sector/sector.h"
+#include "hexterminate.h"
 #include "muzzleflash/muzzleflashdata.h"
 #include "muzzleflash/muzzleflashmanager.h"
 #include "muzzleflash/muzzleflashmanagerrep.h"
-#include "hexterminate.h"
+#include "sector/sector.h"
+#include <genesis.h>
+#include <render/debugrender.h>
+#include <rendersystem.h>
+#include <shader.h>
+#include <shadercache.h>
+#include <shaderuniform.h>
 
 namespace Hexterminate
 {
 
 static const Uint32 sMuzzleflashNumBaseIndices = 6;
-static const Uint32 sMuzzleflashBaseIndices[sMuzzleflashNumBaseIndices] = { 0, 1, 2, 0, 2, 3 };
+static const Uint32 sMuzzleflashBaseIndices[ sMuzzleflashNumBaseIndices ] = { 0, 1, 2, 0, 2, 3 };
 
-MuzzleflashManagerRep::MuzzleflashManagerRep( MuzzleflashManager* pManager ):
-m_pManager( pManager ),
-m_pShader( nullptr ),
-m_pVertexBuffer( nullptr ),
-m_NumVertices( 0 )
+MuzzleflashManagerRep::MuzzleflashManagerRep( MuzzleflashManager* pManager )
+    : m_pManager( pManager )
+    , m_pShader( nullptr )
+    , m_pVertexBuffer( nullptr )
+    , m_NumVertices( 0 )
 {
     using namespace Genesis;
-    ResourceImage* pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource("data/images/muzzleflash.png");
+    ResourceImage* pTexture = (ResourceImage*)FrameWork::GetResourceManager()->GetResource( "data/images/muzzleflash.png" );
 
     RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
     m_pShader = pRenderSystem->GetShaderCache()->Load( "muzzleflash" );
@@ -61,12 +61,12 @@ void MuzzleflashManagerRep::Update( float delta )
 {
     using namespace Genesis;
 
-	SceneObject::Update( delta );
+    SceneObject::Update( delta );
 
-	if ( m_pManager == nullptr )
-	{
-		return;
-	}
+    if ( m_pManager == nullptr )
+    {
+        return;
+    }
 
     PositionData posData;
     UVData uvData;
@@ -76,115 +76,114 @@ void MuzzleflashManagerRep::Update( float delta )
     colourData.reserve( 512 );
 
     const MuzzleflashDataVector& muzzleflashes = m_pManager->GetMuzzleflashes();
-	glm::vec3 p1, p2, d;
-	glm::vec3 v[4];
-	Genesis::VboFloat3 vf;
-	for ( auto& muzzleflash : muzzleflashes )
-	{
-		glm::mat4x4 weaponTransform = muzzleflash.GetWeapon()->GetWorldTransform();
-		glm::mat4x4 muzzleOffsetTransform = glm::translate( muzzleflash.GetMuzzleOffset() );
+    glm::vec3 p1, p2, d;
+    glm::vec3 v[ 4 ];
+    Genesis::VboFloat3 vf;
+    for ( auto& muzzleflash : muzzleflashes )
+    {
+        glm::mat4x4 weaponTransform = muzzleflash.GetWeapon()->GetWorldTransform();
+        glm::mat4x4 muzzleOffsetTransform = glm::translate( muzzleflash.GetMuzzleOffset() );
 
-		weaponTransform = weaponTransform * muzzleOffsetTransform;
+        weaponTransform = weaponTransform * muzzleOffsetTransform;
 
-		glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
-		glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
+        glm::vec3 weaponPosition( glm::column( weaponTransform, 3 ) );
+        glm::vec3 weaponForward( glm::column( weaponTransform, 1 ) );
 
-		float mflAdjustment = -2.0f;
-		float mfl = 32.0f * muzzleflash.GetScale();
-		float mfw = 16.0f * muzzleflash.GetScale();
+        float mflAdjustment = -2.0f;
+        float mfl = 32.0f * muzzleflash.GetScale();
+        float mfw = 16.0f * muzzleflash.GetScale();
 
-		p1 = weaponPosition + weaponForward * mflAdjustment;
-		p2 = weaponPosition + weaponForward * ( mfl + mflAdjustment );
-		d = p2 - p1;
-		const float l = glm::length( d );
+        p1 = weaponPosition + weaponForward * mflAdjustment;
+        p2 = weaponPosition + weaponForward * ( mfl + mflAdjustment );
+        d = p2 - p1;
+        const float l = glm::length( d );
 
-		float dx = muzzleflash.GetLifetime() * muzzleflash.GetRotationMultiplier();
-		for ( int i = 0; i < 2; ++i )
-		{
-			float cdx = cosf( dx );
-			float sdx = sinf( dx );
-			d = glm::vec3( -d.y / l, ( i == 0 ) ? cdx : sdx, ( i == 0 ) ? sdx : cdx );
-			d *= mfw * 0.5f;
+        float dx = muzzleflash.GetLifetime() * muzzleflash.GetRotationMultiplier();
+        for ( int i = 0; i < 2; ++i )
+        {
+            float cdx = cosf( dx );
+            float sdx = sinf( dx );
+            d = glm::vec3( -d.y / l, ( i == 0 ) ? cdx : sdx, ( i == 0 ) ? sdx : cdx );
+            d *= mfw * 0.5f;
 
-			v[0] = p1 + d;
-			v[1] = p2 + d;
-			v[2] = p2 - d;
-			v[3] = p1 - d;
+            v[ 0 ] = p1 + d;
+            v[ 1 ] = p2 + d;
+            v[ 2 ] = p2 - d;
+            v[ 3 ] = p1 - d;
 
-			posData.push_back( v[0] );
-			posData.push_back( v[1] );
-			posData.push_back( v[2] );
-			posData.push_back( v[0] );
-			posData.push_back( v[2] );
-			posData.push_back( v[3] );
+            posData.push_back( v[ 0 ] );
+            posData.push_back( v[ 1 ] );
+            posData.push_back( v[ 2 ] );
+            posData.push_back( v[ 0 ] );
+            posData.push_back( v[ 2 ] );
+            posData.push_back( v[ 3 ] );
 
-			PushBackUVs( uvData );
-			PushBackColours( colourData, muzzleflash.GetWeapon()->GetInfo()->GetMuzzleflashColour() );
-		}
-	}
+            PushBackUVs( uvData );
+            PushBackColours( colourData, muzzleflash.GetWeapon()->GetInfo()->GetMuzzleflashColour() );
+        }
+    }
 
-	m_NumVertices = posData.size();
-	if ( posData.empty() == false )
-	{
+    m_NumVertices = posData.size();
+    if ( posData.empty() == false )
+    {
         m_pVertexBuffer->CopyPositions( posData );
         m_pVertexBuffer->CopyUVs( uvData );
         m_pVertexBuffer->CopyColours( colourData );
-	}
+    }
 }
 
 void MuzzleflashManagerRep::PushBackUVs( Genesis::UVData& uvData )
 {
-	using namespace Genesis;
-	static const glm::vec2 uvs[4] = {
-		glm::vec2( 0.0f, 0.0f ),
-		glm::vec2( 1.0f, 0.0f ),
-		glm::vec2( 1.0f, 1.0f ),
-		glm::vec2( 0.0f, 1.0f )
-	};
+    using namespace Genesis;
+    static const glm::vec2 uvs[ 4 ] = {
+        glm::vec2( 0.0f, 0.0f ),
+        glm::vec2( 1.0f, 0.0f ),
+        glm::vec2( 1.0f, 1.0f ),
+        glm::vec2( 0.0f, 1.0f )
+    };
 
-	for ( Uint32 i = 0; i < sMuzzleflashNumBaseIndices; ++i )
+    for ( Uint32 i = 0; i < sMuzzleflashNumBaseIndices; ++i )
     {
-		uvData.push_back( uvs[ sMuzzleflashBaseIndices[ i ] ] );
+        uvData.push_back( uvs[ sMuzzleflashBaseIndices[ i ] ] );
     }
 }
 
 void MuzzleflashManagerRep::PushBackColours( Genesis::ColourData& colourData, const Genesis::Color& colour )
 {
-	using namespace Genesis;
-	const float r = colour.r;
-	const float g = colour.g;
-	const float b = colour.b;
-	const float a = 1.0f;
-	const glm::vec4 colours[4] = {
-		glm::vec4( r, g, b, a ),
-		glm::vec4( r, g, b, a ),
-		glm::vec4( r, g, b, a ),
-		glm::vec4( r, g, b, a )
-	};
+    using namespace Genesis;
+    const float r = colour.r;
+    const float g = colour.g;
+    const float b = colour.b;
+    const float a = 1.0f;
+    const glm::vec4 colours[ 4 ] = {
+        glm::vec4( r, g, b, a ),
+        glm::vec4( r, g, b, a ),
+        glm::vec4( r, g, b, a ),
+        glm::vec4( r, g, b, a )
+    };
 
-	for ( Uint32 i = 0; i < sMuzzleflashNumBaseIndices; ++i )
-	{
-		colourData.push_back( colours[ sMuzzleflashBaseIndices[ i ] ] );
-	}
+    for ( Uint32 i = 0; i < sMuzzleflashNumBaseIndices; ++i )
+    {
+        colourData.push_back( colours[ sMuzzleflashBaseIndices[ i ] ] );
+    }
 }
-
 
 void MuzzleflashManagerRep::Render()
 {
-	using namespace Genesis;
+    using namespace Genesis;
 
-	SceneObject::Render();
+    SceneObject::Render();
 
     if ( m_NumVertices > 0 )
     {
-		RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
-		pRenderSystem->SetBlendMode( BlendMode::Add );
+        RenderSystem* pRenderSystem = FrameWork::GetRenderSystem();
+        pRenderSystem->SetBlendMode( BlendMode::Add );
 
         m_pShader->Use();
 
-	    pRenderSystem->SetRenderTarget( RenderTargetId::Glow );
+        pRenderSystem->SetRenderTarget( RenderTargetId::Glow );
         m_pVertexBuffer->Draw( m_NumVertices );
-	    pRenderSystem->SetRenderTarget( RenderTargetId::Default );
+        pRenderSystem->SetRenderTarget( RenderTargetId::Default );
         m_pVertexBuffer->Draw( m_NumVertices );
 
         pRenderSystem->SetBlendMode( BlendMode::Disabled );
@@ -193,7 +192,7 @@ void MuzzleflashManagerRep::Render()
 
 void MuzzleflashManagerRep::SetManager( MuzzleflashManager* pManager )
 {
-	m_pManager = pManager;
+    m_pManager = pManager;
 }
 
-}
+} // namespace Hexterminate

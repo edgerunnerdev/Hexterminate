@@ -20,43 +20,42 @@
 #include <physics/rigidbody.h>
 
 #include "fleet/fleetcommand.h"
+#include "hexterminate.h"
 #include "sector/sector.h"
 #include "ship/ship.h"
-#include "hexterminate.h"
 
 namespace Hexterminate
 {
 
-FleetCommand::FleetCommand() :
-m_pLeader( nullptr )
+FleetCommand::FleetCommand()
+    : m_pLeader( nullptr )
 {
-
 }
 
 void FleetCommand::AssignShip( Ship* pShip )
 {
-	m_Ships.push_back( pShip );
+    m_Ships.push_back( pShip );
 }
 
 void FleetCommand::AssignLeader( Ship* pShip )
 {
-	m_pLeader = pShip;
+    m_pLeader = pShip;
 }
 
 // Setup the spatial relationship between each ship and the fleet's leader.
 void FleetCommand::SetupRelationships()
 {
-	SDL_assert( HasLeader() );
-	if ( HasLeader() )
-	{
-		glm::vec3 leaderPosition = GetLeader()->GetRigidBody()->GetPosition();
-		for ( auto& pShip : m_Ships )
-		{
-			glm::vec3 shipPosition = pShip->GetRigidBody()->GetPosition();
-			glm::vec3 diff = shipPosition - leaderPosition;
-			m_Relationships.push_back( glm::vec2( diff.x, diff.y ) );
-		}
-	}
+    SDL_assert( HasLeader() );
+    if ( HasLeader() )
+    {
+        glm::vec3 leaderPosition = GetLeader()->GetRigidBody()->GetPosition();
+        for ( auto& pShip : m_Ships )
+        {
+            glm::vec3 shipPosition = pShip->GetRigidBody()->GetPosition();
+            glm::vec3 diff = shipPosition - leaderPosition;
+            m_Relationships.push_back( glm::vec2( diff.x, diff.y ) );
+        }
+    }
 }
 
 // Decide what the fleet should do.
@@ -66,89 +65,89 @@ void FleetCommand::SetupRelationships()
 // If the leader has been destroyed, then all ships are set to free engagement mode.
 void FleetCommand::Update()
 {
-	SDL_assert( HasLeader() );
+    SDL_assert( HasLeader() );
 
-	if ( GetLeader()->IsDestroyed() )
-	{
-		for ( auto& pShip : m_Ships )
-		{
-			pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
-		}
-	}
-	else
-	{
-		const ScanForEnemiesResult result = ScanForEnemies();
-		if ( result == ScanForEnemiesResult::EnemiesInRange || result == ScanForEnemiesResult::EnemiesOutOfRange )
-		{
-			GetLeader()->SetFleetCommandOrder( FleetCommandOrder::Engage );
-		}
-		else
-		{
-			GetLeader()->SetFleetCommandOrder( FleetCommandOrder::Patrol );
-		}
+    if ( GetLeader()->IsDestroyed() )
+    {
+        for ( auto& pShip : m_Ships )
+        {
+            pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
+        }
+    }
+    else
+    {
+        const ScanForEnemiesResult result = ScanForEnemies();
+        if ( result == ScanForEnemiesResult::EnemiesInRange || result == ScanForEnemiesResult::EnemiesOutOfRange )
+        {
+            GetLeader()->SetFleetCommandOrder( FleetCommandOrder::Engage );
+        }
+        else
+        {
+            GetLeader()->SetFleetCommandOrder( FleetCommandOrder::Patrol );
+        }
 
-		if ( GetLeader()->GetFaction()->GetUsesFormations() )
-		{	
-			const bool isLeaderDocked = ( GetLeader()->GetDockingState() != DockingState::Undocked );
-			const glm::mat4x4& tr = GetLeader()->GetTransform();
-			const glm::vec2 fwd( glm::column( tr, 1 ) );
-			const glm::vec2 rgt( glm::column( tr, 0 ) );
-			const glm::vec2 leaderPosition( glm::column( tr, 3 ) );
+        if ( GetLeader()->GetFaction()->GetUsesFormations() )
+        {
+            const bool isLeaderDocked = ( GetLeader()->GetDockingState() != DockingState::Undocked );
+            const glm::mat4x4& tr = GetLeader()->GetTransform();
+            const glm::vec2 fwd( glm::column( tr, 1 ) );
+            const glm::vec2 rgt( glm::column( tr, 0 ) );
+            const glm::vec2 leaderPosition( glm::column( tr, 3 ) );
 
-			SDL_assert( m_Ships.size() == m_Relationships.size() );
-			for ( int i = 0, s = m_Ships.size(); i < s; ++i )
-			{
-				Ship* pShip = m_Ships[ i ];
-				if ( result == ScanForEnemiesResult::EnemiesInRange || isLeaderDocked )
-				{
-					pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
-				}
-				else if ( result == ScanForEnemiesResult::EnemiesOutOfRange || result == ScanForEnemiesResult::NoEnemies )
-				{
-					pShip->SetFleetCommandOrder( FleetCommandOrder::StickToFormation );
-					pShip->SetFormationPosition( leaderPosition + rgt * m_Relationships[ i ].x + fwd * m_Relationships[ i ].y ); 
-					pShip->SetFormationDirection( fwd );
-				}
-			}
-		}
-		else
-		{
-			for ( auto& pShip : m_Ships )
-			{
-				pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
-			}
-		}
-	}
+            SDL_assert( m_Ships.size() == m_Relationships.size() );
+            for ( int i = 0, s = m_Ships.size(); i < s; ++i )
+            {
+                Ship* pShip = m_Ships[ i ];
+                if ( result == ScanForEnemiesResult::EnemiesInRange || isLeaderDocked )
+                {
+                    pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
+                }
+                else if ( result == ScanForEnemiesResult::EnemiesOutOfRange || result == ScanForEnemiesResult::NoEnemies )
+                {
+                    pShip->SetFleetCommandOrder( FleetCommandOrder::StickToFormation );
+                    pShip->SetFormationPosition( leaderPosition + rgt * m_Relationships[ i ].x + fwd * m_Relationships[ i ].y );
+                    pShip->SetFormationDirection( fwd );
+                }
+            }
+        }
+        else
+        {
+            for ( auto& pShip : m_Ships )
+            {
+                pShip->SetFleetCommandOrder( FleetCommandOrder::Engage );
+            }
+        }
+    }
 }
 
 ScanForEnemiesResult FleetCommand::ScanForEnemies() const
 {
-	const float searchRange = 1000.0f;
-	const glm::vec3& leaderPosition = GetLeader()->GetTowerPosition();
-	const ShipList& ships = g_pGame->GetCurrentSector()->GetShipList();
-	unsigned int enemiesDetected = 0;
-	for ( auto& pShip : ships )
-	{
-		if ( Faction::sIsEnemyOf( GetLeader()->GetFaction(), pShip->GetFaction() ) && pShip->IsDestroyed() == false )
-		{
-			enemiesDetected++;
+    const float searchRange = 1000.0f;
+    const glm::vec3& leaderPosition = GetLeader()->GetTowerPosition();
+    const ShipList& ships = g_pGame->GetCurrentSector()->GetShipList();
+    unsigned int enemiesDetected = 0;
+    for ( auto& pShip : ships )
+    {
+        if ( Faction::sIsEnemyOf( GetLeader()->GetFaction(), pShip->GetFaction() ) && pShip->IsDestroyed() == false )
+        {
+            enemiesDetected++;
 
-			const glm::vec3& shipPosition = pShip->GetTowerPosition();
-			if ( glm::distance( shipPosition, leaderPosition ) < searchRange )
-			{
-				return ScanForEnemiesResult::EnemiesInRange;
-			}
-		}
-	}
+            const glm::vec3& shipPosition = pShip->GetTowerPosition();
+            if ( glm::distance( shipPosition, leaderPosition ) < searchRange )
+            {
+                return ScanForEnemiesResult::EnemiesInRange;
+            }
+        }
+    }
 
-	if ( enemiesDetected == 0 )
-	{
-		return ScanForEnemiesResult::NoEnemies;
-	}
-	else
-	{
-		return ScanForEnemiesResult::EnemiesOutOfRange;
-	}
+    if ( enemiesDetected == 0 )
+    {
+        return ScanForEnemiesResult::NoEnemies;
+    }
+    else
+    {
+        return ScanForEnemiesResult::EnemiesOutOfRange;
+    }
 }
 
-}
+} // namespace Hexterminate

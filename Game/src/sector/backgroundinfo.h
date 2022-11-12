@@ -17,9 +17,9 @@
 
 #pragma once
 
+#include "color.h"
 #include <string>
 #include <vector>
-#include "color.h"
 
 namespace Hexterminate
 {
@@ -30,20 +30,21 @@ typedef std::vector<BackgroundInfo> BackgroundInfoVector;
 class BackgroundInfo
 {
 public:
-	BackgroundInfo( int id, const std::string& filename, const Genesis::Color& ambient ) :
-		m_Id( id ),
-		m_Filename( filename ),
-		m_Ambient( ambient )
-	{}
+    BackgroundInfo( int id, const std::string& filename, const Genesis::Color& ambient )
+        : m_Id( id )
+        , m_Filename( filename )
+        , m_Ambient( ambient )
+    {
+    }
 
-	inline int						GetId() const				{ return m_Id; }
-	inline const std::string&		GetFilename() const			{ return m_Filename; }
-	inline const Genesis::Color&	GetAmbientColour() const	{ return m_Ambient; }
+    inline int GetId() const { return m_Id; }
+    inline const std::string& GetFilename() const { return m_Filename; }
+    inline const Genesis::Color& GetAmbientColour() const { return m_Ambient; }
 
 private:
-	int				m_Id;
-	std::string		m_Filename;
-	Genesis::Color m_Ambient;
+    int m_Id;
+    std::string m_Filename;
+    Genesis::Color m_Ambient;
 };
 
-}
+} // namespace Hexterminate
