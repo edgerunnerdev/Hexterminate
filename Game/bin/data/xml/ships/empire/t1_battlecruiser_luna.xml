@@ -2,7 +2,7 @@
 	<DisplayName>Luna</DisplayName>
 	<LongDisplayName>Luna class battlecruiser</LongDisplayName>
 	<Tier>1</Tier>
-	<Cost>4000</Cost>
+	<Cost>3000</Cost>
 	<DisplayImage>data/ui/ships/luna.png</DisplayImage>
 	<Weapons>Autocannons (180 DPS)</Weapons>
 	<Defense>Heavy armour and repairer</Defense>

@@ -2,7 +2,7 @@
 	<DisplayName>Dominion</DisplayName>
 	<LongDisplayName>Dominion class battleship</LongDisplayName>
 	<Tier>1</Tier>
-	<Cost>8000</Cost>
+	<Cost>6000</Cost>
 	<DisplayImage>data/ui/ships/dominion.png</DisplayImage>
 	<Weapons>Missiles and torpedoes (270 DPS)</Weapons>
 	<Defense>Void shields, heavy armour and repairer</Defense>

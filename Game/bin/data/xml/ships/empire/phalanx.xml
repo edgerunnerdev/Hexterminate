@@ -2,7 +2,7 @@
 	<DisplayName>Phalanx</DisplayName>
 	<LongDisplayName>Phalanx class gunship</LongDisplayName>
 	<Tier>1</Tier>
-	<Cost>1000</Cost>
+	<Cost>750</Cost>
 	<DisplayImage>data/ui/ships/phalanx.png</DisplayImage>
 	<Weapons>Autocannons (180 DPS)</Weapons>
 	<Defense>Medium armour and repairer</Defense>

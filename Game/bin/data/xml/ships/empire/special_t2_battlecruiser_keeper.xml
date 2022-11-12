@@ -2,7 +2,7 @@
 	<DisplayName>Keeper</DisplayName>
 	<LongDisplayName>Keeper class battlecruiser</LongDisplayName>
 	<Tier>2</Tier>
-	<Cost>8000</Cost>
+	<Cost>6000</Cost>
 	<DisplayImage>data/ui/ships/keeper.png</DisplayImage>
 	<Weapons>Missiles (114 DPS)</Weapons>
 	<Defense>Shields and missile interceptors</Defense>
