@@ -63,7 +63,7 @@ void SpriteManager::Update( float delta )
     UVData uvData;
     ColourData colourData;
 
-    unsigned int numVertices = m_Sprites.size() * 6;
+    size_t numVertices = m_Sprites.size() * 6;
     posData.reserve( numVertices );
     uvData.reserve( numVertices );
     colourData.reserve( numVertices );
@@ -112,7 +112,7 @@ void SpriteManager::Render()
     FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Add );
 
     m_pShader->Use();
-    m_pVertexBuffer->Draw( m_Sprites.size() * 6 );
+    m_pVertexBuffer->Draw( static_cast<uint32_t>( m_Sprites.size() * 6 ) );
 
     if ( g_pGame->IsPaused() == false )
     {

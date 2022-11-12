@@ -422,8 +422,7 @@ bool FleetBehaviourExpansionist::ProcessTurn()
 
     SectorInfoVector::iterator it = std::unique( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
     hostileBorderingSectors.resize( std::distance( hostileBorderingSectors.begin(), it ) );
-    const int length = hostileBorderingSectors.size();
-    if ( length > 0 )
+    if ( hostileBorderingSectors.empty() == false )
     {
         RandomShuffle::Shuffle( hostileBorderingSectors.begin(), hostileBorderingSectors.end() );
         SectorInfo* pDestinationSector = hostileBorderingSectors.front();

@@ -39,10 +39,10 @@ set(OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 if(WIN32)
     add_executable(Game WIN32 ${SOURCE_FILES})
     target_compile_definitions(Game PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
-    target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>>)
+    target_compile_options(Game PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>)
     target_compile_options(Game PUBLIC /MP) # Enable parallel compilation.
     target_compile_options(Game PUBLIC /Zi) # Debug information format: Program database.
-    target_link_options(Game PRIVATE /DEBUG>) # Enable PDB generation.
+    target_link_options(Game PRIVATE /DEBUG) # Enable PDB generation.
     target_link_options(Game PRIVATE $<$<CONFIG:Release>:/INCREMENTAL:NO /LTCG>)
     target_link_libraries(Game PRIVATE Opengl32 glu32 ws2_32)
     set_target_properties(Game PROPERTIES VS_STARTUP_PROJECT ${OUTPUT_DIRECTORY})

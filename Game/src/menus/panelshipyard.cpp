@@ -152,7 +152,7 @@ void PanelShipyard::CreateTableWindow()
         {
             pTable->Show( false ); // the correct one to display will be chosen in SetSelectedGroup()
             pTable->SetPosition( 0, 0 );
-            pTable->SetSize( m_pScrollingElement->GetWidth() - m_pScrollingElement->GetScrollbarWidth(), pTable->GetRowCount() * (int)pTable->GetRowHeight() );
+            pTable->SetSize( m_pScrollingElement->GetWidth() - m_pScrollingElement->GetScrollbarWidth(), static_cast<int>( pTable->GetRowCount() ) * static_cast<int>( pTable->GetRowHeight() ) );
             m_pScrollingElement->AddElement( pTable );
         }
     }
@@ -327,9 +327,9 @@ void PanelShipyard::SetSelectedGroup( ModuleType moduleType )
 
 void PanelShipyard::UpdateModule( ModuleInfo* pModuleInfo )
 {
-    unsigned int idx = static_cast<unsigned int>( pModuleInfo->GetType() );
-    unsigned int rowCount = m_pTable[ idx ]->GetRowCount();
-    for ( unsigned int i = 0; i < rowCount; ++i )
+    const size_t idx = static_cast<size_t>( pModuleInfo->GetType() );
+    const size_t rowCount = m_pTable[ idx ]->GetRowCount();
+    for ( size_t i = 0; i < rowCount; ++i )
     {
         TableRow* pRow = m_pTable[ idx ]->GetRow( i );
         if ( pRow->GetUserData() == pModuleInfo )

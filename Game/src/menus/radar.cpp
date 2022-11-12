@@ -131,7 +131,7 @@ void Radar::Render()
         FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Blend );
 
         m_pShader->Use();
-        m_pVertexBuffer->Draw( m_QuadCount * 6 );
+        m_pVertexBuffer->Draw( static_cast<uint32_t>( m_QuadCount * 6 ) );
 
         FrameWork::GetRenderSystem()->SetBlendMode( BlendMode::Disabled );
     }

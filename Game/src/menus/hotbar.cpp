@@ -239,8 +239,8 @@ void Hotbar::UpdateAbilities( Ship* pPlayerShip )
             return ( (AddonInfo*)( pAddonModule->GetModuleInfo() ) )->GetCategory() == AddonCategory::QuantumStateAlternator;
         } );
 
-    const int addonsCount = addonModules.size();
-    int abilityCount = addonsCount;
+    const size_t addonsCount = addonModules.size();
+    int abilityCount = static_cast<int>( addonsCount );
     if ( abilityCount > sNumShipAddons )
         abilityCount = sNumShipAddons;
 
@@ -267,11 +267,11 @@ void Hotbar::UpdateAbilities( Ship* pPlayerShip )
 
     int keyNameIndex = 0;
     AddonModuleList::const_iterator it = addonModules.begin();
-    for ( int i = 0; i < abilityCount; ++i )
+    for ( int i = 0; i < static_cast<int>( abilityCount ); ++i )
     {
         AbilityData& ability = m_Abilities[ i ];
 
-        if ( i == rammingSpeedAbilityIndex )
+        if ( i  == rammingSpeedAbilityIndex )
         {
             ability.key = "TAB";
             ability.name = "Ramming speed";

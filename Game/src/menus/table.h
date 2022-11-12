@@ -50,9 +50,9 @@ public:
     virtual void Update( float delta ) override;
     virtual void Render() override;
 
-    int AddRow( TableRow* pTableRow );
-    TableRow* GetRow( unsigned int index ) const;
-    unsigned int GetRowCount() const;
+    size_t AddRow( TableRow* pTableRow );
+    TableRow* GetRow( size_t index ) const;
+    size_t GetRowCount() const;
     float GetRowHeight() const;
 
     void NotifyContentUpdated();
@@ -79,12 +79,12 @@ private:
     Genesis::VertexBuffer* m_pVertexBuffer;
 };
 
-inline unsigned int Table::GetRowCount() const
+inline size_t Table::GetRowCount() const
 {
     return m_Rows.size();
 }
 
-inline TableRow* Table::GetRow( unsigned int index ) const
+inline TableRow* Table::GetRow( size_t index ) const
 {
     if ( index < m_Rows.size() )
         return m_Rows[ index ];

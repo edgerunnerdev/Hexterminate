@@ -259,6 +259,11 @@ private:
     AchievementsManager* m_pAchievementsManager;
     ShipOutlineUniquePtr m_pShipOutline;
 
+#ifdef _DEBUG
+    Genesis::InputCallbackToken m_ImGuiToggleToken;
+    Genesis::Gui::Text* m_pFrameText;
+#endif // _DEBUG
+
     Faction* m_pFaction[ static_cast<unsigned int>( FactionId::Count ) ];
     float m_PlayedTime;
     bool m_EndGame;

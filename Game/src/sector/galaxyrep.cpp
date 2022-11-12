@@ -618,7 +618,7 @@ void GalaxyRep::DrawSectors( SectorDrawInfoVector& drawInfoVec, Genesis::Shader*
     UVData uvData;
     ColourData colourData;
 
-    const unsigned int numVertices = drawInfoVec.size() * 6;
+    const size_t numVertices = drawInfoVec.size() * 6;
     posData.reserve( numVertices );
     uvData.reserve( numVertices );
     colourData.reserve( numVertices );
@@ -655,7 +655,7 @@ void GalaxyRep::DrawSectors( SectorDrawInfoVector& drawInfoVec, Genesis::Shader*
     m_pSectorVB->CopyUVs( uvData );
     m_pSectorVB->CopyColours( colourData );
     pShader->Use( pShaderUniforms );
-    m_pSectorVB->Draw( numVertices );
+    m_pSectorVB->Draw( static_cast<uint32_t>( numVertices ) );
 }
 
 void GalaxyRep::DrawGrid()

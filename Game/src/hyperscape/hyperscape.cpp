@@ -108,7 +108,7 @@ void Hyperscape::UpdateDebugUI()
         ImGui::Begin( "Hyperscape", &m_DebugWindowOpen );
 
         static bool sSilverThreadOpen = true;
-        size_t id = 0;
+        int id = 0;
         if ( ImGui::CollapsingHeader( "Silver thread", &sSilverThreadOpen, ImGuiTreeNodeFlags_DefaultOpen ) )
         {
             const ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;

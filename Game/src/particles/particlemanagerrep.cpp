@@ -187,13 +187,13 @@ void ParticleManagerRep::Render()
 
     for ( int i = 0; i < sNumParticlePasses; ++i )
     {
-        int startIdx = 0;
-        int endIdx = 0;
+        uint32_t startIdx = 0;
+        uint32_t endIdx = 0;
 
         ParticlePass* pPass = m_pPass[ i ];
         for ( const ParticleRenderData& particleRenderData : pPass->m_Data )
         {
-            const unsigned int numParticles = particleRenderData.particles.size();
+            const uint32_t numParticles = static_cast<uint32_t>( particleRenderData.particles.size() );
             if ( numParticles > 0 )
             {
                 Genesis::FrameWork::GetRenderSystem()->SetBlendMode( pPass->m_BlendMode );

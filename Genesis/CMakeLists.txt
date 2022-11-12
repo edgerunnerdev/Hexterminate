@@ -28,7 +28,7 @@ set_target_properties(Genesis PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURREN
 
 if(WIN32)
     target_compile_definitions(Genesis PRIVATE UNICODE _UNICODE _HASEXCEPTIONS=0)
-    target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>>)
+    target_compile_options(Genesis PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>)
     target_compile_options(Genesis PUBLIC $<$<CONFIG:Release>:/Ob2 /GL>)
     target_compile_options(Genesis PUBLIC /Zi) # Debug information format: Program database.
     target_compile_options(Genesis PUBLIC /MP) # Enable parallel compilation.

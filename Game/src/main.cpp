@@ -125,6 +125,10 @@ Game::Game()
     , m_State( GameState::Menu )
     , m_pIntelWindow( nullptr )
     , m_pAchievementsManager( nullptr )
+#ifdef _DEBUG
+    , m_ImGuiToggleToken( Genesis::InputManager::sInvalidInputCallbackToken )
+    , m_pFrameText( nullptr )
+#endif
     , m_PlayedTime( 0.0f )
     , m_EndGame( false )
     , m_FirstTimeInCombat( false )

@@ -90,7 +90,7 @@ private:
     glm::vec3 m_CachedPlayerShipPosition;
     Genesis::PositionData m_PositionData;
     Genesis::UVData m_UVData;
-    unsigned int m_QuadCount;
+    size_t m_QuadCount;
 };
 
 } // namespace Hexterminate

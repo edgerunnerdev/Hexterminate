@@ -59,7 +59,7 @@ void Meter::Init( int initialValue, int maxValue )
 
 void Meter::SetValue( int value )
 {
-    for ( int i = 0, c = m_Panels.size(); i < c; ++i )
+    for ( int i = 0, c = static_cast<int>( m_Panels.size() ); i < c; ++i )
     {
         m_Panels[ i ]->Show( ( i + 1 ) <= value );
     }

@@ -128,8 +128,8 @@ void TrailManagerRep::Update( float delta )
 
     if ( g_pGame->GetCurrentSector()->GetShipTweaks()->GetDrawTrails() )
     {
-        int l = posData.size();
-        for ( int i = 0; i < l - 1; ++i )
+        size_t l = posData.size();
+        for ( size_t i = 0; i < l - 1; ++i )
         {
             if ( l > 2 )
             {
@@ -200,9 +200,9 @@ void TrailManagerRep::Render()
         m_pShader->Use();
 
         pRenderSystem->SetRenderTarget( RenderTargetId::Glow );
-        m_pVertexBuffer->Draw( m_NumVertices );
+        m_pVertexBuffer->Draw( static_cast<uint32_t>( m_NumVertices ) );
         pRenderSystem->SetRenderTarget( RenderTargetId::Default );
-        m_pVertexBuffer->Draw( m_NumVertices );
+        m_pVertexBuffer->Draw( static_cast<uint32_t>( m_NumVertices ) );
 
         pRenderSystem->SetBlendMode( BlendMode::Disabled );
     }

@@ -402,11 +402,11 @@ std::filesystem::path SaveGameStorage::GetSaveGameFileName( const std::string& c
     // These characters aren't supported by the operative system. Having them as part of the filename would
     // cause the save game to fail, so we replace them with a '_'
     const std::string invalidCharacters( "\\/*?\"<>|" );
-    const int filenameLength = filename.length();
-    const int invalidCharactersLength = invalidCharacters.length();
-    for ( int i = 0; i < filenameLength; ++i )
+    const size_t filenameLength = filename.length();
+    const size_t invalidCharactersLength = invalidCharacters.length();
+    for ( size_t i = 0; i < filenameLength; ++i )
     {
-        for ( int j = 0; j < invalidCharactersLength; ++j )
+        for ( size_t j = 0; j < invalidCharactersLength; ++j )
         {
             if ( filename[ i ] == invalidCharacters[ j ] )
             {

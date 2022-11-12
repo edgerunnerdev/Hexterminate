@@ -50,7 +50,7 @@ private:
     MuzzleflashManager* m_pManager;
     Genesis::Shader* m_pShader;
     Genesis::VertexBuffer* m_pVertexBuffer;
-    unsigned int m_NumVertices;
+    size_t m_NumVertices;
 };
 
 } // namespace Hexterminate

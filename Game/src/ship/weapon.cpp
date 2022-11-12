@@ -385,7 +385,7 @@ void Weapon::AddMuzzle( const glm::vec3& position )
 
 void Weapon::MarkMuzzleAsUsed()
 {
-    unsigned int validMuzzles = m_MuzzleOffsets.size();
+    const size_t validMuzzles = m_MuzzleOffsets.size();
     if ( validMuzzles > 1 && ++m_CurrentMuzzle >= validMuzzles )
     {
         m_CurrentMuzzle = 0;

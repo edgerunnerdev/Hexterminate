@@ -44,10 +44,10 @@ void Console::AddLine( const char* text )
 
     m_Text += text;
 
-    int chars = m_Text.size();
+    size_t chars = m_Text.size();
     int lines = 0;
     int maxLines = 25;
-    for ( int i = 0; i < chars; ++i )
+    for ( size_t i = 0; i < chars; ++i )
     {
         if ( m_Text[ i ] == '\n' )
             ++lines;
@@ -56,7 +56,7 @@ void Console::AddLine( const char* text )
     if ( lines > maxLines )
     {
         int linesToDelete = lines - maxLines;
-        int charPos = 0;
+        size_t charPos = 0;
         for ( ; charPos < chars; ++charPos )
         {
             if ( m_Text[ charPos ] == '\n' && --linesToDelete == 0 )

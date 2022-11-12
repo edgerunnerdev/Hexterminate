@@ -20,7 +20,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAK
 target_compile_definitions(${PROJECT_NAME} PRIVATE WITH_SDL2_STATIC)
 
 if(WIN32)
-    target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>>)
+    target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>)
 else()
     target_compile_definitions(${PROJECT_NAME} PRIVATE WITH_ALSA)
 endif()

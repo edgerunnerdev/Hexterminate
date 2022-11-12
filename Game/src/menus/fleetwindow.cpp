@@ -236,7 +236,7 @@ void FleetWindow::PopulateRequisitionShips()
 
 void FleetWindow::RefreshFleetShips()
 {
-    const int maxFleetShips = m_FleetShipInfos.size();
+    const size_t maxFleetShips = m_FleetShipInfos.size();
     FleetSharedPtr pPlayerFleet = g_pGame->GetPlayerFleet().lock();
     const ShipInfoList& fleetShips = pPlayerFleet->GetShips();
 
@@ -247,7 +247,7 @@ void FleetWindow::RefreshFleetShips()
     playerFsi.pUnavailableIcon->Show( false );
     playerFsi.pUnavailableText->Show( false );
 
-    int usedSlots = 1;
+    size_t usedSlots = 1;
     for ( const ShipInfo* pShipInfo : fleetShips )
     {
         FleetShipInfo& fsi = m_FleetShipInfos[ usedSlots++ ];
@@ -267,7 +267,7 @@ void FleetWindow::RefreshFleetShips()
     }
 
     Perks* pPerks = g_pGame->GetPlayer()->GetPerks();
-    for ( int i = usedSlots; i < maxFleetShips; ++i )
+    for ( size_t i = usedSlots; i < maxFleetShips; ++i )
     {
         FleetShipInfo& fsi = m_FleetShipInfos[ i ];
         fsi.pNameText->Show( false );

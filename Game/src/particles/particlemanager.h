@@ -43,7 +43,7 @@ public:
 
 private:
     ParticleEmitterVector m_Emitters;
-    int m_Idx;
+    size_t m_Idx;
 };
 
 inline const ParticleEmitterVector& ParticleManager::GetEmitters() const

@@ -80,7 +80,7 @@ private:
     Particle* GetAvailableParticle();
 
     ParticleVector m_Particles;
-    int m_Idx;
+    size_t m_Idx;
     bool m_Active;
     bool m_UsingAtlas;
     bool m_GlowEnabled;

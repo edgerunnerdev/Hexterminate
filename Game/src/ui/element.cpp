@@ -296,12 +296,12 @@ void Element::SetSize( int width, int height )
 
     if ( m_AnchorLeft && m_AnchorRight )
     {
-        width = Genesis::Configuration::GetScreenWidth() - pos.x - m_PaddingRight;
+        width = static_cast<int>( Genesis::Configuration::GetScreenWidth() ) - static_cast<int>( pos.x ) - m_PaddingRight;
     }
 
     if ( m_AnchorTop && m_AnchorBottom )
     {
-        height = Genesis::Configuration::GetScreenHeight() - pos.y - m_PaddingBottom;
+        height = static_cast<int>( Genesis::Configuration::GetScreenHeight() ) - static_cast<int>( pos.y ) - m_PaddingBottom;
     }
 
     m_pPanel->SetSize( width, height );

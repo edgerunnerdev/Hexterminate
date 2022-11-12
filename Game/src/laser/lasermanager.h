@@ -40,7 +40,7 @@ typedef std::vector<Laser> LaserVector;
 // Draws all the lasers as a single draw call
 ///////////////////////////////////////////////////////////////////////////////
 
-static const unsigned int sLaserManagerCapacity = 512;
+static const size_t sLaserManagerCapacity = 512;
 
 class LaserManager : public Genesis::SceneObject
 {

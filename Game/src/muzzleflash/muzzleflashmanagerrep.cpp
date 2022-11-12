@@ -182,9 +182,9 @@ void MuzzleflashManagerRep::Render()
         m_pShader->Use();
 
         pRenderSystem->SetRenderTarget( RenderTargetId::Glow );
-        m_pVertexBuffer->Draw( m_NumVertices );
+        m_pVertexBuffer->Draw( static_cast<uint32_t>( m_NumVertices ) );
         pRenderSystem->SetRenderTarget( RenderTargetId::Default );
-        m_pVertexBuffer->Draw( m_NumVertices );
+        m_pVertexBuffer->Draw( static_cast<uint32_t>( m_NumVertices ) );
 
         pRenderSystem->SetBlendMode( BlendMode::Disabled );
     }

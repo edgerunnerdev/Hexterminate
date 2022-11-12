@@ -85,7 +85,7 @@ void Table::Render()
     PositionData posData;
     ColourData colourData;
 
-    const unsigned int numVertices = maxRows * 6;
+    const size_t numVertices = maxRows * 6;
     posData.reserve( numVertices );
     colourData.reserve( numVertices );
 
@@ -101,7 +101,7 @@ void Table::Render()
         posData.emplace_back( pos.x + mSize.x, y1, 0.0f ); // 3
 
         const glm::vec4& rowColour = colour[ i % 2 ];
-        for ( int i = 0; i < 6; ++i )
+        for ( int j = 0; j < 6; ++j )
         {
             colourData.push_back( rowColour );
         }
@@ -110,12 +110,12 @@ void Table::Render()
     m_pVertexBuffer->CopyPositions( posData );
     m_pVertexBuffer->CopyColours( colourData );
     m_pShader->Use();
-    m_pVertexBuffer->Draw( numVertices );
+    m_pVertexBuffer->Draw( static_cast<uint32_t>( numVertices ) );
 
     Gui::GuiElement::Render();
 }
 
-int Table::AddRow( TableRow* pRow )
+size_t Table::AddRow( TableRow* pRow )
 {
     // Make sure we aren't trying to add a row with the incorrect number of elements
     if ( !m_Dimensions.empty() )
