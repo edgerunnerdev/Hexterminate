@@ -206,24 +206,27 @@ void FleetWindow::PopulateRequisitionShips()
             rsi.pPanel->Add( rsi.pBackground );
             rsi.pBackground->Add( rsi.pTitle );
 
+            rsi.pTextPanel = std::make_shared<UI::Panel>( "Text panel" );
+            rsi.pBackground->Add( rsi.pTextPanel );
+
             rsi.pWeaponsIcon = std::make_shared<UI::Image>( "Weapons icon" );
-            rsi.pBackground->Add( rsi.pWeaponsIcon );
+            rsi.pTextPanel->Add( rsi.pWeaponsIcon );
             rsi.pWeaponsText = std::make_shared<UI::Text>( "Weapons text" );
-            rsi.pBackground->Add( rsi.pWeaponsText );
+            rsi.pTextPanel->Add( rsi.pWeaponsText );
             rsi.pDefenseIcon = std::make_shared<UI::Image>( "Defense icon" );
-            rsi.pBackground->Add( rsi.pDefenseIcon );
+            rsi.pTextPanel->Add( rsi.pDefenseIcon );
             rsi.pDefenseText = std::make_shared<UI::Text>( "Defense text" );
-            rsi.pBackground->Add( rsi.pDefenseText );
+            rsi.pTextPanel->Add( rsi.pDefenseText );
             rsi.pInfluenceIcon = std::make_shared<UI::Image>( "Influence icon" );
             rsi.pInfluenceIcon->SetShader( "gui_textured" );
-            rsi.pBackground->Add( rsi.pInfluenceIcon );
+            rsi.pTextPanel->Add( rsi.pInfluenceIcon );
             rsi.pInfluenceText = std::make_shared<UI::Text>( "Influence text" );
-            rsi.pBackground->Add( rsi.pInfluenceText );
+            rsi.pTextPanel->Add( rsi.pInfluenceText );
             rsi.pPerkIcon = std::make_shared<UI::Image>( "Perk icon" );
             rsi.pPerkIcon->SetShader( "gui_textured" );
-            rsi.pBackground->Add( rsi.pPerkIcon );
+            rsi.pTextPanel->Add( rsi.pPerkIcon );
             rsi.pPerkText = std::make_shared<UI::Text>( "Perk text" );
-            rsi.pBackground->Add( rsi.pPerkText );
+            rsi.pTextPanel->Add( rsi.pPerkText );
 
             rsi.pRequisitionButton = std::make_shared<UI::Button>( "Requisition button", [ this, pShipInfo ]( std::any userData ) { RequisitionShip( pShipInfo ); } );
             rsi.pRequisitionButton->Enable( CanRequisitionShip( pShipInfo ) );

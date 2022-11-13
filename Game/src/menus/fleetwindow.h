@@ -82,6 +82,7 @@ private:
         UI::ImageSharedPtr pBackground;
         UI::TextSharedPtr pTitle;
 
+        UI::PanelSharedPtr pTextPanel;
         UI::ImageSharedPtr pWeaponsIcon;
         UI::TextSharedPtr pWeaponsText;
         UI::ImageSharedPtr pDefenseIcon;
