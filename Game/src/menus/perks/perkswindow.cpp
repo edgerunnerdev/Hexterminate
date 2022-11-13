@@ -108,9 +108,9 @@ void PerksWindow::InitCategories()
 
     PerkCategoryPanel* pEmpire = AddCategory( "Empire", "data/ui/perks/empire.png" );
     pEmpire->AddPerk( Perk::ReclaimedSectors, "Reclaimed sectors", "Any sector you capture immediately gets a strengthened regional fleet.", "data/ui/icons/empire.png", sTier1PerkCost );
-    pEmpire->AddPerk( Perk::SharedGlory, "Shared glory", "Gain RU from sectors captured by allied fleets.", "data/ui/icons/empire.png", sTier2PerkCost );
+    pEmpire->AddPerk( Perk::SharedGlory, "Shared glory", "Gain influence from sectors captured by allied fleets.", "data/ui/icons/empire.png", sTier2PerkCost );
     pEmpire->AddPerk( Perk::SwordOfTheEmpire, "Sword of the Empire", "The Empire prioritises reinforcements towards your fleet, assisting you with on-going battles.", "data/ui/icons/empire.png", sTier3PerkCost );
-    pEmpire->AddPerk( Perk::UnityIsStrength, "Unity is Strength", "Sectors generate passive income, further fueling your expansion.", "data/ui/icons/empire.png", sTier4PerkCost );
+    pEmpire->AddPerk( Perk::UnityIsStrength, "Unity is Strength", "Imperial sectors increase your influence, further fueling your expansion.", "data/ui/icons/empire.png", sTier4PerkCost );
 
     PerkCategoryPanel* pEnergyWeapons = AddCategory( "Energy weapons", "data/ui/perks/energy.png" );
     pEnergyWeapons->AddPerk( Perk::AdvancedHeatsinks, "Advanced heatsinks", "+15% rate of fire and -20% energy used.", "data/ui/icons/energy.png", sTier1PerkCost );
