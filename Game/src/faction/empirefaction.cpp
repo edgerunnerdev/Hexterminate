@@ -51,9 +51,9 @@ void EmpireFaction::Update( float delta )
 {
     Faction::Update( delta );
 
-    if ( g_pGame->GetPlayer()->GetPerks()->IsEnabled( Perk::UnityIsStrength ) )
+    if ( g_pGame->GetPlayer()->GetPerks()->IsEnabled( Perk::UnityIsStrength ) && g_pGame->GetGalaxy() != nullptr )
     {
-        m_InfluenceTimer -= delta;
+        m_InfluenceTimer -= delta * g_pGame->GetGalaxy()->GetCompression();
         if ( m_InfluenceTimer <= 0.0f )
         {
             m_InfluenceTimer += sPassiveInfluenceAllocationTimer;
