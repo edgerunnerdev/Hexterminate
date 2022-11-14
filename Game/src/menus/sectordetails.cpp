@@ -79,7 +79,7 @@ SectorDetails::SectorDetails()
         m_pDeployProbeButton->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
         m_pDeployProbeButton->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
         m_pDeployProbeButton->SetFont( EVA_FONT );
-        m_pDeployProbeButton->SetText( "Deploy probe (750 RU)" );
+        m_pDeployProbeButton->SetText( "Deploy probe (500 RU)" );
         m_pMainPanel->AddElement( m_pDeployProbeButton );
 
         m_pDeployStarfortButton = new DeployStarfortButton();
@@ -90,7 +90,7 @@ SectorDetails::SectorDetails()
         m_pDeployStarfortButton->SetBorderColour( EVA_BUTTON_COLOUR_BORDER );
         m_pDeployStarfortButton->SetBorderMode( Genesis::Gui::PANEL_BORDER_ALL );
         m_pDeployStarfortButton->SetFont( EVA_FONT );
-        m_pDeployStarfortButton->SetText( "Deploy starfort (6000 RU)" );
+        m_pDeployStarfortButton->SetText( "Deploy starfort (4000 RU)" );
         m_pMainPanel->AddElement( m_pDeployStarfortButton );
     }
 
@@ -396,7 +396,7 @@ void DeployProbeButton::OnPress()
 DeployStarfortButton::DeployStarfortButton()
 {
     m_CanDeploy = false;
-    m_Cost = 6000;
+    m_Cost = 4000;
 }
 
 void DeployStarfortButton::Update( float delta )
