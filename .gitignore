@@ -15,6 +15,7 @@ Game/bin/Hexterminate.exe
 Game/bin/imgui.ini
 Game/bin/log.txt
 Game/bin/Screenshot*.bmp
+Game/packages/
 obj/
 .build-premake/
 build/
