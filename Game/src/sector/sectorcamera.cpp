@@ -17,13 +17,8 @@
 namespace Hexterminate
 {
 
-#ifdef _DEBUG
 static const float ZOOM_MINIMUM = 0.4f;
-#else
-static const float ZOOM_MINIMUM = 0.3f;
-#endif
-
-static const float ZOOM_MAXIMUM = 3.3f;
+static const float ZOOM_MAXIMUM = 5.0f;
 
 float clamp( float fv, float fmin, float fmax )
 {
