@@ -48,6 +48,7 @@ Element::Element( const std::string& name )
     , m_AnchorRight( false )
     , m_PaddingRight( false )
     , m_PaddingBottom( false )
+    , m_VisibilityComboIndex( 0 )
 {
     m_pPanel = new Genesis::Gui::Panel();
     m_pPanel->SetSize( 128.0f, 128.0f );
@@ -234,41 +235,23 @@ void Element::RenderProperties()
 {
     if ( ImGui::CollapsingHeader( "Element", ImGuiTreeNodeFlags_DefaultOpen ) )
     {
-        bool visible = m_pPanel->IsVisible();
-        if ( ImGui::Checkbox( "Visible", &visible ) )
+        static const char* visibilityNames[] = { "Visible", "Hidden" };
+        m_VisibilityComboIndex = m_pPanel->IsVisible() ? 0 : 1;
+        if ( ImGui::Combo( "Visibility", &m_VisibilityComboIndex, visibilityNames, IM_ARRAYSIZE( visibilityNames ) ) )
         {
-            m_pPanel->Show( visible );
+            m_pPanel->Show( m_VisibilityComboIndex == 0 );
         }
 
-        ImGui::Text( "%s", "Anchor" );
-        ImGui::PushStyleVar( ImGuiStyleVar_SelectableTextAlign, ImVec2( 0.5f, 0.5f ) );
-        ImVec2 s( 25, 25 );
-        ImGui::InvisibleButton( "TL", s );
-        ImGui::SameLine();
-        if ( ImGui::Selectable( "T", m_AnchorTop, 0, s ) )
+        static const char* items[] = { "Top", "Left", "Bottom", "Right" };
+        bool* pIsSelected[] = { &m_AnchorTop, &m_AnchorLeft, &m_AnchorBottom, &m_AnchorRight };
+        if ( ImGui::BeginListBox( "Anchor", ImVec2( 0.0f, 4.25f * ImGui::GetTextLineHeightWithSpacing() ) ) )
         {
-            m_AnchorTop = !m_AnchorTop;
+            for ( int n = 0; n < IM_ARRAYSIZE( items ); n++ )
+            {
+                ImGui::Selectable( items[ n ], pIsSelected[n] );
+            }
+            ImGui::EndListBox();
         }
-
-        if ( ImGui::Selectable( "L", m_AnchorLeft, 0, s ) )
-        {
-            m_AnchorLeft = !m_AnchorLeft;
-        }
-        ImGui::SameLine();
-        ImGui::InvisibleButton( "C", s );
-        ImGui::SameLine();
-        if ( ImGui::Selectable( "R", m_AnchorRight, 0, s ) )
-        {
-            m_AnchorRight = !m_AnchorRight;
-        }
-
-        ImGui::InvisibleButton( "BL", s );
-        ImGui::SameLine();
-        if ( ImGui::Selectable( "B", m_AnchorBottom, 0, s ) )
-        {
-            m_AnchorBottom = !m_AnchorBottom;
-        }
-        ImGui::PopStyleVar();
 
         glm::vec2 gpos = m_pPanel->GetPosition();
         int ipos[ 2 ] = { static_cast<int>( gpos.x ), static_cast<int>( gpos.y ) };

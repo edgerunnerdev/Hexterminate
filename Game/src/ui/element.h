@@ -97,6 +97,7 @@ private:
     bool m_AnchorRight;
     int m_PaddingRight;
     int m_PaddingBottom;
+    int m_VisibilityComboIndex;
 };
 
 inline bool Element::IsResizeable() const

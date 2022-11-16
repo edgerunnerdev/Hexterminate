@@ -1,5 +1,9 @@
 #pragma once
 
+#include "imgui/imgui.h"
+#include "imgui/imguiext.h"
+
+#include <filesystem>
 #include <list>
 #include <map>
 #include <string>
@@ -18,39 +22,42 @@ class VertexBuffer;
 class ImGuiImpl
 {
 public:
-	static void Initialise();
-	static void Shutdown();
-	static void NewFrame( float delta );
-	static bool HandleEvent( SDL_Event* pEvent );
-	static void Render();
-	static bool IsInitialised();
-	static bool IsEnabled();
-	static void Enable( bool state );
-	static void RegisterMenu( const std::string& menuRoot, const std::string& menuName, bool* pShow );
-	static void UnregisterMenu( const std::string& menuRoot, const std::string& menuName );
+    static void Initialise();
+    static void Shutdown();
+    static void NewFrame( float delta );
+    static bool HandleEvent( SDL_Event* pEvent );
+    static void Render();
+    static bool IsInitialised();
+    static bool IsEnabled();
+    static void Enable( bool state );
+    static void RegisterMenu( const std::string& menuRoot, const std::string& menuName, bool* pShow );
+    static void UnregisterMenu( const std::string& menuRoot, const std::string& menuName );
+    static ImFont* GetFont( ImGui::ImFontId id );
 
 private:
-	static void CreateFontsTexture();
+    static void CreateFontsTexture();
+    static void RegisterDefaultFont();
+    static void RegisterFont( ImGui::ImFontId id, const std::filesystem::path& path, float size );
 
-	static double g_Time;
-	static bool g_MousePressed[3];
-	static float g_MouseWheel;
-	static GLuint g_FontTexture;
-	static Shader* m_pDiffuseShader;
-	static ShaderUniform* m_pDiffuseSampler;
-	static ResourceImage* m_pTexture;
-	static VertexBuffer* m_pVertexBuffer;
-	static bool m_Initialised;
-	static bool m_Enabled;
+    static double g_Time;
+    static bool g_MousePressed[ 3 ];
+    static float g_MouseWheel;
+    static GLuint g_FontTexture;
+    static Shader* m_pDiffuseShader;
+    static ShaderUniform* m_pDiffuseSampler;
+    static ResourceImage* m_pTexture;
+    static VertexBuffer* m_pVertexBuffer;
+    static bool m_Initialised;
+    static bool m_Enabled;
 
-	struct Menu
-	{
-		std::string name;
-		bool* pShow;
-	};
-	typedef std::list< Menu > MenuList;
-	typedef std::map< std::string, MenuList > MenuRegistry;
-	static MenuRegistry m_MenuRegistry;
+    struct Menu
+    {
+        std::string name;
+        bool* pShow;
+    };
+    typedef std::list<Menu> MenuList;
+    typedef std::map<std::string, MenuList> MenuRegistry;
+    static MenuRegistry m_MenuRegistry;
 };
 
-} // namespace Genesis;
+} // namespace Genesis
