@@ -64,12 +64,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>1.25</Rof>
-    <Damage>37.5</Damage>
+    <Damage>18</Damage>
     <ActivationCost>7.5</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>250.0</Speed>
-    <Range>385.0</Range>
+    <Range>515.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <MuzzleflashScale>2.0</MuzzleflashScale>
     <MuzzleflashColourR>1.0</MuzzleflashColourR>
@@ -86,12 +86,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>1.25</Rof>
-    <Damage>75.0</Damage>
+    <Damage>36.0</Damage>
     <ActivationCost>7.5</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>300.0</Speed>
-    <Range>480.0</Range>
+    <Range>560.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <ContextualTip>#tip_artillery</ContextualTip>
     <MuzzleflashScale>2.0</MuzzleflashScale>
@@ -111,12 +111,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>1.2</Rof>
-    <Damage>100.0</Damage>
+    <Damage>56.0</Damage>
     <ActivationCost>15.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>310.0</Speed>
-    <Range>490.0</Range>
+    <Range>605.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <ContextualTip>#tip_artillery</ContextualTip>
     <MuzzleflashScale>2.5</MuzzleflashScale>
@@ -136,12 +136,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>1.1</Rof>
-    <Damage>160.0</Damage>
+    <Damage>91.0</Damage>
     <ActivationCost>30.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>320.0</Speed>
-    <Range>500.0</Range>
+    <Range>650.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <ContextualTip>#tip_artillery</ContextualTip>
     <MuzzleflashScale>3.0</MuzzleflashScale>
@@ -161,12 +161,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>1</Rof>
-    <Damage>275.0</Damage>
+    <Damage>150.0</Damage>
     <ActivationCost>60.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>330.0</Speed>
-    <Range>510.0</Range>
+    <Range>695.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <ContextualTip>#tip_artillery</ContextualTip>
     <MuzzleflashScale>3.5</MuzzleflashScale>
@@ -186,12 +186,12 @@
     <Behaviour>Turret</Behaviour>
     <System>Projectile</System>
     <Rof>0.5</Rof>
-    <Damage>1000.0</Damage>
+    <Damage>450.0</Damage>
     <ActivationCost>240.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>340.0</Speed>
-    <Range>600.0</Range>
+    <Range>740.0</Range>
     <OnFireSFX>data/sfx/artillery.wav</OnFireSFX>
     <ContextualTip>#tip_artillery</ContextualTip>
     <MuzzleflashScale>4.0</MuzzleflashScale>
