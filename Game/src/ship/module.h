@@ -336,6 +336,8 @@ public:
     float GetRechargeRate() const;
 
 protected:
+    virtual void OnDeathEffect() override;
+
     float m_Capacity;
     float m_RechargeRate;
 };

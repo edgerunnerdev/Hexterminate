@@ -839,6 +839,11 @@ void Ship::UpdateReactors( float delta )
     }
     m_EnergyCapacity = energyCapacity;
 
+    if ( m_Energy > m_EnergyCapacity )
+    {
+        m_Energy = m_EnergyCapacity;
+    }
+
     if ( m_EnergyCapacity > 0.0f )
     {
         // The recharge curve peaks at 50% of the maximum energy capacity.
@@ -1060,18 +1065,19 @@ void Ship::SetSharedShaderParameters( Module* pModule, Genesis::Material* pMater
         m_pUniforms->Set( ShipShaderUniform::EmissiveColour, emissive.glm() );
 
         const float assemblyPercentage = pModule->GetAssemblyPercentage();
+        ModuleType moduleType = pModule->GetModuleInfo()->GetType();
         if ( assemblyPercentage < 1.0f )
         {
             const float intensity = 1.0f - assemblyPercentage;
             glm::vec4 overlayColour( 0.0f, 1.0f, 1.0f, intensity );
             m_pUniforms->Set( ShipShaderUniform::OverlayColour, overlayColour );
         }
-        else if ( pModule->GetModuleInfo()->GetType() == ModuleType::Armour )
+        else if ( moduleType == ModuleType::Armour )
         {
             ArmourModule* pArmourModule = (ArmourModule*)pModule;
             m_pUniforms->Set( ShipShaderUniform::OverlayColour, pArmourModule->GetOverlayColour() );
         }
-        else if ( pModule->GetModuleInfo()->GetType() == ModuleType::Tower )
+        else if ( moduleType == ModuleType::Tower )
         {
             TowerModule* pTowerModule = (TowerModule*)pModule;
             m_pUniforms->Set( ShipShaderUniform::OverlayColour, pTowerModule->GetOverlayColour( this ) );
@@ -1079,6 +1085,19 @@ void Ship::SetSharedShaderParameters( Module* pModule, Genesis::Material* pMater
         else
         {
             m_pUniforms->Set( ShipShaderUniform::OverlayColour, glm::vec4( 0.0f ) );
+        }
+
+        if ( moduleType == ModuleType::Reactor)
+        {
+            ReactorInfo* pReactorInfo = static_cast<ReactorInfo*>( pModule->GetModuleInfo() );
+            if ( pReactorInfo->GetVariant() == ReactorVariant::Unstable )
+            {
+                m_pUniforms->Set( ShipShaderUniform::EmissiveColour, glm::vec4( 1.0f, 0.3f, 0.0f, 1.0f ) );
+            }
+            else
+            {
+                m_pUniforms->Set( ShipShaderUniform::EmissiveColour, glm::vec4( 0.0f, 1.0f, 1.0f, 1.0f ) );
+            }
         }
 
         const int empActive = pModule->IsEMPed() ? 1 : 0;

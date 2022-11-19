@@ -801,6 +801,52 @@ float ReactorModule::GetRechargeRate() const
     return IsEMPed() ? 0.0f : m_RechargeRate;
 }
 
+void ReactorModule::OnDeathEffect()
+{
+    if (  static_cast<ReactorInfo*>( GetModuleInfo() )->GetVariant() != ReactorVariant::Unstable )
+    {
+        Module::OnDamageEffect();
+    }
+    else
+    {
+        const ModuleHexGrid& hexGrid = GetOwner()->GetModuleHexGrid();
+        for ( int x = m_HexGridSlotX - 1; x <= m_HexGridSlotX + 1; ++x )
+        {
+            for ( int y = m_HexGridSlotY - 1; y <= m_HexGridSlotY + 1; ++y )
+            {
+                if ( x == m_HexGridSlotX && y == m_HexGridSlotY )
+                {
+                    continue;
+                }
+
+                Module* pModule = hexGrid.Get( x, y );
+                if ( pModule == nullptr || pModule->IsDestroyed() )
+                {
+                    continue;
+                }
+
+                pModule->Destroy();
+            }
+        }
+
+        const glm::vec3 moduleLocalPos = GetLocalPosition() + glm::vec3( 0.0f, 0.0f, 10.0f );
+        const glm::vec3 moduleWorldPos = glm::vec3( GetOwner()->GetRigidBody()->GetWorldTransform() * glm::vec4( moduleLocalPos, 1.0f ) );
+        const unsigned int atlasElementSize = 512;
+        ParticleManager* pParticleManager = g_pGame->GetCurrentSector()->GetParticleManager();
+        ParticleEmitter* pEmitter = pParticleManager->GetAvailableEmitter();
+        pEmitter->SetBlendMode( Genesis::BlendMode::Add );
+        pEmitter->SetParticleCount( 1 );
+        pEmitter->SetEmissionDelay( 0.0f );
+        pEmitter->SetPosition( moduleWorldPos );
+        pEmitter->SetTextureAtlas( "data/particles/Fire_Ring.png", atlasElementSize, atlasElementSize, 50 );
+        pEmitter->SetScale( 1.25f, 1.5f );
+        pEmitter->SetLifetime( 1.0f, 1.5f );
+        pEmitter->Start();
+
+        PlayDeathSFX();
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // AddonModule
 ///////////////////////////////////////////////////////////////////////////////
