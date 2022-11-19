@@ -16,7 +16,10 @@
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
 #include "xmlaux.h"
+
+#include <array>
 #include <sstream>
+#include <utility>
 
 namespace Xml
 {
@@ -25,8 +28,10 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 {
     SDL_assert( pElement != nullptr );
 
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
 
@@ -54,22 +59,26 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::WeaponBehaviour& value )
 {
     SDL_assert( pElement != nullptr );
-
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, WeaponBehaviour>, 2> toEnum =
+    { {
+        { "Fixed", WeaponBehaviour::Fixed },
+        { "Turret", WeaponBehaviour::Turret }
+    } };
 
-    std::string text( pElement->GetText() );
-    if ( text == "Fixed" )
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        value = WeaponBehaviour::Fixed;
-        return true;
-    }
-    else if ( text == "Turret" )
-    {
-        value = WeaponBehaviour::Turret;
-        return true;
+        if ( text == toEnum[i].first )
+        {
+            value = toEnum[i].second;
+            return true;
+        }
     }
 
     return false;
@@ -78,47 +87,60 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::TowerBonus& value )
 {
     SDL_assert( pElement != nullptr );
-
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, TowerBonus>, 7> toEnum =
+    { {
+        { "None", TowerBonus::None },
+        { "Damage", TowerBonus::Damage },
+        { "Movement", TowerBonus::Movement },
+        { "Shields", TowerBonus::Shields },
+        { "Sensors", TowerBonus::Sensors },
+        { "HyperspaceImmunity", TowerBonus::HyperspaceImmunity },
+        { "Ramming", TowerBonus::Ramming }
+    } };
 
-    std::string text( pElement->GetText() );
-    if ( text == "None" )
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        value = TowerBonus::None;
-        return true;
+        if ( text == toEnum[i].first )
+        {
+            value = toEnum[i].second;
+            return true;
+        }
     }
-    else if ( text == "Damage" )
+
+    return false;
+}
+
+bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::ReactorVariant& value )
+{
+    SDL_assert( pElement != nullptr );
+    if ( pElement == nullptr || name != pElement->Value() )
     {
-        value = TowerBonus::Damage;
-        return true;
+        return false;
     }
-    else if ( text == "Movement" )
+
+    using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, ReactorVariant>, 3> toEnum =
+    { {
+        { "Standard", ReactorVariant::Standard },
+        { "Unstable", ReactorVariant::Unstable },
+        { "HighCapacity", ReactorVariant::HighCapacity },
+    } };
+
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        value = TowerBonus::Movement;
-        return true;
-    }
-    else if ( text == "Shields" )
-    {
-        value = TowerBonus::Shields;
-        return true;
-    }
-    else if ( text == "Sensors" )
-    {
-        value = TowerBonus::Sensors;
-        return true;
-    }
-    else if ( text == "HyperspaceImmunity" )
-    {
-        value = TowerBonus::HyperspaceImmunity;
-        return true;
-    }
-    else if ( text == "Ramming" )
-    {
-        value = TowerBonus::Ramming;
-        return true;
+        if ( text == toEnum[i].first )
+        {
+            value = toEnum[i].second;
+            return true;
+        }
     }
 
     return false;
@@ -127,20 +149,26 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::FleetState& value )
 {
     SDL_assert( pElement != nullptr );
-
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, FleetState>, 4> toEnum =
+    { {
+        { "Idle", FleetState::Idle },
+        { "Engaged", FleetState::Engaged },
+        { "Moving", FleetState::Moving },
+        { "Arrived", FleetState::Arrived }
+    } };
 
-    std::string text( pElement->GetText() );
-    std::string texts[] = { "Idle", "Engaged", "Moving", "Arrived" };
-    FleetState states[] = { FleetState::Idle, FleetState::Engaged, FleetState::Moving, FleetState::Arrived };
-    for ( int i = 0; i < 4; ++i )
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        if ( text == texts[ i ] )
+        if ( text == toEnum[i].first )
         {
-            value = states[ i ];
+            value = toEnum[i].second;
             return true;
         }
     }
@@ -151,20 +179,25 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::Difficulty& value )
 {
     SDL_assert( pElement != nullptr );
-
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, Difficulty>, 3> toEnum =
+    { {
+        { "Easy", Difficulty::Easy },
+        { "Normal", Difficulty::Normal },
+        { "Hardcore", Difficulty::Hardcore }
+    } };
 
-    std::string text( pElement->GetText() );
-    std::string texts[] = { "Easy", "Normal", "Hardcore", "Arrived" };
-    Difficulty difficulty[] = { Difficulty::Easy, Difficulty::Normal, Difficulty::Hardcore };
-    for ( int i = 0; i < 4; ++i )
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        if ( text == texts[ i ] )
+        if ( text == toEnum[i].first )
         {
-            value = difficulty[ i ];
+            value = toEnum[i].second;
             return true;
         }
     }
@@ -175,20 +208,25 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::GameMode& value )
 {
     SDL_assert( pElement != nullptr );
-
-    if ( name != pElement->Value() )
+    if ( pElement == nullptr || name != pElement->Value() )
+    {
         return false;
+    }
 
     using namespace Hexterminate;
+    const std::string text( pElement->GetText() );
+    static const std::array<std::pair<std::string, GameMode>, 3> toEnum =
+    { {
+        { "Campaign", GameMode::Campaign },
+        { "Infinite War", GameMode::InfiniteWar },
+        { "Hyperscape", GameMode::Hyperscape }
+    } };
 
-    std::string text( pElement->GetText() );
-    std::string texts[] = { "Campaign", "Infinite War" };
-    GameMode gameMode[] = { GameMode::Campaign, GameMode::InfiniteWar };
-    for ( int i = 0; i < 2; ++i )
+    for ( int i = 0; i < toEnum.size(); ++i )
     {
-        if ( text == texts[ i ] )
+        if ( text == toEnum[i].first )
         {
-            value = gameMode[ i ];
+            value = toEnum[i].second;
             return true;
         }
     }

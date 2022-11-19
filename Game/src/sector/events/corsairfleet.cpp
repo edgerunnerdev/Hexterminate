@@ -71,7 +71,7 @@ void SectorEventCorsairFleet::OnPlayerEnterSector()
             spawnData,
             pShipInfo );
 
-        pShip->Initialise();
+        pShip->Initialize();
         pCurrentSector->AddShip( pShip );
     }
 }

@@ -62,7 +62,7 @@ void ArbiterReinforcementComponent::SpawnArbiters()
             spawnData[ i ],
             pShipInfo );
 
-        pShip->Initialise();
+        pShip->Initialize();
         pCurrentSector->AddShip( pShip );
     }
 }

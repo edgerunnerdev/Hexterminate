@@ -79,7 +79,7 @@ Ship* Player::CreateShip( float spawnPointX, float spawnPointY )
         spawnData,
         nullptr );
 
-    m_pShip->Initialise();
+    m_pShip->Initialize();
 
     return m_pShip;
 }

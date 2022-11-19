@@ -38,6 +38,7 @@ bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterm
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::FleetState& value );
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::Difficulty& value );
 bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::GameMode& value );
+bool Serialise( tinyxml2::XMLElement* pElement, const std::string& name, Hexterminate::ReactorVariant& value );
 
 void Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement, const std::string& elementName, const std::string& content );
 void Write( tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* pRootElement, const std::string& elementName, int content );

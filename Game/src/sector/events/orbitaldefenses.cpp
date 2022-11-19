@@ -85,7 +85,7 @@ void SectorEventOrbitalDefenses::OnPlayerEnterSector()
             spawnData,
             pOrbitalDefenseInfo );
 
-        pShip->Initialise();
+        pShip->Initialize();
 
         pCurrentSector->AddShip( pShip );
     }

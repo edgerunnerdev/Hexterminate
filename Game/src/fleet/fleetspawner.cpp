@@ -200,7 +200,7 @@ Ship* FleetSpawner::SpawnShip( Sector* pSector, FleetSharedPtr pFleet, const Shi
         spawnData,
         pShipInfo );
 
-    pShip->Initialise();
+    pShip->Initialize();
     pSector->AddShip( pShip );
     return pShip;
 }

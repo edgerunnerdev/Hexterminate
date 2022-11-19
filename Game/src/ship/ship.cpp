@@ -339,7 +339,7 @@ ModuleInfo* Ship::RemoveModule( int x, int y )
     }
 }
 
-void Ship::Initialise()
+void Ship::Initialize()
 {
     using namespace Genesis;
 
@@ -362,6 +362,24 @@ void Ship::Initialise()
     using namespace std::placeholders;
     auto collisionCallbackFn = std::bind( &Ship::OnCollision, this, _1, _2, _3, _4, _5 );
     m_CollisionCallbackHandle = g_pGame->GetPhysicsSimulation()->RegisterCollisionCallback( collisionCallbackFn );
+
+    InitializeReactors();
+}
+
+void Ship::InitializeReactors()
+{
+    m_EnergyCapacity = 0.0f;
+    for ( auto& pReactor : m_Reactors )
+    {
+        if ( pReactor->IsDestroyed() == false && pReactor->IsEMPed() == false )
+        {
+            m_EnergyCapacity += pReactor->GetCapacity();
+        }
+    }
+
+    // The ship starts at 50% of its capacity. 
+    // It must start with some energy, as the capacitor takes a substantial amount of time to recharge from empty.
+    m_Energy = m_EnergyCapacity * 0.5f;
 }
 
 // Creates either a ControllerPlayer or an AI controller. The AI controller depends on the weapons the ship uses.
@@ -805,19 +823,39 @@ void Ship::UpdateReactors( float delta )
         return;
     }
 
-    m_EnergyCapacity = 0.0f;
-
+    float energyCapacity = 0.0f;
     float rechargeRate = 0.0f;
     for ( auto& pReactor : m_Reactors )
     {
-        if ( pReactor->IsDestroyed() == false && pReactor->IsEMPed() == false )
+        if ( pReactor->IsDestroyed() == false )
         {
-            m_EnergyCapacity += pReactor->GetCapacity();
-            rechargeRate += pReactor->GetRechargeRate();
+            energyCapacity += pReactor->GetCapacity();
+
+            if ( pReactor->IsEMPed() == false )
+            {
+                rechargeRate += pReactor->GetRechargeRate();
+            }
         }
     }
+    m_EnergyCapacity = energyCapacity;
 
-    m_Energy = gClamp<float>( m_Energy + rechargeRate * delta, 0.0f, m_EnergyCapacity );
+    if ( m_EnergyCapacity > 0.0f )
+    {
+        // The recharge curve peaks at 50% of the maximum energy capacity.
+        // Graph at: https://www.desmos.com/calculator/tqryhlke1f
+        const float rechargeFraction = m_Energy / m_EnergyCapacity;
+        float rechargeAmount = 0.0f;
+        if ( rechargeFraction >= 0.5f )
+        {
+            rechargeAmount = rechargeRate * 1.0f / coshf( rechargeFraction * 4.0f - 2.0f ); // 1 / cosh = hyperbolic secant
+        }
+        else
+        {
+            // The decline in recharge amount is steep below 50%.
+            rechargeAmount = rechargeRate * 1.0f / coshf( rechargeFraction * 2.0f - 1.0f );
+        }
+        m_Energy = gClamp<float>( m_Energy + rechargeAmount * delta, 0.0f, m_EnergyCapacity );
+    }
 }
 
 void Ship::UpdateRepair( float delta )

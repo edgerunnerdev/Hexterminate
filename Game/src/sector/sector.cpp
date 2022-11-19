@@ -256,7 +256,7 @@ bool Sector::Initialise()
                     spawnData,
                     pTurretInfo );
 
-                pTurret->Initialise();
+                pTurret->Initialize();
 
                 AddShip( pTurret );
             }
@@ -681,7 +681,7 @@ void Sector::SpawnStarfort()
         spawnData,
         pStarfortInfo );
 
-    pStarfort->Initialise();
+    pStarfort->Initialize();
 
     AddShip( pStarfort );
 }

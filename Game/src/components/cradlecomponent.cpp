@@ -53,7 +53,7 @@ bool CradleComponent::Initialise()
             spawnData,
             pShipInfo );
 
-        m_pCradle->Initialise();
+        m_pCradle->Initialize();
         pCurrentSector->AddShip( m_pCradle );
     }
 

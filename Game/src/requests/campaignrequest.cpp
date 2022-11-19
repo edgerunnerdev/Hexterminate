@@ -619,7 +619,7 @@ void CampaignRequest::SpawnShip( const std::string& shipName, FactionId factionI
         spawnData,
         pShipInfo );
 
-    pShip->Initialise();
+    pShip->Initialize();
     pSector->AddShip( pShip );
 }
 

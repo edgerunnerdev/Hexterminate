@@ -92,7 +92,7 @@ void SectorEventChrysamere::OnPlayerEnterSector()
         spawnData,
         pShipInfo );
 
-    m_pChrysamere->Initialise();
+    m_pChrysamere->Initialize();
     pCurrentSector->AddShip( m_pChrysamere );
 }
 

@@ -602,6 +602,7 @@ ReactorInfo::ReactorInfo( tinyxml2::XMLElement* pModuleElement )
     : ModuleInfo( pModuleElement )
     , m_Capacity( 0.0f )
     , m_RechargeRate( 0.0f )
+    , m_Variant( ReactorVariant::Standard )
 {
     using namespace Genesis;
 
@@ -612,6 +613,7 @@ ReactorInfo::ReactorInfo( tinyxml2::XMLElement* pModuleElement )
     {
         Xml::Serialise( pElement, "Capacity", m_Capacity );
         Xml::Serialise( pElement, "RechargeRate", m_RechargeRate );
+        Xml::Serialise( pElement, "Variant", m_Variant );
     }
 
     SDL_assert_release( m_Capacity > 0.0f );

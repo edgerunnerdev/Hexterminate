@@ -122,7 +122,7 @@ void StrongholdRequest::OnPlayerEnterSector()
         spawnData,
         pStrongholdInfo );
 
-    pStronghold->Initialise();
+    pStronghold->Initialize();
 
     pCurrentSector->AddShip( pStronghold );
 

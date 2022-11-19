@@ -65,7 +65,7 @@
     <System>Projectile</System>
     <Rof>1.25</Rof>
     <Damage>18</Damage>
-    <ActivationCost>7.5</ActivationCost>
+    <ActivationCost>8</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>250.0</Speed>
@@ -87,7 +87,7 @@
     <System>Projectile</System>
     <Rof>1.25</Rof>
     <Damage>36.0</Damage>
-    <ActivationCost>7.5</ActivationCost>
+    <ActivationCost>8</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>300.0</Speed>
@@ -112,7 +112,7 @@
     <System>Projectile</System>
     <Rof>1.2</Rof>
     <Damage>56.0</Damage>
-    <ActivationCost>15.0</ActivationCost>
+    <ActivationCost>17</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>310.0</Speed>
@@ -137,7 +137,7 @@
     <System>Projectile</System>
     <Rof>1.1</Rof>
     <Damage>91.0</Damage>
-    <ActivationCost>30.0</ActivationCost>
+    <ActivationCost>37.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>320.0</Speed>
@@ -162,7 +162,7 @@
     <System>Projectile</System>
     <Rof>1</Rof>
     <Damage>150.0</Damage>
-    <ActivationCost>60.0</ActivationCost>
+    <ActivationCost>80.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>330.0</Speed>
@@ -187,7 +187,7 @@
     <System>Projectile</System>
     <Rof>0.5</Rof>
     <Damage>450.0</Damage>
-    <ActivationCost>240.0</ActivationCost>
+    <ActivationCost>480.0</ActivationCost>
     <Burst>1</Burst>
     <RayLength>60.0</RayLength>
     <Speed>340.0</Speed>

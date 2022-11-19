@@ -158,7 +158,7 @@ public:
     virtual void Render();
 
     void SetInitialisationParameters( Faction* pFaction, FleetWeakPtr pFleetWeakPtr, const ShipCustomisationData& ShipCustomisationData, const ShipSpawnData& shipSpawnData, const ShipInfo* pShipInfo );
-    void Initialise();
+    void Initialize();
 
     void ModuleEditLock(); // ModuleEditLock() needs to be called before any modules are added or removed
     void ModuleEditUnlock(); // Recreates the ship's rigid body and updates the ship's internal state
@@ -252,6 +252,7 @@ public:
     AddonQuantumStateAlternator* GetQuantumStateAlternator() const;
 
 protected:
+    void InitializeReactors();
     bool DamageShared( WeaponSystem weaponSystem, float baseDamage, int burst, Faction* pDealtByFaction, float delta, float* pFrameDamage, float* pDisplayDamage ) const;
     void ApplyDodge( float& dodgeTimer, float enginePower );
     void ApplyStrafe( float enginePower );

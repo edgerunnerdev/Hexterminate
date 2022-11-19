@@ -78,7 +78,7 @@ void AnchorComponent::SpawnAnchor()
         spawnData,
         pShipInfo );
 
-    m_pAnchor->Initialise();
+    m_pAnchor->Initialize();
     pCurrentSector->AddShip( m_pAnchor );
 }
 
@@ -107,7 +107,7 @@ void AnchorComponent::SpawnAnchorDefenses()
             spawnData[ i ],
             pShipInfo );
 
-        pAnchorDefense->Initialise();
+        pAnchorDefense->Initialize();
         pCurrentSector->AddShip( pAnchorDefense );
     }
 }

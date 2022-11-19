@@ -327,6 +327,13 @@ private:
 // ReactorInfo
 ///////////////////////////////////////////////////////////////////////////////
 
+enum class ReactorVariant
+{
+    Standard,
+    Unstable,
+    HighCapacity
+};
+
 class ReactorInfo : public ModuleInfo
 {
 public:
@@ -336,10 +343,12 @@ public:
 
     float GetCapacity() const { return m_Capacity; }
     float GetRechargeRate() const { return m_RechargeRate; }
+    ReactorVariant GetVariant() const { return m_Variant; }
 
 protected:
     float m_Capacity;
     float m_RechargeRate;
+    ReactorVariant m_Variant;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
