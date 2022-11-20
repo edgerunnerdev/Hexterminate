@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 
 #include "menus/panelshipyarddebug.h"
 #include "globals.h"
@@ -27,10 +27,12 @@
 #include "ship/inventory.h"
 #include "shipyard/shipyard.h"
 #include "stringaux.h"
+
 #include <configuration.h>
-#include <filesystem>
 #include <genesis.h>
 #include <gui/gui.h>
+
+#include <filesystem>
 #include <sstream>
 
 namespace Hexterminate
@@ -154,14 +156,14 @@ void PanelShipyardDebug::CreateTable( FactionId factionId )
 
     m_pTable[ idx ]->AddRow( pTitleRow );
 
-    std::filesystem shipsPath = "data/xml/ships";
+    std::filesystem::path shipsPath = "data/xml/ships";
     std::filesystem::path directory = shipsPath / ToLower( g_pGame->GetFaction( factionId )->GetName() );
     for ( const auto& filename : std::filesystem::directory_iterator( directory ) )
     {
         if ( filename.path().extension() == ".shp" )
         {
-            TableRowHexGrid* pFilenameRow = new TableRowHexGrid( this, ToString( filename ) );
-            pFilenameRow->Add( ToString( filename ) );
+            TableRowHexGrid* pFilenameRow = new TableRowHexGrid( this, filename.path().generic_string() );
+            pFilenameRow->Add( filename.path().generic_string() );
             m_pTable[ idx ]->AddRow( pFilenameRow );
         }
     }

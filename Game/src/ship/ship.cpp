@@ -1086,7 +1086,7 @@ void Ship::SetSharedShaderParameters( Module* pModule, Genesis::Material* pMater
         {
             m_pUniforms->Set( ShipShaderUniform::OverlayColour, glm::vec4( 0.0f ) );
         }
-
+          
         if ( moduleType == ModuleType::Reactor)
         {
             ReactorInfo* pReactorInfo = static_cast<ReactorInfo*>( pModule->GetModuleInfo() );

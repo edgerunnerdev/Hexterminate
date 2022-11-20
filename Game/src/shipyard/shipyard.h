@@ -39,7 +39,7 @@ class PanelShipyard;
 
 typedef std::unique_ptr<PanelDocking> PanelDockingUniquePtr;
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 class PanelShipyardDebug;
 #endif
 
@@ -66,7 +66,7 @@ public:
 
     bool CanBeUsed() const;
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
     void LoadFromFile( const std::string& filename );
     void SaveToFile( const std::string& filename );
     void ToggleDebugMode();
@@ -111,7 +111,7 @@ private:
     Genesis::ResourceSound* m_pAssemblySFX;
     Genesis::ResourceSound* m_pDisassemblySFX;
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
     PanelShipyardDebug* m_pPanelDebug;
     Genesis::InputCallbackToken m_DebugKeyPressedToken;
 #endif

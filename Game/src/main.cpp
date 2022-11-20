@@ -1408,16 +1408,6 @@ void Game::LoaderThreadMain()
     SDL_GL_MakeCurrent( pWindow->GetSDLWindow(), nullptr );
 }
 
-bool Game::IsDevelopmentModeActive() const
-{
-#ifdef DEV_MODE_ALLOWED
-    static bool sActive = Genesis::FrameWork::GetCommandLineParameters()->HasParameter( "--dev" );
-    return sActive;
-#else
-    return false;
-#endif
-}
-
 bool Game::IsShipCaptureModeActive() const
 {
     return false;

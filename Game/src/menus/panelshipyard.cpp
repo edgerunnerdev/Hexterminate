@@ -33,7 +33,7 @@
 #include <genesis.h>
 #include <gui/gui.h>
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 #include "menus/panelshipyarddebug.h"
 #endif
 

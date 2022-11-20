@@ -15,14 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Hexterminate. If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Hexterminate_PANEL_SHIPYARD_DEBUG_H
-#define Hexterminate_PANEL_SHIPYARD_DEBUG_H
+#pragma once
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 
+#include "faction/faction.h"
 #include "menus/table.h"
 #include "menus/tablerow.h"
 #include "ship/moduleinfo.h"
+
 #include <gui/gui.h>
 
 namespace Hexterminate
@@ -112,7 +113,5 @@ private:
 };
 
 } // namespace Hexterminate
-
-#endif
 
 #endif

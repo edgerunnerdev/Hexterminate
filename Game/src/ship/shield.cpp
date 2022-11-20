@@ -180,12 +180,9 @@ void Shield::Update( float delta )
         m_HitRegistry.Update( delta );
 
 #ifdef SHIELD_HIT_REGISTRY_DEBUG
-        if ( g_pGame->IsDevelopmentModeActive() )
-        {
-            glm::vec3 position = m_pOwner->GetTowerPosition();
-            position.add( glm::vec3( 60.0f, 0.0f, 0.0f ) );
-            m_HitRegistry.DebugDraw( position( 0 ), position( 1 ) );
-        }
+        glm::vec3 position = m_pOwner->GetTowerPosition();
+        position.add( glm::vec3( 60.0f, 0.0f, 0.0f ) );
+        m_HitRegistry.DebugDraw( position( 0 ), position( 1 ) );
 #endif
 
         bool destroyed = m_pOwner->IsDestroyed();

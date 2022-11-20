@@ -41,7 +41,7 @@
 #include "ship/shipinfo.h"
 #include "shipyard/shipyard.h"
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 #include "menus/panelshipyarddebug.h"
 #endif
 
@@ -70,14 +70,11 @@ Shipyard::Shipyard( const glm::vec3& spawnPosition )
 {
     using namespace Genesis;
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
     m_pPanelDebug = nullptr;
     m_DebugKeyPressedToken = InputManager::sInvalidInputCallbackToken;
 
-    if ( g_pGame->IsDevelopmentModeActive() )
-    {
-        m_DebugKeyPressedToken = FrameWork::GetInputManager()->AddKeyboardCallback( std::bind( &Shipyard::ToggleDebugMode, this ), SDL_SCANCODE_F11, ButtonState::Pressed );
-    }
+    m_DebugKeyPressedToken = FrameWork::GetInputManager()->AddKeyboardCallback( std::bind( &Shipyard::ToggleDebugMode, this ), SDL_SCANCODE_F11, ButtonState::Pressed );
 #endif
 
     InitialiseModels();
@@ -91,8 +88,8 @@ Shipyard::Shipyard( const glm::vec3& spawnPosition )
 
 Shipyard::~Shipyard()
 {
-#ifdef DEV_MODE_ALLOWED
-    if ( g_pGame->IsDevelopmentModeActive() && Genesis::FrameWork::GetInputManager() != nullptr )
+#ifdef _DEBUG
+    if ( Genesis::FrameWork::GetInputManager() != nullptr )
     {
         delete m_pPanelDebug;
         Genesis::FrameWork::GetInputManager()->RemoveKeyboardCallback( m_DebugKeyPressedToken );
@@ -448,7 +445,7 @@ bool Shipyard::Undock()
         delete m_pPanelShipStats;
         m_pPanelShipStats = nullptr;
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
         delete m_pPanelDebug;
         m_pPanelDebug = nullptr;
 #endif
@@ -617,7 +614,7 @@ void Shipyard::SetModuleDetails( ModuleInfo* pModuleInfo )
     m_pModuleDetails->SetModuleInfo( pModuleInfo );
 }
 
-#ifdef DEV_MODE_ALLOWED
+#ifdef _DEBUG
 
 void Shipyard::LoadFromFile( const std::string& filename )
 {

@@ -211,7 +211,6 @@ public:
     void InitialiseSectorEvents();
     const SectorEventVector& GetSectorEvents();
 
-    bool IsDevelopmentModeActive() const;
     bool IsShipCaptureModeActive() const;
     bool IsTutorialActive() const;
     bool IsFirstTimeInCombat() const;
