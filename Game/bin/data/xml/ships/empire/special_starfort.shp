@@ -17,8 +17,8 @@
 1 4 LegendaryHeavyArmour
 1 5 LegendaryShield1
 1 6 LegendaryArtillery1
-1 7 ArtifactMissileInterceptor1
-1 8 LegendaryReactor1
+1 7 LegendaryPhasedAssemblerArray
+1 8 LegendaryReactor2
 1 9 ArtifactBridge1
 1 10 LegendaryReactor1
 1 11 ArtifactMissileInterceptor1
@@ -34,7 +34,7 @@
 2 5 LegendaryHeavyArmour
 2 6 LegendaryArtillery1
 2 7 LegendaryHeavyArmour
-2 8 LegendaryPhasedAssemblerArray
+2 8 LegendaryReactor1
 2 9 LegendaryHeavyArmour
 2 10 LegendaryReactor1
 2 11 LegendaryHeavyArmour
