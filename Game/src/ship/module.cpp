@@ -471,23 +471,18 @@ void ArmourModule::ApplyDamage( float amount, DamageType damageType, Ship* pDeal
         float damageToApply = 0.0f;
         if ( IsUnbrokenStateActive() == false )
         {
-            if ( damageType == DamageType::Kinetic )
+            if ( damageType == DamageType::Kinetic || damageType == DamageType::Collision )
             {
-                // Projectile and missile weapons have a chance of being entirely blocked by the armour's kinetic resistance.
+                // Projectile and missile weapons, as well as collisions, have their damage reduced (%-wise) by the armour's kinetic resistance.
                 const float kineticResistance = static_cast<ArmourInfo*>( GetModuleInfo() )->GetKineticResistance();
-                damageToApply = ( gRand() < kineticResistance ) ? 0.0f : amount;
+                damageToApply = amount * ( 1.0f - kineticResistance );
+
             }
             else if ( damageType == DamageType::Energy )
             {
                 // Energy based weapons have their damage reduced (%-wise) by the armour's energy resistance.
                 const float energyResistance = static_cast<ArmourInfo*>( GetModuleInfo() )->GetEnergyResistance();
                 damageToApply = amount * ( 1.0f - energyResistance );
-            }
-            else if ( damageType == DamageType::Collision )
-            {
-                // Collision damage is modified by the armour's kinetic resistance, but never fully blocked.
-                const float kineticResistance = static_cast<ArmourInfo*>( GetModuleInfo() )->GetKineticResistance();
-                damageToApply = amount * ( 1.0f - kineticResistance );
             }
         }
 
