@@ -55,18 +55,7 @@ public:
 
     T Get( int x, int y ) const
     {
-        SDL_assert( x >= 0 && x < sHexGridWidth );
-        SDL_assert( y >= 0 && y < sHexGridHeight );
-#ifdef _WIN32
-        _Analysis_assume_( x >= 0 && x < sHexGridWidth );
-        _Analysis_assume_( y >= 0 && y < sHexGridHeight );
-#endif
-        return m_HexGrid[ x ][ y ];
-    }
-
-    T SafeGet( int x, int y ) const
-    {
-        if ( x < 0 || x >= sHexGridWidth || y < 0 || y >= sHexGridHeight )
+        if ( x < 0 || y < 0 || x >= sHexGridWidth || y >= sHexGridHeight )
         {
             return nullptr;
         }
