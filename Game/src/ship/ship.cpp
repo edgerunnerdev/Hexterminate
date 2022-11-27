@@ -1395,6 +1395,10 @@ void Ship::Undock()
         pEngine->Enable();
     }
 
+    // The ship starts at 75% of its capacity when undocking.
+    UpdateReactors( 0.0f );
+    m_Energy = m_EnergyCapacity * 0.75f;
+
     // Unlock the "Tired of repainting it" achievement if the player has a shield.
     if ( GetShield() )
     {
