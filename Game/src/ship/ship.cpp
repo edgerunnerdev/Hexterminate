@@ -1566,22 +1566,23 @@ void Ship::RecursiveModuleLinkState( Module* pModule )
     pModule->GetHexGridSlot( slotX, slotY );
     pModule->SetLinked( true );
 
-    RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY + 2 ) );
-    RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY - 2 ) );
+    const ModuleHexGrid& hexGrid = GetModuleHexGrid();
+    RecursiveModuleLinkState( hexGrid.Get( slotX, slotY + 2 ) );
+    RecursiveModuleLinkState( hexGrid.Get( slotX, slotY - 2 ) );
 
     if ( slotY % 2 == 0 )
     {
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX - 1, slotY + 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX - 1, slotY - 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY + 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY - 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX - 1, slotY + 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX - 1, slotY - 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX, slotY + 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX, slotY - 1 ) );
     }
     else
     {
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY + 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX, slotY - 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX + 1, slotY + 1 ) );
-        RecursiveModuleLinkState( GetModuleHexGrid().SafeGet( slotX + 1, slotY - 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX, slotY + 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX, slotY - 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX + 1, slotY + 1 ) );
+        RecursiveModuleLinkState( hexGrid.Get( slotX + 1, slotY - 1 ) );
     }
 }
 

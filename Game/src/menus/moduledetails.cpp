@@ -237,6 +237,16 @@ void ModuleDetails::SetContents()
         ReactorInfo* pReactorInfo = static_cast<ReactorInfo*>( m_pModuleInfo );
         contentsText << "Capacity: " << pReactorInfo->GetCapacity() << "u\n"
                      << "Recharge: " << pReactorInfo->GetRechargeRate() << " u/s\n";
+
+        ReactorVariant variant = pReactorInfo->GetVariant();
+        if ( variant == ReactorVariant::HighCapacity )
+        {
+            contentsText << "Variant: High capacity\n";
+        }
+        else if ( variant == ReactorVariant::Unstable )
+        {
+            contentsText << "Variant: Unstable\n";
+        }
     }
 
     if ( m_pModuleInfo->GetDescription().empty() == false )
@@ -245,9 +255,17 @@ void ModuleDetails::SetContents()
                      << m_pModuleInfo->GetDescription();
     }
 
+    // Ensure we don't end the module details with a '\n' as that will cause an incorrect line count when
+    // we resize the panel.
+    std::string contents = contentsText.str();
+    if (contents.empty() == false && contents[contents.size() - 1] == '\n')
+    {
+        contents.pop_back();
+    }
+
     const float contentsWidth = panelWidth - m_pContentsText->GetPosition().x - 16.0f;
     m_pContentsText->SetWidth( contentsWidth );
-    m_pContentsText->SetText( contentsText.str() );
+    m_pContentsText->SetText( contents );
 
     // Panel height needs to be set after we figure out how many lines we actually have to show
     const float lineHeight = m_pContentsText->GetFont()->GetLineHeight();
