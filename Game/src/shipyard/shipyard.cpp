@@ -744,6 +744,7 @@ void Shipyard::ToggleDebugMode()
     else
     {
         delete m_pPanelDebug;
+        m_pPanelDebug = nullptr;
     }
 }
 
